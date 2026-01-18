@@ -415,21 +415,89 @@
     color: #ffffff !important;
 }
 
-/* Secondary text - Light gray */
+/* Secondary text - White for better readability */
 [data-theme="dark"] .text-base-content\/60 {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
 }
 
-/* Tertiary text - Medium gray */
+/* Tertiary text - White for better readability */
 [data-theme="dark"] .text-base-content\/70 {
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
 }
 
-/* Text with specific opacity levels */
+/* Text with specific opacity levels - all set to white or near-white */
 [data-theme="dark"] .text-base-content\/50 {
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 
 [data-theme="dark"] .text-base-content\/80 {
-    color: rgba(255, 255, 255, 0.85) !important;
+    color: #ffffff !important;
+}
+
+/* Brand color optimization in dark mode - use lighter shade for better contrast */
+[data-theme="dark"] .text-brand-600 {
+    color: #6366f1 !important;
+}
+
+[data-theme="dark"] .text-brand-500 {
+    color: #818cf8 !important;
+}
+
+/* Ensure all badges and indicators are visible in dark mode */
+[data-theme="dark"] .badge-brand-500 {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+}
+
+/* ========================================
+   Additional Dark Mode Text Optimization
+   额外的暗色模式文字优化
+   ======================================== */
+
+/* Ensure all card titles are white in dark mode */
+[data-theme="dark"] .card-title {
+    color: #ffffff !important;
+}
+
+/* Ensure all menu items are white in dark mode */
+[data-theme="dark"] .menu li a {
+    color: #ffffff !important;
+}
+
+/* Ensure table headers and cells are white in dark mode */
+[data-theme="dark"] table th,
+[data-theme="dark"] table td {
+    color: #ffffff !important;
+}
+
+/* Ensure all button text is white in dark mode */
+[data-theme="dark"] .btn {
+    color: #ffffff !important;
+}
+
+/* Ensure all select and input text is white in dark mode */
+[data-theme="dark"] select,
+[data-theme="dark"] input {
+    color: #ffffff !important;
+}
+
+/* Ensure all badges are white in dark mode */
+[data-theme="dark"] .badge {
+    color: #ffffff !important;
+}
+
+/* Ensure all dropdown content is white in dark mode */
+[data-theme="dark"] .dropdown-content {
+    color: #ffffff !important;
+}
+
+/* Ensure all icons are white or light in dark mode */
+[data-theme="dark"] i {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Special handling for brand colored icons - make them lighter */
+[data-theme="dark"] .text-brand-600 i,
+[data-theme="dark"] .text-brand-500 i {
+    color: #818cf8 !important;
 }

@@ -179,27 +179,39 @@
                 <h1 class="text-3xl font-bold text-base-content mb-2">企业账单</h1>
                 <p class="text-base-content/60 text-base">查看和管理企业的整体消费情况</p>
             </div>
+            <button class="btn gap-2 hover:scale-105 transition-transform shadow-lg text-white border-0" style="background-color: #002FA7;" onclick="recharge_modal.showModal()">
+                <i class="ri-bank-card-line text-lg"></i>
+                企业充值
+            </button>
         </div>
 
-        <!-- Organization Balance Card -->
-        <div class="card bg-base-100 shadow-lg mb-6 fade-in hover:shadow-xl transition-all duration-300">
-            <div class="card-body p-5">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                    <div class="flex-1">
-                        <div class="text-base-content/70 text-xs font-medium mb-2 flex items-center gap-2">
-                            <i class="ri-building-4-fill text-base-content/50"></i>
-                            企业可用积分
-                        </div>
-                        <div class="text-2xl font-bold text-base-content mb-2">5,800,000</div>
-                       
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Available Points -->
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                <div class="card-body p-5">
+                    <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                        <i class="ri-building-4-line text-base-content/50"></i>
+                        企业可用积分
                     </div>
-                    <button class="btn btn-primary gap-2 hover:scale-105 transition-transform shadow-lg shadow-brand-500/30" onclick="recharge_modal.showModal()">
-                        <i class="ri-bank-card-line text-lg"></i>
-                        企业充值
-                    </button>
+                    <div class="text-2xl font-bold text-base-content">5,800,000</div>
+                    
+                </div>
+            </div>
+
+            <!-- Total Consumption -->
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                <div class="card-body p-5">
+                    <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                        <i class="ri-funds-box-line text-base-content/50"></i>
+                        累计消耗积分
+                    </div>
+                    <div class="text-2xl font-bold text-base-content">12,500,000</div>
+                   
                 </div>
             </div>
         </div>
+    
 
         <!-- Two Column Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">

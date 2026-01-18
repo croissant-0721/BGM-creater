@@ -155,29 +155,40 @@
              
         </div>
 
-        <!-- Stats Banner -->
-        <div class="card bg-base-100 shadow-lg mb-6 fade-in hover:shadow-xl transition-all duration-300">
-            <div class="card-body p-5">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                    <div class="flex-1">
-                        <div class="text-base-content/70 text-xs font-medium mb-2 flex items-center gap-2">
-                            <i class="ri-funds-line text-base-content/50"></i>
-                            本项目总消费
-                        </div>
-                        <div class="text-2xl font-bold text-base-content">85,000 积分</div>
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Total Consumption -->
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                <div class="card-body p-5">
+                    <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                        <i class="ri-funds-line text-base-content/50"></i>
+                        项目总消耗
                     </div>
-                    <div class="flex gap-6">
-                        <div class="text-center">
-                            <div class="text-xs text-base-content/60">任务数</div>
-                            <div class="text-2xl font-bold text-base-content">245</div>
-                            
-                        </div>
-                        <div class="text-center">
-                             <div class="text-xs text-base-content/60">参与成员</div>
-                            <div class="text-2xl font-bold text-base-content">8</div>
-                           
-                        </div>
+                    <div class="text-2xl font-bold text-base-content">85,000 积分</div>
+                </div>
+            </div>
+
+            <!-- Total Tasks -->
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                <div class="card-body p-5">
+                    <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                        <i class="ri-task-line text-base-content/50"></i>
+                        任务数
                     </div>
+                    <div class="text-2xl font-bold text-base-content">245</div>
+              
+                </div>
+            </div>
+
+            <!-- Team Members -->
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                <div class="card-body p-5">
+                    <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                        <i class="ri-user-line text-base-content/50"></i>
+                        参与成员数
+                    </div>
+                    <div class="text-2xl font-bold text-base-content">8</div>
+                   
                 </div>
             </div>
         </div>

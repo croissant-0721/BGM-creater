@@ -62,7 +62,6 @@
                     <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="切换侧边栏">
                         <i class="ri-menu-fold-line text-xl transition-transform duration-300" id="collapseIcon"></i>
                     </button>
-                    <h1 class="text-xl font-bold text-base-content">项目管理</h1>
                 </div>
                 <div class="flex-1"></div>
                 <div class="flex-none gap-3 items-center">
@@ -162,7 +161,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 fade-in">
                     <div>
                         <h2 class="text-3xl font-bold text-base-content mb-2">项目管理</h2>
-                        <p class="text-base-content/60 text-base">管理和监控您的所有 AI 项目</p>
+                        <p class="text-base-content/60 text-base">管理和查看您的所有AI短剧项目</p>
                     </div>
                     <div class="flex gap-3">
                         <button class="btn btn-outline gap-2" onclick="dashboard.refreshProjects()">
@@ -176,28 +175,29 @@
                     </div>
                 </div>
 
-                <!-- Stats Banner -->
-                <div class="card bg-base-100 shadow-xl mb-6 fade-in hover:shadow-2xl transition-all duration-300">
-                    <div class="card-body p-5">
-                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                            <div class="flex-1">
-                                <div class="text-base-content/70 text-xs font-medium mb-2 flex items-center gap-2">
-                                    <i class="ri-folder-line text-base-content/50"></i>
-                                    总项目数
-                                </div>
-                                <div class="text-2xl font-bold text-base-content mb-1">24</div>
-                                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Total Projects -->
+                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                        <div class="card-body p-5">
+                            <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                                <i class="ri-folder-line text-base-content/50"></i>
+                                总项目数
                             </div>
-                            <div class="flex gap-8">
-                                <div class="text-center">
-                                    <div class="text-xs text-base-content/60">总生成次数</div>
-                                    <div class="text-2xl font-bold text-base-content">12,450</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-xs text-base-content/60">活跃项目</div>
-                                    <div class="text-2xl font-bold text-kline">16</div>
-                                </div>
+                            <div class="text-2xl font-bold text-base-content">24</div>
+                            <div class="text-xs text-base-content/60 mt-1">本月新增: 8 个项目</div>
+                        </div>
+                    </div>
+
+                    <!-- Total Tasks -->
+                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                        <div class="card-body p-5">
+                            <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                                <i class="ri-task-line text-base-content/50"></i>
+                                总任务次数
                             </div>
+                            <div class="text-2xl font-bold text-base-content">12,450</div>
+                            <div class="text-xs text-base-content/60 mt-1">累计执行任务</div>
                         </div>
                     </div>
                 </div>

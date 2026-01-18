@@ -168,25 +168,29 @@
             
         </div>
 
-        <!-- Balance Card -->
-        <div class="card bg-base-100 shadow-lg mb-6 fade-in hover:shadow-xl transition-all duration-300">
-            <div class="card-body p-4">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                    <div class="flex-1">
-                        <div class="text-base-content/70 text-xs font-medium mb-2 flex items-center gap-2">
-                            <i class="ri-wallet-3-line text-base-content/50"></i>
-                            可用积分
-                        </div>
-                        <div class="text-2xl font-bold text-base-content mb-2">850,000</div>
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Available Points -->
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                <div class="card-body p-5">
+                    <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                        <i class="ri-wallet-3-line text-base-content/50"></i>
+                        可用积分
                     </div>
-                    <div class="flex gap-8 md:gap-12">
-                        <div class="text-center">
-                            <div class="text-base-content/60 text-sm">累计消耗(积分)</div>
-                            <div class="text-2xl font-bold text-brand-600 mb-1">125,000</div>
-                            
-                        </div>
+                    <div class="text-2xl font-bold text-base-content">850,000</div>
+                    
+                </div>
+            </div>
 
+            <!-- Total Consumption -->
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                <div class="card-body p-5">
+                    <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                        <i class="ri-funds-box-line text-base-content/50"></i>
+                        累计消耗
                     </div>
+                    <div class="text-2xl font-bold text-base-content">125,000</div>
+                    
                 </div>
             </div>
         </div>
