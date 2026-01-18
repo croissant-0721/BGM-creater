@@ -404,3 +404,32 @@
 [data-theme="dark"] .sidebar-logo {
     border-bottom-color: rgba(255, 255, 255, 0.08);
 }
+
+/* ========================================
+   Dark Mode Text Color Optimization
+   暗色模式文字颜色优化
+   ======================================== */
+
+/* Primary text - White for better readability */
+[data-theme="dark"] .text-base-content {
+    color: #ffffff !important;
+}
+
+/* Secondary text - Light gray */
+[data-theme="dark"] .text-base-content\/60 {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Tertiary text - Medium gray */
+[data-theme="dark"] .text-base-content\/70 {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Text with specific opacity levels */
+[data-theme="dark"] .text-base-content\/50 {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="dark"] .text-base-content\/80 {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
