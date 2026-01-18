@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)"
+    ],
+    "additionalDirectories": [
+      "/Users/chuckmi/Documents/code/panqu-web/assets/css"
+    ]
+  }
+}
