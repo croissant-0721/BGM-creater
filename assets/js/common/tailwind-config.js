@@ -6,6 +6,14 @@
 
 // Tailwind 配置
 window.tailwindConfig = {
+    // DaisyUI v5 配置
+    daisyui: {
+        themes: ["light", "dark", "corporate", "business"],
+        darkTheme: "dark",
+        base: true,
+        styled: true,
+        utils: true,
+    },
     darkMode: 'class',
     theme: {
         extend: {
@@ -48,6 +56,7 @@ window.tailwindConfig = {
             },
         },
     },
+    // DaisyUI 插件已通过 CDN 加载,无需在 plugins 中声明
     plugins: [],
 };
 

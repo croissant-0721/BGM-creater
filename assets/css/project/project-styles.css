@@ -1,0 +1,219 @@
+/**
+ * Project Pages Styles
+ * 项目页面专用样式
+ * 用于 Project 目录下的页面
+ */
+
+/* Gradient Text Effect */
+.gradient-text {
+    background: linear-gradient(135deg, #002FA7 0%, #2560FF 50%, #4D7CFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Staggered fade-in animation for cards */
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.1s; }
+.fade-in:nth-child(3) { animation-delay: 0.15s; }
+.fade-in:nth-child(4) { animation-delay: 0.2s; }
+.fade-in:nth-child(5) { animation-delay: 0.25s; }
+.fade-in:nth-child(6) { animation-delay: 0.3s; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* Card hover effect */
+.card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth transitions */
+* {
+    transition-property: color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Disable transition on page load */
+.no-transition,
+.no-transition * {
+    transition: none !important;
+}
+
+/* ========================================
+   Navigation Styling
+   导航栏样式
+   ======================================== */
+
+/* Navbar with logo and navigation */
+.navbar-with-sidebar {
+    background: hsl(var(--b1) / 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid hsl(var(--bc) / 0.08);
+    height: 4rem; /* 固定导航栏高度 */
+}
+
+[data-theme="dark"] .navbar-with-sidebar {
+    background: hsl(var(--b3) / 0.8);
+    border-bottom-color: hsl(var(--bc) / 0.08);
+}
+
+/* Logo样式 */
+.navbar-with-sidebar .gradient-text {
+    font-size: 1.25rem; /* 固定logo文字大小 */
+    font-weight: 700;
+}
+
+/* 水平菜单样式 */
+.navbar-with-sidebar .menu.menu-horizontal {
+    gap: 0.5rem;
+}
+
+.navbar-with-sidebar .menu.menu-horizontal li a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    border: none !important; /* 移除边框 */
+    outline: none !important; /* 移除outline */
+}
+
+.navbar-with-sidebar .menu.menu-horizontal li a:hover {
+    background-color: hsl(var(--bc) / 0.1);
+    border: none !important;
+    outline: none !important;
+}
+
+.navbar-with-sidebar .menu.menu-horizontal li a:focus {
+    border: none !important;
+    outline: none !important;
+}
+
+/* Active状态 */
+.navbar-with-sidebar .menu.menu-horizontal li a.active {
+    background: linear-gradient(135deg, hsl(var(--p)) 0%, hsl(var(--pf)) 100%);
+    color: hsl(var(--pc));
+    box-shadow: 0 2px 8px hsl(var(--p) / 0.2);
+    border: none !important;
+    outline: none !important;
+}
+
+.navbar-with-sidebar .menu.menu-horizontal li a.active:hover {
+    background: linear-gradient(135deg, hsl(var(--p)) 0%, hsl(var(--pf)) 100%);
+    border: none !important;
+    outline: none !important;
+}
+
+.navbar-with-sidebar .menu.menu-horizontal li a i {
+    font-size: 1.125rem;
+}
+
+/* 导航栏标准类样式 */
+.navbar-with-sidebar .navbar-start {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-with-sidebar .navbar-end {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-with-sidebar .navbar-end.gap-2 {
+    gap: 0.5rem;
+}
+
+/* 导航栏右侧按钮样式 */
+.navbar-with-sidebar .btn.btn-circle {
+    width: 2.5rem;
+    height: 2.5rem;
+    min-height: 2.5rem;
+    padding: 0;
+}
+
+.navbar-with-sidebar .swap {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.navbar-with-sidebar .swap input:checked ~ .swap-on {
+    display: block;
+}
+
+.navbar-with-sidebar .swap input:not(:checked) ~ .swap-off {
+    display: block;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+    .mobile-hide {
+        display: none !important;
+    }
+
+    /* 移动端隐藏水平菜单，改为垂直堆叠 */
+    .navbar-with-sidebar .menu.menu-horizontal {
+        display: none;
+    }
+
+    /* 移动端logo和菜单垂直布局 */
+    .navbar-with-sidebar .flex-1 > div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    /* 小屏幕时调整logo大小 */
+    .navbar-with-sidebar .gradient-text {
+        font-size: 1rem;
+    }
+
+    .navbar-with-sidebar img.h-8 {
+        height: 1.5rem;
+    }
+}
