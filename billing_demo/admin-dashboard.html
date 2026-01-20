@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +27,7 @@
     <!-- Tailwind Config -->
     <script src="../assets/js/common/tailwind-config.js"></script>
 </head>
+
 <body class="bg-base-200">
     <!-- Layout with Sidebar -->
     <div class="layout-with-sidebar">
@@ -36,7 +38,7 @@
 
             <div class="sidebar-logo">
                 <a href="billing.html">
-                   <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
                     <span class="gradient-text font-bold text-xl">盼趣 AI</span>
                 </a>
             </div>
@@ -60,20 +62,18 @@
         <div class="main-content-with-sidebar">
             <!-- Navbar -->
             <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6">
-                <div class="flex-none gap-3 items-center mr-4">
+                <div class="navbar-start">
                     <!-- Sidebar Collapse Button -->
                     <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="切换侧边栏">
                         <i class="ri-menu-fold-line text-xl transition-transform duration-300" id="collapseIcon"></i>
                     </button>
-
                 </div>
-                <div class="flex-1"></div>
-                <div class="flex-none gap-3 items-center">
+                <div class="navbar-end gap-2">
                     <!-- Theme Toggle -->
-                    <label class="swap swap-rotate">
+                    <label class="swap swap-rotate btn btn-ghost btn-circle">
                         <input type="checkbox" id="theme-toggle" />
-                        <i class="ri-sun-line swap-on fill-current w-6 h-6 text-orange-500 text-xl"></i>
-                        <i class="ri-moon-line swap-off fill-current w-6 h-6 text-brand-600 text-xl"></i>
+                        <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                        <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
                     </label>
 
                     <!-- Notification Bell -->
@@ -84,7 +84,8 @@
                                 <span class="badge badge-sm badge-error indicator-item">5</span>
                             </div>
                         </div>
-                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-80 border border-base-300">
+                        <ul tabindex="0"
+                            class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-80 border border-base-300">
                             <li class="menu-title">
                                 <span class="font-semibold">任务消息通知</span>
                                 <a class="text-xs text-brand-600">全部已读</a>
@@ -167,17 +168,19 @@
 
                     <!-- Admin Badge -->
                     <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder rounded-full">
+                        <div tabindex="0" role="button"
+                            class="btn btn-ghost btn-circle avatar placeholder rounded-full">
                             <div class="bg-gradient-to-br from-brand-500 to-purple-600 text-white rounded-full">
                                 <span class="text-xs font-bold">Admin</span>
                             </div>
                         </div>
-                        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300">
+                        <ul tabindex="0"
+                            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300">
                             <li class="menu-title text-base-content/70">管理员</li>
                             <li><a class="justify-between">
-                                设置
-                                <span class="badge badge-sm badge-brand-500">New</span>
-                            </a></li>
+                                    设置
+                                    <span class="badge badge-sm badge-brand-500">New</span>
+                                </a></li>
                             <li><a>系统日志</a></li>
                             <div class="divider my-0"></div>
                             <li><a class="text-error">退出登录</a></li>
@@ -202,7 +205,8 @@
                                 <span id="dateRangeText">选择时间范围</span>
                                 <i class="ri-arrow-down-s-line"></i>
                             </div>
-                            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300">
+                            <ul tabindex="0"
+                                class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300">
                                 <li><a onclick="setDateRange('today', '今日')">今日</a></li>
                                 <li><a onclick="setDateRange('week', '本周')">本周</a></li>
                                 <li><a onclick="setDateRange('month', '本月')">本月</a></li>
@@ -211,7 +215,8 @@
                                 <li>
                                     <a class="flex flex-col gap-2">
                                         <span class="text-sm font-semibold">自定义区间</span>
-                                        <input type="date" class="input input-bordered input-sm w-full" id="startDate" />
+                                        <input type="date" class="input input-bordered input-sm w-full"
+                                            id="startDate" />
                                         <span class="text-xs text-center">至</span>
                                         <input type="date" class="input input-bordered input-sm w-full" id="endDate" />
                                     </a>
@@ -283,7 +288,8 @@
                                         <span id="trendTimeRangeText">近7天</span>
                                         <i class="ri-arrow-down-s-line"></i>
                                     </div>
-                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
+                                    <ul tabindex="0"
+                                        class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
                                         <li><a onclick="updateTrendChart('7days', '近7天')">近7天</a></li>
                                         <li><a onclick="updateTrendChart('30days', '近30天')">近30天</a></li>
                                         <li><a onclick="updateTrendChart('90days', '近90天')">近90天</a></li>
@@ -311,7 +317,8 @@
                                         <span id="modelTimeRangeText">近7天</span>
                                         <i class="ri-arrow-down-s-line"></i>
                                     </div>
-                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
+                                    <ul tabindex="0"
+                                        class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
                                         <li><a onclick="updateModelChart('7days', '近7天')">近7天</a></li>
                                         <li><a onclick="updateModelChart('30days', '近30天')">近30天</a></li>
                                         <li><a onclick="updateModelChart('90days', '近90天')">近90天</a></li>
@@ -336,7 +343,8 @@
                             <span id="orgTimeRangeText">本月</span>
                             <i class="ri-arrow-down-s-line"></i>
                         </div>
-                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
+                        <ul tabindex="0"
+                            class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
                             <li><a onclick="updateOrgTable('today', '今日')">今日</a></li>
                             <li><a onclick="updateOrgTable('week', '本周')">本周</a></li>
                             <li><a onclick="updateOrgTable('month', '本月')">本月</a></li>
@@ -373,25 +381,30 @@
                             条，共 <span id="orgPaginationTotal" class="font-bold text-base-content">0</span> 条记录
                         </div>
                         <div class="join">
-                            <button id="orgFirstPageBtn" class="join-item btn btn-sm" onclick="orgPagination.goToFirstPage()">
+                            <button id="orgFirstPageBtn" class="join-item btn btn-sm"
+                                onclick="orgPagination.goToFirstPage()">
                                 <i class="ri-skip-back-line"></i>
                             </button>
-                            <button id="orgPrevPageBtn" class="join-item btn btn-sm" onclick="orgPagination.goToPrevPage()">
+                            <button id="orgPrevPageBtn" class="join-item btn btn-sm"
+                                onclick="orgPagination.goToPrevPage()">
                                 <i class="ri-arrow-left-s-line"></i>
                             </button>
                             <div id="orgPageNumbers" class="join">
                                 <!-- Page numbers will be populated by JavaScript -->
                             </div>
-                            <button id="orgNextPageBtn" class="join-item btn btn-sm" onclick="orgPagination.goToNextPage()">
+                            <button id="orgNextPageBtn" class="join-item btn btn-sm"
+                                onclick="orgPagination.goToNextPage()">
                                 <i class="ri-arrow-right-s-line"></i>
                             </button>
-                            <button id="orgLastPageBtn" class="join-item btn btn-sm" onclick="orgPagination.goToLastPage()">
+                            <button id="orgLastPageBtn" class="join-item btn btn-sm"
+                                onclick="orgPagination.goToLastPage()">
                                 <i class="ri-skip-forward-line"></i>
                             </button>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-sm text-base-content/70">每页显示</span>
-                            <select id="orgPageSizeSelect" class="select select-bordered select-sm w-20" onchange="orgPagination.changePageSize(this.value)">
+                            <select id="orgPageSizeSelect" class="select select-bordered select-sm w-20"
+                                onchange="orgPagination.changePageSize(this.value)">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
@@ -410,4 +423,5 @@
     <!-- Page-specific JavaScript -->
     <script src="admin-dashboard-v2.js"></script>
 </body>
+
 </html>

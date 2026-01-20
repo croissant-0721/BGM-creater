@@ -180,12 +180,10 @@
     height: 2.5rem;
 }
 
-.navbar-with-sidebar .swap input:checked ~ .swap-on {
-    display: block;
-}
-
-.navbar-with-sidebar .swap input:not(:checked) ~ .swap-off {
-    display: block;
+.navbar-with-sidebar .swap i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Responsive utilities */

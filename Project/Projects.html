@@ -133,9 +133,11 @@
 
                 <!-- User Dropdown -->
                 <div class="dropdown dropdown-end">
-                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
-                        <div class="bg-primary text-primary-content rounded-full">
-                            <span class="text-xs font-bold">C</span>
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="avatar placeholder">
+                            <div class="bg-primary text-primary-content rounded-full w-10">
+                                <span class="text-sm font-bold">C</span>
+                            </div>
                         </div>
                     </div>
                     <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
@@ -979,17 +981,17 @@
 
     <!-- Delete Confirmation Modal -->
     <dialog id="delete_confirm_modal" class="modal">
-        <div class="modal-box text-center">
+        <div class="modal-box">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
-            <h3 class="text-base-content/70 mb-2">确认删除项目</h3>
-            <p class="text-lg font-semibold text-error mb-6" id="deleteProjectName">项目名称</p>
-            <p class="text-sm text-base-content/60 mb-6">
+            <h3 class="font-bold text-lg">确认删除项目</h3>
+            <p class="py-4" id="deleteProjectName">项目名称</p>
+            <p class="text-sm text-base-content/60 mb-4">
                 <i class="ri-error-warning-line text-error mr-1"></i>
-                此操作不可撤销，删除后项目将无法恢复。
+                此操作不可撤销,删除后项目将无法恢复。
             </p>
-            <div class="modal-action justify-center">
+            <div class="modal-action">
                 <form method="dialog">
                     <button class="btn btn-outline">取消</button>
                 </form>
