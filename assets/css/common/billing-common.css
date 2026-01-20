@@ -2,9 +2,15 @@
  * Billing Pages Common Styles
  * 公共账单页面样式文件
  * 用于 billing_demo 目录下的所有页面
+ * 
+ * ⚠️ 重要: 本文件仅包含 DaisyUI 不支持的自定义样式
+ * 95% 的样式应使用 DaisyUI 标准类 + Tailwind 工具类
  */
 
-/* Gradient Text Effect */
+/* ============================================ */
+/* 渐变效果                                     */
+/* ============================================ */
+
 .gradient-text {
     background: linear-gradient(135deg, #002FA7 0%, #2560FF 50%, #4D7CFF 100%);
     -webkit-background-clip: text;
@@ -12,7 +18,10 @@
     background-clip: text;
 }
 
-/* Fade In Animation */
+/* ============================================ */
+/* 动画效果                                     */
+/* ============================================ */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -54,102 +63,50 @@
     animation-delay: 0.3s;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+/* ============================================ */
+/* 项目特定增强 (不覆盖 DaisyUI 核心)          */
+/* ============================================ */
+
+/* 导航栏增强 - 仅添加项目特定样式，不覆盖 DaisyUI 默认 */
+.navbar-with-sidebar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 47, 167, 0.08);
+    padding-left: 0;
 }
 
-::-webkit-scrollbar-track {
-    background: transparent;
+[data-theme="dark"] .navbar-with-sidebar {
+    background: rgba(30, 30, 40, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-}
-
-/* Dark mode scrollbar */
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-    background: #475569;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
-}
-
-/* Table hover effect */
-.table-zebra tbody tr:hover {
-    transition: background-color 0.2s ease;
-}
-
-/* Card hover effect */
+/* 卡片平滑过渡 */
 .card {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Badge brand color */
+/* 表格悬停效果 */
+.table-zebra tbody tr:hover {
+    transition: background-color 0.2s ease;
+}
+
+/* 品牌徽章颜色 */
 .badge-brand-500 {
     background-color: #002FA7;
     color: white;
 }
 
-/* Smooth transitions */
-* {
-    transition-property: color, background-color, border-color;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-}
+/* ============================================ */
+/* 侧边栏导航 (项目特定布局)                    */
+/* ============================================ */
 
-/* Disable transition on page load */
-.no-transition,
-.no-transition * {
-    transition: none !important;
-}
-
-/* Responsive utilities */
-@media (max-width: 768px) {
-    .mobile-hide {
-        display: none !important;
-    }
-}
-
-/* Print styles */
-@media print {
-    .no-print {
-        display: none !important;
-    }
-
-    .card {
-        break-inside: avoid;
-    }
-
-    .table {
-        page-break-inside: auto;
-    }
-
-    tr {
-        page-break-inside: avoid;
-        page-break-after: auto;
-    }
-}
-
-/* ========================================
-   Sidebar Navigation Styles
-   左侧菜单导航样式
-   ======================================== */
-
-/* Layout with sidebar */
+/* 带侧边栏的布局 */
 .layout-with-sidebar {
     display: flex;
     min-height: 100vh;
 }
 
-/* Sidebar container */
+/* 侧边栏容器 */
 .sidebar {
     width: 260px;
     min-width: 180px;
@@ -165,52 +122,10 @@
     z-index: 40;
 }
 
-/* Sidebar collapsed state */
+/* 侧边栏折叠状态 */
 .sidebar.collapsed {
     width: 72px;
     min-width: 72px;
-}
-
-/* Sidebar resize handle */
-.sidebar-resize-handle {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    cursor: col-resize;
-    background: transparent;
-    transition: background 0.2s ease;
-    z-index: 41;
-}
-
-.sidebar-resize-handle:hover,
-.sidebar-resize-handle.active {
-    background: #002FA7;
-}
-
-.sidebar.collapsed .sidebar-resize-handle {
-    display: none;
-}
-
-/* Prevent text selection during resize */
-.sidebar.resizing {
-    user-select: none;
-    transition: none;
-}
-
-/* Show resize indicator on hover */
-.sidebar:not(.collapsed):hover .sidebar-resize-handle {
-    background: rgba(0, 47, 167, 0.2);
-}
-
-[data-theme="dark"] .sidebar:not(.collapsed):hover .sidebar-resize-handle {
-    background: rgba(99, 102, 241, 0.3);
-}
-
-[data-theme="dark"] .sidebar-resize-handle:hover,
-[data-theme="dark"] .sidebar-resize-handle.active {
-    background: #6366f1;
 }
 
 .sidebar.collapsed .sidebar-logo span,
@@ -235,7 +150,47 @@
     font-size: 1.5rem;
 }
 
-/* Collapse button */
+/* 侧边栏调整大小手柄 */
+.sidebar-resize-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    cursor: col-resize;
+    background: transparent;
+    transition: background 0.2s ease;
+    z-index: 41;
+}
+
+.sidebar-resize-handle:hover,
+.sidebar-resize-handle.active {
+    background: #002FA7;
+}
+
+.sidebar.collapsed .sidebar-resize-handle {
+    display: none;
+}
+
+.sidebar.resizing {
+    user-select: none;
+    transition: none;
+}
+
+.sidebar:not(.collapsed):hover .sidebar-resize-handle {
+    background: rgba(0, 47, 167, 0.2);
+}
+
+[data-theme="dark"] .sidebar:not(.collapsed):hover .sidebar-resize-handle {
+    background: rgba(99, 102, 241, 0.3);
+}
+
+[data-theme="dark"] .sidebar-resize-handle:hover,
+[data-theme="dark"] .sidebar-resize-handle.active {
+    background: #6366f1;
+}
+
+/* 折叠按钮 */
 .sidebar-collapse-btn {
     display: flex;
     align-items: center;
@@ -264,7 +219,7 @@
     background: rgba(99, 102, 241, 0.2);
 }
 
-/* Sidebar logo section */
+/* 侧边栏 Logo 区域 */
 .sidebar-logo {
     padding: 1.5rem;
     border-bottom: 1px solid rgba(0, 47, 167, 0.08);
@@ -280,7 +235,7 @@
     text-decoration: none;
 }
 
-/* Sidebar menu */
+/* 侧边栏菜单 */
 .sidebar-menu {
     padding: 1rem;
     display: flex;
@@ -330,27 +285,171 @@
     line-height: 1;
 }
 
-/* Main content area with sidebar */
+/* 主内容区域 */
 .main-content-with-sidebar {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-/* Top navbar with sidebar */
-.navbar-with-sidebar {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 47, 167, 0.08);
-    padding-left: 0;
+/* 暗色模式侧边栏 */
+[data-theme="dark"] .sidebar {
+    background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, rgba(0, 47, 167, 0.03) 100%);
+    border-right-color: rgba(255, 255, 255, 0.08);
 }
 
-[data-theme="dark"] .navbar-with-sidebar {
-    background: rgba(30, 30, 40, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+[data-theme="dark"] .sidebar-menu-item {
+    color: #94a3b8;
 }
 
-/* Responsive sidebar */
+[data-theme="dark"] .sidebar-menu-item:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: #c4d4ff;
+}
+
+[data-theme="dark"] .sidebar-logo {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================ */
+/* 全局优化                                     */
+/* ============================================ */
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* 暗色模式滚动条 */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* 平滑颜色过渡 */
+* {
+    transition-property: color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* 禁用页面加载时的过渡 */
+.no-transition,
+.no-transition * {
+    transition: none !important;
+}
+
+/* ============================================ */
+/* 暗色模式文字优化                             */
+/* ============================================ */
+
+/* 主要文字 - 纯白色 */
+[data-theme="dark"] .text-base-content {
+    color: #ffffff !important;
+}
+
+/* 次要文字 - 95% 白色 */
+[data-theme="dark"] .text-base-content\/60 {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 辅助文字 - 95% 白色 */
+[data-theme="dark"] .text-base-content\/70 {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 其他透明度文字 - 90% 白色 */
+[data-theme="dark"] .text-base-content\/50 {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="dark"] .text-base-content\/80 {
+    color: #ffffff !important;
+}
+
+/* 品牌色在暗色模式下的优化 */
+[data-theme="dark"] .text-brand-600 {
+    color: #6366f1 !important;
+}
+
+[data-theme="dark"] .text-brand-500 {
+    color: #818cf8 !important;
+}
+
+[data-theme="dark"] .badge-brand-500 {
+    background-color: #6366f1 !important;
+    color: #ffffff !important;
+}
+
+/* 卡片标题 */
+[data-theme="dark"] .card-title {
+    color: #ffffff !important;
+}
+
+/* 菜单项 */
+[data-theme="dark"] .menu li a {
+    color: #ffffff !important;
+}
+
+/* 表格内容 */
+[data-theme="dark"] table th,
+[data-theme="dark"] table td {
+    color: #ffffff !important;
+}
+
+/* 按钮文字 */
+[data-theme="dark"] .btn {
+    color: #ffffff !important;
+}
+
+/* 输入框和下拉框 */
+[data-theme="dark"] select,
+[data-theme="dark"] input {
+    color: #ffffff !important;
+}
+
+/* 徽章文字 */
+[data-theme="dark"] .badge {
+    color: #ffffff !important;
+}
+
+/* 下拉菜单内容 */
+[data-theme="dark"] .dropdown-content {
+    color: #ffffff !important;
+}
+
+/* 所有图标 - 90% 白色 */
+[data-theme="dark"] i {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 品牌色图标 - 更亮的色调 */
+[data-theme="dark"] .text-brand-600 i,
+[data-theme="dark"] .text-brand-500 i {
+    color: #818cf8 !important;
+}
+
+/* ============================================ */
+/* 响应式优化                                   */
+/* ============================================ */
+
 @media (max-width: 1024px) {
     .sidebar {
         width: 220px;
@@ -371,6 +470,10 @@
 }
 
 @media (max-width: 768px) {
+    .mobile-hide {
+        display: none !important;
+    }
+
     .layout-with-sidebar {
         flex-direction: column;
     }
@@ -404,118 +507,25 @@
     }
 }
 
-/* Dark mode sidebar adjustments */
-[data-theme="dark"] .sidebar {
-    background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, rgba(0, 47, 167, 0.03) 100%);
-    border-right-color: rgba(255, 255, 255, 0.08);
-}
+/* ============================================ */
+/* 打印样式                                     */
+/* ============================================ */
 
-[data-theme="dark"] .sidebar-menu-item {
-    color: #94a3b8;
-}
+@media print {
+    .no-print {
+        display: none !important;
+    }
 
-[data-theme="dark"] .sidebar-menu-item:hover {
-    background: rgba(99, 102, 241, 0.1);
-    color: #c4d4ff;
-}
+    .card {
+        break-inside: avoid;
+    }
 
-[data-theme="dark"] .sidebar-logo {
-    border-bottom-color: rgba(255, 255, 255, 0.08);
-}
+    .table {
+        page-break-inside: auto;
+    }
 
-/* ========================================
-   Dark Mode Text Color Optimization
-   暗色模式文字颜色优化
-   ======================================== */
-
-/* Primary text - White for better readability */
-[data-theme="dark"] .text-base-content {
-    color: #ffffff !important;
-}
-
-/* Secondary text - White for better readability */
-[data-theme="dark"] .text-base-content\/60 {
-    color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Tertiary text - White for better readability */
-[data-theme="dark"] .text-base-content\/70 {
-    color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Text with specific opacity levels - all set to white or near-white */
-[data-theme="dark"] .text-base-content\/50 {
-    color: rgba(255, 255, 255, 0.9) !important;
-}
-
-[data-theme="dark"] .text-base-content\/80 {
-    color: #ffffff !important;
-}
-
-/* Brand color optimization in dark mode - use lighter shade for better contrast */
-[data-theme="dark"] .text-brand-600 {
-    color: #6366f1 !important;
-}
-
-[data-theme="dark"] .text-brand-500 {
-    color: #818cf8 !important;
-}
-
-/* Ensure all badges and indicators are visible in dark mode */
-[data-theme="dark"] .badge-brand-500 {
-    background-color: #6366f1 !important;
-    color: #ffffff !important;
-}
-
-/* ========================================
-   Additional Dark Mode Text Optimization
-   额外的暗色模式文字优化
-   ======================================== */
-
-/* Ensure all card titles are white in dark mode */
-[data-theme="dark"] .card-title {
-    color: #ffffff !important;
-}
-
-/* Ensure all menu items are white in dark mode */
-[data-theme="dark"] .menu li a {
-    color: #ffffff !important;
-}
-
-/* Ensure table headers and cells are white in dark mode */
-[data-theme="dark"] table th,
-[data-theme="dark"] table td {
-    color: #ffffff !important;
-}
-
-/* Ensure all button text is white in dark mode */
-[data-theme="dark"] .btn {
-    color: #ffffff !important;
-}
-
-/* Ensure all select and input text is white in dark mode */
-[data-theme="dark"] select,
-[data-theme="dark"] input {
-    color: #ffffff !important;
-}
-
-/* Ensure all badges are white in dark mode */
-[data-theme="dark"] .badge {
-    color: #ffffff !important;
-}
-
-/* Ensure all dropdown content is white in dark mode */
-[data-theme="dark"] .dropdown-content {
-    color: #ffffff !important;
-}
-
-/* Ensure all icons are white or light in dark mode */
-[data-theme="dark"] i {
-    color: rgba(255, 255, 255, 0.9) !important;
-}
-
-/* Special handling for brand colored icons - make them lighter */
-[data-theme="dark"] .text-brand-600 i,
-[data-theme="dark"] .text-brand-500 i {
-    color: #818cf8 !important;
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
 }
