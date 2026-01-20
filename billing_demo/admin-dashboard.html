@@ -29,388 +29,356 @@
 </head>
 
 <body class="bg-base-200">
-    <!-- Layout with Sidebar -->
-    <div class="layout-with-sidebar">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <!-- Resize Handle -->
-            <div class="sidebar-resize-handle" id="sidebarResizeHandle" aria-label="拖动调节侧边栏宽度"></div>
+    <!-- Main Content -->
+    <div>
+        <!-- Navbar -->
+        <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
+            <!-- Logo and Navigation - Start -->
+            <div class="navbar-start">
+                <div class="flex items-center gap-8">
+                    <!-- Logo -->
+                    <a href="../Project/index.html" class="flex items-center gap-3">
+                        <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                        <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                    </a>
 
-            <div class="sidebar-logo">
-                <a href="billing.html">
-                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
-                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
-                </a>
-            </div>
-            <nav class="sidebar-menu">
-                <a href="../../Project/index.html" class="sidebar-menu-item">
-                    <i class="ri-dashboard-line"></i>
-                    <span>总览</span>
-                </a>
-                <a href="../../Project/index.html" class="sidebar-menu-item">
-                    <i class="ri-folder-3-line"></i>
-                    <span>项目</span>
-                </a>
-                <a href="billing.html" class="sidebar-menu-item active">
-                    <i class="ri-file-list-3-line"></i>
-                    <span>账单</span>
-                </a>
-            </nav>
-        </aside>
-
-        <!-- Main Content Area -->
-        <div class="main-content-with-sidebar">
-            <!-- Navbar -->
-            <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6">
-                <div class="navbar-start">
-                    <!-- Sidebar Collapse Button -->
-                    <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="切换侧边栏">
-                        <i class="ri-menu-fold-line text-xl transition-transform duration-300" id="collapseIcon"></i>
-                    </button>
-                </div>
-                <div class="navbar-end gap-2">
-                    <!-- Theme Toggle -->
-                    <label class="swap swap-rotate btn btn-ghost btn-circle">
-                        <input type="checkbox" id="theme-toggle" />
-                        <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
-                        <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
-                    </label>
-
-                    <!-- Notification Bell -->
-                    <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-                            <div class="indicator">
-                                <i class="ri-notification-3-line text-xl"></i>
-                                <span class="badge badge-sm badge-error indicator-item">5</span>
-                            </div>
-                        </div>
-                        <ul tabindex="0"
-                            class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-80 border border-base-300">
-                            <li class="menu-title">
-                                <span class="font-semibold">任务消息通知</span>
-                                <a class="text-xs text-brand-600">全部已读</a>
-                            </li>
-                            <div class="divider my-0"></div>
-                            <li>
-                                <a class="gap-3">
-                                    <div class="avatar placeholder">
-                                        <div class="bg-success text-white rounded-full w-8 h-8">
-                                            <i class="ri-check-line text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="text-sm font-medium">视频生成完成</div>
-                                        <div class="text-xs text-base-content/60">营销视频制作项目 • 2分钟前</div>
-                                    </div>
-                                    <span class="badge badge-xs badge-success"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="gap-3">
-                                    <div class="avatar placeholder">
-                                        <div class="bg-warning text-white rounded-full w-8 h-8">
-                                            <i class="ri-loader-4-line text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="text-sm font-medium">虚拟人渲染中</div>
-                                        <div class="text-xs text-base-content/60">虚拟人生成项目 • 15分钟前</div>
-                                    </div>
-                                    <span class="badge badge-xs badge-warning"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="gap-3">
-                                    <div class="avatar placeholder">
-                                        <div class="bg-info text-white rounded-full w-8 h-8">
-                                            <i class="ri-information-line text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="text-sm font-medium">积分余额提醒</div>
-                                        <div class="text-xs text-base-content/60">企业A 余额不足10% • 1小时前</div>
-                                    </div>
-                                    <span class="badge badge-xs badge-info"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="gap-3">
-                                    <div class="avatar placeholder">
-                                        <div class="bg-error text-white rounded-full w-8 h-8">
-                                            <i class="ri-error-warning-line text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="text-sm font-medium">任务执行失败</div>
-                                        <div class="text-xs text-base-content/60">语音合成测试 • 2小时前</div>
-                                    </div>
-                                    <span class="badge badge-xs badge-error"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="gap-3">
-                                    <div class="avatar placeholder">
-                                        <div class="bg-brand-500 text-white rounded-full w-8 h-8">
-                                            <i class="ri-money-dollar-circle-line text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="text-sm font-medium">充值到账通知</div>
-                                        <div class="text-xs text-base-content/60">企业B 充值 ¥5,000 • 3小时前</div>
-                                    </div>
-                                    <span class="badge badge-xs badge-brand-500"></span>
-                                </a>
-                            </li>
-                            <div class="divider my-0"></div>
-                            <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Admin Badge -->
-                    <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button"
-                            class="btn btn-ghost btn-circle avatar placeholder rounded-full">
-                            <div class="bg-gradient-to-br from-brand-500 to-purple-600 text-white rounded-full">
-                                <span class="text-xs font-bold">Admin</span>
-                            </div>
-                        </div>
-                        <ul tabindex="0"
-                            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300">
-                            <li class="menu-title text-base-content/70">管理员</li>
-                            <li><a class="justify-between">
-                                    设置
-                                    <span class="badge badge-sm badge-brand-500">New</span>
-                                </a></li>
-                            <li><a>系统日志</a></li>
-                            <div class="divider my-0"></div>
-                            <li><a class="text-error">退出登录</a></li>
-                        </ul>
-                    </div>
+                    <!-- Navigation Menu -->
+                    <ul class="menu menu-horizontal px-1 gap-2">
+                        <li>
+                            <a href="../../Project/index.html">
+                                <i class="ri-dashboard-line"></i>
+                                <span>总览</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../../Project/Projects.html">
+                                <i class="ri-folder-3-line"></i>
+                                <span>项目</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="billing.html" class="active">
+                                <i class="ri-file-list-3-line"></i>
+                                <span>账单</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Page Content -->
-            <div class="container mx-auto px-6 py-8 max-w-7xl">
-                <!-- Page Header -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 fade-in">
-                    <div>
-                        <h1 class="text-3xl font-bold text-base-content mb-2">全站账单大盘</h1>
-                        <p class="text-base-content/60 text-base">平台经营数据总览与分析</p>
-                    </div>
-                    <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto">
-                        <!-- Date Range Picker -->
-                        <div class="dropdown dropdown-end">
-                            <div tabindex="0" role="button" class="btn btn-outline gap-2 w-full md:w-auto">
-                                <i class="ri-calendar-line text-lg"></i>
-                                <span id="dateRangeText">选择时间范围</span>
-                                <i class="ri-arrow-down-s-line"></i>
-                            </div>
-                            <ul tabindex="0"
-                                class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300">
-                                <li><a onclick="setDateRange('today', '今日')">今日</a></li>
-                                <li><a onclick="setDateRange('week', '本周')">本周</a></li>
-                                <li><a onclick="setDateRange('month', '本月')">本月</a></li>
-                                <li><a onclick="setDateRange('year', '今年')">今年</a></li>
-                                <div class="divider my-0"></div>
-                                <li>
-                                    <a class="flex flex-col gap-2">
-                                        <span class="text-sm font-semibold">自定义区间</span>
-                                        <input type="date" class="input input-bordered input-sm w-full"
-                                            id="startDate" />
-                                        <span class="text-xs text-center">至</span>
-                                        <input type="date" class="input input-bordered input-sm w-full" id="endDate" />
-                                    </a>
-                                </li>
-                            </ul>
+            <!-- Right side items - End -->
+            <div class="navbar-end gap-2">
+                <!-- Theme Toggle -->
+                <label class="swap swap-rotate btn btn-ghost btn-circle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                    <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+                </label>
+
+                <!-- Notification Bell -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span class="badge badge-sm badge-error indicator-item">3</span>
                         </div>
                     </div>
-                </div>
-
-                <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <!-- Total Revenue -->
-                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
-                        <div class="card-body p-5">
-                            <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
-                                <i class="ri-money-dollar-circle-line text-base-content/50"></i>
-                                平台总收入
-                            </div>
-                            <div class="text-2xl font-bold text-base-content">¥1,250,000</div>
-                        </div>
-                    </div>
-
-                    <!-- Total Cost -->
-                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
-                        <div class="card-body p-5">
-                            <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
-                                <i class="ri-money-dollar-circle-line text-base-content/50"></i>
-                                成本
-                            </div>
-                            <div class="text-2xl font-bold text-base-content">¥375,000</div>
-                        </div>
-                    </div>
-
-                    <!-- Gross Profit -->
-                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
-                        <div class="card-body p-5">
-                            <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
-                                <i class="ri-line-chart-line text-base-content/50"></i>
-                                毛利润
-                            </div>
-                            <div class="text-2xl font-bold text-brand-600">¥875,000</div>
-                        </div>
-                    </div>
-
-                    <!-- Points Consumed -->
-                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
-                        <div class="card-body p-5">
-                            <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
-                                <i class="ri-coins-line text-base-content/50"></i>
-                                积分消耗数
-                            </div>
-                            <div class="text-2xl font-bold text-base-content">8,500,000</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <!-- Revenue Trend -->
-                    <div class="card bg-base-100 shadow-xl fade-in">
-                        <div class="card-body">
-                            <div class="flex justify-between items-center mb-6">
-                                <div class="flex items-center gap-2">
-                                    <h3 class="card-title text-lg font-semibold">收入/成本/利润趋势</h3>
-                                </div>
-                                <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="btn btn-sm btn-outline gap-2">
-                                        <i class="ri-time-line"></i>
-                                        <span id="trendTimeRangeText">近7天</span>
-                                        <i class="ri-arrow-down-s-line"></i>
+                    <ul tabindex="0"
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                        <li class="menu-title">
+                            <span class="font-semibold">任务消息通知</span>
+                            <a class="text-xs text-primary">全部已读</a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                        <i class="ri-check-line text-sm"></i>
                                     </div>
-                                    <ul tabindex="0"
-                                        class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
-                                        <li><a onclick="updateTrendChart('7days', '近7天')">近7天</a></li>
-                                        <li><a onclick="updateTrendChart('30days', '近30天')">近30天</a></li>
-                                        <li><a onclick="updateTrendChart('90days', '近90天')">近90天</a></li>
-                                        <li><a onclick="updateTrendChart('6months', '近6个月')">近6个月</a></li>
-                                        <li><a onclick="updateTrendChart('1year', '近1年')">近1年</a></li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="h-64">
-                                <canvas id="trendChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Model Distribution -->
-                    <div class="card bg-base-100 shadow-xl fade-in">
-                        <div class="card-body">
-                            <div class="flex justify-between items-center mb-6">
-                                <div class="flex items-center gap-2">
-                                    <h3 class="card-title text-lg font-semibold">模型调用分布</h3>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">视频生成完成</div>
+                                    <div class="text-xs text-base-content/60">营销视频制作项目 • 5分钟前</div>
                                 </div>
-                                <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="btn btn-sm btn-outline gap-2">
-                                        <i class="ri-time-line"></i>
-                                        <span id="modelTimeRangeText">近7天</span>
-                                        <i class="ri-arrow-down-s-line"></i>
+                                <span class="badge badge-xs badge-success"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-warning text-warning-content rounded-full w-8 h-8">
+                                        <i class="ri-loader-4-line text-sm"></i>
                                     </div>
-                                    <ul tabindex="0"
-                                        class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
-                                        <li><a onclick="updateModelChart('7days', '近7天')">近7天</a></li>
-                                        <li><a onclick="updateModelChart('30days', '近30天')">近30天</a></li>
-                                        <li><a onclick="updateModelChart('90days', '近90天')">近90天</a></li>
-                                        <li><a onclick="updateModelChart('6months', '近6个月')">近6个月</a></li>
-                                        <li><a onclick="updateModelChart('1year', '近1年')">近1年</a></li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="h-64">
-                                <canvas id="modelChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">任务处理中</div>
+                                    <div class="text-xs text-base-content/60">虚拟人生成项目 • 10分钟前</div>
+                                </div>
+                                <span class="badge badge-xs badge-warning"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-error text-error-content rounded-full w-8 h-8">
+                                        <i class="ri-error-warning-line text-sm"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">任务执行失败</div>
+                                    <div class="text-xs text-base-content/60">语音合成测试 • 30分钟前</div>
+                                </div>
+                                <span class="badge badge-xs badge-error"></span>
+                            </a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                    </ul>
                 </div>
 
-                <!-- Filters -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-                    <h3 class="text-xl font-bold text-base-content">组织消费明细</h3>
+                <!-- User Dropdown -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="avatar placeholder">
+                            <div class="bg-primary text-primary-content rounded-full w-10">
+                                <span class="text-sm font-bold">C</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                        <li class="menu-title text-base-content/70">王大卫</li>
+                        <li><a class="justify-between">
+                                个人设置
+                                <span class="badge badge-sm badge-primary">New</span>
+                            </a></li>
+                        <li><a>使用统计</a></li>
+                        <li><a>API密钥</a></li>
+                        <div class="divider my-0"></div>
+                        <li><a class="text-error">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="container mx-auto px-6 py-8 max-w-7xl">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 fade-in">
+                <div>
+                    <h1 class="text-3xl font-bold text-base-content mb-2">全站账单大盘</h1>
+                    <p class="text-base-content/60 text-base">平台经营数据总览与分析</p>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+                    <!-- Date Range Picker -->
                     <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn btn-sm btn-outline gap-2">
-                            <i class="ri-time-line"></i>
-                            <span id="orgTimeRangeText">本月</span>
+                        <div tabindex="0" role="button" class="btn btn-outline gap-2 w-full md:w-auto">
+                            <i class="ri-calendar-line text-lg"></i>
+                            <span id="dateRangeText">选择时间范围</span>
                             <i class="ri-arrow-down-s-line"></i>
                         </div>
                         <ul tabindex="0"
-                            class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
-                            <li><a onclick="updateOrgTable('today', '今日')">今日</a></li>
-                            <li><a onclick="updateOrgTable('week', '本周')">本周</a></li>
-                            <li><a onclick="updateOrgTable('month', '本月')">本月</a></li>
-                            <li><a onclick="updateOrgTable('quarter', '本季度')">本季度</a></li>
-                            <li><a onclick="updateOrgTable('year', '今年')">今年</a></li>
+                            class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300">
+                            <li><a onclick="setDateRange('today', '今日')">今日</a></li>
+                            <li><a onclick="setDateRange('week', '本周')">本周</a></li>
+                            <li><a onclick="setDateRange('month', '本月')">本月</a></li>
+                            <li><a onclick="setDateRange('year', '今年')">今年</a></li>
+                            <div class="divider my-0"></div>
+                            <li>
+                                <a class="flex flex-col gap-2">
+                                    <span class="text-sm font-semibold">自定义区间</span>
+                                    <input type="date" class="input input-bordered input-sm w-full" id="startDate" />
+                                    <span class="text-xs text-center">至</span>
+                                    <input type="date" class="input input-bordered input-sm w-full" id="endDate" />
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                <!-- Detail Table -->
-                <div class="overflow-x-auto bg-base-100 rounded-xl shadow-xl fade-in">
-                    <table class="table table-zebra table-pin-rows">
-                        <thead class="bg-base-200">
-                            <tr>
-                                <th>排名</th>
-                                <th>组织名称</th>
-                                <th>消费用户数</th>
-                                <th>消费积分</th>
-                                <th>充值金额(元)</th>
-                                <th>充值积分</th>
-                                <th>余额积分</th>
-                            </tr>
-                        </thead>
-                        <tbody id="orgTableBody">
-                            <!-- Table rows will be populated by JavaScript -->
-                        </tbody>
-                    </table>
-
-                    <!-- Pagination -->
-                    <div class="flex flex-col md:flex-row justify-between items-center gap-4 px-6 py-4 bg-base-200/50">
-                        <div class="text-sm text-base-content/70">
-                            显示第 <span id="orgPaginationStart" class="font-bold text-base-content">1</span>
-                            到 <span id="orgPaginationEnd" class="font-bold text-base-content">10</span>
-                            条，共 <span id="orgPaginationTotal" class="font-bold text-base-content">0</span> 条记录
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Total Revenue -->
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                    <div class="card-body p-5">
+                        <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                            <i class="ri-money-dollar-circle-line text-base-content/50"></i>
+                            平台总收入
                         </div>
-                        <div class="join">
-                            <button id="orgFirstPageBtn" class="join-item btn btn-sm"
-                                onclick="orgPagination.goToFirstPage()">
-                                <i class="ri-skip-back-line"></i>
-                            </button>
-                            <button id="orgPrevPageBtn" class="join-item btn btn-sm"
-                                onclick="orgPagination.goToPrevPage()">
-                                <i class="ri-arrow-left-s-line"></i>
-                            </button>
-                            <div id="orgPageNumbers" class="join">
-                                <!-- Page numbers will be populated by JavaScript -->
+                        <div class="text-2xl font-bold text-base-content">¥1,250,000</div>
+                    </div>
+                </div>
+
+                <!-- Total Cost -->
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                    <div class="card-body p-5">
+                        <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                            <i class="ri-money-dollar-circle-line text-base-content/50"></i>
+                            成本
+                        </div>
+                        <div class="text-2xl font-bold text-base-content">¥375,000</div>
+                    </div>
+                </div>
+
+                <!-- Gross Profit -->
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                    <div class="card-body p-5">
+                        <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                            <i class="ri-line-chart-line text-base-content/50"></i>
+                            毛利润
+                        </div>
+                        <div class="text-2xl font-bold text-brand-600">¥875,000</div>
+                    </div>
+                </div>
+
+                <!-- Points Consumed -->
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 fade-in">
+                    <div class="card-body p-5">
+                        <div class="text-base-content/60 text-sm mb-1 flex items-center gap-2">
+                            <i class="ri-coins-line text-base-content/50"></i>
+                            积分消耗数
+                        </div>
+                        <div class="text-2xl font-bold text-base-content">8,500,000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Revenue Trend -->
+                <div class="card bg-base-100 shadow-xl fade-in">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex items-center gap-2">
+                                <h3 class="card-title text-lg font-semibold">收入/成本/利润趋势</h3>
                             </div>
-                            <button id="orgNextPageBtn" class="join-item btn btn-sm"
-                                onclick="orgPagination.goToNextPage()">
-                                <i class="ri-arrow-right-s-line"></i>
-                            </button>
-                            <button id="orgLastPageBtn" class="join-item btn btn-sm"
-                                onclick="orgPagination.goToLastPage()">
-                                <i class="ri-skip-forward-line"></i>
-                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-sm btn-outline gap-2">
+                                    <i class="ri-time-line"></i>
+                                    <span id="trendTimeRangeText">近7天</span>
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
+                                    <li><a onclick="updateTrendChart('7days', '近7天')">近7天</a></li>
+                                    <li><a onclick="updateTrendChart('30days', '近30天')">近30天</a></li>
+                                    <li><a onclick="updateTrendChart('90days', '近90天')">近90天</a></li>
+                                    <li><a onclick="updateTrendChart('6months', '近6个月')">近6个月</a></li>
+                                    <li><a onclick="updateTrendChart('1year', '近1年')">近1年</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-sm text-base-content/70">每页显示</span>
-                            <select id="orgPageSizeSelect" class="select select-bordered select-sm w-20"
-                                onchange="orgPagination.changePageSize(this.value)">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                            </select>
-                            <span class="text-sm text-base-content/70">条</span>
+                        <div class="h-64">
+                            <canvas id="trendChart"></canvas>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Model Distribution -->
+                <div class="card bg-base-100 shadow-xl fade-in">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex items-center gap-2">
+                                <h3 class="card-title text-lg font-semibold">模型调用分布</h3>
+                            </div>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-sm btn-outline gap-2">
+                                    <i class="ri-time-line"></i>
+                                    <span id="modelTimeRangeText">近7天</span>
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
+                                    <li><a onclick="updateModelChart('7days', '近7天')">近7天</a></li>
+                                    <li><a onclick="updateModelChart('30days', '近30天')">近30天</a></li>
+                                    <li><a onclick="updateModelChart('90days', '近90天')">近90天</a></li>
+                                    <li><a onclick="updateModelChart('6months', '近6个月')">近6个月</a></li>
+                                    <li><a onclick="updateModelChart('1year', '近1年')">近1年</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="modelChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                <h3 class="text-xl font-bold text-base-content">组织消费明细</h3>
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-sm btn-outline gap-2">
+                        <i class="ri-time-line"></i>
+                        <span id="orgTimeRangeText">本月</span>
+                        <i class="ri-arrow-down-s-line"></i>
+                    </div>
+                    <ul tabindex="0"
+                        class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-40 border border-base-300">
+                        <li><a onclick="updateOrgTable('today', '今日')">今日</a></li>
+                        <li><a onclick="updateOrgTable('week', '本周')">本周</a></li>
+                        <li><a onclick="updateOrgTable('month', '本月')">本月</a></li>
+                        <li><a onclick="updateOrgTable('quarter', '本季度')">本季度</a></li>
+                        <li><a onclick="updateOrgTable('year', '今年')">今年</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Detail Table -->
+            <div class="overflow-x-auto bg-base-100 rounded-xl shadow-xl fade-in">
+                <table class="table table-zebra table-pin-rows">
+                    <thead class="bg-base-200">
+                        <tr>
+                            <th>排名</th>
+                            <th>组织名称</th>
+                            <th>消费用户数</th>
+                            <th>消费积分</th>
+                            <th>充值金额(元)</th>
+                            <th>充值积分</th>
+                            <th>余额积分</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orgTableBody">
+                        <!-- Table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 px-6 py-4 bg-base-200/50">
+                    <div class="text-sm text-base-content/70">
+                        显示第 <span id="orgPaginationStart" class="font-bold text-base-content">1</span>
+                        到 <span id="orgPaginationEnd" class="font-bold text-base-content">10</span>
+                        条，共 <span id="orgPaginationTotal" class="font-bold text-base-content">0</span> 条记录
+                    </div>
+                    <div class="join">
+                        <button id="orgFirstPageBtn" class="join-item btn btn-sm"
+                            onclick="orgPagination.goToFirstPage()">
+                            <i class="ri-skip-back-line"></i>
+                        </button>
+                        <button id="orgPrevPageBtn" class="join-item btn btn-sm" onclick="orgPagination.goToPrevPage()">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <div id="orgPageNumbers" class="join">
+                            <!-- Page numbers will be populated by JavaScript -->
+                        </div>
+                        <button id="orgNextPageBtn" class="join-item btn btn-sm" onclick="orgPagination.goToNextPage()">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                        <button id="orgLastPageBtn" class="join-item btn btn-sm" onclick="orgPagination.goToLastPage()">
+                            <i class="ri-skip-forward-line"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-base-content/70">每页显示</span>
+                        <select id="orgPageSizeSelect" class="select select-bordered select-sm w-20"
+                            onchange="orgPagination.changePageSize(this.value)">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="text-sm text-base-content/70">条</span>
                     </div>
                 </div>
             </div>

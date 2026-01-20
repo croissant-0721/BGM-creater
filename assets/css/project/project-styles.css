@@ -2,9 +2,15 @@
  * Project Pages Styles
  * 项目页面专用样式
  * 用于 Project 目录下的页面
+ * 
+ * ⚠️ 重要: 本文件仅包含 DaisyUI 不支持的自定义样式
+ * 95% 的样式应使用 DaisyUI 标准类 + Tailwind 工具类
  */
 
-/* Gradient Text Effect */
+/* ============================================ */
+/* 渐变效果                                     */
+/* ============================================ */
+
 .gradient-text {
     background: linear-gradient(135deg, #002FA7 0%, #2560FF 50%, #4D7CFF 100%);
     -webkit-background-clip: text;
@@ -12,12 +18,16 @@
     background-clip: text;
 }
 
-/* Fade In Animation */
+/* ============================================ */
+/* 动画效果                                     */
+/* ============================================ */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -29,14 +39,69 @@
 }
 
 /* Staggered fade-in animation for cards */
-.fade-in:nth-child(1) { animation-delay: 0.05s; }
-.fade-in:nth-child(2) { animation-delay: 0.1s; }
-.fade-in:nth-child(3) { animation-delay: 0.15s; }
-.fade-in:nth-child(4) { animation-delay: 0.2s; }
-.fade-in:nth-child(5) { animation-delay: 0.25s; }
-.fade-in:nth-child(6) { animation-delay: 0.3s; }
+.fade-in:nth-child(1) {
+    animation-delay: 0.05s;
+}
 
-/* Custom scrollbar */
+.fade-in:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.fade-in:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.fade-in:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.fade-in:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.fade-in:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+/* ============================================ */
+/* 项目特定增强 (不覆盖 DaisyUI 核心)          */
+/* ============================================ */
+
+/* 导航栏增强 - 仅添加项目特定样式，不覆盖 DaisyUI 默认 */
+.navbar-with-sidebar {
+    background: hsl(var(--b1) / 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid hsl(var(--bc) / 0.08);
+}
+
+[data-theme="dark"] .navbar-with-sidebar {
+    background: hsl(var(--b3) / 0.8);
+    border-bottom-color: hsl(var(--bc) / 0.08);
+}
+
+/* Swap 组件图标居中 (RemixIcon 需要) */
+.navbar-with-sidebar .swap i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 卡片悬停增强 */
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 47, 167, 0.25);
+}
+
+/* 卡片平滑过渡 */
+.card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================ */
+/* 全局优化                                     */
+/* ============================================ */
+
+/* 自定义滚动条 */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -55,7 +120,7 @@
     background: #94a3b8;
 }
 
-/* Dark mode scrollbar */
+/* 暗色模式滚动条 */
 [data-theme="dark"] ::-webkit-scrollbar-thumb {
     background: #475569;
 }
@@ -64,149 +129,32 @@
     background: #64748b;
 }
 
-/* Card hover effect */
-.card {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Smooth transitions */
+/* 平滑颜色过渡 */
 * {
     transition-property: color, background-color, border-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
 }
 
-/* Disable transition on page load */
+/* 禁用页面加载时的过渡 */
 .no-transition,
 .no-transition * {
     transition: none !important;
 }
 
-/* ========================================
-   Navigation Styling
-   导航栏样式
-   ======================================== */
+/* ============================================ */
+/* 响应式优化                                   */
+/* ============================================ */
 
-/* Navbar with logo and navigation */
-.navbar-with-sidebar {
-    background: hsl(var(--b1) / 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid hsl(var(--bc) / 0.08);
-    height: 4rem; /* 固定导航栏高度 */
-}
-
-[data-theme="dark"] .navbar-with-sidebar {
-    background: hsl(var(--b3) / 0.8);
-    border-bottom-color: hsl(var(--bc) / 0.08);
-}
-
-/* Logo样式 */
-.navbar-with-sidebar .gradient-text {
-    font-size: 1.25rem; /* 固定logo文字大小 */
-    font-weight: 700;
-}
-
-/* 水平菜单样式 */
-.navbar-with-sidebar .menu.menu-horizontal {
-    gap: 0.5rem;
-}
-
-.navbar-with-sidebar .menu.menu-horizontal li a {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
-    border: none !important; /* 移除边框 */
-    outline: none !important; /* 移除outline */
-}
-
-.navbar-with-sidebar .menu.menu-horizontal li a:hover {
-    background-color: hsl(var(--bc) / 0.1);
-    border: none !important;
-    outline: none !important;
-}
-
-.navbar-with-sidebar .menu.menu-horizontal li a:focus {
-    border: none !important;
-    outline: none !important;
-}
-
-/* Active状态 */
-.navbar-with-sidebar .menu.menu-horizontal li a.active {
-    background: linear-gradient(135deg, hsl(var(--p)) 0%, hsl(var(--pf)) 100%);
-    color: hsl(var(--pc));
-    box-shadow: 0 2px 8px hsl(var(--p) / 0.2);
-    border: none !important;
-    outline: none !important;
-}
-
-.navbar-with-sidebar .menu.menu-horizontal li a.active:hover {
-    background: linear-gradient(135deg, hsl(var(--p)) 0%, hsl(var(--pf)) 100%);
-    border: none !important;
-    outline: none !important;
-}
-
-.navbar-with-sidebar .menu.menu-horizontal li a i {
-    font-size: 1.125rem;
-}
-
-/* 导航栏标准类样式 */
-.navbar-with-sidebar .navbar-start {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-with-sidebar .navbar-end {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-with-sidebar .navbar-end.gap-2 {
-    gap: 0.5rem;
-}
-
-/* 导航栏右侧按钮样式 */
-.navbar-with-sidebar .btn.btn-circle {
-    width: 2.5rem;
-    height: 2.5rem;
-    min-height: 2.5rem;
-    padding: 0;
-}
-
-.navbar-with-sidebar .swap {
-    width: 2.5rem;
-    height: 2.5rem;
-}
-
-.navbar-with-sidebar .swap i {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Responsive utilities */
 @media (max-width: 768px) {
     .mobile-hide {
         display: none !important;
     }
-
-    /* 移动端隐藏水平菜单，改为垂直堆叠 */
-    .navbar-with-sidebar .menu.menu-horizontal {
-        display: none;
-    }
-
-    /* 移动端logo和菜单垂直布局 */
-    .navbar-with-sidebar .flex-1 > div {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
 }
 
 @media (max-width: 640px) {
-    /* 小屏幕时调整logo大小 */
+
+    /* 小屏幕时调整 logo 大小 */
     .navbar-with-sidebar .gradient-text {
         font-size: 1rem;
     }
