@@ -357,93 +357,21 @@
 }
 
 /* ============================================ */
-/* 暗色模式文字优化                             */
+/* 暗色模式优化                                 */
 /* ============================================ */
 
-/* 主要文字 - 纯白色 */
-[data-theme="dark"] .text-base-content {
-    color: #ffffff !important;
-}
-
-/* 次要文字 - 95% 白色 */
-[data-theme="dark"] .text-base-content\/60 {
-    color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* 辅助文字 - 95% 白色 */
-[data-theme="dark"] .text-base-content\/70 {
-    color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* 其他透明度文字 - 90% 白色 */
-[data-theme="dark"] .text-base-content\/50 {
-    color: rgba(255, 255, 255, 0.9) !important;
-}
-
-[data-theme="dark"] .text-base-content\/80 {
-    color: #ffffff !important;
-}
-
-/* 品牌色在暗色模式下的优化 */
+/* 品牌色在暗色模式下的优化 - 使用更亮的色调以提高对比度 */
 [data-theme="dark"] .text-brand-600 {
-    color: #6366f1 !important;
+    color: #6366f1;
 }
 
 [data-theme="dark"] .text-brand-500 {
-    color: #818cf8 !important;
+    color: #818cf8;
 }
 
 [data-theme="dark"] .badge-brand-500 {
-    background-color: #6366f1 !important;
-    color: #ffffff !important;
-}
-
-/* 卡片标题 */
-[data-theme="dark"] .card-title {
-    color: #ffffff !important;
-}
-
-/* 菜单项 */
-[data-theme="dark"] .menu li a {
-    color: #ffffff !important;
-}
-
-/* 表格内容 */
-[data-theme="dark"] table th,
-[data-theme="dark"] table td {
-    color: #ffffff !important;
-}
-
-/* 按钮文字 */
-[data-theme="dark"] .btn {
-    color: #ffffff !important;
-}
-
-/* 输入框和下拉框 */
-[data-theme="dark"] select,
-[data-theme="dark"] input {
-    color: #ffffff !important;
-}
-
-/* 徽章文字 */
-[data-theme="dark"] .badge {
-    color: #ffffff !important;
-}
-
-/* 下拉菜单内容 */
-[data-theme="dark"] .dropdown-content {
-    color: #ffffff !important;
-}
-
-/* 所有图标 - 90% 白色 */
-[data-theme="dark"] i {
-    color: rgba(255, 255, 255, 0.9) !important;
-}
-
-/* 品牌色图标 - 更亮的色调 */
-[data-theme="dark"] .text-brand-600 i,
-[data-theme="dark"] .text-brand-500 i {
-    color: #818cf8 !important;
+    background-color: #6366f1;
+    color: #ffffff;
 }
 
 /* ============================================ */
