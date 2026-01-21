@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目名称 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
+        <!-- Logo and Navigation - Start -->
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                </a>
+
+                <!-- Navigation Menu -->
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li>
+                        <a href="index.html">
+                            <i class="ri-dashboard-line"></i>
+                            <span>总览</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Projects.html" class="active">
+                            <i class="ri-folder-3-line"></i>
+                            <span>项目</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../billing_demo/billing.html">
+                            <i class="ri-file-list-3-line"></i>
+                            <span>账单</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right side items - End -->
+        <div class="navbar-end gap-2">
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">视频生成完成</div>
+                                <div class="text-xs text-base-content/60">营销视频制作项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-warning text-warning-content rounded-full w-8 h-8">
+                                    <i class="ri-loader-4-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务处理中</div>
+                                <div class="text-xs text-base-content/60">虚拟人生成项目 • 10分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-warning"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-error text-error-content rounded-full w-8 h-8">
+                                    <i class="ri-error-warning-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务执行失败</div>
+                                <div class="text-xs text-base-content/60">语音合成测试 • 30分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-error"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">
+                            个人设置
+                            <span class="badge badge-sm badge-primary">New</span>
+                        </a></li>
+                    <li><a>使用统计</a></li>
+                    <li><a>API密钥</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout: Sidebar + Content -->
+    <div class="flex">
+        <!-- Fixed Left Sidebar -->
+        <aside class="fixed left-0 top-[64px] w-64 bg-base-100 shadow-xl h-[calc(100vh-64px)] overflow-y-auto">
+
+            <!-- Navigation Menu -->
+            <ul class="menu menu-vertical px-4 py-6 gap-2">
+                <li>
+                    <a href="#" class="active">
+                        <i class="ri-file-text-line text-lg"></i>
+                        <span>剧本</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>角色</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-landscape-line text-lg"></i>
+                        <span>场景</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-box-3-line text-lg"></i>
+                        <span>物品</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-image-add-line text-lg"></i>
+                        <span>融合生图</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-video-line text-lg"></i>
+                        <span>视频</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-mic-line text-lg"></i>
+                        <span>语音</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-edit-line text-lg"></i>
+                        <span>图片编辑</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 ml-64">
+            <!-- Page Content -->
+            <div class="container mx-auto px-6 py-8">
+                <!-- Page Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">剧本列表</h2>
+                        <p class="text-base-content/60">管理和查看项目的所有剧本</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-primary gap-2" onclick="addScriptModal.showModal()">
+                            <i class="ri-add-line"></i>
+                            添加剧本
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Script Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Script Item 1 - Completed -->
+                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+                        <div class="card-body p-0">
+                            <div class="bg-success/10 rounded-t-2xl p-8">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="bg-success rounded-full p-4">
+                                        <i class="ri-check-line text-4xl text-white"></i>
+                                    </div>
+                                    <span class="text-lg font-semibold text-success">已完成</span>
+                                    <h3 class="text-sm font-medium text-base-content mt-1">第一集：初遇小世子</h3>
+                                </div>
+                            </div>
+                            <div class="px-6 pb-6 pt-4">
+                                <div class="mb-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-base-content/60 text-sm">进度</span>
+                                        <span class="text-sm font-semibold text-success">100%</span>
+                                    </div>
+                                    <progress class="progress progress-success w-full" value="100" max="100"></progress>
+                                </div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="avatar">
+                                            <div class="w-6 rounded-full">
+                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck"
+                                                    alt="用户头像" />
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-medium">王大伟</div>
+                                    </div>
+                                    <div class="text-xs text-base-content/60">
+                                        <i class="ri-time-line"></i>2小时前
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-center gap-2">
+                                    <button class="btn btn-warning gap-2 flex-1">
+                                        <i class="ri-edit-line"></i>
+                                        创作
+                                    </button>
+                                    <div class="dropdown dropdown-end flex-1">
+                                        <div tabindex="0" role="button" class="btn btn-info gap-2 w-full">
+                                            <i class="ri-more-line"></i>
+                                            更多
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>编辑</a></li>
+                                            <li><a><i class="ri-bar-chart-line"></i>查看分析</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Script Item 2 - In Progress -->
+                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+                        <div class="card-body p-0">
+                            <div class="bg-warning/10 rounded-t-2xl p-8">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="bg-warning rounded-full p-4">
+                                        <i class="ri-loader-4-line text-4xl text-white"></i>
+                                    </div>
+                                    <span class="text-lg font-semibold text-warning">进行中</span>
+                                    <h3 class="text-sm font-medium text-base-content mt-1">第二集：宫廷风云</h3>
+                                </div>
+                            </div>
+                            <div class="px-6 pb-6 pt-4">
+                                <div class="mb-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-base-content/60 text-sm">进度</span>
+                                        <span class="text-sm font-semibold text-warning">60%</span>
+                                    </div>
+                                    <progress class="progress progress-warning w-full" value="60" max="100"></progress>
+                                </div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="avatar">
+                                            <div class="w-6 rounded-full">
+                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
+                                                    alt="用户头像" />
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-medium">李晓明</div>
+                                    </div>
+                                    <div class="text-xs text-base-content/60">
+                                        <i class="ri-time-line"></i>5小时前
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-center gap-2">
+                                    <button class="btn btn-warning gap-2 flex-1">
+                                        <i class="ri-edit-line"></i>
+                                        创作
+                                    </button>
+                                    <div class="dropdown dropdown-end flex-1">
+                                        <div tabindex="0" role="button" class="btn btn-info gap-2 w-full">
+                                            <i class="ri-more-line"></i>
+                                            更多
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>编辑</a></li>
+                                            <li><a><i class="ri-bar-chart-line"></i>查看分析</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Script Item 3 - Failed -->
+                    <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+                        <div class="card-body p-0">
+                            <div class="bg-error/10 rounded-t-2xl p-8">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="bg-error rounded-full p-4">
+                                        <i class="ri-close-line text-4xl text-white"></i>
+                                    </div>
+                                    <span class="text-lg font-semibold text-error">失败</span>
+                                    <h3 class="text-sm font-medium text-base-content mt-1">第三集：危机四伏</h3>
+                                </div>
+                            </div>
+                            <div class="px-6 pb-6 pt-4">
+                                <div class="mb-4">
+                                    <div class="alert alert-error py-3">
+                                        <i class="ri-error-warning-line text-lg"></i>
+                                        <span class="text-sm">API调用超时，请检查网络连接后重试</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="avatar">
+                                            <div class="w-6 rounded-full">
+                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
+                                                    alt="用户头像" />
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-medium">张晓华</div>
+                                    </div>
+                                    <div class="text-xs text-base-content/60">
+                                        <i class="ri-time-line"></i>1天前
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-center gap-2">
+                                    <button class="btn btn-warning gap-2 flex-1">
+                                        <i class="ri-edit-line"></i>
+                                        创作
+                                    </button>
+                                    <div class="dropdown dropdown-end flex-1">
+                                        <div tabindex="0" role="button" class="btn btn-info gap-2 w-full">
+                                            <i class="ri-more-line"></i>
+                                            更多
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>编辑</a></li>
+                                            <li><a><i class="ri-bar-chart-line"></i>查看分析</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Script Modal -->
+        <dialog id="addScriptModal" class="modal">
+            <div class="modal-box max-w-2xl">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <h3 class="font-bold text-lg mb-6">添加剧本</h3>
+
+                <div class="space-y-6">
+                    <!-- 剧本名称 -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium">剧本名称：</span>
+                        </label>
+                        <input type="text" placeholder="请输入剧本名称" class="input input-bordered w-full" />
+                    </div>
+
+                    <!-- 选择模型 -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium">选择模型：</span>
+                        </label>
+                        <div class="flex gap-4">
+                            <label class="label cursor-pointer gap-2">
+                                <input type="radio" name="model" class="radio radio-primary" checked />
+                                <span class="label-text">Doubao-Seed-1.8</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2">
+                                <input type="radio" name="model" class="radio radio-primary" />
+                                <span class="label-text">DeepSeek-V3.2</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 剧本内容 -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium">剧本内容：</span>
+                        </label>
+                        <textarea class="textarea textarea-bordered h-32" placeholder="请输入剧本内容或上传剧本文件。"></textarea>
+                    </div>
+
+                    <!-- 剧本文件上传 -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium">剧本：</span>
+                        </label>
+
+                        <!-- 拖拽上传区域 -->
+                        <div id="dropZone"
+                            class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center transition-all duration-300 hover:border-primary hover:bg-base-200/50 cursor-pointer">
+                            <input type="file" id="fileInput" class="hidden" accept=".doc,.docx,.pdf,.txt" />
+
+                            <div id="uploadPrompt">
+                                <i class="ri-upload-cloud-line text-5xl text-base-content/40 mb-3"></i>
+                                <p class="text-base font-medium text-base-content mb-2">拖拽文件到此处或点击上传</p>
+                                <p class="text-sm text-base-content/60 mb-4">支持格式：.doc、.docx、.pdf、.txt</p>
+                                <button type="button" class="btn btn-primary btn-sm gap-2"
+                                    onclick="document.getElementById('fileInput').click()">
+                                    <i class="ri-folder-open-line"></i>
+                                    选择文件
+                                </button>
+                            </div>
+
+                            <!-- 文件预览 -->
+                            <div id="filePreview" class="hidden">
+                                <div class="flex items-center justify-between bg-base-100 p-4 rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-primary/10 p-3 rounded-lg">
+                                            <i class="ri-file-text-line text-2xl text-primary"></i>
+                                        </div>
+                                        <div class="text-left">
+                                            <p id="fileName" class="font-medium text-base-content"></p>
+                                            <p id="fileSize" class="text-sm text-base-content/60"></p>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-ghost btn-sm btn-circle"
+                                        onclick="removeFile()">
+                                        <i class="ri-close-line text-lg"></i>
+                                    </button>
+                                </div>
+
+                                <!-- 上传进度 -->
+                                <div id="uploadProgress" class="hidden mt-4">
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-base-content/60">上传中...</span>
+                                        <span id="progressPercent" class="font-semibold text-primary">0%</span>
+                                    </div>
+                                    <progress id="progressBar" class="progress progress-primary w-full" value="0"
+                                        max="100"></progress>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="label">
+                            <span class="label-text-alt text-base-content/60">最大文件大小：10MB</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="modal-action">
+                    <button type="button" class="btn btn-primary gap-2">
+                        <i class="ri-edit-line"></i>
+                        提交AI分析
+                    </button>
+                    <button type="button" class="btn btn-ghost gap-2">
+                        <i class="ri-refresh-line"></i>
+                        重置
+                    </button>
+                </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>关闭</button>
+            </form>
+        </dialog>
+
+        <!-- Theme Toggle Script -->
+        <script>
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            htmlElement.setAttribute('data-theme', savedTheme);
+            themeToggle.checked = savedTheme === 'dark';
+
+            // Toggle theme
+            themeToggle.addEventListener('change', function () {
+                const newTheme = this.checked ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        </script>
+
+        <!-- File Upload Script -->
+        <script>
+            let selectedFile = null;
+
+            // Get elements
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const uploadPrompt = document.getElementById('uploadPrompt');
+            const filePreview = document.getElementById('filePreview');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            // Highlight drop zone when dragging over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight(e) {
+                dropZone.classList.add('border-primary', 'bg-primary/5');
+            }
+
+            function unhighlight(e) {
+                dropZone.classList.remove('border-primary', 'bg-primary/5');
+            }
+
+            // Handle dropped files
+            dropZone.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            // Handle file input change
+            fileInput.addEventListener('change', function (e) {
+                handleFiles(this.files);
+            });
+
+            // Click on drop zone to trigger file input
+            dropZone.addEventListener('click', function (e) {
+                if (e.target === dropZone || e.target.closest('#uploadPrompt')) {
+                    fileInput.click();
+                }
+            });
+
+            function handleFiles(files) {
+                if (files.length === 0) return;
+
+                const file = files[0];
+
+                // Validate file type
+                const allowedTypes = ['.doc', '.docx', '.pdf', '.txt'];
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+
+                if (!allowedTypes.includes(fileExtension)) {
+                    alert('不支持的文件格式！请上传 .doc、.docx、.pdf 或 .txt 文件。');
+                    return;
+                }
+
+                // Validate file size (10MB)
+                const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+                if (file.size > maxSize) {
+                    alert('文件大小超过限制！最大支持 10MB。');
+                    return;
+                }
+
+                selectedFile = file;
+                showFilePreview(file);
+            }
+
+            function showFilePreview(file) {
+                // Hide upload prompt, show file preview
+                uploadPrompt.classList.add('hidden');
+                filePreview.classList.remove('hidden');
+
+                // Display file info
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+
+                // Simulate upload progress (for demo purposes)
+                simulateUpload();
+            }
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+            }
+
+            function simulateUpload() {
+                uploadProgress.classList.remove('hidden');
+                let progress = 0;
+
+                const interval = setInterval(() => {
+                    progress += Math.random() * 30;
+                    if (progress > 100) progress = 100;
+
+                    progressBar.value = progress;
+                    progressPercent.textContent = Math.round(progress) + '%';
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            uploadProgress.classList.add('hidden');
+                        }, 1000);
+                    }
+                }, 200);
+            }
+
+            function removeFile() {
+                selectedFile = null;
+                fileInput.value = '';
+
+                // Reset UI
+                uploadPrompt.classList.remove('hidden');
+                filePreview.classList.add('hidden');
+                uploadProgress.classList.add('hidden');
+                progressBar.value = 0;
+                progressPercent.textContent = '0%';
+            }
+        </script>
+</body>
+
+</html>
