@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高清重绘 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .editor-container {
+            height: calc(100vh - 64px);
+            background-color: var(--fallback-b2, oklch(var(--b2)));
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .editor-toolbar {
+            height: 56px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+            border-bottom: 1px solid var(--fallback-b3, oklch(var(--b3)));
+        }
+
+        .editor-main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .editor-canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            overflow: auto;
+        }
+
+        .editor-sidebar {
+            width: 320px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-left: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.02);
+            z-index: 5;
+        }
+
+        .canvas-container {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .canvas-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            background: var(--fallback-b2, oklch(var(--b2)));
+            padding: 4px;
+            border-radius: 8px;
+            gap: 2px;
+            border: 1px solid var(--fallback-b3, oklch(var(--b3)));
+        }
+
+        .toolbar-btn {
+            height: 40px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            color: var(--fallback-bc, oklch(var(--bc)));
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--fallback-b3, oklch(var(--b3)));
+            color: var(--fallback-bc, oklch(var(--bc)));
+        }
+
+        .toolbar-btn.active {
+            background: var(--fallback-p, oklch(var(--p)));
+            color: var(--fallback-pc, oklch(var(--pc)));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Upload Placeholder */
+        .upload-placeholder {
+            border: 2px dashed var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 12px;
+            width: 500px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-placeholder:hover,
+        .upload-placeholder.drag-over {
+            border-color: var(--fallback-p, oklch(var(--p)));
+            background: var(--fallback-b2, oklch(var(--b2)));
+            transform: scale(1.02);
+        }
+
+        .divider-v {
+            width: 1px;
+            height: 24px;
+            background: var(--fallback-b3, oklch(var(--b3)));
+            margin: 0 8px;
+        }
+
+        .zoom-info {
+            font-size: 13px;
+            color: #6b7280;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Points Tooltip */
+        .points-tooltip {
+            position: absolute;
+            top: -32px;
+            right: 15px;
+            background: #ff9900;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+            animation: bounceIn 0.5s ease-out;
+        }
+
+        .points-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 25px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #ff9900;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: translateY(5px) scale(0.9);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateY(-3px) scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Style Selection */
+        .style-card {
+            border: 2px solid transparent;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .style-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .style-card.active {
+            border-color: var(--fallback-p, oklch(var(--p)));
+        }
+
+        .style-card.active .check-badge {
+            display: flex;
+        }
+
+        .check-badge {
+            display: none;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background: var(--fallback-p, oklch(var(--p)));
+            color: var(--fallback-pc, oklch(var(--pc)));
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Projects.html" class="active"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">高清重绘项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-container">
+        <!-- Toolbar -->
+        <div class="editor-toolbar">
+            <div class="toolbar-group">
+                <a href="project-detail-imageedit-jubuchonghui.html" class="toolbar-btn" title="局部重绘">
+                    <i class="ri-brush-line text-lg"></i>
+                    <span>局部重绘</span>
+                </a>
+                <button class="toolbar-btn" title="擦除">
+                    <i class="ri-eraser-line text-lg"></i>
+                    <span>擦除</span>
+                </button>
+                <a href="project-detail-imageedit-kuotu.html" class="toolbar-btn" title="扩图">
+                    <i class="ri-aspect-ratio-line text-lg"></i>
+                    <span>扩图</span>
+                </a>
+                <button class="toolbar-btn active" title="高清重绘">
+                    <i class="ri-image-edit-line text-lg"></i>
+                    <span>高清重绘</span>
+                </button>
+            </div>
+
+            <div class="divider-v"></div>
+
+            <div class="toolbar-group">
+                <button class="toolbar-btn" title="缩小">
+                    <i class="ri-zoom-out-line"></i>
+                </button>
+                <button class="toolbar-btn" title="放大">
+                    <i class="ri-zoom-in-line"></i>
+                </button>
+                <span class="zoom-info">60%</span>
+            </div>
+
+            <div class="divider-v"></div>
+
+            <div class="toolbar-group">
+                <button class="toolbar-btn" title="还原">
+                    <i class="ri-restart-line"></i>
+                </button>
+                <button class="toolbar-btn text-error" title="删除">
+                    <i class="ri-delete-bin-line"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="editor-main">
+            <!-- Canvas Area -->
+            <div class="editor-canvas-area" id="canvasArea">
+                <!-- Initial State: Upload Placeholder -->
+                <div class="upload-placeholder" id="uploadBox">
+                    <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-image-add-line text-3xl"></i>
+                    </div>
+                    <p class="text-lg font-semibold">点击或拖拽图片到此处上传</p>
+                    <p class="text-sm text-base-content/60 mt-2">支持 JPG, PNG 格式，最大 4096px</p>
+                    <input type="file" class="hidden" id="fileInput" accept="image/*">
+                </div>
+
+                <!-- After Upload: Image Canvas (Hidden by default) -->
+                <div class="canvas-container hidden" id="canvasContainer">
+                    <img src="https://picsum.photos/1200/800?random=10" alt="编辑图片" class="canvas-image"
+                        id="targetImage">
+                    <div class="absolute inset-0 pointer-events-none border-2 border-primary/20"></div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="editor-sidebar">
+                <div class="flex flex-col items-center mb-2">
+                    <i class="ri-more-fill text-gray-300 rotate-90 text-2xl"></i>
+                    <div class="divider my-0 w-full opacity-20"></div>
+                </div>
+
+                <!-- Warning Box -->
+                <div class="bg-warning/10 border border-warning/20 rounded-lg p-4 text-xs">
+                    <div class="flex items-center gap-1 text-warning font-bold mb-2">
+                        <i class="ri-error-warning-fill"></i>
+                        图片限制说明
+                    </div>
+                    <ul class="space-y-1 text-base-content/70 list-disc list-inside">
+                        <li>支持格式：<span class="font-bold text-error">JPEG、PNG</span></li>
+                        <li>最大分辨率：<span class="font-bold text-error">4096 × 4096</span> 像素</li>
+                        <li>超出限制可能导致处理失败</li>
+                    </ul>
+                </div>
+
+                <!-- Style Selection -->
+                <div>
+                    <span class="label-text font-bold block mb-4">选择高清重绘风格</span>
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Manga Style -->
+                        <div class="style-card active" onclick="selectStyle(this)">
+                            <img src="../assets/img/style_samples/style_anime.png" alt="漫画风格"
+                                class="w-full h-32 object-cover">
+                            <div class="p-3 bg-base-100 text-center">
+                                <span class="text-sm font-medium">漫画风格</span>
+                            </div>
+                            <div class="check-badge">
+                                <i class="ri-check-line"></i>
+                            </div>
+                        </div>
+
+                        <!-- Real Person Style -->
+                        <div class="style-card" onclick="selectStyle(this)">
+                            <img src="../assets/img/style_samples/style_real.jpg" alt="真人风格"
+                                class="w-full h-32 object-cover">
+                            <div class="p-3 bg-base-100 text-center">
+                                <span class="text-sm font-medium">真人风格</span>
+                            </div>
+                            <div class="check-badge">
+                                <i class="ri-check-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upscale Factor -->
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text font-bold">放大倍率</span>
+                    </label>
+                    <div class="join w-full">
+                        <button class="join-item btn btn-sm btn-active flex-1">2X</button>
+                        <button class="join-item btn btn-sm flex-1">4X</button>
+                    </div>
+                </div>
+
+                <div class="mt-auto">
+                    <div class="flex gap-3 relative">
+                        <!-- Points Bubble -->
+                        <div class="points-tooltip">
+                            <i class="ri-coin-fill text-[10px]"></i>
+                            50 积分
+                        </div>
+
+                        <button class="btn btn-outline flex-1 hover:scale-105 transition-transform"
+                            onclick="window.history.back()">取消</button>
+                        <button class="btn btn-primary flex-1 hover:scale-105 transition-transform shadow-lg">
+                            <i class="ri-magic-line text-lg"></i>
+                            生成
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple Interaction logic
+        const uploadBox = document.getElementById('uploadBox');
+        const fileInput = document.getElementById('fileInput');
+        const canvasContainer = document.getElementById('canvasContainer');
+
+        if (uploadBox) {
+            uploadBox.onclick = () => fileInput.click();
+
+            // Drag and Drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, () => uploadBox.classList.add('drag-over'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, () => uploadBox.classList.remove('drag-over'), false);
+            });
+
+            uploadBox.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            fileInput.onchange = (e) => {
+                handleFiles(e.target.files);
+            };
+
+            function handleFiles(files) {
+                if (files && files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        document.getElementById('targetImage').src = e.target.result;
+                        uploadBox.classList.add('hidden');
+                        canvasContainer.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(files[0]);
+                }
+            }
+        }
+
+        function selectStyle(element) {
+            document.querySelectorAll('.style-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Join button toggle logic
+        document.querySelectorAll('.join-item').forEach(btn => {
+            btn.onclick = () => {
+                btn.parentElement.querySelectorAll('.join-item').forEach(b => b.classList.remove('btn-active'));
+                btn.classList.add('btn-active');
+            };
+        });
+
+        // Simulated toolbar switching
+        const toolbarButtons = document.querySelectorAll('.toolbar-btn');
+        toolbarButtons.forEach(btn => {
+            btn.onclick = (e) => {
+                // If it's a link, let it navigate
+                if (btn.tagName === 'A') return;
+
+                // Only for the first group
+                if (btn.parentElement.classList.contains('toolbar-group')) {
+                    const group = btn.parentElement;
+                    group.querySelectorAll('.toolbar-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                }
+            };
+        });
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        if (themeToggle) {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-theme', savedTheme);
+            themeToggle.checked = savedTheme === 'dark';
+            themeToggle.addEventListener('change', () => {
+                const theme = themeToggle.checked ? 'dark' : 'light';
+                html.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        }
+    </script>
+</body>
+
+</html>

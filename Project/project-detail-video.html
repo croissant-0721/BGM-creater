@@ -207,7 +207,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="project-detail-imageedit.html">
                         <i class="ri-edit-line text-lg"></i>
                         <span>图片编辑</span>
                     </a>
@@ -225,10 +225,60 @@
                         <h2 class="text-3xl font-bold mb-2">视频列表</h2>
                         <p class="text-base-content/60">管理和查看项目的所有视频</p>
                     </div>
-                    <div class="flex gap-2">
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <div id="select-all-wrapper" class="form-control mr-2 hidden">
+                            <label class="label cursor-pointer gap-2">
+                                <input type="checkbox" id="select-all" class="checkbox checkbox-sm checkbox-primary" />
+                                <span class="label-text">全选</span>
+                            </label>
+                        </div>
+                        <button id="batch-download"
+                            class="btn btn-outline btn-primary gap-2 transition-all duration-300">
+                            <i class="ri-download-cloud-2-line"></i>
+                            <span id="batch-btn-text">批量下载</span>
+                            <span id="selected-count-badge" class="badge badge-sm badge-primary hidden">0</span>
+                        </button>
+                        <button id="cancel-selection" class="btn btn-ghost gap-2 hidden">
+                            取消
+                        </button>
                         <button class="btn btn-primary gap-2">
                             <i class="ri-add-line"></i>
                             添加视频
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter and Search -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="tabs tabs-boxed bg-base-100">
+                            <a class="tab">全部</a>
+                            <a class="tab tab-active">已完成</a>
+                            <a class="tab">生成中</a>
+                            <a class="tab">失败</a>
+                            <a class="tab">已取消</a>
+                        </div>
+                        <div class="dropdown dropdown-bottom">
+                            <div tabindex="0" role="button" class="btn btn-sm btn-ghost gap-2 border border-base-300">
+                                <i class="ri-sort-desc"></i>
+                                <span>排序: 默认</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                            <ul tabindex="0"
+                                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-48 z-[20] border border-base-300 mt-2">
+                                <li><a>默认</a></li>
+                                <div class="divider my-0"></div>
+                                <li class="menu-title text-xs">分镜 ID</li>
+                                <li><a><i class="ri-sort-asc"></i>分镜 ID (正序)</a></li>
+                                <li><a><i class="ri-sort-desc"></i>分镜 ID (倒序)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="join">
+                        <input type="search" placeholder="搜索项目..."
+                            class="input input-bordered input-sm join-item w-full md:w-auto" />
+                        <button class="btn btn-neutral btn-sm join-item">
+                            <i class="ri-search-line"></i>
                         </button>
                     </div>
                 </div>
@@ -237,7 +287,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Video Card 1 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure class="relative">
+                        <figure class="relative group">
+                            <!-- Selection Checkbox -->
+                            <div class="selection-checkbox-wrapper absolute top-3 left-3 z-20 hidden">
+                                <input type="checkbox"
+                                    class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
+                            </div>
                             <img src="https://picsum.photos/400/300?random=501" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
@@ -249,6 +304,9 @@
                             </div>
                         </figure>
                         <div class="card-body p-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-mono text-base-content/50">#SC-001</span>
+                            </div>
                             <h3 class="card-title text-base mb-2">产品宣传视频</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Kling1.6</span>
@@ -297,7 +355,12 @@
 
                     <!-- Video Card 2 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure class="relative">
+                        <figure class="relative group">
+                            <!-- Selection Checkbox -->
+                            <div class="selection-checkbox-wrapper absolute top-3 left-3 z-20 hidden">
+                                <input type="checkbox"
+                                    class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
+                            </div>
                             <img src="https://picsum.photos/400/300?random=502" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
@@ -309,6 +372,9 @@
                             </div>
                         </figure>
                         <div class="card-body p-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-mono text-base-content/50">#SC-002</span>
+                            </div>
                             <h3 class="card-title text-base mb-2">品牌故事短片</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Runway Gen-3</span>
@@ -334,11 +400,13 @@
                             <div class="card-actions justify-between items-center mt-2">
                                 <div class="badge badge-warning badge-sm gap-1">
                                     <span class="loading loading-spinner loading-xs"></span>
-                                    渲染中 55%
+                                    生成中 55%
                                 </div>
                                 <div class="flex gap-1">
-                                    <button class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-download-line text-lg"></i>
+                                    <button
+                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task">
+                                        <i class="ri-close-circle-line text-lg"></i>
+                                        取消任务
                                     </button>
                                     <div class="dropdown dropdown-end">
                                         <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
@@ -357,7 +425,12 @@
 
                     <!-- Video Card 3 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure class="relative">
+                        <figure class="relative group">
+                            <!-- Selection Checkbox -->
+                            <div class="selection-checkbox-wrapper absolute top-3 left-3 z-20 hidden">
+                                <input type="checkbox"
+                                    class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
+                            </div>
                             <img src="https://picsum.photos/400/300?random=503" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
@@ -369,6 +442,9 @@
                             </div>
                         </figure>
                         <div class="card-body p-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-mono text-base-content/50">#SC-003</span>
+                            </div>
                             <h3 class="card-title text-base mb-2">营销广告片</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Pika1.5</span>
@@ -418,7 +494,12 @@
 
                     <!-- Video Card 4 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure class="relative">
+                        <figure class="relative group">
+                            <!-- Selection Checkbox -->
+                            <div class="selection-checkbox-wrapper absolute top-3 left-3 z-20 hidden">
+                                <input type="checkbox"
+                                    class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
+                            </div>
                             <img src="https://picsum.photos/400/300?random=504" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
@@ -430,6 +511,9 @@
                             </div>
                         </figure>
                         <div class="card-body p-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-mono text-base-content/50">#SC-004</span>
+                            </div>
                             <h3 class="card-title text-base mb-2">产品演示视频</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Kling1.6</span>
@@ -478,7 +562,12 @@
 
                     <!-- Video Card 5 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure class="relative">
+                        <figure class="relative group">
+                            <!-- Selection Checkbox -->
+                            <div class="selection-checkbox-wrapper absolute top-3 left-3 z-20 hidden">
+                                <input type="checkbox"
+                                    class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
+                            </div>
                             <img src="https://picsum.photos/400/300?random=505" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
@@ -490,6 +579,9 @@
                             </div>
                         </figure>
                         <div class="card-body p-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-mono text-base-content/50">#SC-005</span>
+                            </div>
                             <h3 class="card-title text-base mb-2">社交媒体短视频</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Runway Gen-3</span>
@@ -515,11 +607,13 @@
                             <div class="card-actions justify-between items-center mt-2">
                                 <div class="badge badge-warning badge-sm gap-1">
                                     <span class="loading loading-spinner loading-xs"></span>
-                                    渲染中 20%
+                                    生成中 20%
                                 </div>
                                 <div class="flex gap-1">
-                                    <button class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-download-line text-lg"></i>
+                                    <button
+                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task">
+                                        <i class="ri-close-circle-line text-lg"></i>
+                                        取消任务
                                     </button>
                                     <div class="dropdown dropdown-end">
                                         <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
@@ -538,7 +632,12 @@
 
                     <!-- Video Card 6 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure class="relative">
+                        <figure class="relative group">
+                            <!-- Selection Checkbox -->
+                            <div class="selection-checkbox-wrapper absolute top-3 left-3 z-20 hidden">
+                                <input type="checkbox"
+                                    class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
+                            </div>
                             <img src="https://picsum.photos/400/300?random=506" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
@@ -550,6 +649,9 @@
                             </div>
                         </figure>
                         <div class="card-body p-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-mono text-base-content/50">#SC-006</span>
+                            </div>
                             <h3 class="card-title text-base mb-2">创意动画视频</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Pika1.5</span>
@@ -573,13 +675,77 @@
                                 </div>
                             </div>
                             <div class="card-actions justify-between items-center mt-2">
-                                <div class="badge badge-success badge-sm gap-1">
-                                    <i class="ri-check-circle-fill"></i>
-                                    已完成
+                                <div
+                                    class="badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none">
+                                    <i class="ri-close-circle-line"></i>
+                                    已取消
                                 </div>
                                 <div class="flex gap-1">
                                     <button class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-download-line text-lg"></i>
+                                        <i class="ri-refresh-line text-lg"></i>
+                                    </button>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 7 (New) -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure class="relative group">
+                            <div class="selection-checkbox-wrapper absolute top-3 left-3 z-20 hidden">
+                                <input type="checkbox"
+                                    class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
+                            </div>
+                            <div class="w-full h-48 bg-base-200 flex items-center justify-center relative">
+                                <img src="https://picsum.photos/400/300?random=507" alt="视频缩略图"
+                                    class="w-full h-48 object-cover opacity-50 grayscale" />
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <i class="ri-close-circle-line text-5xl text-base-content/20"></i>
+                                </div>
+                            </div>
+                        </figure>
+                        <div class="card-body p-4">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-mono text-base-content/50">#SC-007</span>
+                            </div>
+                            <h3 class="card-title text-base mb-2">测试生成视频</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">Kling1.6</span>
+                                <span class="badge badge-secondary badge-sm">文生视频</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Frank"
+                                                alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">张三</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>1小时前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div
+                                    class="badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none">
+                                    <i class="ri-close-circle-line"></i>
+                                    已取消
+                                </div>
+                                <div class="flex gap-1">
+                                    <button class="btn btn-square btn-ghost btn-sm tooltip tooltip-top" data-tip="重试">
+                                        <i class="ri-refresh-line text-lg"></i>
                                     </button>
                                     <div class="dropdown dropdown-end">
                                         <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
@@ -616,6 +782,191 @@
             const newTheme = this.checked ? 'dark' : 'light';
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+        });
+
+        // Batch Download Functionality
+        const selectAllWrapper = document.getElementById('select-all-wrapper');
+        const selectAllCheckbox = document.getElementById('select-all');
+        const videoCheckboxes = document.querySelectorAll('.video-checkbox');
+        const checkboxWrappers = document.querySelectorAll('.selection-checkbox-wrapper');
+        const batchDownloadBtn = document.getElementById('batch-download');
+        const batchBtnText = document.getElementById('batch-btn-text');
+        const selectedCountBadge = document.getElementById('selected-count-badge');
+        const cancelSelectionBtn = document.getElementById('cancel-selection');
+
+        let isSelectionMode = false;
+
+        function enterSelectionMode() {
+            isSelectionMode = true;
+            selectAllWrapper.classList.remove('hidden');
+            cancelSelectionBtn.classList.remove('hidden');
+            checkboxWrappers.forEach(w => w.classList.remove('hidden'));
+            batchDownloadBtn.classList.add('btn-primary');
+            batchDownloadBtn.classList.remove('btn-outline');
+            batchBtnText.textContent = '确认下载';
+            updateBatchDownloadState();
+        }
+
+        function exitSelectionMode() {
+            isSelectionMode = false;
+            selectAllWrapper.classList.add('hidden');
+            cancelSelectionBtn.classList.add('hidden');
+            checkboxWrappers.forEach(w => w.classList.add('hidden'));
+            batchDownloadBtn.classList.remove('btn-primary');
+            batchDownloadBtn.classList.add('btn-outline');
+            batchBtnText.textContent = '批量下载';
+            selectedCountBadge.classList.add('hidden');
+
+            // Reset checkboxes
+            videoCheckboxes.forEach(cb => {
+                cb.checked = false;
+                const card = cb.closest('.card');
+                card.classList.remove('ring-2', 'ring-primary');
+            });
+            selectAllCheckbox.checked = false;
+            selectAllCheckbox.indeterminate = false;
+        }
+
+        function updateBatchDownloadState() {
+            const selectedCount = document.querySelectorAll('.video-checkbox:checked').length;
+            selectedCountBadge.textContent = selectedCount;
+
+            if (selectedCount > 0) {
+                selectedCountBadge.classList.remove('hidden');
+            } else {
+                selectedCountBadge.classList.add('hidden');
+            }
+
+            // Sync Select All checkbox
+            selectAllCheckbox.checked = selectedCount === videoCheckboxes.length && videoCheckboxes.length > 0;
+            selectAllCheckbox.indeterminate = selectedCount > 0 && selectedCount < videoCheckboxes.length;
+        }
+
+        batchDownloadBtn.addEventListener('click', function () {
+            if (!isSelectionMode) {
+                enterSelectionMode();
+            } else {
+                const selectedCount = document.querySelectorAll('.video-checkbox:checked').length;
+                if (selectedCount > 0) {
+                    // Show a feedback message
+                    const toast = document.createElement('div');
+                    toast.className = 'toast toast-top toast-center z-[100]';
+                    toast.innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="ri-checkbox-circle-line text-lg"></i>
+                            <span>正在打包下载 ${selectedCount} 个视频...</span>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.remove();
+                        exitSelectionMode(); // Exit mode after download
+                    }, 3000);
+                } else {
+                    // Feedback that nothing is selected
+                    const toast = document.createElement('div');
+                    toast.className = 'toast toast-top toast-center z-[100]';
+                    toast.innerHTML = `
+                        <div class="alert alert-info">
+                            <i class="ri-information-line text-lg"></i>
+                            <span>请先选择要下载的视频</span>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2000);
+                }
+            }
+        });
+
+        cancelSelectionBtn.addEventListener('click', exitSelectionMode);
+
+        selectAllCheckbox.addEventListener('change', function () {
+            videoCheckboxes.forEach(cb => {
+                cb.checked = this.checked;
+                const card = cb.closest('.card');
+                if (this.checked) {
+                    card.classList.add('ring-2', 'ring-primary');
+                } else {
+                    card.classList.remove('ring-2', 'ring-primary');
+                }
+            });
+            updateBatchDownloadState();
+        });
+
+        videoCheckboxes.forEach(cb => {
+            cb.addEventListener('change', function () {
+                const card = this.closest('.card');
+                if (this.checked) {
+                    card.classList.add('ring-2', 'ring-primary');
+                } else {
+                    card.classList.remove('ring-2', 'ring-primary');
+                }
+                updateBatchDownloadState();
+            });
+        });
+
+        // Cancel Task Confirmation with Overlay
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-cancel-task');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = btn.closest('.card');
+
+                // Create overlay if it doesn't exist
+                let overlay = card.querySelector('.cancel-confirm-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'cancel-confirm-overlay';
+                    overlay.innerHTML = `
+                        <div class="bg-error/10 text-error w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                            <i class="ri-close-circle-line text-2xl"></i>
+                        </div>
+                        <p class="text-sm font-bold mb-1 font-sans">确认取消该任务吗？</p>
+                        <p class="text-xs text-base-content/60 mb-4 font-sans">取消后将停止当前生成任务</p>
+                        <div class="flex gap-2 w-full">
+                            <button class="btn btn-error btn-sm flex-1 btn-confirm-cancel">确认取消</button>
+                            <button class="btn btn-ghost btn-sm flex-1 btn-abort-cancel">再想想</button>
+                        </div>
+                    `;
+                    card.appendChild(overlay);
+
+                    // Bind overlay buttons
+                    overlay.querySelector('.btn-confirm-cancel').addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        // Update UI to 'Cancelled'
+                        const badge = card.querySelector('.badge-warning');
+                        if (badge) {
+                            badge.className = 'badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none';
+                            badge.innerHTML = '<i class="ri-close-circle-line"></i>已取消';
+                        }
+                        btn.remove(); // Remove cancel button
+                        overlay.classList.remove('show');
+
+                        // Show success message
+                        const toast = document.createElement('div');
+                        toast.className = 'toast toast-top toast-center z-[100]';
+                        toast.innerHTML = `
+                            <div class="alert alert-success shadow-lg">
+                                <i class="ri-checkbox-circle-line text-lg"></i>
+                                <span>任务已成功取消</span>
+                            </div>
+                        `;
+                        document.body.appendChild(toast);
+                        setTimeout(() => toast.remove(), 2000);
+                    });
+
+                    overlay.querySelector('.btn-abort-cancel').addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        overlay.classList.remove('show');
+                    });
+
+                    overlay.addEventListener('click', e => e.stopPropagation());
+                }
+
+                // Show overlay
+                overlay.classList.add('show');
+            }
         });
     </script>
 </body>

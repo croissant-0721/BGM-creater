@@ -207,7 +207,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="project-detail-imageedit.html">
                         <i class="ri-edit-line text-lg"></i>
                         <span>图片编辑</span>
                     </a>
@@ -229,6 +229,24 @@
                         <button class="btn btn-primary gap-2">
                             <i class="ri-add-line"></i>
                             添加角色
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter and Search -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <div class="tabs tabs-boxed bg-base-100">
+                        <a class="tab">全部</a>
+                        <a class="tab tab-active">已完成</a>
+                        <a class="tab">生成中</a>
+                        <a class="tab">失败</a>
+                        <a class="tab">已取消</a>
+                    </div>
+                    <div class="join">
+                        <input type="search" placeholder="搜索项目..."
+                            class="input input-bordered input-sm join-item w-full md:w-auto" />
+                        <button class="btn btn-neutral btn-sm join-item">
+                            <i class="ri-search-line"></i>
                         </button>
                     </div>
                 </div>
@@ -315,8 +333,10 @@
                                     生成中 45%
                                 </div>
                                 <div class="flex gap-1">
-                                    <button class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-download-line text-lg"></i>
+                                    <button
+                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task">
+                                        <i class="ri-close-circle-line text-lg"></i>
+                                        取消任务
                                     </button>
                                     <div class="dropdown dropdown-end">
                                         <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
@@ -452,6 +472,70 @@
             const newTheme = this.checked ? 'dark' : 'light';
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+        });
+
+        // Cancel Task Confirmation with Overlay
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-cancel-task');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = btn.closest('.card');
+
+                // Create overlay if it doesn't exist
+                let overlay = card.querySelector('.cancel-confirm-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'cancel-confirm-overlay';
+                    overlay.innerHTML = `
+                        <div class="bg-error/10 text-error w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                            <i class="ri-close-circle-line text-2xl"></i>
+                        </div>
+                        <p class="text-sm font-bold mb-1 font-sans">确认取消该任务吗？</p>
+                        <p class="text-xs text-base-content/60 mb-4 font-sans">取消后将停止当前生成任务</p>
+                        <div class="flex gap-2 w-full">
+                            <button class="btn btn-error btn-sm flex-1 btn-confirm-cancel">确认取消</button>
+                            <button class="btn btn-ghost btn-sm flex-1 btn-abort-cancel">再想想</button>
+                        </div>
+                    `;
+                    card.appendChild(overlay);
+
+                    // Bind overlay buttons
+                    overlay.querySelector('.btn-confirm-cancel').addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        // Update UI to 'Cancelled'
+                        const badge = card.querySelector('.badge-warning');
+                        if (badge) {
+                            badge.className = 'badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none';
+                            badge.innerHTML = '<i class="ri-close-circle-line"></i>已取消';
+                        }
+                        btn.remove(); // Remove cancel button
+                        overlay.classList.remove('show');
+
+                        // Show success message
+                        const toast = document.createElement('div');
+                        toast.className = 'toast toast-top toast-center z-[100]';
+                        toast.innerHTML = `
+                            <div class="alert alert-success shadow-lg">
+                                <i class="ri-checkbox-circle-line text-lg"></i>
+                                <span>任务已成功取消</span>
+                            </div>
+                        `;
+                        document.body.appendChild(toast);
+                        setTimeout(() => toast.remove(), 2000);
+                    });
+
+                    overlay.querySelector('.btn-abort-cancel').addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        overlay.classList.remove('show');
+                    });
+
+                    overlay.addEventListener('click', e => e.stopPropagation());
+                }
+
+                // Show overlay
+                overlay.classList.add('show');
+            }
         });
     </script>
 </body>
