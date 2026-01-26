@@ -226,7 +226,7 @@
                         <p class="text-base-content/60">管理和查看项目的所有融合生图</p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="btn btn-primary gap-2">
+                        <button class="btn btn-primary gap-2" onclick="add_fusion_modal.showModal()">
                             <i class="ri-add-line"></i>
                             添加融合生图
                         </button>
@@ -260,7 +260,7 @@
                         <div class="card-body p-4">
                             <h3 class="card-title text-base mb-2">角色场景融合图1</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
-                                <span class="badge badge-primary badge-sm">Seedream4.0</span>
+                                <span class="badge badge-primary badge-sm">Seedream4.5</span>
                                 <span class="badge badge-outline badge-sm">4K (3840x2160)</span>
                             </div>
                             <div class="flex items-center justify-between mb-3">
@@ -308,7 +308,7 @@
                         <div class="card-body p-4">
                             <h3 class="card-title text-base mb-2">人物道具融合图</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
-                                <span class="badge badge-primary badge-sm">Flux-Pro</span>
+                                <span class="badge badge-primary badge-sm">Seedream4.0</span>
                                 <span class="badge badge-outline badge-sm">3:2 (2496x1664)</span>
                             </div>
                             <div class="flex items-center justify-between mb-3">
@@ -358,7 +358,7 @@
                         <div class="card-body p-4">
                             <h3 class="card-title text-base mb-2">场景氛围融合图</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
-                                <span class="badge badge-primary badge-sm">Midjourney6</span>
+                                <span class="badge badge-primary badge-sm">Seedream4.5</span>
                                 <span class="badge badge-outline badge-sm">2K (2560x1440)</span>
                             </div>
                             <div class="flex items-center justify-between mb-3">
@@ -447,108 +447,340 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Fusion Card 5 -->
-                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure><img src="https://picsum.photos/400/300?random=405" alt="融合生图缩略图"
-                                class="w-full h-48 object-cover" /></figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-base mb-2">风格化融合图</h3>
-                            <div class="mb-2 flex gap-1 flex-wrap">
-                                <span class="badge badge-primary badge-sm">DALL-E3</span>
-                                <span class="badge badge-outline badge-sm">1:1 (2048x2048)</span>
+    <!-- Add Fusion Modal -->
+    <dialog id="add_fusion_modal" class="modal">
+        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh]">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto flex-1 no-scrollbar"
+                style="-ms-overflow-style: none; scrollbar-width: none;">
+                <style>
+                    .no-scrollbar::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* Points Tooltip */
+                    .points-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 10px);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #ff9900;
+                        color: white;
+                        padding: 2px 10px;
+                        border-radius: 20px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+                        animation: bounceIn 0.3s ease-out;
+                        z-index: 50;
+                    }
+
+                    .points-tooltip::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -4px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 5px solid #ff9900;
+                    }
+
+                    @keyframes bounceIn {
+                        0% {
+                            transform: translateY(5px) scale(0.9);
+                            opacity: 0;
+                        }
+
+                        50% {
+                            transform: translateY(-3px) scale(1.05);
+                            opacity: 1;
+                        }
+
+                        100% {
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+
+                    .asset-selector-content {
+                        max-height: 200px;
+                        overflow-y: auto;
+                    }
+
+                    .asset-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 8px !important;
+                        border-radius: 8px;
+                        transition: all 0.2s;
+                    }
+
+                    .asset-item:hover {
+                        background: rgba(var(--p), 0.1) !important;
+                    }
+
+                    .asset-item img {
+                        width: 48px;
+                        height: 48px;
+                        object-fit: cover;
+                        border-radius: 4px;
+                        background: #eee;
+                    }
+                </style>
+                <h3 class="font-bold text-lg mb-4">添加融合生图</h3>
+
+                <!-- Fusion Name -->
+                <div class="mb-6">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">融合生图名称:</span>
+                        </label>
+                        <input type="text" placeholder="给目标起个名字" class="input input-bordered w-full" />
+                    </div>
+                </div>
+
+                <!-- Fusion Tabs -->
+                <div class="mb-6">
+                    <div role="tablist" class="tabs tabs-boxed bg-base-100 mb-4">
+                        <input type="radio" name="fusion_tabs" role="tab" class="tab" aria-label="AI生成"
+                            checked="checked" />
+                        <div role="tabpanel" class="tab-content pt-4 min-h-[400px]">
+                            <!-- AI Generation Tab Content -->
+
+                            <!-- Model Selection -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">选择模型:</span>
+                                </label>
+                                <div class="flex gap-4">
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="model" class="radio radio-sm" value="seedream4.5"
+                                            checked />
+                                        <span class="label-text">Seedream 4.5</span>
+                                    </label>
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="model" class="radio radio-sm" value="seedream4.0" />
+                                        <span class="label-text">Seedream 4.0</span>
+                                    </label>
+                                </div>
                             </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center gap-2">
-                                    <div class="avatar">
-                                        <div class="w-6 rounded-full">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David"
-                                                alt="用户头像" />
-                                        </div>
-                                    </div>
-                                    <div class="text-xs font-medium">陈小红</div>
-                                </div>
-                                <div class="text-xs text-base-content/60">
-                                    <i class="ri-time-line"></i>3天前
-                                </div>
-                            </div>
-                            <div class="card-actions justify-between items-center mt-2">
-                                <div class="badge badge-warning badge-sm gap-1">
-                                    <span class="loading loading-spinner loading-xs"></span>
-                                    生成中 85%
-                                </div>
-                                <div class="flex gap-1">
-                                    <button
-                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task">
-                                        <i class="ri-close-circle-line text-lg"></i>
-                                        取消任务
-                                    </button>
-                                    <div class="dropdown dropdown-end">
-                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
-                                            <i class="ri-more-2-fill text-lg"></i>
+
+                            <!-- Asset Selectors -->
+                            <div class="grid grid-cols-1 gap-4 mb-4">
+                                <!-- Character Selector -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">角色:</span>
+                                    </label>
+                                    <div class="dropdown dropdown-bottom w-full">
+                                        <div tabindex="0" role="button"
+                                            class="btn btn-outline justify-between w-full font-normal">
+                                            <div id="selected_character"
+                                                class="flex items-center gap-2 overflow-hidden truncate">
+                                                <span>选择角色</span>
+                                            </div>
+                                            <i class="ri-arrow-down-s-line text-lg"></i>
                                         </div>
                                         <ul tabindex="0"
-                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
-                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
-                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                            class="dropdown-content z-30 menu p-2 shadow-xl bg-base-100 rounded-box w-full border border-base-200 mt-1 asset-selector-content">
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('character', '林晓雪', 'https://picsum.photos/100/100?random=101')">
+                                                    <img src="https://picsum.photos/100/100?random=101" alt="">
+                                                    <span class="font-medium">林晓雪</span></a>
+                                            </li>
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('character', '陈浩然', 'https://picsum.photos/100/100?random=102')">
+                                                    <img src="https://picsum.photos/100/100?random=102" alt="">
+                                                    <span class="font-medium">陈浩然</span></a>
+                                            </li>
                                         </ul>
                                     </div>
+                                </div>
+
+                                <!-- Scene Selector -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">场景:</span>
+                                    </label>
+                                    <div class="dropdown dropdown-bottom w-full">
+                                        <div tabindex="0" role="button"
+                                            class="btn btn-outline justify-between w-full font-normal">
+                                            <div id="selected_scene"
+                                                class="flex items-center gap-2 overflow-hidden truncate">
+                                                <span>选择场景</span>
+                                            </div>
+                                            <i class="ri-arrow-down-s-line text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-30 menu p-2 shadow-xl bg-base-100 rounded-box w-full border border-base-200 mt-1 asset-selector-content">
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('scene', '赛博朋克街道', 'https://picsum.photos/100/100?random=201')">
+                                                    <img src="https://picsum.photos/100/100?random=201" alt="">
+                                                    <span class="font-medium">赛博朋克街道</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Goods Selector -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">物品:</span>
+                                    </label>
+                                    <div class="dropdown dropdown-bottom w-full">
+                                        <div tabindex="0" role="button"
+                                            class="btn btn-outline justify-between w-full font-normal">
+                                            <div id="selected_goods"
+                                                class="flex items-center gap-2 overflow-hidden truncate">
+                                                <span>选择物品</span>
+                                            </div>
+                                            <i class="ri-arrow-down-s-line text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-30 menu p-2 shadow-xl bg-base-100 rounded-box w-full border border-base-200 mt-1 asset-selector-content">
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('goods', '智能手机', 'https://picsum.photos/100/100?random=301')">
+                                                    <img src="https://picsum.photos/100/100?random=301" alt="">
+                                                    <span class="font-medium">智能手机</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Control Images (Pose & Effect) -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">姿态:</span>
+                                    </label>
+                                    <div id="pose_drop_area"
+                                        class="border-2 border-dashed border-base-300 rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer bg-base-50">
+                                        <i class="ri-upload-cloud-line text-3xl text-base-content/40 mb-2"></i>
+                                        <p class="text-xs text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                                        <input type="file" id="pose_file" class="hidden" accept="image/*" />
+                                    </div>
+                                    <div id="pose_preview"
+                                        class="hidden mt-2 relative w-full h-32 rounded-lg overflow-hidden border border-base-300">
+                                        <img src="" class="w-full h-full object-cover">
+                                        <button class="btn btn-circle btn-xs btn-error absolute top-1 right-1"
+                                            onclick="clearUpload('pose')">✕</button>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">特效:</span>
+                                    </label>
+                                    <div id="effect_drop_area"
+                                        class="border-2 border-dashed border-base-300 rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer bg-base-50">
+                                        <i class="ri-upload-cloud-line text-3xl text-base-content/40 mb-2"></i>
+                                        <p class="text-xs text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                                        <input type="file" id="effect_file" class="hidden" accept="image/*" />
+                                    </div>
+                                    <div id="effect_preview"
+                                        class="hidden mt-2 relative w-full h-32 rounded-lg overflow-hidden border border-base-300">
+                                        <img src="" class="w-full h-full object-cover">
+                                        <button class="btn btn-circle btn-xs btn-error absolute top-1 right-1"
+                                            onclick="clearUpload('effect')">✕</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Prompt -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">提示词:</span>
+                                </label>
+                                <textarea class="textarea textarea-bordered h-24"
+                                    placeholder="请输入用于生成图片的提示词，支持中英文。"></textarea>
+                            </div>
+
+                            <!-- Dimension Settings -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">尺寸类型:</span>
+                                    </label>
+                                    <select class="select select-bordered w-full">
+                                        <option>分辨率方式 (Resolution)</option>
+                                        <option>像素方式 (Pixels)</option>
+                                    </select>
+                                </div>
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">分辨率:</span>
+                                    </label>
+                                    <select class="select select-bordered w-full">
+                                        <option>4K Ultra HD</option>
+                                        <option selected>2K QHD</option>
+                                        <option>1080P FHD</option>
+                                        <option>720P HD</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Fusion Card 6 -->
-                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure><img src="https://picsum.photos/400/300?random=406" alt="融合生图缩略图"
-                                class="w-full h-48 object-cover" /></figure>
-                        <div class="card-body p-4">
-                            <h3 class="card-title text-base mb-2">创意融合图</h3>
-                            <div class="mb-2 flex gap-1 flex-wrap">
-                                <span class="badge badge-primary badge-sm">Flux-Pro</span>
-                                <span class="badge badge-outline badge-sm">4K (3840x2160)</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center gap-2">
-                                    <div class="avatar">
-                                        <div class="w-6 rounded-full">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emma"
-                                                alt="用户头像" />
-                                        </div>
-                                    </div>
-                                    <div class="text-xs font-medium">赵志强</div>
+                        <input type="radio" name="fusion_tabs" role="tab" class="tab" aria-label="上传" />
+                        <div role="tabpanel" class="tab-content pt-4 min-h-[400px]">
+                            <!-- Upload Tab Content -->
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text">上传图片:</span>
+                                </label>
+                                <div id="fusion_upload_drop_area"
+                                    class="border-2 border-dashed border-base-300 rounded-lg p-12 text-center hover:border-primary transition-colors cursor-pointer bg-base-50">
+                                    <i class="ri-upload-cloud-line text-5xl text-base-content/40 mb-3"></i>
+                                    <p class="text-sm text-base-content/60 font-medium">拖拽或点击上传融合生图</p>
+                                    <p class="text-xs text-base-content/40 mt-1">支持 JPG, PNG, WebP 格式</p>
+                                    <input type="file" id="fusion_upload_file" class="hidden" accept="image/*" />
                                 </div>
-                                <div class="text-xs text-base-content/60">
-                                    <i class="ri-time-line"></i>5天前
-                                </div>
-                            </div>
-                            <div class="card-actions justify-between items-center mt-2">
-                                <div class="badge badge-success badge-sm gap-1">
-                                    <i class="ri-check-circle-fill"></i>
-                                    已完成
-                                </div>
-                                <div class="flex gap-1">
-                                    <button class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-download-line text-lg"></i>
+                                <div id="fusion_upload_preview"
+                                    class="hidden mt-4 relative w-full aspect-video rounded-xl overflow-hidden border-2 border-base-300 shadow-inner">
+                                    <img src="" class="w-full h-full object-contain bg-base-200">
+                                    <button class="btn btn-circle btn-sm btn-error absolute top-2 right-2 shadow-lg"
+                                        onclick="clearUpload('fusion_upload')">
+                                        <i class="ri-close-line text-lg"></i>
                                     </button>
-                                    <div class="dropdown dropdown-end">
-                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
-                                            <i class="ri-more-2-fill text-lg"></i>
-                                        </div>
-                                        <ul tabindex="0"
-                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
-                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
-                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Fixed Footer Actions -->
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <form method="dialog" class="flex justify-end gap-2">
+                    <button class="btn btn-ghost">取消</button>
+                    <div class="relative">
+                        <!-- Points Bubble -->
+                        <div id="fusion_points_tooltip" class="points-tooltip">
+                            <i class="ri-coin-fill text-[10px]"></i>
+                            80 积分
+                        </div>
+                        <button class="btn btn-primary gap-2">
+                            <i class="ri-magic-line text-lg"></i>
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    </dialog>
 
     <!-- Theme Toggle Script -->
     <script>
@@ -567,6 +799,78 @@
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
         });
+
+        // Asset Selection Handler
+        function selectAsset(type, name, imgUrl) {
+            const containerId = `selected_${type}`;
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <img src="${imgUrl}" class="w-8 h-8 rounded object-cover">
+                        <span class="font-medium">${name}</span>
+                    </div>
+                `;
+                // Close dropdown by blurring
+                document.activeElement.blur();
+            }
+        }
+
+        // File Upload Handlers (Pose & Effect)
+        function setupUpload(dropAreaId, fileInputId, previewId) {
+            const dropArea = document.getElementById(dropAreaId);
+            const fileInput = document.getElementById(fileInputId);
+            const preview = document.getElementById(previewId);
+
+            if (!dropArea || !fileInput || !preview) return;
+
+            dropArea.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleFile(file, dropArea, preview);
+            });
+
+            dropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropArea.classList.add('border-primary', 'bg-primary/5');
+            });
+
+            dropArea.addEventListener('dragleave', () => {
+                dropArea.classList.remove('border-primary', 'bg-primary/5');
+            });
+
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropArea.classList.remove('border-primary', 'bg-primary/5');
+                const file = e.dataTransfer.files[0];
+                if (file) handleFile(file, dropArea, preview);
+            });
+        }
+
+        function handleFile(file, dropArea, preview) {
+            if (!file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                preview.querySelector('img').src = e.target.result;
+                preview.classList.remove('hidden');
+                dropArea.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearUpload(type) {
+            const dropArea = document.getElementById(`${type}_drop_area`);
+            const preview = document.getElementById(`${type}_preview`);
+            const fileInput = document.getElementById(`${type}_file`);
+            fileInput.value = '';
+            preview.classList.add('hidden');
+            dropArea.classList.remove('hidden');
+        }
+
+        setupUpload('pose_drop_area', 'pose_file', 'pose_preview');
+        setupUpload('effect_drop_area', 'effect_file', 'effect_preview');
+        setupUpload('fusion_upload_drop_area', 'fusion_upload_file', 'fusion_upload_preview');
 
         // Cancel Task Confirmation with Overlay
         document.addEventListener('click', function (e) {
@@ -632,6 +936,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

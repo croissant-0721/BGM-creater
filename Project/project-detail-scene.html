@@ -226,7 +226,7 @@
                         <p class="text-base-content/60">管理和查看项目的所有场景</p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="btn btn-primary gap-2">
+                        <button class="btn btn-primary gap-2" onclick="add_scene_modal.showModal()">
                             <i class="ri-add-line"></i>
                             添加场景
                         </button>
@@ -452,6 +452,227 @@
         </div>
     </div>
 
+    <!-- Add Scene Modal -->
+    <dialog id="add_scene_modal" class="modal">
+        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh]">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto flex-1 no-scrollbar"
+                style="-ms-overflow-style: none; scrollbar-width: none;">
+                <style>
+                    .no-scrollbar::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* Points Tooltip */
+                    .points-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 10px);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #ff9900;
+                        color: white;
+                        padding: 2px 10px;
+                        border-radius: 20px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+                        animation: bounceIn 0.3s ease-out;
+                        z-index: 50;
+                    }
+
+                    .points-tooltip::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -4px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 5px solid #ff9900;
+                    }
+
+                    @keyframes bounceIn {
+                        0% {
+                            transform: translateY(5px) scale(0.9);
+                            opacity: 0;
+                        }
+
+                        50% {
+                            transform: translateY(-3px) scale(1.05);
+                            opacity: 1;
+                        }
+
+                        100% {
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+                </style>
+                <h3 class="font-bold text-lg mb-4">添加场景</h3>
+
+                <!-- Scene Information -->
+                <div class="mb-6">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">场景名称:</span>
+                        </label>
+                        <input type="text" placeholder="给目标起个名字" class="input input-bordered w-full" />
+                    </div>
+                </div>
+
+                <!-- Scene Generation Tabs -->
+                <div class="mb-6">
+                    <div role="tablist" class="tabs tabs-boxed bg-base-100 mb-4">
+                        <input type="radio" name="scene_tabs" role="tab" class="tab" aria-label="AI生成"
+                            checked="checked" />
+                        <div role="tabpanel" class="tab-content pt-4 min-h-[400px]">
+                            <!-- AI Generation Tab Content -->
+                            <!-- Model Selection -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">选择模型:</span>
+                                </label>
+                                <div class="flex gap-4">
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="model" class="radio radio-sm" value="seedream4.5" />
+                                        <span class="label-text">Seedream4.5</span>
+                                    </label>
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="model" class="radio radio-sm" value="seedream4.0" />
+                                        <span class="label-text">Seedream4.0</span>
+                                    </label>
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="model" class="radio radio-sm" value="seedream3.0"
+                                            checked />
+                                        <span class="label-text">Seedream3.0</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Prompt -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">提示词:</span>
+                                </label>
+                                <textarea class="textarea textarea-bordered h-24"
+                                    placeholder="输入人工生成图像的提示词，支持中英文。"></textarea>
+                            </div>
+
+                            <!-- Text Weight -->
+                            <div class="form-control mb-4" id="text_weight_container">
+                                <label class="label">
+                                    <span class="label-text flex items-center gap-1">
+                                        文本权重:
+                                        <div class="tooltip tooltip-right"
+                                            data-tip="模型输出结果与prompt的一致程度，生成图像的自由度，文稿为文本权重：值越大，模型自由度越小，与用户输入的提示词关系越强。">
+                                            <i class="ri-information-line text-base-content/60 cursor-help"></i>
+                                        </div>
+                                    </span>
+                                </label>
+                                <input type="number" placeholder="输入文本权重值(1-10，支持小数)，默认2.5"
+                                    class="input input-bordered w-full" min="1" max="10" step="0.1" value="2.5" />
+                            </div>
+
+                            <!-- Dimension Type -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">尺寸类型:</span>
+                                </label>
+                                <div class="flex gap-4">
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="dimension_type" class="radio radio-sm" value="pixel"
+                                            checked />
+                                        <span class="label-text">像素方式（指定生成图像的宽高像素值）</span>
+                                    </label>
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="dimension_type" class="radio radio-sm"
+                                            value="resolution" />
+                                        <span class="label-text">分辨率方式</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Resolution Selection -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">分辨率:</span>
+                                </label>
+                                <select id="resolution_select" class="select select-bordered w-full">
+                                    <!-- Options will be populated by JS -->
+                                </select>
+                            </div>
+
+                            <!-- Reference Image Upload -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">参考图:</span>
+                                    <span class="label-text-alt text-primary">(可上传最多10张图片，每张像素不超过 6000×6000 px，宽高比范围
+                                        [1/16,
+                                        16])</span>
+                                </label>
+
+                                <input type="file" id="scene_ref_image_file" class="hidden" accept="image/*" />
+
+                                <!-- Drag and Drop Area -->
+                                <div id="scene_drop_area"
+                                    class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                    <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                    <p class="text-sm text-base-content/60">拖动文件到此处或点击上传</p>
+                                    <p class="text-xs text-base-content/40 mt-1">支持 JPG、PNG、GIF 格式</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="radio" name="scene_tabs" role="tab" class="tab" aria-label="上传" />
+                        <div role="tabpanel" class="tab-content pt-4 min-h-[400px]">
+                            <!-- Upload Tab Content -->
+                            <!-- Upload Image -->
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text">上传图片:</span>
+                                </label>
+                                <input type="file" id="scene_upload_image_file" class="hidden" accept="image/*" />
+
+                                <!-- Drag and Drop Area -->
+                                <div id="scene_upload_drop_area"
+                                    class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                    <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                    <p class="text-sm text-base-content/60">拖动文件到此处或点击上传</p>
+                                    <p class="text-xs text-base-content/40 mt-1">支持 JPG、PNG、GIF 格式</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fixed Footer Actions -->
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <form method="dialog" class="flex justify-end gap-2">
+                    <button class="btn btn-ghost">取消</button>
+                    <div class="relative">
+                        <!-- Points Bubble -->
+                        <div id="scene_points_tooltip" class="points-tooltip">
+                            <i class="ri-coin-fill text-[10px]"></i>
+                            50 积分
+                        </div>
+                        <button class="btn btn-primary gap-2">
+                            <i class="ri-magic-line text-lg"></i>
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
     <!-- Theme Toggle Script -->
     <script>
         // Theme toggle functionality
@@ -533,6 +754,138 @@
                 overlay.classList.add('show');
             }
         });
+
+        // File Upload Handlers for Scene Modal
+        const sceneRefImageFile = document.getElementById('scene_ref_image_file');
+        const sceneUploadImageFile = document.getElementById('scene_upload_image_file');
+        const sceneDropArea = document.getElementById('scene_drop_area');
+        const sceneUploadDropArea = document.getElementById('scene_upload_drop_area');
+
+        // Drag and Drop functionality helper
+        function setupDragAndDrop(dropArea, fileInput) {
+            if (!dropArea || !fileInput) return;
+
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.add('border-primary', 'bg-primary/5');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.remove('border-primary', 'bg-primary/5');
+                }, false);
+            });
+
+            // Handle dropped files
+            dropArea.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                }
+            }, false);
+
+            // Handle click to open file dialog
+            dropArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+        }
+
+        // Initialize drag and drop for both tabs
+        setupDragAndDrop(sceneDropArea, sceneRefImageFile);
+        setupDragAndDrop(sceneUploadDropArea, sceneUploadImageFile);
+
+        // Resolution switching logic
+        const dimensionTypeRadios = document.querySelectorAll('input[name="dimension_type"]');
+        const resolutionSelect = document.getElementById('resolution_select');
+
+        const resolutionOptions = {
+            pixel: [
+                "1:1(2048x2048)",
+                "4:3(2304x1728)",
+                "3:4(1728x2304)",
+                "16:9(2560x1440)",
+                "9:16(1440x2560)",
+                "3:2(2496x1664)",
+                "2:3(1664x2496)",
+                "21:9(3024x1296)"
+            ],
+            resolution: [
+                "2K (2560x1440)",
+                "4K (3840x2160)"
+            ]
+        };
+
+        function updateResolutionOptions(type) {
+            if (!resolutionSelect) return;
+            resolutionSelect.innerHTML = '';
+            const options = resolutionOptions[type] || [];
+            options.forEach(opt => {
+                const option = document.createElement('option');
+                option.text = opt;
+                option.value = opt;
+                resolutionSelect.add(option);
+            });
+        }
+
+        dimensionTypeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                updateResolutionOptions(e.target.value);
+            });
+        });
+
+        // Model selection logic for Text Weight visibility
+        const modelRadios = document.querySelectorAll('input[name="model"]');
+        const textWeightContainer = document.getElementById('text_weight_container');
+
+        function updateTextWeightVisibility(model) {
+            if (!textWeightContainer) return;
+            textWeightContainer.style.display = (model === 'seedream3.0') ? 'flex' : 'none';
+        }
+
+        modelRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                updateTextWeightVisibility(e.target.value);
+            });
+        });
+
+        // Initialize on load
+        if (dimensionTypeRadios.length > 0) {
+            const checkedRadio = Array.from(dimensionTypeRadios).find(r => r.checked);
+            updateResolutionOptions(checkedRadio ? checkedRadio.value : 'pixel');
+        }
+        if (modelRadios.length > 0) {
+            const checkedModel = Array.from(modelRadios).find(r => r.checked);
+            updateTextWeightVisibility(checkedModel ? checkedModel.value : 'seedream3.0');
+        }
+        // Toggle Points Tooltip based on active tab
+        const sceneTabs = document.querySelectorAll('input[name="scene_tabs"]');
+        const scenePointsTooltip = document.getElementById('scene_points_tooltip');
+
+        sceneTabs.forEach((tab, index) => {
+            tab.addEventListener('change', () => {
+                if (scenePointsTooltip) {
+                    scenePointsTooltip.style.display = (index === 0) ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Initialize points visibility
+        if (sceneTabs.length > 0) {
+            const checkedTab = Array.from(sceneTabs).indexOf(Array.from(sceneTabs).find(t => t.checked));
+            if (scenePointsTooltip) {
+                scenePointsTooltip.style.display = (checkedTab === 0) ? 'block' : 'none';
+            }
+        }
     </script>
 </body>
 
