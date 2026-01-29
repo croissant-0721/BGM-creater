@@ -232,7 +232,7 @@
                         <p class="text-base-content/60">管理和查看项目的所有语音</p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="btn btn-primary gap-2">
+                        <button class="btn btn-primary gap-2" onclick="add_voice_modal.showModal()">
                             <i class="ri-add-line"></i>
                             添加语音
                         </button>
@@ -616,6 +616,423 @@
         </div>
     </div>
 
+    <!-- Add Voice Modal -->
+    <dialog id="add_voice_modal" class="modal">
+        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh]">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto no-scrollbar" style="-ms-overflow-style: none; scrollbar-width: none;">
+                <style>
+                    .no-scrollbar::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* Points Tooltip */
+                    .points-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 10px);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #ff9900;
+                        color: white;
+                        padding: 2px 10px;
+                        border-radius: 20px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+                        animation: bounceIn 0.3s ease-out;
+                        z-index: 50;
+                    }
+
+                    .points-tooltip::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -4px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 5px solid #ff9900;
+                    }
+
+                    @keyframes bounceIn {
+                        0% {
+                            transform: translateY(5px) scale(0.9);
+                            opacity: 0;
+                        }
+
+                        50% {
+                            transform: translateY(-3px) scale(1.05);
+                            opacity: 1;
+                        }
+
+                        100% {
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+
+                    /* Hint Box - Refined for better alignment */
+                    .hint-box {
+                        background: oklch(var(--wa) / 0.1);
+                        border: 1px solid oklch(var(--wa) / 0.15);
+                        padding: 0.6rem 0.75rem;
+                        border-radius: var(--rounded-btn, 0.5rem);
+                        font-size: 0.75rem;
+                        color: var(--fallback-bc, oklch(var(--bc)/.7));
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        margin-top: 0.25rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .hint-box i {
+                        color: oklch(var(--wa));
+                        font-size: 0.9rem;
+                    }
+
+                    /* Better badge integration */
+                    .slider-value-badge {
+                        @apply badge badge-primary badge-sm font-bold;
+                        border: none;
+                    }
+                </style>
+                <h3 class="font-bold text-lg mb-6">新增语音</h3>
+
+                <div class="space-y-6">
+                    <!-- Mission Name -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70">任务名称</span>
+                        </label>
+                        <input type="text" placeholder="为语音合成任务起个名称" class="input input-bordered w-full h-11 text-sm" />
+                    </div>
+
+                    <!-- Composite Text -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
+                                符合文本 <span class="text-error text-xs">*</span>
+                            </span>
+                        </label>
+                        <textarea class="textarea textarea-bordered w-full h-32 text-sm"
+                            placeholder="支持中英文混合输入,系统会自动识别语种,建议单次输入文本长度不超过2000字符"></textarea>
+
+                    </div>
+
+                    <!-- Model Version -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70">模型</span>
+                        </label>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="model_version" class="radio radio-sm radio-primary" value="v2"
+                                    checked />
+                                <span class="label-text">豆包语音合成模型2.0</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Voice Selection -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
+                                选择音色 <span class="text-error text-xs">*</span>
+                            </span>
+                        </label>
+                        <select class="select select-bordered w-full h-11 text-sm font-normal">
+                            <option disabled selected>请选择音色</option>
+                            <option>晨曦 - 磁性男声</option>
+                            <option>晓晓 - 活泼女声</option>
+                            <option>老铁 - 幽默北方话</option>
+                            <option>甜甜 - 亲切女声</option>
+                        </select>
+                    </div>
+
+                    <!-- Voice Audition -->
+                    <div class="form-control">
+                        <button
+                            class="btn btn-sm h-11 w-full md:w-fit px-6 rounded-full bg-cyan-500 border-none text-white hover:bg-cyan-600 gap-2 shadow-sm transition-all normal-case font-medium">
+                            <i class="ri-play-circle-line text-lg"></i>
+                            试听音色（比特率：64kbps, 采样率：24000HZ）
+                        </button>
+                    </div>
+
+                    <!-- Audio Format -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70">音频格式</span>
+                        </label>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="audio_format" class="radio radio-sm radio-primary" value="mp3"
+                                    checked />
+                                <span class="label-text">MP3通用格式</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="audio_format" class="radio radio-sm radio-primary"
+                                    value="wav" />
+                                <span class="label-text">WAV无损格式</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="audio_format" class="radio radio-sm radio-primary"
+                                    value="ogg" />
+                                <span class="label-text">OGG音频格式</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sample Rate -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70">采样率</span>
+                        </label>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="16000" />
+                                <span class="label-text">16000Hz 电话音质</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="24000" checked />
+                                <span class="label-text">24000Hz 高标准</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="44100" />
+                                <span class="label-text">44100Hz CD音质</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="48000" />
+                                <span class="label-text">48000Hz 顶级音质</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Bitrate -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70">比特率</span>
+                        </label>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="64" />
+                                <span class="label-text">64kbps 普通</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="96" />
+                                <span class="label-text">96kbps 良好</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="128"
+                                    checked />
+                                <span class="label-text">128kbps 标准</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="160" />
+                                <span class="label-text">160kbps 中等</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="192" />
+                                <span class="label-text">192kbps 良好</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="256" />
+                                <span class="label-text">256kbps 高质量</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="320" />
+                                <span class="label-text">320kbps 极致</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Parameters Settings -->
+                <details class="collapse collapse-arrow border border-base-300 bg-base-200/30 mt-4 rounded-xl">
+                    <summary class="collapse-title text-sm font-bold flex items-center gap-2 min-h-0 py-3">
+                        <i class="ri-settings-4-line text-primary"></i>
+                        高级参数设置
+                    </summary>
+                    <div class="collapse-content space-y-6 pt-2 pb-4">
+                        <!-- Speed -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">语速调节</span>
+                                <span class="slider-value-badge">0</span>
+                            </label>
+                            <input type="range" min="-50" max="100" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：-50 ~ 100，100代表2.0倍速，-50代表0.5倍速，默认为0</span>
+                            </div>
+                        </div>
+
+                        <!-- Volume -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">音量调节</span>
+                                <span class="slider-value-badge">0</span>
+                            </label>
+                            <input type="range" min="-50" max="100" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：-50 ~ 100，100代表2.0倍音量，-50代表0.5倍音量，默认为0</span>
+                            </div>
+                        </div>
+
+                        <!-- Pitch -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">音调调节</span>
+                                <span class="slider-value-badge">0</span>
+                            </label>
+                            <input type="range" min="-12" max="12" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：-12 到 12，正值提高音调，负值降低音调，0为保持原始音调。</span>
+                            </div>
+                        </div>
+
+                        <!-- Emotion Style & Intensity -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">情感风格</span>
+                            </label>
+                            <select class="select select-bordered w-full h-11 text-sm font-normal">
+                                <option selected>默认</option>
+                                <option>开心</option>
+                                <option>悲伤</option>
+                                <option>愤怒</option>
+                            </select>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>当前仅部分音色支持设置情感，且不同音色支持的情感范围不同</span>
+                            </div>
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">情感强度</span>
+                                <span class="slider-value-badge">4</span>
+                            </label>
+                            <div class="flex flex-col gap-2 mt-2">
+                                <input type="range" min="1" max="6" value="4" class="range range-primary range-xs"
+                                    oninput="this.parentElement.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            </div>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>当前仅部分音色支持情感设置。情感强度范围 1~6，默认 4。</span>
+                            </div>
+                        </div>
+
+
+                        <!-- End Silence -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">句尾静音</span>
+                                <span class="slider-value-badge">0ms</span>
+                            </label>
+                            <input type="range" min="0" max="3000" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value + 'ms'" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：0~3000ms，默认为0ms。在文本最后的结尾处增加静音时长。</span>
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="divider"></div>
+
+                        <!-- Language Settings -->
+                        <div class="form-control">
+                            <label class="label justify-start gap-4 cursor-pointer">
+                                <input type="checkbox" class="toggle toggle-primary toggle-sm" checked />
+                                <span class="label-text font-medium text-base-content/70 text-xs">自动识别语种</span>
+                            </label>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>启用后系统会自动识别文本语种，建议在混合语言文本时开启</span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">明确语种</span>
+                            </label>
+                            <select class="select select-bordered w-full h-11 text-sm font-normal">
+                                <option selected>自动识别 (Auto)</option>
+                                <option>中文 (ZH)</option>
+                                <option>英文 (EN)</option>
+                            </select>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>仅读指定语种的文本</span>
+                            </div>
+                        </div>
+
+                        <!-- Reference Language -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">参考语种</span>
+                            </label>
+                            <select class="select select-bordered w-full h-11 text-sm font-normal">
+                                <option selected>不指定 - 包含主流多国语言</option>
+                                <option>中德西荷特英葡语等</option>
+                            </select>
+                        </div>
+
+                        <!-- Filter Content -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">过滤标点内容</span>
+                                <span class="slider-value-badge">100</span>
+                            </label>
+                            <input type="range" min="0" max="100" value="100" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>是否过滤标点旁的内容，0为不过滤，100为全过滤</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Fixed Footer Actions -->
+            <div
+                class="p-4 px-6 border-t border-base-200 bg-base-100/90 backdrop-blur rounded-b-box flex justify-end items-center gap-3">
+                <form method="dialog">
+                    <button class="btn btn-ghost px-6 font-medium">重置</button>
+                </form>
+                <div class="relative">
+                    <!-- Points Bubble -->
+                    <div id="voice_points_tooltip" class="points-tooltip">
+                        <i class="ri-coin-fill text-[10px]"></i>
+                        20 积分
+                    </div>
+                    <button type="submit" form="add_voice_form"
+                        class="btn btn-primary px-10 gap-2 shadow-lg shadow-primary/20 font-bold">
+                        <i class="ri-magic-line text-lg"></i>
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
     <!-- Theme Toggle Script -->
     <script>
         // Theme toggle functionality
@@ -632,6 +1049,15 @@
             const newTheme = this.checked ? 'dark' : 'light';
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+        });
+
+        // Tabs selection
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                const group = this.parentElement;
+                group.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-active'));
+                this.classList.add('tab-active');
+            });
         });
 
         // Cancel Task Confirmation with Overlay

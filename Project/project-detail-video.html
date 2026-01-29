@@ -247,7 +247,7 @@
                         <button id="cancel-selection" class="btn btn-ghost gap-2 hidden">
                             取消
                         </button>
-                        <button class="btn btn-primary gap-2">
+                        <button class="btn btn-primary gap-2" onclick="add_video_modal.showModal()">
                             <i class="ri-add-line"></i>
                             添加视频
                         </button>
@@ -772,8 +772,1785 @@
         </div>
     </div>
 
-    <!-- Theme Toggle Script -->
+    <!-- Add Video Modal -->
+    <dialog id="add_video_modal" class="modal">
+        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh]">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto flex-1 no-scrollbar"
+                style="-ms-overflow-style: none; scrollbar-width: none;">
+                <style>
+                    .no-scrollbar::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* Points Tooltip */
+                    .points-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 10px);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #ff9900;
+                        color: white;
+                        padding: 2px 10px;
+                        border-radius: 20px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+                        animation: bounceIn 0.3s ease-out;
+                        z-index: 50;
+                    }
+
+                    .points-tooltip::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -4px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 5px solid #ff9900;
+                    }
+
+                    @keyframes bounceIn {
+                        0% {
+                            transform: translateY(5px) scale(0.9);
+                            opacity: 0;
+                        }
+
+                        50% {
+                            transform: translateY(-3px) scale(1.05);
+                            opacity: 1;
+                        }
+
+                        100% {
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+
+                    /* Config Section Display Control */
+                    .config-section {
+                        display: none;
+                    }
+
+                    .config-section.active {
+                        display: block;
+                    }
+                </style>
+                <h3 class="font-bold text-lg mb-4">添加视频</h3>
+
+                <!-- Video Information -->
+                <div class="mb-6">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">视频名称:</span>
+                        </label>
+                        <input type="text" placeholder="给目标起个名字" class="input input-bordered w-full" />
+                    </div>
+                </div>
+
+                <!-- Model Selection -->
+                <div class="form-control mb-6">
+                    <label class="label">
+                        <span class="label-text">选择模型:</span>
+                    </label>
+                    <div class="flex flex-row flex-wrap gap-3">
+                        <label class="label cursor-pointer gap-2 justify-start">
+                            <input type="radio" name="video_model" class="radio radio-sm" value="sora2" checked />
+                            <span class="label-text">Sora2</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 justify-start">
+                            <input type="radio" name="video_model" class="radio radio-sm" value="seedance15pro" />
+                            <span class="label-text">Seedance 1.5 Pro</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 justify-start">
+                            <input type="radio" name="video_model" class="radio radio-sm" value="seedance10pro" />
+                            <span class="label-text">Seedance 1.0 Pro</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 justify-start">
+                            <input type="radio" name="video_model" class="radio radio-sm" value="seedance10profast" />
+                            <span class="label-text">Seedance 1.0 Pro Fast</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Generation Type Selection (联动选项) -->
+                <div class="form-control mb-6" id="generation_type_section">
+                    <label class="label">
+                        <span class="label-text">生成类型:</span>
+                    </label>
+                    <div class="flex flex-row flex-wrap gap-3">
+                        <label class="label cursor-pointer gap-2 justify-start" id="type_text_to_video">
+                            <input type="radio" name="generation_type" class="radio radio-sm" value="text" checked />
+                            <span class="label-text">文生视频</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 justify-start" id="type_image_to_video">
+                            <input type="radio" name="generation_type" class="radio radio-sm" value="image" />
+                            <span class="label-text">图生视频</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 justify-start" id="type_frame_to_video">
+                            <input type="radio" name="generation_type" class="radio radio-sm" value="frame" />
+                            <span class="label-text">首尾帧视频</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Video Generation Tabs -->
+
+                <!-- Config Sections Container -->
+                <div id="model_config_container">
+                    <!-- Sora2 Common Fields (Reused or separate) -->
+
+                    <!-- Sora2：文生视频 -->
+                    <div class="config-section active" data-model="sora2_text">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_duration" class="radio radio-sm" value="10s" />
+                                    <span class="label-text">10s</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_duration" class="radio radio-sm" value="15s"
+                                        checked />
+                                    <span class="label-text">15s</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_res" class="radio radio-sm" value="720p"
+                                        checked />
+                                    <span class="label-text">720p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9(横屏)</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16(竖屏)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">服务线路:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_line" class="radio radio-sm" value="K" />
+                                    <span class="label-text">K线路</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_line" class="radio radio-sm" value="A"
+                                        checked />
+                                    <span class="label-text">A线路</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_text_line" class="radio radio-sm" value="A"
+                                        checked />
+                                    <span class="label-text">R线路</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sora2：图生视频 -->
+                    <div class="config-section" data-model="sora2_image">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">融合图:</span>
+                            </label>
+                            <!-- Custom Image Selector -->
+                            <div class="dropdown dropdown-bottom w-full">
+                                <div tabindex="0" role="button"
+                                    class="btn btn-outline w-full justify-between normal-case font-normal h-auto min-h-[3rem] py-2"
+                                    id="sora2_image_fusion_selector">
+                                    <span class="flex items-center gap-3" id="sora2_image_fusion_display">
+                                        <span class="text-base-content/60">请选择融合图</span>
+                                    </span>
+                                    <i class="ri-arrow-down-s-line text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-full mt-2 max-h-60 overflow-y-auto">
+                                    <li>
+                                        <a class="fusion-option" data-value="" data-name="请选择">
+                                            <span class="text-base-content/60">请选择</span>
+                                        </a>
+                                    </li>
+                                    <!-- 示例选项 - 实际使用时应该动态生成 -->
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image1"
+                                            data-name="风景图片 001">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/e0e7ff/4f46e5?text=IMG1"
+                                                        alt="风景图片 001" />
+                                                </div>
+                                            </div>
+                                            <span>风景图片 001</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image2"
+                                            data-name="人物图片 002">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/fef3c7/f59e0b?text=IMG2"
+                                                        alt="人物图片 002" />
+                                                </div>
+                                            </div>
+                                            <span>人物图片 002</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image3"
+                                            data-name="建筑图片 003">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/dbeafe/3b82f6?text=IMG3"
+                                                        alt="建筑图片 003" />
+                                                </div>
+                                            </div>
+                                            <span>建筑图片 003</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input type="hidden" id="sora2_image_fusion_value" name="sora2_image_fusion" value="" />
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">参考图片:</span>
+                            </label>
+                            <input type="file" id="sora2_image_file" class="hidden" accept="image/*" />
+                            <div id="sora2_image_drop"
+                                class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-24"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_duration" class="radio radio-sm"
+                                        value="10s" />
+                                    <span class="label-text">10s</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_duration" class="radio radio-sm" value="15s"
+                                        checked />
+                                    <span class="label-text">15s</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_res" class="radio radio-sm" value="720p"
+                                        checked />
+                                    <span class="label-text">720p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9(横屏)</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16(竖屏)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">服务线路:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_line" class="radio radio-sm" value="R" />
+                                    <span class="label-text">R线路</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_line" class="radio radio-sm" value="K" />
+                                    <span class="label-text">K线路</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sora2_image_line" class="radio radio-sm" value="A"
+                                        checked />
+                                    <span class="label-text">A线路</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.5pro：文生视频 -->
+                    <div class="config-section" data-model="seedance15pro_text">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd15_text_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd15_text_duration_slider" name="sd15_text_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_res" class="radio radio-sm" value="720p"
+                                        checked />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">有声:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_audio" class="radio radio-sm" value="yes" />
+                                    <span class="label-text">是</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_audio" class="radio radio-sm" value="no"
+                                        checked />
+                                    <span class="label-text">否</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_ratio" class="radio radio-sm" value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_ratio" class="radio radio-sm" value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_ratio" class="radio radio-sm" value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_text_ratio" class="radio radio-sm" value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.5pro：首尾帧 -->
+                    <div class="config-section" data-model="seedance15pro_frame">
+                        <!-- Start Frame -->
+                        <div class="bg-base-100/50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium mb-3">首帧:</h4>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">融合图:</span>
+                                </label>
+                                <select class="select select-bordered w-full">
+                                    <option selected>请选择</option>
+                                </select>
+                            </div>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">上传图片:</span>
+                                </label>
+                                <input type="file" id="sd15_frame_start_file" class="hidden" accept="image/*" />
+                                <div id="sd15_frame_start_drop"
+                                    class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                    <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                    <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End Frame -->
+                        <div class="bg-base-100/50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium mb-3">尾帧:</h4>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">融合图:</span>
+                                </label>
+                                <select class="select select-bordered w-full">
+                                    <option selected>请选择</option>
+                                </select>
+                            </div>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">上传图片:</span>
+                                </label>
+                                <input type="file" id="sd15_frame_end_file" class="hidden" accept="image/*" />
+                                <div id="sd15_frame_end_drop"
+                                    class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                    <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                    <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd15_text_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd15_text_duration_slider" name="sd15_text_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_frame_res" class="radio radio-sm" value="720p"
+                                        checked />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_frame_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">有声:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_frame_audio" class="radio radio-sm" value="yes" />
+                                    <span class="label-text">是</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_frame_audio" class="radio radio-sm" value="no"
+                                        checked />
+                                    <span class="label-text">否</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.5pro：图生视频 -->
+                    <div class="config-section" data-model="seedance15pro_image">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">融合图:</span>
+                            </label>
+                            <!-- Custom Image Selector -->
+                            <div class="dropdown dropdown-bottom w-full">
+                                <div tabindex="0" role="button"
+                                    class="btn btn-outline w-full justify-between normal-case font-normal h-auto min-h-[3rem] py-2"
+                                    id="sd15_image_fusion_selector">
+                                    <span class="flex items-center gap-3" id="sd15_image_fusion_display">
+                                        <span class="text-base-content/60">请选择融合图</span>
+                                    </span>
+                                    <i class="ri-arrow-down-s-line text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-full mt-2 max-h-60 overflow-y-auto">
+                                    <li>
+                                        <a class="fusion-option" data-value="" data-name="请选择">
+                                            <span class="text-base-content/60">请选择</span>
+                                        </a>
+                                    </li>
+                                    <!-- 示例选项 -->
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image1"
+                                            data-name="风景图片 001">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/e0e7ff/4f46e5?text=IMG1"
+                                                        alt="风景图片 001" />
+                                                </div>
+                                            </div>
+                                            <span>风景图片 001</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image2"
+                                            data-name="人物图片 002">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/fef3c7/f59e0b?text=IMG2"
+                                                        alt="人物图片 002" />
+                                                </div>
+                                            </div>
+                                            <span>人物图片 002</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input type="hidden" id="sd15_image_fusion_value" name="sd15_image_fusion" value="" />
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">参考图片:</span>
+                            </label>
+                            <input type="file" id="sd15_image_file" class="hidden" accept="image/*" />
+                            <div id="sd15_image_drop"
+                                class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd15_text_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd15_text_duration_slider" name="sd15_text_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_res" class="radio radio-sm" value="720p"
+                                        checked />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd15_image_ratio" class="radio radio-sm" value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.0Pro：文生视频 -->
+                    <div class="config-section" data-model="seedance10pro_text">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd10_text_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd10_text_duration_slider" name="sd10_text_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_res" class="radio radio-sm" value="720p"
+                                        checked />
+                                    <span class="label-text">1080p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_ratio" class="radio radio-sm" value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_ratio" class="radio radio-sm" value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_ratio" class="radio radio-sm" value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_text_ratio" class="radio radio-sm" value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.0Pro：图生视频 -->
+                    <div class="config-section" data-model="seedance10pro_image">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">融合图:</span>
+                            </label>
+                            <!-- Custom Image Selector -->
+                            <div class="dropdown dropdown-bottom w-full">
+                                <div tabindex="0" role="button"
+                                    class="btn btn-outline w-full justify-between normal-case font-normal h-auto min-h-[3rem] py-2"
+                                    id="sd10_image_fusion_selector">
+                                    <span class="flex items-center gap-3" id="sd10_image_fusion_display">
+                                        <span class="text-base-content/60">请选择融合图</span>
+                                    </span>
+                                    <i class="ri-arrow-down-s-line text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-full mt-2 max-h-60 overflow-y-auto">
+                                    <li>
+                                        <a class="fusion-option" data-value="" data-name="请选择">
+                                            <span class="text-base-content/60">请选择</span>
+                                        </a>
+                                    </li>
+                                    <!-- 示例选项 -->
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image1"
+                                            data-name="风景图片 001">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/e0e7ff/4f46e5?text=IMG1"
+                                                        alt="风景图片 001" />
+                                                </div>
+                                            </div>
+                                            <span>风景图片 001</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image2"
+                                            data-name="人物图片 002">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/fef3c7/f59e0b?text=IMG2"
+                                                        alt="人物图片 002" />
+                                                </div>
+                                            </div>
+                                            <span>人物图片 002</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input type="hidden" id="sd10_image_fusion_value" name="sd10_image_fusion" value="" />
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">参考图片:</span>
+                            </label>
+                            <input type="file" id="sd10_image_file" class="hidden" accept="image/*" />
+                            <div id="sd10_image_drop"
+                                class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd10_image_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd10_image_duration_slider" name="sd10_image_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_res" class="radio radio-sm" value="1080p"
+                                        checked />
+                                    <span class="label-text">1080p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_res" class="radio radio-sm" value="720p" />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_ratio" class="radio radio-sm" value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_ratio" class="radio radio-sm" value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_ratio" class="radio radio-sm" value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_image_ratio" class="radio radio-sm" value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.0Pro：首尾帧 -->
+                    <div class="config-section" data-model="seedance10pro_frame">
+                        <!-- Start Frame -->
+                        <div class="bg-base-100/50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium mb-3">首帧:</h4>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">融合图:</span>
+                                </label>
+                                <select class="select select-bordered w-full">
+                                    <option selected>请选择</option>
+                                </select>
+                            </div>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">上传图片:</span>
+                                </label>
+                                <input type="file" id="sd10_frame_start_file" class="hidden" accept="image/*" />
+                                <div id="sd10_frame_start_drop"
+                                    class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                    <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                    <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End Frame -->
+                        <div class="bg-base-100/50 p-4 rounded-lg mb-4">
+                            <h4 class="font-medium mb-3">尾帧:</h4>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">融合图:</span>
+                                </label>
+                                <select class="select select-bordered w-full">
+                                    <option selected>请选择</option>
+                                </select>
+                            </div>
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">上传图片:</span>
+                                </label>
+                                <input type="file" id="sd10_frame_end_file" class="hidden" accept="image/*" />
+                                <div id="sd10_frame_end_drop"
+                                    class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                    <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                    <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd10_frame_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd10_frame_duration_slider" name="sd10_frame_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_res" class="radio radio-sm" value="1080p"
+                                        checked />
+                                    <span class="label-text">1080p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_res" class="radio radio-sm" value="720p" />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_ratio" class="radio radio-sm" value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_ratio" class="radio radio-sm" value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_ratio" class="radio radio-sm" value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_ratio" class="radio radio-sm" value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10_frame_ratio" class="radio radio-sm" value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.0ProFast：文生视频 -->
+                    <div class="config-section" data-model="seedance10profast_text">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd10fast_text_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd10fast_text_duration_slider" name="sd10fast_text_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_res" class="radio radio-sm" value="1080p"
+                                        checked />
+                                    <span class="label-text">1080p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_res" class="radio radio-sm" value="720p" />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_ratio" class="radio radio-sm" value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_ratio" class="radio radio-sm" value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_ratio" class="radio radio-sm" value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_ratio" class="radio radio-sm"
+                                        value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_text_ratio" class="radio radio-sm"
+                                        value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seedance1.0ProFast：图生视频 -->
+                    <div class="config-section" data-model="seedance10profast_image">
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">融合图:</span>
+                            </label>
+                            <!-- Custom Image Selector -->
+                            <div class="dropdown dropdown-bottom w-full">
+                                <div tabindex="0" role="button"
+                                    class="btn btn-outline w-full justify-between normal-case font-normal h-auto min-h-[3rem] py-2"
+                                    id="sd10fast_image_fusion_selector">
+                                    <span class="flex items-center gap-3" id="sd10fast_image_fusion_display">
+                                        <span class="text-base-content/60">请选择融合图</span>
+                                    </span>
+                                    <i class="ri-arrow-down-s-line text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-full mt-2 max-h-60 overflow-y-auto">
+                                    <li>
+                                        <a class="fusion-option" data-value="" data-name="请选择">
+                                            <span class="text-base-content/60">请选择</span>
+                                        </a>
+                                    </li>
+                                    <!-- 示例选项 -->
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image1"
+                                            data-name="风景图片 001">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/e0e7ff/4f46e5?text=IMG1"
+                                                        alt="风景图片 001" />
+                                                </div>
+                                            </div>
+                                            <span>风景图片 001</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="fusion-option flex items-center gap-3" data-value="image2"
+                                            data-name="人物图片 002">
+                                            <div class="avatar">
+                                                <div class="w-12 h-12 rounded">
+                                                    <img src="https://placehold.co/100x100/fef3c7/f59e0b?text=IMG2"
+                                                        alt="人物图片 002" />
+                                                </div>
+                                            </div>
+                                            <span>人物图片 002</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input type="hidden" id="sd10fast_image_fusion_value" name="sd10fast_image_fusion"
+                                value="" />
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">参考图片:</span>
+                            </label>
+                            <input type="file" id="sd10fast_image_file" class="hidden" accept="image/*" />
+                            <div id="sd10fast_image_drop"
+                                class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                                <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
+                                <p class="text-sm text-base-content/60">将图片拖拽到此处上传，或点击选择文件</p>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">提示词:</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-32"
+                                placeholder="请输入用于生成视频的提示词，支持中英文。"></textarea>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">视频时长:</span>
+                                <span class="label-text-alt text-primary font-semibold"
+                                    id="sd10fast_image_duration_value">5s</span>
+                            </label>
+                            <input type="range" min="2" max="12" value="5" class="range range-primary range-sm"
+                                id="sd10fast_image_duration_slider" name="sd10fast_image_duration" />
+                            <div class="w-full flex justify-between text-xs px-2 mt-1 text-base-content/60">
+                                <span>2s</span>
+                                <span>12s</span>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">分辨率:</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_res" class="radio radio-sm" value="1080p"
+                                        checked />
+                                    <span class="label-text">1080p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_res" class="radio radio-sm" value="720p" />
+                                    <span class="label-text">720p</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_res" class="radio radio-sm" value="480p" />
+                                    <span class="label-text">480p</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">宽高比例:</span>
+                            </label>
+                            <div class="flex gap-4 flex-wrap">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_ratio" class="radio radio-sm" value="16:9"
+                                        checked />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">16:9（横屏标准）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_ratio" class="radio radio-sm"
+                                        value="4:3" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">4:3（传统比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_ratio" class="radio radio-sm"
+                                        value="1:1" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">1:1（正方形）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_ratio" class="radio radio-sm"
+                                        value="3:4" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                        <span class="label-text">3:4（竖屏比例）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_ratio" class="radio radio-sm"
+                                        value="9:16" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">9:16（手机竖屏）</span>
+                                    </div>
+                                </label>
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="sd10fast_image_ratio" class="radio radio-sm"
+                                        value="21:9" />
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10">
+                                        </div>
+                                        <span class="label-text">21:9（超宽屏）</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fallback for other models - simple template -->
+                    <div class="config-section" data-model="fallback">
+                        <div class="form-row">
+                            <label class="form-label font-medium">提示词：</label>
+                            <div class="form-control-wrap">
+                                <textarea class="textarea textarea-bordered w-full h-32"
+                                    placeholder="请输入用于生成视频的提示词..."></textarea>
+                            </div>
+                        </div>
+                        <div class="p-8 text-center text-base-content/40 italic">
+                            该模型的详细配置项正在完善中...
+                        </div>
+                    </div>
+                </div> <!-- closes model_config_container -->
+            </div> <!-- closes scrollable body -->
+
+
+            <!-- Fixed Footer Actions -->
+            <div
+                class="modal-action mt-0 p-4 px-8 border-t border-base-200 bg-base-100 rounded-b-box flex justify-end items-center gap-3">
+                <form method="dialog" class="flex items-center gap-3">
+                    <button type="button" class="btn btn-ghost px-8" onclick="this.closest('form').reset()">重置</button>
+                    <div class="relative">
+                        <!-- Points Bubble -->
+                        <div id="video_points_tooltip" class="points-tooltip">
+                            <i class="ri-coin-fill text-[10px]"></i>
+                            <span>100</span> 积分
+                        </div>
+                        <button type="submit" class="btn btn-primary px-10 gap-2">
+                            <i class="ri-magic-line text-lg"></i>
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Scripts Area -->
     <script>
+        // Drag and Drop functionality helper
+        function setupDragAndDrop(dropAreaId, fileInputId) {
+            const dropArea = document.getElementById(dropAreaId);
+            const fileInput = document.getElementById(fileInputId);
+            if (!dropArea || !fileInput) return;
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.add('border-primary', 'bg-primary/5');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.remove('border-primary', 'bg-primary/5');
+                }, false);
+            });
+
+            dropArea.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    // Trigger a visual feedback or toast
+                    const toast = document.createElement('div');
+                    toast.className = 'toast toast-top toast-center z-[100]';
+                    toast.innerHTML = `<div class="alert alert-success shadow-lg"><span>已选择: ${files[0].name}</span></div>`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2000);
+                }
+            }, false);
+
+            dropArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    const toast = document.createElement('div');
+                    toast.className = 'toast toast-top toast-center z-[100]';
+                    toast.innerHTML = `<div class="alert alert-success shadow-lg"><span>已选择: ${fileInput.files[0].name}</span></div>`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2000);
+                }
+            });
+        }
+
+        // Initialize drag and drop for all areas
+        const dragDropConfigs = [
+            { drop: 'sora2_image_drop', input: 'sora2_image_file' },
+            { drop: 'sd15_image_drop', input: 'sd15_image_file' },
+            { drop: 'sd15_frame_start_drop', input: 'sd15_frame_start_file' },
+            { drop: 'sd15_frame_end_drop', input: 'sd15_frame_end_file' },
+            { drop: 'sd10_image_drop', input: 'sd10_image_file' },
+            { drop: 'sd10_frame_start_drop', input: 'sd10_frame_start_file' },
+            { drop: 'sd10_frame_end_drop', input: 'sd10_frame_end_file' },
+            { drop: 'sd10fast_image_drop', input: 'sd10fast_image_file' }
+        ];
+
+        dragDropConfigs.forEach(config => {
+            setupDragAndDrop(config.drop, config.input);
+        });
+
+        // Model and Generation Type Linkage Logic
+        const videoModelRadios = document.querySelectorAll('input[name="video_model"]');
+        const generationTypeRadios = document.querySelectorAll('input[name="generation_type"]');
+        const typeTextToVideo = document.getElementById('type_text_to_video');
+        const typeImageToVideo = document.getElementById('type_image_to_video');
+        const typeFrameToVideo = document.getElementById('type_frame_to_video');
+        const addVideoModal = document.getElementById('add_video_modal');
+
+        // 定义每个模型支持的生成类型
+        const modelCapabilities = {
+            'sora2': ['text', 'image'],
+            'seedance15pro': ['text', 'image', 'frame'],
+            'seedance10pro': ['text', 'image', 'frame'],
+            'seedance10profast': ['text', 'image']
+        };
+
+        // 更新生成类型选项的可用性
+        function updateGenerationTypeOptions(selectedModel) {
+            const capabilities = modelCapabilities[selectedModel] || ['text', 'image'];
+
+            // 显示/隐藏选项
+            if (typeTextToVideo) typeTextToVideo.style.display = capabilities.includes('text') ? 'flex' : 'none';
+            if (typeImageToVideo) typeImageToVideo.style.display = capabilities.includes('image') ? 'flex' : 'none';
+            if (typeFrameToVideo) typeFrameToVideo.style.display = capabilities.includes('frame') ? 'flex' : 'none';
+
+            // 如果当前选中的类型不可用，自动选择第一个可用的
+            const currentType = document.querySelector('input[name="generation_type"]:checked')?.value;
+            if (!capabilities.includes(currentType)) {
+                const firstAvailableType = capabilities[0];
+                const firstRadio = document.querySelector(`input[name="generation_type"][value="${firstAvailableType}"]`);
+                if (firstRadio) {
+                    firstRadio.checked = true;
+                    updateConfigSection(selectedModel, firstAvailableType);
+                }
+            } else {
+                updateConfigSection(selectedModel, currentType);
+            }
+        }
+
+        // 更新配置区域显示
+        function updateConfigSection(model, type) {
+            const configSections = document.querySelectorAll('.config-section');
+            configSections.forEach(s => s.classList.remove('active'));
+
+            const targetModel = `${model}_${type}`;
+            const targetSection = document.querySelector(`.config-section[data-model="${targetModel}"]`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                console.log('Showing config section:', targetModel);
+            } else {
+                console.warn('Config section not found:', targetModel);
+            }
+        }
+
+        // 监听模型选择变化
+        videoModelRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                const selectedModel = this.value;
+                updateGenerationTypeOptions(selectedModel);
+            });
+        });
+
+        // 监听生成类型选择变化
+        generationTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                const selectedModel = document.querySelector('input[name="video_model"]:checked')?.value || 'sora2';
+                const selectedType = this.value;
+                updateConfigSection(selectedModel, selectedType);
+            });
+        });
+
+        // 初始化函数
+        function initializeVideoModal() {
+            const initialModel = document.querySelector('input[name="video_model"]:checked')?.value || 'sora2';
+            updateGenerationTypeOptions(initialModel);
+        }
+
+        // 页面加载时初始化
+        initializeVideoModal();
+
+        // 监听模态框打开事件（如果支持）
+        if (addVideoModal) {
+            // 使用 MutationObserver 监听 modal 的 open 属性变化
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.attributeName === 'open' && addVideoModal.hasAttribute('open')) {
+                        // 模态框打开时重新初始化
+                        setTimeout(() => initializeVideoModal(), 50);
+                    }
+                });
+            });
+            observer.observe(addVideoModal, { attributes: true });
+        }
+
+        // Fusion Image Selector Logic
+        function setupFusionImageSelector(selectorId, displayId, valueInputId) {
+            const selector = document.getElementById(selectorId);
+            const display = document.getElementById(displayId);
+            const valueInput = document.getElementById(valueInputId);
+
+            if (!selector || !display || !valueInput) return;
+
+            // 获取所有选项
+            const options = selector.closest('.dropdown').querySelectorAll('.fusion-option');
+
+            options.forEach(option => {
+                option.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const value = this.getAttribute('data-value');
+                    const name = this.getAttribute('data-name');
+
+                    // 更新隐藏输入值
+                    valueInput.value = value;
+
+                    // 更新显示内容
+                    if (value === '') {
+                        display.innerHTML = '<span class="text-base-content/60">请选择融合图</span>';
+                    } else {
+                        // 复制选项的内容到显示区域
+                        const avatarDiv = this.querySelector('.avatar');
+                        if (avatarDiv) {
+                            const clonedAvatar = avatarDiv.cloneNode(true);
+                            const nameSpan = document.createElement('span');
+                            nameSpan.textContent = name;
+                            display.innerHTML = '';
+                            display.appendChild(clonedAvatar);
+                            display.appendChild(nameSpan);
+                        } else {
+                            display.innerHTML = `<span>${name}</span>`;
+                        }
+                    }
+
+                    // 关闭下拉菜单
+                    const dropdown = this.closest('.dropdown');
+                    if (dropdown) {
+                        // 移除焦点以关闭下拉菜单
+                        document.activeElement.blur();
+                    }
+                });
+            });
+        }
+
+        // 初始化 Sora2 图生视频的融合图选择器
+        setupFusionImageSelector('sora2_image_fusion_selector', 'sora2_image_fusion_display', 'sora2_image_fusion_value');
+
+        // 初始化 Seedance 1.5 Pro 图生视频的融合图选择器
+        setupFusionImageSelector('sd15_image_fusion_selector', 'sd15_image_fusion_display', 'sd15_image_fusion_value');
+
+        // Video Duration Slider Logic helper
+        function setupDurationSlider(sliderId, displayId) {
+            const slider = document.getElementById(sliderId);
+            const valueDisplay = document.getElementById(displayId);
+            if (slider && valueDisplay) {
+                slider.addEventListener('input', function () {
+                    valueDisplay.textContent = this.value + 's';
+                });
+            }
+        }
+
+        // Initialize duration sliders
+        setupDurationSlider('sd15_text_duration_slider', 'sd15_text_duration_value');
+        setupDurationSlider('sd10_text_duration_slider', 'sd10_text_duration_value');
+        setupDurationSlider('sd10_image_duration_slider', 'sd10_image_duration_value');
+        setupDurationSlider('sd10_frame_duration_slider', 'sd10_frame_duration_value');
+        setupDurationSlider('sd10fast_text_duration_slider', 'sd10fast_text_duration_value');
+        setupDurationSlider('sd10fast_image_duration_slider', 'sd10fast_image_duration_value');
+
+        // Modal Tab Switching Logic
+        const modelTabs = document.querySelectorAll('.model-tab');
+        const configSections = document.querySelectorAll('.config-section');
+        const videoPointsTooltip = document.getElementById('video_points_tooltip');
+
+        modelTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const model = tab.getAttribute('data-model');
+
+                // Update tabs
+                modelTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update config sections
+                configSections.forEach(s => s.classList.remove('active'));
+
+                const targetSection = document.querySelector(`.config-section[data-model="${model}"]`);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                } else {
+                    // Show fallback
+                    document.querySelector('.config-section[data-model="fallback"]').classList.add('active');
+                }
+
+                // Show points tooltip for AI models (always true for current tabs)
+                if (videoPointsTooltip) {
+                    videoPointsTooltip.style.display = 'block';
+                }
+            });
+        });
+
+        // Initialize points tooltip visibility
+        if (videoPointsTooltip) {
+            videoPointsTooltip.style.display = 'block';
+        }
+
+        // Initialize fusion image selectors for SD 1.0 Pro
+        setupFusionImageSelector('sd10_image_fusion_selector', 'sd10_image_fusion_display', 'sd10_image_fusion_value');
+        setupFusionImageSelector('sd10fast_image_fusion_selector', 'sd10fast_image_fusion_display', 'sd10fast_image_fusion_value');
+
+
+
         // Theme toggle functionality
         const themeToggle = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
@@ -781,14 +2558,16 @@
         // Load saved theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         htmlElement.setAttribute('data-theme', savedTheme);
-        themeToggle.checked = savedTheme === 'dark';
+        if (themeToggle) themeToggle.checked = savedTheme === 'dark';
 
         // Toggle theme
-        themeToggle.addEventListener('change', function () {
-            const newTheme = this.checked ? 'dark' : 'light';
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
+        if (themeToggle) {
+            themeToggle.addEventListener('change', function () {
+                const newTheme = this.checked ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
 
         // Batch Download Functionality
         const selectAllWrapper = document.getElementById('select-all-wrapper');
@@ -804,108 +2583,125 @@
 
         function enterSelectionMode() {
             isSelectionMode = true;
-            selectAllWrapper.classList.remove('hidden');
-            cancelSelectionBtn.classList.remove('hidden');
+            if (selectAllWrapper) selectAllWrapper.classList.remove('hidden');
+            if (cancelSelectionBtn) cancelSelectionBtn.classList.remove('hidden');
             checkboxWrappers.forEach(w => w.classList.remove('hidden'));
-            batchDownloadBtn.classList.add('btn-primary');
-            batchDownloadBtn.classList.remove('btn-outline');
-            batchBtnText.textContent = '确认下载';
+            if (batchDownloadBtn) {
+                batchDownloadBtn.classList.add('btn-primary');
+                batchDownloadBtn.classList.remove('btn-outline');
+            }
+            if (batchBtnText) batchBtnText.textContent = '确认下载';
             updateBatchDownloadState();
         }
 
         function exitSelectionMode() {
             isSelectionMode = false;
-            selectAllWrapper.classList.add('hidden');
-            cancelSelectionBtn.classList.add('hidden');
+            if (selectAllWrapper) selectAllWrapper.classList.add('hidden');
+            if (cancelSelectionBtn) cancelSelectionBtn.classList.add('hidden');
             checkboxWrappers.forEach(w => w.classList.add('hidden'));
-            batchDownloadBtn.classList.remove('btn-primary');
-            batchDownloadBtn.classList.add('btn-outline');
-            batchBtnText.textContent = '批量下载';
-            selectedCountBadge.classList.add('hidden');
+            if (batchDownloadBtn) {
+                batchDownloadBtn.classList.remove('btn-primary');
+                batchDownloadBtn.classList.add('btn-outline');
+            }
+            if (batchBtnText) batchBtnText.textContent = '批量下载';
+            if (selectedCountBadge) selectedCountBadge.classList.add('hidden');
 
             // Reset checkboxes
             videoCheckboxes.forEach(cb => {
                 cb.checked = false;
                 const card = cb.closest('.card');
-                card.classList.remove('ring-2', 'ring-primary');
+                if (card) card.classList.remove('ring-2', 'ring-primary');
             });
-            selectAllCheckbox.checked = false;
-            selectAllCheckbox.indeterminate = false;
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+            }
         }
 
         function updateBatchDownloadState() {
             const selectedCount = document.querySelectorAll('.video-checkbox:checked').length;
-            selectedCountBadge.textContent = selectedCount;
-
-            if (selectedCount > 0) {
-                selectedCountBadge.classList.remove('hidden');
-            } else {
-                selectedCountBadge.classList.add('hidden');
+            if (selectedCountBadge) {
+                selectedCountBadge.textContent = selectedCount;
+                if (selectedCount > 0) {
+                    selectedCountBadge.classList.remove('hidden');
+                } else {
+                    selectedCountBadge.classList.add('hidden');
+                }
             }
 
             // Sync Select All checkbox
-            selectAllCheckbox.checked = selectedCount === videoCheckboxes.length && videoCheckboxes.length > 0;
-            selectAllCheckbox.indeterminate = selectedCount > 0 && selectedCount < videoCheckboxes.length;
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = selectedCount === videoCheckboxes.length && videoCheckboxes.length > 0;
+                selectAllCheckbox.indeterminate = selectedCount > 0 && selectedCount < videoCheckboxes.length;
+            }
         }
 
-        batchDownloadBtn.addEventListener('click', function () {
-            if (!isSelectionMode) {
-                enterSelectionMode();
-            } else {
-                const selectedCount = document.querySelectorAll('.video-checkbox:checked').length;
-                if (selectedCount > 0) {
-                    // Show a feedback message
-                    const toast = document.createElement('div');
-                    toast.className = 'toast toast-top toast-center z-[100]';
-                    toast.innerHTML = `
-                        <div class="alert alert-success">
-                            <i class="ri-checkbox-circle-line text-lg"></i>
-                            <span>正在打包下载 ${selectedCount} 个视频...</span>
-                        </div>
-                    `;
-                    document.body.appendChild(toast);
-                    setTimeout(() => {
-                        toast.remove();
-                        exitSelectionMode(); // Exit mode after download
-                    }, 3000);
+        if (batchDownloadBtn) {
+            batchDownloadBtn.addEventListener('click', function () {
+                if (!isSelectionMode) {
+                    enterSelectionMode();
                 } else {
-                    // Feedback that nothing is selected
-                    const toast = document.createElement('div');
-                    toast.className = 'toast toast-top toast-center z-[100]';
-                    toast.innerHTML = `
-                        <div class="alert alert-info">
-                            <i class="ri-information-line text-lg"></i>
-                            <span>请先选择要下载的视频</span>
-                        </div>
-                    `;
-                    document.body.appendChild(toast);
-                    setTimeout(() => toast.remove(), 2000);
-                }
-            }
-        });
-
-        cancelSelectionBtn.addEventListener('click', exitSelectionMode);
-
-        selectAllCheckbox.addEventListener('change', function () {
-            videoCheckboxes.forEach(cb => {
-                cb.checked = this.checked;
-                const card = cb.closest('.card');
-                if (this.checked) {
-                    card.classList.add('ring-2', 'ring-primary');
-                } else {
-                    card.classList.remove('ring-2', 'ring-primary');
+                    const selectedCount = document.querySelectorAll('.video-checkbox:checked').length;
+                    if (selectedCount > 0) {
+                        const toast = document.createElement('div');
+                        toast.className = 'toast toast-top toast-center z-[100]';
+                        toast.innerHTML = `
+                            <div class="alert alert-success">
+                                <i class="ri-checkbox-circle-line text-lg"></i>
+                                <span>正在打包下载 ${selectedCount} 个视频...</span>
+                            </div>
+                        `;
+                        document.body.appendChild(toast);
+                        setTimeout(() => {
+                            toast.remove();
+                            exitSelectionMode();
+                        }, 3000);
+                    } else {
+                        const toast = document.createElement('div');
+                        toast.className = 'toast toast-top toast-center z-[100]';
+                        toast.innerHTML = `
+                            <div class="alert alert-info">
+                                <i class="ri-information-line text-lg"></i>
+                                <span>请先选择要下载的视频</span>
+                            </div>
+                        `;
+                        document.body.appendChild(toast);
+                        setTimeout(() => toast.remove(), 2000);
+                    }
                 }
             });
-            updateBatchDownloadState();
-        });
+        }
+
+        if (cancelSelectionBtn) {
+            cancelSelectionBtn.addEventListener('click', exitSelectionMode);
+        }
+
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('change', function () {
+                videoCheckboxes.forEach(cb => {
+                    cb.checked = this.checked;
+                    const card = cb.closest('.card');
+                    if (card) {
+                        if (this.checked) {
+                            card.classList.add('ring-2', 'ring-primary');
+                        } else {
+                            card.classList.remove('ring-2', 'ring-primary');
+                        }
+                    }
+                });
+                updateBatchDownloadState();
+            });
+        }
 
         videoCheckboxes.forEach(cb => {
             cb.addEventListener('change', function () {
                 const card = this.closest('.card');
-                if (this.checked) {
-                    card.classList.add('ring-2', 'ring-primary');
-                } else {
-                    card.classList.remove('ring-2', 'ring-primary');
+                if (card) {
+                    if (this.checked) {
+                        card.classList.add('ring-2', 'ring-primary');
+                    } else {
+                        card.classList.remove('ring-2', 'ring-primary');
+                    }
                 }
                 updateBatchDownloadState();
             });
@@ -937,19 +2733,16 @@
                     `;
                     card.appendChild(overlay);
 
-                    // Bind overlay buttons
                     overlay.querySelector('.btn-confirm-cancel').addEventListener('click', function (e) {
                         e.stopPropagation();
-                        // Update UI to 'Cancelled'
                         const badge = card.querySelector('.badge-warning');
                         if (badge) {
                             badge.className = 'badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none';
                             badge.innerHTML = '<i class="ri-close-circle-line"></i>已取消';
                         }
-                        btn.remove(); // Remove cancel button
+                        btn.remove();
                         overlay.classList.remove('show');
 
-                        // Show success message
                         const toast = document.createElement('div');
                         toast.className = 'toast toast-top toast-center z-[100]';
                         toast.innerHTML = `
@@ -969,8 +2762,6 @@
 
                     overlay.addEventListener('click', e => e.stopPropagation());
                 }
-
-                // Show overlay
                 overlay.classList.add('show');
             }
         });
