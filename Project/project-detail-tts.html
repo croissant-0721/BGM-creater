@@ -708,8 +708,8 @@
 
                 <div class="space-y-6">
                     <!-- Mission Name -->
-                    <div class="form-control">
-                        <label class="label">
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
                             <span class="label-text font-medium text-base-content/70">任务名称</span>
                         </label>
                         <input type="text" placeholder="为语音合成任务起个名称" class="input input-bordered w-full h-11 text-sm" />
@@ -728,8 +728,8 @@
                     </div>
 
                     <!-- Model Version -->
-                    <div class="form-control">
-                        <label class="label">
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
                             <span class="label-text font-medium text-base-content/70">模型</span>
                         </label>
                         <div class="flex flex-wrap gap-x-6 gap-y-2">
@@ -742,10 +742,10 @@
                     </div>
 
                     <!-- Voice Selection -->
-                    <div class="form-control">
-                        <label class="label">
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
                             <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
-                                选择音色 <span class="text-error text-xs">*</span>
+                                选择音色<span class="text-error text-xs">*</span>
                             </span>
                         </label>
                         <select class="select select-bordered w-full h-11 text-sm font-normal">
@@ -758,31 +758,32 @@
                     </div>
 
                     <!-- Voice Audition -->
-                    <div class="form-control">
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <div class="label py-0"></div>
                         <button
                             class="btn btn-sm h-11 w-full md:w-fit px-6 rounded-full bg-cyan-500 border-none text-white hover:bg-cyan-600 gap-2 shadow-sm transition-all normal-case font-medium">
                             <i class="ri-play-circle-line text-lg"></i>
-                            试听音色（比特率：64kbps, 采样率：24000HZ）
+                            试听音色(比特率:64kbps,采样率:24000HZ)
                         </button>
                     </div>
 
                     <!-- Audio Format -->
-                    <div class="form-control">
-                        <label class="label">
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
                             <span class="label-text font-medium text-base-content/70">音频格式</span>
                         </label>
-                        <div class="flex flex-wrap gap-x-6 gap-y-2">
-                            <label class="label cursor-pointer gap-2 p-0">
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="audio_format" class="radio radio-sm radio-primary" value="mp3"
                                     checked />
                                 <span class="label-text">MP3通用格式</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="audio_format" class="radio radio-sm radio-primary"
                                     value="wav" />
                                 <span class="label-text">WAV无损格式</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="audio_format" class="radio radio-sm radio-primary"
                                     value="ogg" />
                                 <span class="label-text">OGG音频格式</span>
@@ -791,27 +792,27 @@
                     </div>
 
                     <!-- Sample Rate -->
-                    <div class="form-control">
-                        <label class="label">
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
                             <span class="label-text font-medium text-base-content/70">采样率</span>
                         </label>
-                        <div class="flex flex-wrap gap-x-6 gap-y-2">
-                            <label class="label cursor-pointer gap-2 p-0">
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
                                     value="16000" />
                                 <span class="label-text">16000Hz 电话音质</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
                                     value="24000" checked />
                                 <span class="label-text">24000Hz 高标准</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
                                     value="44100" />
                                 <span class="label-text">44100Hz CD音质</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
                                     value="48000" />
                                 <span class="label-text">48000Hz 顶级音质</span>
@@ -820,37 +821,37 @@
                     </div>
 
                     <!-- Bitrate -->
-                    <div class="form-control">
-                        <label class="label">
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
                             <span class="label-text font-medium text-base-content/70">比特率</span>
                         </label>
-                        <div class="flex flex-wrap gap-x-6 gap-y-2">
-                            <label class="label cursor-pointer gap-2 p-0">
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="64" />
                                 <span class="label-text">64kbps 普通</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="96" />
                                 <span class="label-text">96kbps 良好</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="128"
                                     checked />
                                 <span class="label-text">128kbps 标准</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="160" />
                                 <span class="label-text">160kbps 中等</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="192" />
                                 <span class="label-text">192kbps 良好</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="256" />
                                 <span class="label-text">256kbps 高质量</span>
                             </label>
-                            <label class="label cursor-pointer gap-2 p-0">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
                                 <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="320" />
                                 <span class="label-text">320kbps 极致</span>
                             </label>
