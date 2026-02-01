@@ -342,11 +342,11 @@
                                     <span class="loading loading-spinner loading-xs"></span>
                                     生成中 30%
                                 </div>
-                                <div class="flex gap-1">
+                                <div class="flex gap-1 items-center">
                                     <button
-                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task">
-                                        <i class="ri-close-circle-line text-lg"></i>
-                                        取消任务
+                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task px-2 h-6 min-h-6">
+                                        <i class="ri-close-circle-line text-sm"></i>
+                                        <span class="text-xs">取消任务</span>
                                     </button>
                                     <div class="dropdown dropdown-end">
                                         <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
@@ -466,7 +466,7 @@
 
     <!-- Add Fusion Modal -->
     <dialog id="add_fusion_modal" class="modal">
-        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh]">
+        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh] overflow-hidden">
             <!-- Close button -->
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
@@ -721,27 +721,32 @@
                                     placeholder="请输入用于生成图片的提示词，支持中英文。"></textarea>
                             </div>
 
-                            <!-- Dimension Settings -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                <div class="form-control">
-                                    <label class="label">
-                                        <span class="label-text">尺寸类型:</span>
+                            <!-- Dimension Type -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">尺寸类型:</span>
+                                </label>
+                                <div class="flex gap-4">
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="dimension_type" class="radio radio-sm" value="pixel"
+                                            checked />
+                                        <span class="label-text">像素方式（指定生成图像的宽高像素值）</span>
                                     </label>
-                                    <select class="select select-bordered w-full">
-                                        <option>分辨率方式 (Resolution)</option>
-                                        <option>像素方式 (Pixels)</option>
-                                    </select>
+                                    <label class="label cursor-pointer gap-2">
+                                        <input type="radio" name="dimension_type" class="radio radio-sm"
+                                            value="resolution" />
+                                        <span class="label-text">分辨率方式</span>
+                                    </label>
                                 </div>
-                                <div class="form-control">
-                                    <label class="label">
-                                        <span class="label-text">分辨率:</span>
-                                    </label>
-                                    <select class="select select-bordered w-full">
-                                        <option>4K Ultra HD</option>
-                                        <option selected>2K QHD</option>
-                                        <option>1080P FHD</option>
-                                        <option>720P HD</option>
-                                    </select>
+                            </div>
+
+                            <!-- Resolution Selection -->
+                            <div class="form-control mb-4">
+                                <label class="label">
+                                    <span class="label-text">分辨率:</span>
+                                </label>
+                                <div id="resolution_options_container" class="grid grid-cols-2 gap-3">
+                                    <!-- Options will be populated by JS -->
                                 </div>
                             </div>
                         </div>
@@ -883,6 +888,64 @@
         setupUpload('pose_drop_area', 'pose_file', 'pose_preview');
         setupUpload('effect_drop_area', 'effect_file', 'effect_preview');
         setupUpload('fusion_upload_drop_area', 'fusion_upload_file', 'fusion_upload_preview');
+
+        // Resolution switching logic
+        const dimensionTypeRadios = document.querySelectorAll('input[name="dimension_type"]');
+        const resolutionOptionsContainer = document.getElementById('resolution_options_container');
+
+        const resolutionOptions = {
+            pixel: [
+                { value: "1:1(2048x2048)", label: "1:1", sublabel: "2048x2048", iconClass: "w-8 h-8" },
+                { value: "4:3(2304x1728)", label: "4:3", sublabel: "2304x1728", iconClass: "w-8 h-6" },
+                { value: "3:4(1728x2304)", label: "3:4", sublabel: "1728x2304", iconClass: "w-6 h-8" },
+                { value: "16:9(2560x1440)", label: "16:9", sublabel: "2560x1440", iconClass: "w-8 h-[18px]" },
+                { value: "9:16(1440x2560)", label: "9:16", sublabel: "1440x2560", iconClass: "w-[18px] h-8" },
+                { value: "3:2(2496x1664)", label: "3:2", sublabel: "2496x1664", iconClass: "w-9 h-6" },
+                { value: "2:3(1664x2496)", label: "2:3", sublabel: "1664x2496", iconClass: "w-6 h-9" },
+                { value: "21:9(3024x1296)", label: "21:9", sublabel: "3024x1296", iconClass: "w-10 h-[17px]" }
+            ],
+            resolution: [
+                { value: "2K (2560x1440)", label: "2K", sublabel: "2560x1440", iconClass: "w-8 h-[18px]" },
+                { value: "4K (3840x2160)", label: "4K", sublabel: "3840x2160", iconClass: "w-8 h-[18px]" }
+            ]
+        };
+
+        function updateResolutionOptions(type) {
+            if (!resolutionOptionsContainer) return;
+
+            // Clear current options
+            resolutionOptionsContainer.innerHTML = '';
+
+            // Add new options
+            const options = resolutionOptions[type] || [];
+            options.forEach((opt, index) => {
+                const optionDiv = document.createElement('label');
+                optionDiv.className = 'label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors';
+                optionDiv.innerHTML = `
+                    <input type="radio" name="resolution_ratio" class="radio radio-sm" value="${opt.value}" ${index === 0 ? 'checked' : ''} />
+                    <div class="flex items-center gap-2 flex-1">
+                        <div class="${opt.iconClass} border-2 border-primary rounded-sm bg-primary/10"></div>
+                        <div class="flex flex-col">
+                            <span class="label-text font-medium">${opt.label}</span>
+                            <span class="label-text-alt text-base-content/60">${opt.sublabel}</span>
+                        </div>
+                    </div>
+                `;
+                resolutionOptionsContainer.appendChild(optionDiv);
+            });
+        }
+
+        dimensionTypeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                updateResolutionOptions(e.target.value);
+            });
+        });
+
+        // Initialize on load
+        if (dimensionTypeRadios.length > 0) {
+            const checkedRadio = Array.from(dimensionTypeRadios).find(r => r.checked);
+            updateResolutionOptions(checkedRadio ? checkedRadio.value : 'pixel');
+        }
 
         // Cancel Task Confirmation with Overlay
         document.addEventListener('click', function (e) {

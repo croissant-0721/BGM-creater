@@ -1,0 +1,261 @@
+/* ============================================ */
+/* 剧本创作页面特定样式                         */
+/* ============================================ */
+
+/* Step Tabs Styling */
+.tabs-boxed .tab {
+    flex: 1;
+    cursor: pointer;
+}
+
+/* Upload Area Animation */
+.upload-area {
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    transform: translateY(-2px);
+}
+
+.upload-area.drag-over {
+    border-color: hsl(var(--p)) !important;
+    background: hsl(var(--p) / 0.05);
+    transform: scale(1.02);
+}
+
+/* Element Card Animation */
+.element-card {
+    transition: all 0.3s ease;
+}
+
+.element-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px hsl(var(--bc) / 0.15);
+}
+
+.element-card.card-side {
+    height: auto;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+}
+
+.element-card .card-main {
+    display: flex;
+    flex-direction: row;
+    height: 160px;
+    width: 100%;
+}
+
+.element-card .card-main figure {
+    width: 120px;
+    height: 100%;
+    flex-shrink: 0;
+    background: hsl(var(--b2));
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid hsl(var(--b2));
+}
+
+.element-card .card-main figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.element-card:hover figure img {
+    transform: scale(1.05);
+}
+
+.element-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: hsl(var(--bc) / 0.3);
+}
+
+.element-placeholder i {
+    font-size: 1.5rem;
+}
+
+.element-placeholder span {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+/* Scene Card Grid - Fixed to 2 columns */
+.scene-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem;
+}
+
+/* Ensure cards don't exceed grid column */
+.scene-grid > .element-card {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Points Tooltip */
+.points-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff9900;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+    animation: bounceIn 0.3s ease-out;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.points-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #ff9900;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: translateX(-50%) translateY(5px) scale(0.9);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-3px) scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+/* Floating Action Buttons */
+.floating-actions {
+    position: sticky;
+    bottom: 20px;
+    z-index: 40;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Edit Mode Styling */
+.element-card .edit-mode {
+    display: none;
+}
+
+.element-card.is-editing .view-mode {
+    display: none;
+}
+
+.element-card.is-editing .edit-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+}
+
+.element-card.is-editing {
+    border-color: hsl(var(--p));
+    box-shadow: 0 0 0 2px hsl(var(--p) / 0.1);
+    background-color: hsl(var(--b1));
+    cursor: default;
+    height: auto; /* Allow card to expand if needed */
+    min-height: 160px;
+}
+
+.element-card.is-editing:hover {
+    transform: none;
+}
+
+.edit-mode .input-field {
+    font-weight: 600;
+}
+
+.edit-mode .textarea,
+.edit-mode .input {
+    border-radius: 0.5rem;
+    background-color: hsl(var(--b2) / 0.3);
+}
+
+.edit-mode .textarea:focus,
+.edit-mode .input:focus {
+    background-color: hsl(var(--b1));
+}
+
+.edit-mode-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+/* Voice Settings Modal Styles */
+.slider-value-badge {
+    background-color: hsl(var(--p));
+    color: hsl(var(--pc));
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    height: 1.25rem;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    border-radius: 1.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border: none;
+}
+
+.hint-box {
+    background: oklch(var(--wa) / 0.1);
+    border: 1px solid oklch(var(--wa) / 0.15);
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--rounded-btn, 0.5rem);
+    font-size: 0.75rem;
+    color: var(--fallback-bc, oklch(var(--bc)/.7));
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.hint-box i {
+    color: oklch(var(--wa));
+    font-size: 0.9rem;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

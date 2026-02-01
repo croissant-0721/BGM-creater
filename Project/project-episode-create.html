@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>剧本创作 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+    <link rel="stylesheet" href="../assets/css/project/episode-create.css">
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
+        <!-- Logo and Navigation - Start -->
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                </a>
+
+                <!-- Navigation Menu -->
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li>
+                        <a href="index.html">
+                            <i class="ri-dashboard-line"></i>
+                            <span>总览</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Projects.html" class="active">
+                            <i class="ri-folder-3-line"></i>
+                            <span>项目</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../billing_demo/billing.html">
+                            <i class="ri-file-list-3-line"></i>
+                            <span>账单</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="ri-settings-3-line"></i>
+                            <span>系统管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right side items - End -->
+        <div class="navbar-end gap-2">
+
+
+    <!-- Theme Toggle Script -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">视频生成完成</div>
+                                <div class="text-xs text-base-content/60">营销视频制作项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">
+                            个人设置
+                            <span class="badge badge-sm badge-primary">New</span>
+                        </a></li>
+                    <li><a>使用统计</a></li>
+                    <li><a>API密钥</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout: Sidebar + Content -->
+    <div class="flex">
+        <!-- Fixed Left Sidebar -->
+        <aside class="fixed left-0 top-[64px] w-64 bg-base-100 shadow-xl h-[calc(100vh-64px)] overflow-y-auto">
+            <!-- Navigation Menu -->
+            <ul class="menu menu-vertical px-4 py-6 gap-2">
+                <li>
+                    <a href="project-detail-episode.html" class="active">
+                        <i class="ri-book-2-line text-lg"></i>
+                        <span>剧本</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-detail-character.html">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>角色</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-detail-scene.html">
+                        <i class="ri-landscape-line text-lg"></i>
+                        <span>场景</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-detail-goods.html">
+                        <i class="ri-box-3-line text-lg"></i>
+                        <span>物品</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-detail-fusion.html">
+                        <i class="ri-image-add-line text-lg"></i>
+                        <span>融合生图</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-detail-video.html">
+                        <i class="ri-video-line text-lg"></i>
+                        <span>视频</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-detail-tts.html">
+                        <i class="ri-mic-line text-lg"></i>
+                        <span>语音</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-detail-imageedit.html">
+                        <i class="ri-edit-line text-lg"></i>
+                        <span>图片编辑</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 ml-64">
+            <!-- Page Content -->
+            <div class="container mx-auto px-6 py-8 max-w-7xl">
+                <!-- Page Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 fade-in">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2 text-base-content">剧本创作</h2>
+                        <p class="text-base-content/60 text-base">上传剧本，AI智能分析提取角色、场景、物品，一键生成分镜</p>
+                    </div>
+                    
+                </div>
+
+                <!-- Step Tabs Navigator -->
+                <div class="mb-8 fade-in">
+                    <div id="main-tabs" role="tablist" class="tabs tabs-bordered w-full justify-center bg-base-100 rounded-lg p-2">
+                        <a role="tab" class="tab tab-active gap-2" onclick="switchStep(1)">
+                            <i class="ri-upload-cloud-line text-lg"></i>
+                            上传剧本
+                        </a>
+                        <a role="tab" class="tab gap-2" onclick="switchStep(2)">
+                            <i class="ri-brain-line text-lg"></i>
+                            AI分析
+                        </a>
+                        <a role="tab" class="tab gap-2" onclick="switchStep(3)">
+                            <i class="ri-grid-line text-lg"></i>
+                            元素创作
+                        </a>
+                        <a role="tab" class="tab gap-2" onclick="switchStep(4)">
+                            <i class="ri-film-line text-lg"></i>
+                            分镜制作
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Step 1: Upload Script -->
+                <div id="step-upload" class="mb-6 fade-in">
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body p-6">
+                        <!-- Script Input Form -->
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text font-medium">剧本名称</span>
+                            </label>
+                            <input type="text" placeholder="请输入剧本名称" class="input input-bordered w-full" />
+                        </div>
+
+                        <!-- Model Selection -->
+                        <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2 mb-6">
+                            <label class="label py-0">
+                                <span class="label-text font-medium text-base-content/70">选择模型</span>
+                            </label>
+                            <div class="flex flex-wrap gap-x-6 gap-y-2">
+                                <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                    <input type="radio" name="ai_model" class="radio radio-sm radio-primary"
+                                        value="doubao" checked />
+                                    <span class="label-text">Doubao-Seed-1.8</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                    <input type="radio" name="ai_model" class="radio radio-sm radio-primary"
+                                        value="deepseek" />
+                                    <span class="label-text">DeepSeek-V3.2</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-control mb-6">
+                            <label class="label">
+                                <span class="label-text font-medium">剧本内容</span>
+                            </label>
+                            <textarea class="textarea textarea-bordered h-64" id="script-content"
+                                placeholder="请输入或粘贴剧本内容...
+
+示例格式：
+
+第一幕：办公室
+镜头：女主角林晓雪正在埋头工作，突然接到一个神秘电话..."></textarea>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-xs text-base-content/60" id="char-count">0 字符</span>
+                                <button class="btn btn-ghost btn-xs" onclick="document.getElementById('script-content').value=''">
+                                    <i class="ri-delete-bin-line"></i>清空
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="divider">或</div>
+
+                        <!-- Upload File -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium">上传剧本文件</span>
+                            </label>
+                            <input type="file" id="script-file" class="hidden" accept=".doc,.docx,.pdf,.txt" />
+                            <div id="script-drop-area"
+                                class="upload-area border-2 border-dashed border-base-300 rounded-lg p-6 text-center cursor-pointer bg-base-200 hover:bg-base-300/50 transition-all">
+                                <i class="ri-upload-cloud-2-line text-4xl text-primary mb-2 block"></i>
+                                <p class="text-sm font-medium mb-1">拖拽文件到此处或点击上传</p>
+                                <p class="text-xs text-base-content/60">支持 .doc、.docx、.pdf、.txt 格式，不超过 10MB</p>
+                            </div>
+
+                            <div id="uploaded-file" class="hidden mt-3 p-3 bg-success/10 border border-success/30 rounded-lg">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <i class="ri-file-text-fill text-xl text-success"></i>
+                                        <div>
+                                            <p class="text-sm font-medium" id="file-name">script.docx</p>
+                                            <p class="text-xs text-base-content/60" id="file-size">2.3 MB</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-ghost btn-sm btn-circle" onclick="removeFile()">
+                                        <i class="ri-close-line text-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="card-actions justify-end mt-6">
+                            <button class="btn btn-ghost gap-2" onclick="resetForm()">
+                                <i class="ri-refresh-line"></i>
+                                重置
+                            </button>
+                            <div class="relative">
+                                <!-- Points Bubble -->
+                                <div class="points-tooltip">
+                                    <i class="ri-coin-fill text-[10px]"></i>
+                                    5 积分
+                                </div>
+                                <button class="btn btn-primary gap-2" onclick="startAnalysis()">
+                                    <i class="ri-magic-line text-lg"></i>
+                                    开始分析
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Step 2: AI Analysis (Hidden by default) -->
+                <div id="step-analysis" class="mb-6 hidden fade-in">
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body p-6">
+                            <div class="flex flex-col items-center justify-center py-12">
+                                <span class="loading loading-spinner loading-lg text-primary mb-4"></span>
+                                <p class="text-lg font-medium mb-2">正在分析剧本内容...</p>
+                                <div class="w-full max-w-md mt-6">
+                                    <progress class="progress progress-primary w-full" id="analysis-progress" value="0" max="100"></progress>
+                                </div>
+
+                                <!-- Detailed Progress List -->
+                                <div class="mt-8 w-full max-w-md space-y-4" id="analysis-details">
+                                    <div class="flex items-center justify-between text-sm p-3 bg-base-200 rounded-lg transition-all duration-300" id="progress-character">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-base-100 flex items-center justify-center">
+                                                <i class="ri-user-line text-primary"></i>
+                                            </div>
+                                            <span class="font-medium">人物分析</span>
+                                        </div>
+                                        <span class="status-text font-semibold text-base-content/40">等待中</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm p-3 bg-base-200 rounded-lg transition-all duration-300" id="progress-item">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-base-100 flex items-center justify-center">
+                                                <i class="ri-box-3-line text-warning"></i>
+                                            </div>
+                                            <span class="font-medium">物品提取</span>
+                                        </div>
+                                        <span class="status-text font-semibold text-base-content/40">等待中</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm p-3 bg-base-200 rounded-lg transition-all duration-300" id="progress-scene">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-base-100 flex items-center justify-center">
+                                                <i class="ri-landscape-line text-success"></i>
+                                            </div>
+                                            <span class="font-medium">场景识别</span>
+                                        </div>
+                                        <span class="status-text font-semibold text-base-content/40">等待中</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm p-3 bg-base-200 rounded-lg transition-all duration-300" id="progress-storyboard">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-base-100 flex items-center justify-center">
+                                                <i class="ri-film-line text-info"></i>
+                                            </div>
+                                            <span class="font-medium">分镜生成</span>
+                                        </div>
+                                        <span class="status-text font-semibold text-base-content/40">等待中</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Elements Extraction (Hidden by default) -->
+                <div id="step-elements" class="mb-6 hidden fade-in">
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body p-6">
+                            <!-- Element Tabs -->
+                            <div role="tablist" class="tabs tabs-lifted mb-4">
+                                <input type="radio" name="element_tabs" role="tab" class="tab whitespace-nowrap" aria-label="角色 (12)"
+                                    checked="checked" />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="card-title text-base">
+                                        角色列表
+                                    </h4>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-outline btn-sm gap-2 model-settings-btn is-set" title="AI模型设置" onclick="openModelSettings(this, event)">
+                                            <i class="ri-settings-4-fill text-lg text-primary"></i>
+                                            AI模型设置
+                                        </button>
+                                        <button class="btn btn-outline btn-sm gap-2" onclick="startBatchMode('character')">
+                                            <i class="ri-checkbox-multiple-line"></i>
+                                            批量生图
+                                        </button>
+                                        <button class="btn btn-outline btn-sm gap-2" onclick="add_character_modal.showModal()">
+                                            <i class="ri-add-line"></i>
+                                            添加角色
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Characters Grid -->
+                                <div class="scene-grid">
+                                    <!-- Character Card 1 -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure>
+                                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" alt="何玲子" />
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">何玲子</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        电视台新闻之父林庆山的女儿，身怀报仇之志，自幼苦练武艺...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-success badge-sm gap-1">
+                                                            <i class="ri-check-circle-fill"></i>
+                                                            已完成
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square voice-settings-btn is-set" title="语音设置" onclick="openVoiceSettings(this, event)">
+                                                                <i class="ri-mic-fill text-lg text-primary"></i>
+                                                            </button>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="何玲子" placeholder="角色名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="角色描述">电视台新闻之父林庆山的女儿，身怀报仇之志，自幼苦练武艺...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Character Card 2 -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="生成中" class="w-1/3 h-1/3 object-contain" />
+                                                <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center gap-2">
+                                                </div>
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">李妈妈</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        在城市奋斗多年，但中年仍因突发意外而坎坷，生活贫穷的妇人...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-warning badge-sm gap-1">
+                                                            <span class="loading loading-spinner loading-xs"></span>
+                                                            生成中 65%
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square voice-settings-btn" title="语音设置" onclick="openVoiceSettings(this, event)">
+                                                                <i class="ri-mic-line text-lg"></i>
+                                                            </button>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="李妈妈" placeholder="角色名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="角色描述">在城市奋斗多年，但中年仍因突发意外而坎坷，生活贫穷的妇人...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Character Card 3 (Failed) -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative bg-error/5">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="生成失败" class="w-1/3 h-1/3 object-contain grayscale opacity-60" />
+                                                <div class="absolute inset-0 flex items-center justify-center">
+                                                </div>
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">王老师</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        正直严谨的中学老师，戴着黑框眼镜，气质斯文...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="tooltip tooltip-error tooltip-top" data-tip="网络连接超时，请重试">
+                                                            <div class="badge badge-error badge-sm gap-1">
+                                                                生成失败
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-refresh-line text-lg"></i>重试
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square voice-settings-btn" title="语音设置" onclick="openVoiceSettings(this, event)">
+                                                                <i class="ri-mic-line text-lg"></i>
+                                                            </button>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="王老师" placeholder="角色名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="角色描述">正直严谨的中学老师，戴着黑框眼镜，气质斯文...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Character Card 4 (Cancelled) -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative grayscale opacity-50">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="已取消" class="w-1/3 h-1/3 object-contain" />
+                                                <div class="absolute inset-0 flex items-center justify-center">
+                                                </div>
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">小助手</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        活泼机灵的职场新人，平时负责协助女主角处理杂务...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none">
+                                                            <i class="ri-close-circle-line"></i>
+                                                            已取消
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square voice-settings-btn" title="语音设置" onclick="openVoiceSettings(this, event)">
+                                                                <i class="ri-mic-line text-lg"></i>
+                                                            </button>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="小助手" placeholder="角色名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="角色描述">活泼机灵的职场新人，平时负责协助女主角处理杂务...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Add more character cards as needed -->
+                                </div>
+                            </div>
+
+                                <input type="radio" name="element_tabs" role="tab" class="tab whitespace-nowrap" aria-label="场景 (8)" />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="card-title text-base">
+                                        场景列表
+                                    </h4>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-outline btn-sm gap-2 model-settings-btn" title="AI模型设置" onclick="openModelSettings(this, event)">
+                                            <i class="ri-settings-4-line text-lg"></i>
+                                            AI模型设置
+                                        </button>
+                                        <button class="btn btn-outline btn-sm gap-2" onclick="startBatchMode('scene')">
+                                            <i class="ri-checkbox-multiple-line"></i>
+                                            批量生图
+                                        </button>
+                                        <button class="btn btn-outline btn-sm gap-2" onclick="add_scene_modal.showModal()">
+                                            <i class="ri-add-line"></i>
+                                            添加场景
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Scenes Grid -->
+                                <div class="scene-grid">
+                                    <!-- Scene Card 1 -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure>
+                                                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" alt="办公室" />
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">办公室</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        现代化办公室，明亮宽敞，落地窗可以看到城市景观...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-success badge-sm gap-1">
+                                                            <i class="ri-check-circle-fill"></i>
+                                                            已完成
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="办公室" placeholder="场景名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="场景描述">现代化办公室，明亮宽敞，落地窗可以看到城市景观...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Scene Card 2 -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="生成中" class="w-1/3 h-1/3 object-contain" />
+                                                <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center gap-2">
+                                                </div>
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">林中空地</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        午后的阳光穿过树叶，洒在铺满落叶的小径上...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-warning badge-sm gap-1">
+                                                            <span class="loading loading-spinner loading-xs"></span>
+                                                            生成中 45%
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="林中空地" placeholder="场景名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="场景描述">午后的阳光穿过树叶，洒在铺满落叶的小径上...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Scene Card 3 (Failed) -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative bg-error/5">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="生成失败" class="w-1/3 h-1/3 object-contain grayscale opacity-60" />
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">废弃工厂</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        阴暗的厂房，锈迹斑斑的机器，空气中弥漫着尘土的味道...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="tooltip tooltip-error tooltip-top" data-tip="网络连接超时，请重试">
+                                                            <div class="badge badge-error badge-sm gap-1">
+                                                                生成失败
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-refresh-line text-lg"></i>重试
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="废弃工厂" placeholder="场景名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="场景描述">阴暗的厂房，锈迹斑斑的机器，空气中弥漫着尘土的味道...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Scene Card 4 (Cancelled) -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative grayscale opacity-50">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="已取消" class="w-1/3 h-1/3 object-contain" />
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">繁忙街道</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        霓虹灯闪烁的街道，人潮拥挤，车辆熙熙攘攘...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none">
+                                                            <i class="ri-close-circle-line"></i>
+                                                            已取消
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="繁忙街道" placeholder="场景名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="场景描述">霓虹灯闪烁的街道，人潮拥挤，车辆熙熙攘攘...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <input type="radio" name="element_tabs" role="tab" class="tab whitespace-nowrap" aria-label="物品 (15)" />
+                                <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="card-title text-base">
+                                        物品列表
+                                    </h4>
+                                    <div class="flex gap-2">
+                                        <button class="btn btn-outline btn-sm gap-2 model-settings-btn" title="AI模型设置" onclick="openModelSettings(this, event)">
+                                            <i class="ri-settings-4-line text-lg"></i>
+                                            AI模型设置
+                                        </button>
+                                        <button class="btn btn-outline btn-sm gap-2" onclick="startBatchMode('item')">
+                                            <i class="ri-checkbox-multiple-line"></i>
+                                            批量生图
+                                        </button>
+                                        <button class="btn btn-outline btn-sm gap-2" onclick="add_item_modal.showModal()">
+                                            <i class="ri-add-line"></i>
+                                            添加物品
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Items Grid -->
+                                <div class="scene-grid">
+                                    <!-- Item Card 1 -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure>
+                                                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=2080&auto=format&fit=crop" alt="神秘手机" />
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">神秘手机</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        黑色智能手机，屏幕闪烁着神秘的蓝光...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-success badge-sm gap-1">
+                                                            <i class="ri-check-circle-fill"></i>
+                                                            已完成
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="神秘手机" placeholder="物品名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="物品描述">黑色智能手机，屏幕闪烁着神秘的蓝光...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item Card 2 -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="生成中" class="w-1/3 h-1/3 object-contain" />
+                                                <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center gap-2">
+                                                </div>
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">古老地图</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        羊皮纸材质，边缘有些磨损，记录着不为人知的秘密...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-warning badge-sm gap-1">
+                                                            <span class="loading loading-spinner loading-xs"></span>
+                                                            生成中 70%
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="古老地图" placeholder="物品名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="物品描述">羊皮纸材质，边缘有些磨损，记录着不为人知的秘密...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item Card 3 (Failed) -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative bg-error/5">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="生成失败" class="w-1/3 h-1/3 object-contain grayscale opacity-60" />
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">锋利匕首</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        刀刃在月光下闪着寒光，刀柄镶嵌着红宝石...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="tooltip tooltip-error tooltip-top" data-tip="网络连接超时，请重试">
+                                                            <div class="badge badge-error badge-sm gap-1">
+                                                                生成失败
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-refresh-line text-lg"></i>重试
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="锋利匕首" placeholder="物品名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="物品描述">刀刃在月光下闪着寒光，刀柄镶嵌着红宝石...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item Card 4 (Cancelled) -->
+                                    <div class="element-card card card-side bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200">
+                                        <div class="card-main">
+                                            <figure class="relative grayscale opacity-50">
+                                                <img src="https://panqu.com/assets/img/project.webp" alt="已取消" class="w-1/3 h-1/3 object-contain" />
+                                            </figure>
+                                            <div class="card-body p-3 justify-between">
+                                                <!-- View Mode -->
+                                                <div class="view-mode flex flex-col h-full">
+                                                    <div class="flex items-start justify-between">
+                                                        <div>
+                                                            <h5 class="card-title text-base leading-none">魔法戒指</h5>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-xs text-base-content/80 line-clamp-2 my-1">
+                                                        古铜色的戒圈，上面刻满了复杂的符文，散发着微弱的灵力...
+                                                    </p>
+                                                    <div class="flex items-center justify-between mt-auto">
+                                                        <div class="badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none">
+                                                            <i class="ri-close-circle-line"></i>
+                                                            已取消
+                                                        </div>
+                                                        <div class="flex items-center gap-1">
+                                                            <div class="relative group">
+                                                                <div class="points-tooltip hidden group-hover:flex">
+                                                                    <i class="ri-coin-line"></i> 10 积分
+                                                                </div>
+                                                                <button class="btn btn-primary btn-sm gap-1">
+                                                                    <i class="ri-magic-line text-lg"></i>生成
+                                                                </button>
+                                                            </div>
+                                                            <button class="btn btn-ghost btn-sm btn-square" title="编辑">
+                                                                <i class="ri-edit-line text-lg"></i>
+                                                            </button>
+                                                            <div class="dropdown dropdown-top dropdown-end">
+                                                                <div tabindex="0" role="button" class="btn btn-ghost btn-sm btn-square">
+                                                                    <i class="ri-more-2-fill text-lg"></i>
+                                                                </div>
+                                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-1 shadow bg-base-100 rounded-box w-28 text-xs border border-base-300">
+                                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Mode -->
+                                                <div class="edit-mode">
+                                                    <input type="text" class="input input-sm input-bordered w-full font-bold" value="魔法戒指" placeholder="物品名称" />
+                                                    <textarea class="textarea textarea-sm textarea-bordered w-full text-xs leading-tight flex-1 resize-none" rows="3" placeholder="物品描述">古铜色的戒圈，上面刻满了复杂的符文，散发着微弱的灵力...</textarea>
+                                                    <div class="edit-mode-actions">
+                                                        <button class="btn btn-ghost btn-xs" onclick="cancelEdit(event, this)">取消</button>
+                                                        <button class="btn btn-primary btn-xs" onclick="saveEdit(event, this)">保存</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Step 4: Storyboard (Hidden by default) -->
+                <div id="step-storyboard" class="mb-6 hidden fade-in">
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="card-title text-xl">
+                                    <i class="ri-film-line text-primary"></i>
+                                    分镜列表
+                                    <span class="badge badge-info badge-sm">14 个分镜</span>
+                                </h3>
+                                <div class="flex gap-2">
+                                    <button class="btn btn-outline btn-sm gap-2">
+                                        <i class="ri-refresh-line"></i>
+                                        重新分析
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Storyboard List -->
+                            <div class="space-y-4">
+                                <!-- Storyboard Item 1 -->
+                                <div class="card bg-base-200 shadow-sm hover:shadow-md transition-all">
+                                <div class="card-body p-4">
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="avatar placeholder bg-primary/10 rounded-lg flex-shrink-0 w-16 h-16 flex items-center justify-center">
+                                            <span class="text-primary font-bold">S1-U1-L1</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-2">
+                                                <div>
+                                                    <h5 class="card-title text-base mb-1">序号：S1-U1-L1</h5>
+                                                    <p class="text-xs text-base-content/60">
+                                                        <span class="mr-3"><i class="ri-user-line"></i> 角色: 何玲子</span>
+                                                        <span class="mr-3"><i class="ri-map-pin-line"></i> 场景: 办公室</span>
+                                                    </p>
+                                                </div>
+                                                <input type="checkbox" class="checkbox checkbox-sm" />
+                                            </div>
+                                            <p class="text-sm mb-3">
+                                                <strong>镜头文案：</strong>西北研究院办公室的静分镜面，充满白色的气氛
+                                            </p>
+                                            <p class="text-sm mb-3 text-base-content/70">
+                                                <strong>镜描述示例：</strong>画面中位的是镜头生成形象，平视拍摄，画面中年轻有着专业外观...
+                                            </p>
+                                            <div class="flex gap-1 flex-wrap mb-3">
+                                                <span class="badge badge-sm">镜头</span>
+                                                <span class="badge badge-sm badge-primary">科技生物镜</span>
+                                                <span class="badge badge-sm badge-success">绿美细腻</span>
+                                                <span class="badge badge-sm badge-outline">生物效果</span>
+                                                <span class="badge badge-sm badge-outline">生成色彩</span>
+                                                <span class="badge badge-sm badge-outline">记忆作用</span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button class="btn btn-sm btn-outline gap-1">
+                                                    <i class="ri-edit-line"></i>
+                                                    编辑
+                                                </button>
+                                                <button class="btn btn-sm btn-primary gap-1">
+                                                    <i class="ri-image-add-line"></i>
+                                                    融合生图
+                                                </button>
+                                                <button class="btn btn-sm btn-outline gap-1">
+                                                    <i class="ri-video-line"></i>
+                                                    生成视频
+                                                </button>
+                                                <button class="btn btn-sm btn-outline gap-1">
+                                                    <i class="ri-mic-line"></i>
+                                                    配音
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <!-- Storyboard Item 2 -->
+                                <div class="card bg-base-200 shadow-sm hover:shadow-md transition-all">
+                                <div class="card-body p-4">
+                                    <div class="flex items-start gap-4">
+                                        <div
+                                            class="avatar placeholder bg-success/10 rounded-lg flex-shrink-0 w-16 h-16 flex items-center justify-center">
+                                            <span class="text-success font-bold">S1-U1-L2</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start justify-between mb-2">
+                                                <div>
+                                                    <h5 class="card-title text-base mb-1">序号：S1-U1-L2</h5>
+                                                    <p class="text-xs text-base-content/60">
+                                                        <span class="mr-3"><i class="ri-user-line"></i> 角色: 李妈妈</span>
+                                                        <span class="mr-3"><i class="ri-map-pin-line"></i> 场景: 街道</span>
+                                                    </p>
+                                                </div>
+                                                <input type="checkbox" class="checkbox checkbox-sm" />
+                                            </div>
+                                            <p class="text-sm mb-3">
+                                                <strong>镜头文案：</strong>许愿被老太孙高龄的陪伴着李妈妈...
+                                            </p>
+                                            <p class="text-sm mb-3 text-base-content/70">
+                                                <strong>镜描述示例：</strong>画面中位的是镜头生成形象，平视拍摄...
+                                            </p>
+                                            <div class="flex gap-1 flex-wrap mb-3">
+                                                <span class="badge badge-sm">镜头</span>
+                                                <span class="badge badge-sm badge-success">选项</span>
+                                                <span class="badge badge-sm badge-outline">功能强心</span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button class="btn btn-sm btn-outline gap-1">
+                                                    <i class="ri-edit-line"></i>
+                                                    编辑
+                                                </button>
+                                                <button class="btn btn-sm btn-primary gap-1">
+                                                    <i class="ri-image-add-line"></i>
+                                                    融合生图
+                                                </button>
+                                                <button class="btn btn-sm btn-outline gap-1">
+                                                    <i class="ri-video-line"></i>
+                                                    生成视频
+                                                </button>
+                                                <button class="btn btn-sm btn-outline gap-1">
+                                                    <i class="ri-mic-line"></i>
+                                                    配音
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- Batch Actions - Floating -->
+                            <div class="floating-actions">
+                                <button class="btn btn-primary gap-2 shadow-lg">
+                                    <i class="ri-image-add-line"></i>
+                                    批量融合生图
+                                </button>
+                                <button class="btn btn-outline gap-2 shadow-lg">
+                                    <i class="ri-video-add-line"></i>
+                                    批量生成视频
+                                </button>
+                                <button class="btn btn-outline gap-2 shadow-lg">
+                                    <i class="ri-volume-up-line"></i>
+                                    批量配音
+                                </button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Scripts -->
+    <!-- Add Character Modal -->
+    <dialog id="add_character_modal" class="modal">
+        <div class="modal-box max-w-2xl w-full p-0 flex flex-col max-h-[90vh] overflow-hidden" style="width: 672px;">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto flex-1 no-scrollbar">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="ri-user-add-line text-primary"></i>
+                    添加角色
+                </h3>
+
+                <!-- Character Name -->
+                <div class="form-control mb-6">
+                    <label class="label">
+                        <span class="label-text font-bold text-base-content/80">角色名称</span>
+                    </label>
+                    <input type="text" placeholder="给你的角色起个名字，如：何玲子" 
+                        class="input input-bordered w-full focus:input-primary transition-all bg-base-200/50" />
+                </div>
+
+                <!-- Prompt -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold text-base-content/80">提示词</span>
+                    </label>
+                    <textarea class="textarea textarea-bordered h-40 focus:textarea-primary transition-all bg-base-200/50 leading-relaxed" 
+                        placeholder="请输入人物外貌、性格、穿着等描述。支持中英文，描述越详细，生成的形象越符合预期"></textarea>
+                </div>
+            </div>
+
+            <!-- Fixed Footer Actions -->
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <form method="dialog" class="flex justify-end gap-2">
+                    <button class="btn btn-ghost">取消</button>
+                    <div class="relative">
+                        <button type="submit" class="btn btn-primary gap-2">
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Character Model Settings Modal -->
+    <dialog id="character_model_settings_modal" class="modal">
+        <div class="modal-box max-w-2xl w-full p-0 flex flex-col max-h-[90vh] overflow-hidden" style="width: 672px !important;">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <div class="p-6 overflow-y-auto no-scrollbar">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="ri-settings-4-line text-primary"></i>
+                    <span id="model_settings_title">角色</span>AI模型设置
+                </h3>
+
+
+                <div class="space-y-6">
+                    <!-- Model Selection -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-bold text-base-content/80">选择模型</span>
+                        </label>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="char_model" class="radio radio-sm radio-primary" value="seedream4.5" />
+                                <span class="label-text">Seedream 4.5</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="char_model" class="radio radio-sm radio-primary" value="seedream4.0" />
+                                <span class="label-text">Seedream 4.0</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="char_model" class="radio radio-sm radio-primary" value="seedream3.0" checked />
+                                <span class="label-text">Seedream 3.0</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Text Weight -->
+                    <div class="form-control" id="text_weight_container">
+                        <label class="label">
+                            <span class="label-text font-bold text-base-content/80 flex items-center gap-1">
+                                文本权重
+                                <div class="tooltip tooltip-right" data-tip="模型输出结果与prompt的一致程度">
+                                    <i class="ri-information-line text-base-content/40 cursor-help"></i>
+                                </div>
+                            </span>
+                        </label>
+                        <input type="number" placeholder="输入文本权重值(1-10)" class="input input-bordered w-full bg-base-200/50" min="1" max="10" step="0.1" value="2.5" />
+                    </div>
+
+                    <!-- Dimension Type -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-bold text-base-content/80">尺寸类型</span>
+                        </label>
+                        <div class="flex gap-6">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="dim_type" class="radio radio-sm radio-primary" value="pixel" checked />
+                                <span class="label-text">像素方式</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="dim_type" class="radio radio-sm radio-primary" value="resolution" />
+                                <span class="label-text">分辨率方式</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Resolution Grid -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-bold text-base-content/80">分辨率/比例</span>
+                        </label>
+                        <div id="res_options_grid" class="grid grid-cols-2 gap-3">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <div class="flex justify-end gap-2">
+                    <button class="btn btn-ghost" onclick="character_model_settings_modal.close()">取消</button>
+                    <div class="relative">
+                        <button class="btn btn-primary" onclick="saveModelSettings()">保存设置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <dialog id="add_scene_modal" class="modal">
+        <div class="modal-box max-w-2xl w-full p-0 flex flex-col max-h-[90vh] overflow-hidden" style="width: 672px;">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+            <div class="p-6 overflow-y-auto flex-1 no-scrollbar">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="ri-landscape-line text-success"></i>
+                    添加场景
+                </h3>
+                <div class="form-control mb-6">
+                    <label class="label">
+                        <span class="label-text font-bold text-base-content/80">场景名称</span>
+                    </label>
+                    <input type="text" placeholder="给你的场景起个名字，如：办公室、街道" 
+                        class="input input-bordered w-full focus:input-primary transition-all bg-base-200/50" />
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold text-base-content/80">场景描述 / 提示词</span>
+                    </label>
+                    <textarea class="textarea textarea-bordered h-40 focus:textarea-primary transition-all bg-base-200/50 leading-relaxed" 
+                        placeholder="请输入场景的详细描述。
+例如：现代化办公室，采光良好，落地窗可以看到远处的城市天际线，办公桌整洁有序。"></textarea>
+                    <label class="label">
+                        <span class="label-text-alt text-base-content/40">描述越详细，生成的场景越符合剧本需求</span>
+                    </label>
+                </div>
+            </div>
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <form method="dialog" class="flex justify-end gap-2">
+                    <button class="btn btn-ghost">取消</button>
+                    <div class="relative">
+                        <button type="submit" class="btn btn-primary gap-2">
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Add Item Modal -->
+    <dialog id="add_item_modal" class="modal">
+        <div class="modal-box max-w-2xl w-full p-0 flex flex-col max-h-[90vh] overflow-hidden" style="width: 672px;">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+            <div class="p-6 overflow-y-auto flex-1 no-scrollbar">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="ri-box-3-line text-warning"></i>
+                    添加物品
+                </h3>
+                <div class="form-control mb-6">
+                    <label class="label">
+                        <span class="label-text font-bold text-base-content/80">物品名称</span>
+                    </label>
+                    <input type="text" placeholder="给物品起个名字，如：神秘礼盒、古老钥匙" 
+                        class="input input-bordered w-full focus:input-primary transition-all bg-base-200/50" />
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold text-base-content/80">物品描述 / 提示词</span>
+                    </label>
+                    <textarea class="textarea textarea-bordered h-40 focus:textarea-primary transition-all bg-base-200/50 leading-relaxed" 
+                        placeholder="请输入物品的外观描述。
+例如：一个精致的木质首饰盒，上面刻有复杂的金色花纹，锁扣呈现心形。"></textarea>
+                    <label class="label">
+                        <span class="label-text-alt text-base-content/40">详细的描述有助于生成独特的道具形象</span>
+                    </label>
+                </div>
+            </div>
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <form method="dialog" class="flex justify-end gap-2">
+                    <button class="btn btn-ghost">取消</button>
+                    <div class="relative">
+                        <button type="submit" class="btn btn-primary gap-2">
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Voice Settings Modal -->
+    <dialog id="voice_settings_modal" class="modal">
+        <div class="modal-box max-w-2xl w-full p-0 flex flex-col max-h-[90vh] overflow-hidden" style="width: 672px;">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto no-scrollbar">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="ri-mic-line text-primary"></i>
+                    角色语音设置
+                </h3>
+
+                <div class="space-y-6">
+                    <!-- Model Version -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">模型</span>
+                        </label>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_model_version" class="radio radio-sm radio-primary" value="v2" checked />
+                                <span class="label-text">豆包语音合成模型2.0</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Voice Selection -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
+                                选择音色<span class="text-error text-xs">*</span>
+                            </span>
+                        </label>
+                        <select class="select select-bordered w-full h-11 text-sm font-normal">
+                            <option disabled selected>请选择音色</option>
+                            <option selected>晨曦 - 磁性男声</option>
+                            <option>晓晓 - 活泼女声</option>
+                            <option>老铁 - 幽默北方话</option>
+                            <option>甜甜 - 亲切女声</option>
+                        </select>
+                    </div>
+
+                    <!-- Voice Audition -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <div class="label py-0"></div>
+                        <button class="btn btn-sm h-11 w-full md:w-fit px-6 rounded-full bg-cyan-500 border-none text-white hover:bg-cyan-600 gap-2 shadow-sm transition-all normal-case font-medium">
+                            <i class="ri-play-circle-line text-lg"></i>
+                            试听音色(比特率:64kbps,采样率:24000HZ)
+                        </button>
+                    </div>
+
+                    <!-- Audio Format -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">音频格式</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_audio_format" class="radio radio-sm radio-primary" value="mp3" checked />
+                                <span class="label-text">MP3通用格式</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_audio_format" class="radio radio-sm radio-primary" value="wav" />
+                                <span class="label-text">WAV无损格式</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_audio_format" class="radio radio-sm radio-primary" value="ogg" />
+                                <span class="label-text">OGG音频格式</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sample Rate -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">采样率</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_sample_rate" class="radio radio-sm radio-primary" value="24000" checked />
+                                <span class="label-text">24000Hz</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_sample_rate" class="radio radio-sm radio-primary" value="44100" />
+                                <span class="label-text">44100Hz</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Bitrate -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">比特率</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_bitrate" class="radio radio-sm radio-primary" value="128" checked />
+                                <span class="label-text">128kbps</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="modal_bitrate" class="radio radio-sm radio-primary" value="192" />
+                                <span class="label-text">192kbps</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Parameters Settings -->
+                    <details class="collapse collapse-arrow border border-base-300 bg-base-200/30 mt-4 rounded-xl">
+                        <summary class="collapse-title text-sm font-bold">
+                            <div class="flex items-center gap-2">
+                                <i class="ri-settings-4-line text-primary"></i>
+                                高级参数设置
+                            </div>
+                        </summary>
+                        <div class="collapse-content space-y-6 pt-2 pb-4">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium text-base-content/70 text-xs">语速调节</span>
+                                    <span class="slider-value-badge">0</span>
+                                </label>
+                                <input type="range" min="-50" max="100" value="0" class="range range-primary range-xs" oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                                <div class="flex justify-between px-1 mt-1">
+                                    <span class="text-[10px] text-base-content/40">-50</span>
+                                    <span class="text-[10px] text-base-content/40">0</span>
+                                    <span class="text-[10px] text-base-content/40">100</span>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium text-base-content/70 text-xs">音量调节</span>
+                                    <span class="slider-value-badge">0</span>
+                                </label>
+                                <input type="range" min="-50" max="100" value="0" class="range range-primary range-xs" oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                                <div class="flex justify-between px-1 mt-1">
+                                    <span class="text-[10px] text-base-content/40">-50</span>
+                                    <span class="text-[10px] text-base-content/40">0</span>
+                                    <span class="text-[10px] text-base-content/40">100</span>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Fixed Footer Actions -->
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <div class="flex justify-end gap-2">
+                    <button class="btn btn-ghost" onclick="voice_settings_modal.close()">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="saveVoiceSettings()">保存设置</button>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'dark';
+
+        themeToggle.addEventListener('change', function () {
+            const newTheme = this.checked ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Character count
+        const scriptContent = document.getElementById('script-content');
+        const charCount = document.getElementById('char-count');
+
+        if (scriptContent && charCount) {
+            scriptContent.addEventListener('input', () => {
+                charCount.textContent = `${scriptContent.value.length} 字符`;
+            });
+        }
+
+        // File upload
+        const scriptFile = document.getElementById('script-file');
+        const scriptDropArea = document.getElementById('script-drop-area');
+        const uploadedFile = document.getElementById('uploaded-file');
+
+        function setupDragAndDrop(dropArea, fileInput) {
+            if (!dropArea || !fileInput) return;
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.add('drag-over');
+                });
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.remove('drag-over');
+                });
+            });
+
+            dropArea.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileUpload(files[0]);
+                }
+            });
+
+            dropArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileUpload(e.target.files[0]);
+                }
+            });
+        }
+
+        function handleFileUpload(file) {
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+
+            if (fileName && fileSize && uploadedFile) {
+                fileName.textContent = file.name;
+                fileSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+                uploadedFile.classList.remove('hidden');
+                scriptDropArea.classList.add('hidden');
+            }
+        }
+
+        function removeFile() {
+            if (uploadedFile && scriptDropArea) {
+                uploadedFile.classList.add('hidden');
+                scriptDropArea.classList.remove('hidden');
+                scriptFile.value = '';
+            }
+        }
+
+        setupDragAndDrop(scriptDropArea, scriptFile);
+
+        // Switch step/tab
+        function switchStep(stepNumber) {
+            // Remove active class from all main tabs
+            document.querySelectorAll('#main-tabs .tab').forEach(tab => {
+                tab.classList.remove('tab-active');
+            });
+
+            // Add active class to selected tab
+            const tabs = document.querySelectorAll('#main-tabs .tab');
+            if (tabs[stepNumber - 1]) {
+                tabs[stepNumber - 1].classList.add('tab-active');
+            }
+
+            // Hide all steps
+            document.getElementById('step-upload').classList.add('hidden');
+            document.getElementById('step-analysis').classList.add('hidden');
+            document.getElementById('step-elements').classList.add('hidden');
+            document.getElementById('step-storyboard').classList.add('hidden');
+
+            // Show selected step
+            switch(stepNumber) {
+                case 1:
+                    document.getElementById('step-upload').classList.remove('hidden');
+                    break;
+                case 2:
+                    document.getElementById('step-analysis').classList.remove('hidden');
+                    break;
+                case 3:
+                    document.getElementById('step-elements').classList.remove('hidden');
+                    break;
+                case 4:
+                    document.getElementById('step-storyboard').classList.remove('hidden');
+                    break;
+            }
+        }
+
+        // Start analysis with detailed progress
+        function startAnalysis() {
+            // Switch to step 2 (AI Analysis)
+            switchStep(2);
+
+            const progressBar = document.getElementById('analysis-progress');
+            const progressItems = [
+                { id: 'progress-character', count: 12, endProgress: 25 },
+                { id: 'progress-item', count: 15, endProgress: 50 },
+                { id: 'progress-scene', count: 12, endProgress: 75 },
+                { id: 'progress-storyboard', count: 14, endProgress: 100 }
+            ];
+
+            // Reset all statuses
+            progressItems.forEach(item => {
+                const element = document.getElementById(item.id);
+                if (element) {
+                    const statusText = element.querySelector('.status-text');
+                    statusText.textContent = '等待中';
+                    statusText.className = 'status-text font-semibold text-base-content/40';
+                    element.classList.remove('bg-primary/10', 'bg-success/5', 'shadow-sm');
+                }
+            });
+            progressBar.value = 0;
+
+            let currentStep = 0;
+            
+            function updateProgress() {
+                if (currentStep >= progressItems.length) {
+                    setTimeout(() => {
+                        switchStep(3);
+                    }, 1000);
+                    return;
+                }
+
+                const item = progressItems[currentStep];
+                const element = document.getElementById(item.id);
+                if (!element) return;
+                
+                const statusText = element.querySelector('.status-text');
+                
+                // Show as analyzing
+                element.classList.add('bg-primary/10', 'shadow-sm');
+                statusText.textContent = '分析中...';
+                statusText.className = 'status-text font-semibold text-primary animate-pulse';
+
+                // Simulate sub-progress increments
+                let subStep = 0;
+                const totalSubSteps = 10;
+                const intervalTime = 200 + Math.random() * 300; // Random speed for each step
+
+                const interval = setInterval(() => {
+                    subStep++;
+                    
+                    // Update overall progress bar
+                    const prevEndProgress = currentStep > 0 ? progressItems[currentStep-1].endProgress : 0;
+                    const stepRange = item.endProgress - prevEndProgress;
+                    progressBar.value = prevEndProgress + (stepRange * (subStep / totalSubSteps));
+                    
+                    if (subStep >= totalSubSteps) {
+                        clearInterval(interval);
+                        
+                        // Mark as completed
+                        statusText.textContent = `${item.count} 个 已完成`;
+                        statusText.className = 'status-text font-semibold text-success';
+                        element.classList.remove('bg-primary/10');
+                        element.classList.add('bg-success/5');
+                        
+                        currentStep++;
+                        setTimeout(updateProgress, 500);
+                    }
+                }, intervalTime);
+            }
+
+            // Start the simulation after a short delay
+            setTimeout(updateProgress, 800);
+        }
+
+        // Generate all elements
+        function generateAllElements() {
+            // Switch to step 4 (Storyboard)
+            switchStep(4);
+
+            // Show toast
+            showToast('正在生成分镜，请稍候...', 'info');
+        }
+
+        // Reset form
+        function resetForm() {
+            location.reload();
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success', position = 'toast-top toast-center') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${position} z-[100]`;
+            toast.innerHTML = `
+                <div class="alert alert-${type} shadow-lg">
+                    <i class="ri-information-line text-lg"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        // Card editing functionality
+        function enableEdit(card) {
+            if (card.classList.contains('is-editing')) return;
+            
+            // Close other editing cards first
+            document.querySelectorAll('.element-card.is-editing').forEach(c => {
+                cancelEdit(null, c.querySelector('.edit-mode button'));
+            });
+
+            card.classList.add('is-editing');
+            
+            // Focus the description textarea
+            const textarea = card.querySelector('.edit-mode textarea');
+            if (textarea) {
+                textarea.focus();
+                // Put cursor at the end
+                textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+            }
+        }
+
+        function saveEdit(event, btn) {
+            if (event) event.stopPropagation();
+            const card = btn.closest('.element-card');
+            const viewTitle = card.querySelector('.view-mode h5');
+            const viewDesc = card.querySelector('.view-mode p');
+            const editTitle = card.querySelector('.edit-mode input').value;
+            const editDesc = card.querySelector('.edit-mode textarea').value;
+
+            if (viewTitle) viewTitle.textContent = editTitle;
+            if (viewDesc) viewDesc.textContent = editDesc;
+
+            card.classList.remove('is-editing');
+        }
+
+        function cancelEdit(event, btn) {
+            if (event) event.stopPropagation();
+            const card = btn.closest('.element-card');
+            if (!card) return;
+            
+            const viewTitle = card.querySelector('.view-mode h5');
+            const viewDesc = card.querySelector('.view-mode p');
+            const editTitleInput = card.querySelector('.edit-mode input');
+            const editDescInput = card.querySelector('.edit-mode textarea');
+
+            if (editTitleInput && viewTitle) editTitleInput.value = viewTitle.textContent.trim();
+            if (editDescInput && viewDesc) editDescInput.value = viewDesc.textContent.trim();
+
+            card.classList.remove('is-editing');
+        }
+
+
+        // Initialize element cards navigation
+        document.querySelectorAll('.element-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function(e) {
+                // Ignore if clicking on a button, dropdown or within edit-mode or voice-settings
+                if (e.target.closest('button') || e.target.closest('.dropdown') || e.target.closest('.edit-mode') || e.target.closest('.voice-settings')) {
+                    return;
+                }
+
+                // Determine target page based on parent container or content
+                let targetPage = 'project-detail-character.html'; // Default
+                
+                // Check if it's in the Scenes grid
+                const stepElements = this.closest('#step-elements');
+                if (stepElements && stepElements.querySelector('input[aria-label^="场景"]').checked) {
+                    targetPage = 'project-detail-scene.html';
+                } 
+                // Check if it's in the Items grid
+                else if (stepElements && stepElements.querySelector('input[aria-label^="物品"]').checked) {
+                    targetPage = 'project-detail-goods.html';
+                }
+
+                window.open(targetPage, '_blank');
+            });
+        });
+
+        // Initialize existing edit buttons
+        document.querySelectorAll('button[title="编辑"]').forEach(btn => {
+            btn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                enableEdit(this.closest('.element-card'));
+            };
+        });
+
+        // Voice settings state handling
+        let currentVoiceBtn = null;
+
+        function openVoiceSettings(btn, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            currentVoiceBtn = btn;
+            voice_settings_modal.showModal();
+        }
+
+        function saveVoiceSettings() {
+            if (currentVoiceBtn) {
+                currentVoiceBtn.classList.add('is-set');
+                const icon = currentVoiceBtn.querySelector('i');
+                if (icon) {
+                    icon.className = 'ri-mic-fill text-lg text-primary';
+                }
+                showToast('语音模型设置已保存', 'success', 'toast-bottom toast-center');
+            }
+            voice_settings_modal.close();
+        }
+
+        // AI Model Settings functionality
+        let currentModelBtn = null;
+        const resOptions = {
+            pixel: [
+                { value: "1:1(2048x2048)", label: "1:1", sublabel: "2048x2048", iconClass: "w-8 h-8" },
+                { value: "4:3(2304x1728)", label: "4:3", sublabel: "2304x1728", iconClass: "w-8 h-6" },
+                { value: "3:4(1728x2304)", label: "3:4", sublabel: "1728x2304", iconClass: "w-6 h-8" },
+                { value: "16:9(2560x1440)", label: "16:9", sublabel: "2560x1440", iconClass: "w-8 h-[18px]" }
+            ],
+            resolution: [
+                { value: "2K (2560x1440)", label: "2K", sublabel: "2560x1440", iconClass: "w-8 h-[18px]" },
+                { value: "4K (3840x2160)", label: "4K", sublabel: "3840x2160", iconClass: "w-8 h-[18px]" }
+            ]
+        };
+
+        function updateResGrid(type) {
+            const grid = document.getElementById('res_options_grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            const options = resOptions[type] || [];
+            options.forEach((opt, idx) => {
+                const label = document.createElement('label');
+                label.className = 'label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors';
+                label.innerHTML = `
+                    <input type="radio" name="res_ratio" class="radio radio-sm radio-primary" value="${opt.value}" ${idx === 0 ? 'checked' : ''} />
+                    <div class="flex items-center gap-2 flex-1">
+                        <div class="${opt.iconClass} border-2 border-primary rounded-sm bg-primary/10"></div>
+                        <div class="flex flex-col">
+                            <span class="label-text font-medium text-xs">${opt.label}</span>
+                            <span class="label-text-alt text-[10px] text-base-content/60">${opt.sublabel}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(label);
+            });
+        }
+
+        function openModelSettings(btn, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            currentModelBtn = btn;
+            
+            // Update modal title based on context
+            const titleEl = document.getElementById('model_settings_title');
+            if (titleEl) {
+                const stepElements = btn.closest('#step-elements');
+                if (stepElements) {
+                    if (stepElements.querySelector('input[aria-label^="场景"]').checked) {
+                        titleEl.textContent = '场景';
+                    } else if (stepElements.querySelector('input[aria-label^="物品"]').checked) {
+                        titleEl.textContent = '物品';
+                    } else {
+                        titleEl.textContent = '角色';
+                    }
+                }
+            }
+            
+            updateResGrid('pixel');
+            character_model_settings_modal.showModal();
+        }
+
+        function saveModelSettings() {
+            if (currentModelBtn) {
+                currentModelBtn.classList.add('is-set');
+                const icon = currentModelBtn.querySelector('i');
+                if (icon) {
+                    icon.className = 'ri-settings-4-fill text-lg text-primary';
+                }
+                
+                // Update text if it's a header button
+                if (currentModelBtn.classList.contains('btn-outline')) {
+                    currentModelBtn.classList.remove('btn-outline');
+                    currentModelBtn.classList.add('btn-ghost', 'bg-primary/5', 'border-primary/20');
+                }
+                
+                showToast('AI模型参数已保存', 'success', 'toast-bottom toast-center');
+            }
+            character_model_settings_modal.close();
+        }
+
+        // Bind dimension type changes
+        document.querySelectorAll('input[name="dim_type"]').forEach(radio => {
+            radio.addEventListener('change', (e) => updateResGrid(e.target.value));
+        });
+
+        // Bind model changes for text weight visibility
+        document.querySelectorAll('input[name="char_model"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const container = document.getElementById('text_weight_container');
+                if (container) container.style.display = e.target.value === 'seedream3.0' ? 'flex' : 'none';
+            });
+        });
+        // Batch Generation Logic
+        let isBatchMode = false;
+        let selectedElements = new Set();
+        const POINT_PER_ITEM = 10;
+
+        function startBatchMode(type) {
+            isBatchMode = true;
+            selectedElements.clear();
+            document.body.classList.add('batch-mode-active');
+            document.getElementById('batch_action_bar').classList.add('show');
+            document.getElementById('select_all_checkbox').checked = false;
+            updateBatchUI();
+            
+            // Add indicators to cards if they don't exist
+            document.querySelectorAll('.element-card').forEach(card => {
+                if (!card.querySelector('.selection-indicator')) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'selection-indicator';
+                    card.querySelector('.card-main').appendChild(indicator);
+                }
+            });
+            
+
+        }
+
+        function toggleSelectAll(checked) {
+            // Only select items in the current active tab panel
+            const activePanel = document.querySelector('input[name="element_tabs"]:checked + .tab-content');
+            if (!activePanel) return;
+
+            const cards = activePanel.querySelectorAll('.element-card');
+            cards.forEach(card => {
+                if (checked) {
+                    card.classList.add('selected');
+                    selectedElements.add(card);
+                } else {
+                    card.classList.remove('selected');
+                    selectedElements.delete(card);
+                }
+            });
+            updateBatchUI();
+        }
+
+        function exitBatchMode() {
+            isBatchMode = false;
+            document.body.classList.remove('batch-mode-active');
+            document.getElementById('batch_action_bar').classList.remove('show');
+            document.querySelectorAll('.element-card.selected').forEach(card => {
+                card.classList.remove('selected');
+            });
+            selectedElements.clear();
+        }
+
+        function updateBatchUI() {
+            const count = selectedElements.size;
+            document.getElementById('selected_count').textContent = count;
+            document.getElementById('batch_total_points').textContent = count * POINT_PER_ITEM;
+            
+            // Sync select all checkbox
+            const activePanel = document.querySelector('.tab-content:not([class*="hidden"])');
+            if (activePanel) {
+                const totalInPanel = activePanel.querySelectorAll('.element-card').length;
+                const checkbox = document.getElementById('select_all_checkbox');
+                if (checkbox) {
+                    checkbox.checked = count > 0 && count === totalInPanel;
+                    checkbox.indeterminate = count > 0 && count < totalInPanel;
+                }
+            }
+        }
+
+        // Modified Global click handler for element cards to support selection
+        document.querySelectorAll('.element-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (isBatchMode) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        selectedElements.delete(this);
+                    } else {
+                        this.classList.add('selected');
+                        selectedElements.add(this);
+                    }
+                    updateBatchUI();
+                    return;
+                }
+                
+                // Existing click logic (rest of the previous implementation)
+                if (e.target.closest('button') || e.target.closest('.dropdown') || e.target.closest('.edit-mode') || e.target.closest('.voice-settings')) {
+                    return;
+                }
+                // ... targetPage logic ...
+            }, true); // Use capture phase to handle it before children
+        });
+
+        function confirmBatchGeneration() {
+            const count = selectedElements.size;
+            if (count === 0) {
+                document.getElementById('batch_action_bar').classList.remove('show');
+                showToast('请至少选择一个任务', 'warning', 'toast-bottom toast-center');
+                return;
+            }
+
+            // 检查当前类别的 AI 模型是否已设置
+            const activePanel = document.querySelector('input[name="element_tabs"]:checked + .tab-content');
+            const modelBtn = activePanel ? activePanel.querySelector('.model-settings-btn') : null;
+            if (modelBtn && modelBtn.classList.contains('btn-outline')) {
+                document.getElementById('batch_action_bar').classList.remove('show');
+                showToast('无法提交：请先完成该类别的 AI 模型设置', 'error', 'toast-bottom toast-center');
+                return;
+            }
+            
+            const totalPoints = count * POINT_PER_ITEM;
+            document.getElementById('batch_confirm_message').innerHTML = 
+                `你已选中 <span class="text-primary font-bold">${count}</span> 个任务，<br>本次生成预计将消耗 <span class="text-warning font-bold">${totalPoints}</span> 积分。`;
+            
+            batch_confirm_modal.showModal();
+        }
+
+        function submitBatchTasks() {
+            batch_confirm_modal.close();
+            const count = selectedElements.size;
+            exitBatchMode();
+            
+            // Simulate starting tasks
+            showToast(`成功提交 ${count} 个生成任务`, 'success', 'toast-bottom toast-center');
+            
+            // In a real app, you'd trigger actual API calls here
+        }
+    </script>
+
+    <!-- Batch Action UI -->
+    <div id="batch_action_bar" class="batch-action-bar">
+        <div class="flex items-center gap-6">
+            <label class="flex items-center gap-2 cursor-pointer group">
+                <input type="checkbox" id="select_all_checkbox" class="checkbox checkbox-primary checkbox-sm" onclick="toggleSelectAll(this.checked)">
+                <span class="text-sm font-medium">全选</span>
+            </label>
+            <div class="divider divider-horizontal mx-0"></div>
+            <div class="text-sm font-medium">
+                已选中 <span id="selected_count" class="text-primary font-bold">0</span> 项
+            </div>
+            <div class="divider divider-horizontal mx-0"></div>
+            <div class="flex items-center gap-2 text-warning font-medium">
+                <i class="ri-coin-line"></i>
+                预计扣除: <span id="batch_total_points">0</span> 积分
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <button class="btn btn-ghost btn-sm" onclick="exitBatchMode()">取消</button>
+            <button class="btn btn-primary btn-sm px-6" onclick="confirmBatchGeneration()">提交批量任务</button>
+        </div>
+    </div>
+
+    <!-- Batch Confirmation Modal (Centered style) -->
+    <dialog id="batch_confirm_modal" class="modal">
+        <div class="modal-box max-w-2xl w-full text-center p-8" style="width: 672px;">
+            <div class="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="ri-magic-line text-3xl"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">批量任务确认</h3>
+            <p id="batch_confirm_message" class="text-base-content/60 text-sm mb-8 leading-relaxed">
+                <!-- Populated by JS -->
+            </p>
+            <div class="flex gap-3">
+                <form method="dialog" class="flex-1">
+                    <button class="btn btn-ghost w-full">取消</button>
+                </form>
+                <button class="btn btn-primary flex-1" onclick="submitBatchTasks()">
+                    <i class="ri-magic-line text-lg"></i>
+                    确认提交
+                </button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <style>
+        /* 确保所有弹窗宽度一致 */
+        .modal-box.max-w-2xl {
+            width: 672px !important;
+            max-width: 672px !important;
+        }
+        
+        .batch-mode-active .element-card {
+            border-color: transparent !important;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        /* Ensure overlays don't block clicks */
+        .batch-mode-active .element-card figure::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 15;
+            cursor: pointer;
+        }
+        .batch-mode-active .element-card:hover {
+            transform: translateY(-2px);
+        }
+        .batch-mode-active .element-card.selected {
+            border: 2px solid hsl(var(--p)) !important;
+            background-color: hsla(var(--p) / 0.05);
+        }
+        .element-card .selection-indicator {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 22px;
+            height: 22px;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            z-index: 30;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+        .batch-mode-active .element-card .selection-indicator {
+            display: flex;
+        }
+        .element-card.selected .selection-indicator {
+            background: hsl(var(--p));
+            border-color: hsl(var(--p));
+            color: white;
+        }
+        .element-card.selected .selection-indicator::after {
+            content: '\eb7a'; /* remixicon check mark */
+            font-family: 'remixicon';
+            font-size: 14px;
+        }
+        .batch-action-bar {
+            position: fixed !important;
+            bottom: 32px !important;
+            left: 50% !important;
+            transform: translateX(-50%) translateY(100px);
+            background: hsla(var(--b1) / 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid hsla(var(--bc) / 0.1);
+            border-radius: 1.25rem;
+            padding: 0.75rem 1.5rem 0.75rem 2rem;
+            box-shadow: 0 15px 35px -10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            visibility: hidden;
+        }
+        .batch-action-bar.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        /* Centered modal styles (Reverted from bottom) */
+        .modal:not(.modal-bottom) {
+            align-items: center;
+            justify-content: center;
+        }
+
+        .batch-mode-active .element-card .card-body button,
+        .batch-mode-active .element-card .card-body .dropdown {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+    </style>
+</body>
+
+</html>
