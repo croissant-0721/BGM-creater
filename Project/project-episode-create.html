@@ -33,9 +33,9 @@
         <div class="navbar-start">
             <div class="flex items-center gap-8">
                 <!-- Logo -->
-                <a href="index.html" class="flex items-center gap-3">
-                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
-                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                <a href="index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
                 </a>
 
                 <!-- Navigation Menu -->
@@ -139,7 +139,7 @@
     <!-- Main Layout: Sidebar + Content -->
     <div class="flex">
         <!-- Fixed Left Sidebar -->
-        <aside class="fixed left-0 top-[64px] w-64 bg-base-100 shadow-xl h-[calc(100vh-64px)] overflow-y-auto">
+        <aside class="fixed left-0 top-[72px] w-64 bg-base-100 shadow-xl h-[calc(100vh-72px)] overflow-y-auto border-r border-base-200">
             <!-- Navigation Menu -->
             <ul class="menu menu-vertical px-4 py-6 gap-2">
                 <li>
@@ -197,18 +197,10 @@
         <div class="flex-1 ml-64">
             <!-- Page Content -->
             <div class="container mx-auto px-6 py-8 max-w-7xl">
-                <!-- Page Header -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 fade-in">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2 text-base-content">剧本创作</h2>
-                        <p class="text-base-content/60 text-base">上传剧本，AI智能分析提取角色、场景、物品，一键生成分镜</p>
-                    </div>
-                    
-                </div>
 
                 <!-- Step Tabs Navigator -->
                 <div class="mb-8 fade-in">
-                    <div id="main-tabs" role="tablist" class="tabs tabs-bordered w-full justify-center bg-base-100 rounded-lg p-2">
+                    <div id="main-tabs" role="tablist" class="tabs tabs-border w-full justify-center bg-base-100 rounded-lg p-2">
                         <a role="tab" class="tab tab-active gap-2" onclick="switchStep(1)">
                             <i class="ri-upload-cloud-line text-lg"></i>
                             上传剧本
@@ -1205,13 +1197,21 @@
                             <div class="flex items-center justify-between mb-6">
                                 <h3 class="card-title text-xl">
                                     <i class="ri-film-line text-primary"></i>
-                                    分镜列表
+                                    分镜创作
                                     <span class="badge badge-info badge-sm">14 个分镜</span>
                                 </h3>
                                 <div class="flex gap-2">
                                     <button class="btn btn-outline btn-sm gap-2">
-                                        <i class="ri-refresh-line"></i>
-                                        重新分析
+                                        <i class="ri-settings-4-line text-lg"></i>
+                                        AI模型设置
+                                    </button>
+                                    <button class="btn btn-outline btn-sm gap-2" onclick="startBatchMode('storyboard')">
+                                        <i class="ri-checkbox-multiple-line"></i>
+                                        批量生成
+                                    </button>
+                                    <button class="btn btn-outline btn-sm gap-2">
+                                        <i class="ri-add-line"></i>
+                                        添加分镜
                                     </button>
                                 </div>
                             </div>
@@ -1219,133 +1219,274 @@
                             <!-- Storyboard List -->
                             <div class="space-y-4">
                                 <!-- Storyboard Item 1 -->
-                                <div class="card bg-base-200 shadow-sm hover:shadow-md transition-all">
-                                <div class="card-body p-4">
-                                    <div class="flex items-start gap-4">
-                                        <div
-                                            class="avatar placeholder bg-primary/10 rounded-lg flex-shrink-0 w-16 h-16 flex items-center justify-center">
-                                            <span class="text-primary font-bold">S1-U1-L1</span>
+                                <div class="storyboard-card card bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200 transition-all flex flex-col md:flex-row">
+                                    <!-- Left: Preview & Sequence -->
+                                    <div class="w-full md:w-48 bg-base-200/30 flex flex-col items-center p-4 border-r border-base-200 group/preview relative">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <h5 class="card-title text-base">分镜创作 #1</h5>
                                         </div>
-                                        <div class="flex-1">
-                                            <div class="flex items-start justify-between mb-2">
-                                                <div>
-                                                    <h5 class="card-title text-base mb-1">序号：S1-U1-L1</h5>
-                                                    <p class="text-xs text-base-content/60">
-                                                        <span class="mr-3"><i class="ri-user-line"></i> 角色: 何玲子</span>
-                                                        <span class="mr-3"><i class="ri-map-pin-line"></i> 场景: 办公室</span>
-                                                    </p>
+                                        <div class="avatar placeholder bg-primary/10 rounded-lg w-32 h-32 flex items-center justify-center mb-3 group-hover/preview:scale-105 transition-transform">
+                                            <span class="text-primary font-bold text-xl">S1-1</span>
+                                        </div>
+                                        <div class="badge badge-primary badge-outline text-[10px] mb-2 font-mono">S1-U1-L1</div>
+                                        <div class="text-[10px] text-base-content/40 text-center px-2">暂无生成内容</div>
+                                        <!-- Edit overlay -->
+                                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center transition-opacity cursor-pointer">
+                                            <i class="ri-edit-2-line text-white text-2xl"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Middle: Text & Content -->
+                                    <div class="flex-1 p-5 min-w-0">
+
+                                        <div class="grid grid-cols-[90px_1fr] gap-x-4 gap-y-3">
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">镜头文案</div>
+                                            <div class="text-sm text-base-content/90 leading-relaxed">西北研究院办公室的静谧画面，充满科技感的氛围，旁白缓缓入场。</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">视频提示词</div>
+                                            <div class="text-xs text-base-content/50 italic leading-relaxed">Cinematic shot of a modern high-tech office with soft morning sunlight...</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">运镜</div>
+                                            <div class="text-xs text-base-content/80">推镜</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">场景</div>
+                                            <div class="text-xs text-base-content/80">办公室</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">景别</div>
+                                            <div class="text-xs text-base-content/80">中景</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">图片提示词</div>
+                                            <div class="text-xs text-base-content/50 italic leading-relaxed">High-end office interior, realistic, 8k resolution, photorealistic...</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">语音分镜</div>
+                                            <div class="text-xs text-base-content/80">旁白：西北研究院的清晨，一切都在静默中缓缓拉开序幕。</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">角色A</div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="badge badge-sm badge-primary rounded-md px-1.5">何玲子</span>
+                                                <span class="text-xs text-base-content/80">"请把那份报告给我确认一下。"</span>
+                                            </div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">角色A语音提示词</div>
+                                            <div class="text-[10px] text-base-content/50 italic">温柔且专业，语气平稳</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">角色B</div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="badge badge-sm badge-outline rounded-md px-1.5 text-base-content/60">系统助手</span>
+                                                <span class="text-xs text-base-content/60 italic">"正在处理最新数据分析..."</span>
+                                            </div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">角色B语音提示词</div>
+                                            <div class="text-[10px] text-base-content/50 italic">中性机械音，不带感情色彩</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right: Task Production Board -->
+                                    <div class="w-full md:w-64 bg-base-200/20 border-l border-base-200 p-4">
+                                        <div class="text-xs font-bold text-base-content/50 mb-3 flex items-center justify-between">
+                                            制作管理
+                                            <button class="btn btn-ghost btn-xs btn-square"><i class="ri-settings-line"></i></button>
+                                        </div>
+                                        
+                                        <div class="grid grid-cols-1 gap-2">
+                                            <!-- Task 1: Fusion Image Model -->
+                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-6 h-6 rounded bg-primary/10 flex items-center justify-center text-primary">
+                                                        <i class="ri-image-add-line text-sm"></i>
+                                                    </div>
+                                                    <span class="text-xs font-medium">融合图模型</span>
                                                 </div>
-                                                <input type="checkbox" class="checkbox checkbox-sm" />
+                                                <div class="flex items-center gap-1">
+                                                    <div class="badge badge-success badge-sm p-1"><i class="ri-check-line"></i></div>
+                                                    <button class="btn btn-ghost btn-xs btn-square opacity-0 group-hover:opacity-100"><i class="ri-refresh-line"></i></button>
+                                                </div>
                                             </div>
-                                            <p class="text-sm mb-3">
-                                                <strong>镜头文案：</strong>西北研究院办公室的静分镜面，充满白色的气氛
-                                            </p>
-                                            <p class="text-sm mb-3 text-base-content/70">
-                                                <strong>镜描述示例：</strong>画面中位的是镜头生成形象，平视拍摄，画面中年轻有着专业外观...
-                                            </p>
-                                            <div class="flex gap-1 flex-wrap mb-3">
-                                                <span class="badge badge-sm">镜头</span>
-                                                <span class="badge badge-sm badge-primary">科技生物镜</span>
-                                                <span class="badge badge-sm badge-success">绿美细腻</span>
-                                                <span class="badge badge-sm badge-outline">生物效果</span>
-                                                <span class="badge badge-sm badge-outline">生成色彩</span>
-                                                <span class="badge badge-sm badge-outline">记忆作用</span>
+
+                                            <!-- Task 2: Voice Model -->
+                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-6 h-6 rounded bg-accent/10 flex items-center justify-center text-accent">
+                                                        <i class="ri-mic-line text-sm"></i>
+                                                    </div>
+                                                    <span class="text-xs font-medium">语音模型</span>
+                                                </div>
+                                                <div class="flex items-center gap-1">
+                                                    <div class="badge badge-warning badge-sm gap-1 text-[10px] h-6 px-1.5">
+                                                        <span class="loading loading-spinner loading-xs"></span> 45%
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="flex gap-2">
-                                                <button class="btn btn-sm btn-outline gap-1">
-                                                    <i class="ri-edit-line"></i>
-                                                    编辑
-                                                </button>
-                                                <button class="btn btn-sm btn-primary gap-1">
-                                                    <i class="ri-image-add-line"></i>
-                                                    融合生图
-                                                </button>
-                                                <button class="btn btn-sm btn-outline gap-1">
-                                                    <i class="ri-video-line"></i>
-                                                    生成视频
-                                                </button>
-                                                <button class="btn btn-sm btn-outline gap-1">
-                                                    <i class="ri-mic-line"></i>
-                                                    配音
+
+                                            <!-- Task 3: Video Model -->
+                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-6 h-6 rounded bg-secondary/10 flex items-center justify-center text-secondary">
+                                                        <i class="ri-movie-line text-sm"></i>
+                                                    </div>
+                                                    <span class="text-xs font-medium">视频模型</span>
+                                                </div>
+                                                <div class="flex items-center gap-1">
+                                                    <button class="btn btn-primary btn-xs h-6 min-h-0 text-[10px] gap-1">
+                                                        <i class="ri-magic-line"></i>生成
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4 flex gap-1 justify-between">
+                                            <div class="dropdown dropdown-top">
+                                                <div tabindex="0" role="button" class="btn btn-ghost btn-xs gap-1 opacity-50 hover:opacity-100">
+                                                    <i class="ri-more-2-line"></i>
+                                                </div>
+                                                <ul tabindex="0" class="dropdown-content z-[2] menu p-1 shadow bg-base-100 rounded-box w-32 text-xs">
+                                                    <li><a><i class="ri-edit-line"></i>编辑剧情</a></li>
+                                                    <li><a><i class="ri-file-copy-line"></i>复制分镜</a></li>
+                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除分镜</a></li>
+                                                </ul>
+                                            </div>
+                                            <button class="btn btn-ghost btn-xs gap-1 opacity-50 hover:opacity-100">
+                                                预览合成 <i class="ri-external-link-line"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- Storyboard Batch Checkbox -->
+                                        <div class="storyboard-selection-overlay hidden absolute bottom-4 right-4 z-20">
+                                            <input type="checkbox" class="checkbox checkbox-primary shadow-sm bg-base-100/100 backdrop-blur-sm" onchange="toggleStoryboardSelection(this)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Storyboard Item 2 (Alternative Layout/Status) -->
+                                <div class="storyboard-card card bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200 transition-all flex flex-col md:flex-row">
+                                    <div class="w-full md:w-48 bg-base-200/30 flex flex-col items-center p-4 border-r border-base-200 group/preview relative">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <h5 class="card-title text-base">分镜创作 #2</h5>
+                                        </div>
+                                        <div class="avatar placeholder bg-warning/10 rounded-lg w-32 h-32 flex items-center justify-center mb-3">
+                                            <i class="ri-image-line text-warning text-4xl"></i>
+                                        </div>
+                                        <div class="badge badge-warning badge-outline text-[10px] mb-2 font-mono">S1-U1-L2</div>
+                                        <div class="text-[10px] text-warning text-center px-2">正在载入预览...</div>
+                                    </div>
+
+                                    <div class="flex-1 p-5 min-w-0">
+
+                                        <div class="grid grid-cols-[90px_1fr] gap-x-4 gap-y-3">
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">镜头文案</div>
+                                            <div class="text-sm text-base-content/90 leading-relaxed">许愿被老太孙高龄的陪伴着，李妈妈在远处招手示意，温暖的夕阳洒在由于。</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">视频提示词</div>
+                                            <div class="text-xs text-base-content/50 italic leading-relaxed">Grandmother and child sitting together in the sun, mother waving in distance...</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">运镜</div>
+                                            <div class="text-xs text-base-content/80">固定</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">场景</div>
+                                            <div class="text-xs text-base-content/80">街道</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">景别</div>
+                                            <div class="text-xs text-base-content/80">全景</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">图片提示词</div>
+                                            <div class="text-xs text-base-content/50 italic leading-relaxed">Golden hour street scene, family gathering, warm atmosphere...</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">语音分镜</div>
+                                            <div class="text-xs text-base-content/80">背景音：孩子欢快的笑声，远处的蝉鸣。</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">角色A</div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="badge badge-sm badge-primary rounded-md px-1.5">李妈妈</span>
+                                                <span class="text-xs text-base-content/80">"孩子，慢慢来，不着急。"</span>
+                                            </div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">角色A语音提示词</div>
+                                            <div class="text-[10px] text-base-content/50 italic">慈祥、和蔼</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full md:w-64 bg-base-200/20 border-l border-base-200 p-4">
+                                        <div class="text-xs font-bold text-base-content/50 mb-3 flex items-center justify-between">
+                                            制作管理
+                                        </div>
+                                        
+                                        <div class="grid grid-cols-1 gap-2">
+                                            <!-- Task 1: Fusion Image Model -->
+                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200">
+                                                <div class="flex items-center gap-2 text-base-content/40">
+                                                    <i class="ri-image-add-line text-sm"></i>
+                                                    <span class="text-xs font-medium">融合图模型</span>
+                                                </div>
+                                                <button class="btn btn-primary btn-xs h-6 min-h-0 text-[10px] gap-1">
+                                                    <i class="ri-magic-line"></i>生成
                                                 </button>
                                             </div>
+
+                                            <!-- Task 2: Voice Model -->
+                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200">
+                                                <div class="flex items-center gap-2 text-base-content/40">
+                                                    <i class="ri-mic-line text-sm"></i>
+                                                    <span class="text-xs font-medium">语音模型</span>
+                                                </div>
+                                                <button class="btn btn-outline btn-xs h-6 min-h-0 text-[10px]">生成</button>
+                                            </div>
+
+                                            <!-- Task 3: Video Model -->
+                                            <div class="flex items-center justify-between bg-base-100/50 p-2 rounded border border-base-200/50">
+                                                <div class="flex items-center gap-2 text-base-content/20">
+                                                    <i class="ri-movie-line text-sm"></i>
+                                                    <span class="text-xs font-medium">视频模型</span>
+                                                </div>
+                                                <span class="text-[10px] opacity-20 italic">待定图片</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-4">
+                                            <button class="btn btn-block btn-ghost btn-xs gap-1 opacity-50">
+                                                <i class="ri-play-list-add-line"></i> 一键生产全部内容 
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- Storyboard Batch Checkbox -->
+                                        <div class="storyboard-selection-overlay hidden absolute bottom-4 right-4 z-20">
+                                            <input type="checkbox" class="checkbox checkbox-primary shadow-sm bg-base-100/100 backdrop-blur-sm" onchange="toggleStoryboardSelection(this)" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                                <!-- Storyboard Item 2 -->
-                                <div class="card bg-base-200 shadow-sm hover:shadow-md transition-all">
-                                <div class="card-body p-4">
-                                    <div class="flex items-start gap-4">
-                                        <div
-                                            class="avatar placeholder bg-success/10 rounded-lg flex-shrink-0 w-16 h-16 flex items-center justify-center">
-                                            <span class="text-success font-bold">S1-U1-L2</span>
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="flex items-start justify-between mb-2">
-                                                <div>
-                                                    <h5 class="card-title text-base mb-1">序号：S1-U1-L2</h5>
-                                                    <p class="text-xs text-base-content/60">
-                                                        <span class="mr-3"><i class="ri-user-line"></i> 角色: 李妈妈</span>
-                                                        <span class="mr-3"><i class="ri-map-pin-line"></i> 场景: 街道</span>
-                                                    </p>
-                                                </div>
-                                                <input type="checkbox" class="checkbox checkbox-sm" />
-                                            </div>
-                                            <p class="text-sm mb-3">
-                                                <strong>镜头文案：</strong>许愿被老太孙高龄的陪伴着李妈妈...
-                                            </p>
-                                            <p class="text-sm mb-3 text-base-content/70">
-                                                <strong>镜描述示例：</strong>画面中位的是镜头生成形象，平视拍摄...
-                                            </p>
-                                            <div class="flex gap-1 flex-wrap mb-3">
-                                                <span class="badge badge-sm">镜头</span>
-                                                <span class="badge badge-sm badge-success">选项</span>
-                                                <span class="badge badge-sm badge-outline">功能强心</span>
-                                            </div>
-                                            <div class="flex gap-2">
-                                                <button class="btn btn-sm btn-outline gap-1">
-                                                    <i class="ri-edit-line"></i>
-                                                    编辑
-                                                </button>
-                                                <button class="btn btn-sm btn-primary gap-1">
-                                                    <i class="ri-image-add-line"></i>
-                                                    融合生图
-                                                </button>
-                                                <button class="btn btn-sm btn-outline gap-1">
-                                                    <i class="ri-video-line"></i>
-                                                    生成视频
-                                                </button>
-                                                <button class="btn btn-sm btn-outline gap-1">
-                                                    <i class="ri-mic-line"></i>
-                                                    配音
-                                                </button>
-                                            </div>
-                                        </div>
+                            <!-- Batch Selection Info Bar (Floating) -->
+                            <div id="storyboard-batch-bar" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-base-100 shadow-2xl rounded-box p-4 border border-primary/20">
+                                <div class="flex items-center gap-4">
+                                    <div class="flex items-center gap-2">
+                                        <i class="ri-checkbox-multiple-line text-primary text-xl"></i>
+                                        <span class="font-semibold">已选择 <span id="storyboard-selected-count" class="text-primary font-mono">0</span> 个分镜</span>
                                     </div>
+                                    <div class="divider divider-horizontal m-0"></div>
+                                    <div class="dropdown dropdown-top">
+                                        <div tabindex="0" role="button" class="btn btn-sm btn-primary gap-2">
+                                            批量操作程序 <i class="ri-arrow-up-s-line"></i>
+                                        </div>
+                                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-xl bg-base-100 rounded-box w-52 border border-base-300 mb-2">
+                                            <li><a><i class="ri-image-add-line"></i> 批量生成融合图模型</a></li>
+                                            <li><a><i class="ri-mic-line"></i> 批量生成语音模型</a></li>
+                                            <li><a><i class="ri-movie-line"></i> 批量生成视频模型</a></li>
+                                            <div class="divider my-1"></div>
+                                            <li><a class="text-primary font-bold"><i class="ri-play-circle-line"></i> 一键生产全部内容</a></li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn btn-sm btn-ghost" onclick="cancelBatchMode('storyboard')">
+                                        取消
+                                    </button>
                                 </div>
-                            </div>
-                            </div>
-
-                            <!-- Batch Actions - Floating -->
-                            <div class="floating-actions">
-                                <button class="btn btn-primary gap-2 shadow-lg">
-                                    <i class="ri-image-add-line"></i>
-                                    批量融合生图
-                                </button>
-                                <button class="btn btn-outline gap-2 shadow-lg">
-                                    <i class="ri-video-add-line"></i>
-                                    批量生成视频
-                                </button>
-                                <button class="btn btn-outline gap-2 shadow-lg">
-                                    <i class="ri-volume-up-line"></i>
-                                    批量配音
-                                </button>
                             </div>
                         </div>
+                    </div>
                 </div>
-            </div>
+
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
@@ -2191,21 +2332,54 @@
         function startBatchMode(type) {
             isBatchMode = true;
             selectedElements.clear();
-            document.body.classList.add('batch-mode-active');
-            document.getElementById('batch_action_bar').classList.add('show');
-            document.getElementById('select_all_checkbox').checked = false;
-            updateBatchUI();
             
-            // Add indicators to cards if they don't exist
-            document.querySelectorAll('.element-card').forEach(card => {
-                if (!card.querySelector('.selection-indicator')) {
-                    const indicator = document.createElement('div');
-                    indicator.className = 'selection-indicator';
-                    card.querySelector('.card-main').appendChild(indicator);
-                }
-            });
-            
+            if (type === 'storyboard') {
+                document.getElementById('storyboard-batch-bar').classList.remove('hidden');
+                document.querySelectorAll('.storyboard-selection-overlay').forEach(overlay => {
+                    overlay.classList.remove('hidden');
+                });
+            } else {
+                document.body.classList.add('batch-mode-active');
+                document.getElementById('batch_action_bar').classList.add('show');
+                document.getElementById('select_all_checkbox').checked = false;
+                updateBatchUI();
+                
+                // Add indicators to cards if they don't exist
+                document.querySelectorAll('.element-card').forEach(card => {
+                    if (!card.querySelector('.selection-indicator')) {
+                        const indicator = document.createElement('div');
+                        indicator.className = 'selection-indicator';
+                        card.querySelector('.card-main').appendChild(indicator);
+                    }
+                });
+            }
+        }
 
+        function cancelBatchMode(type) {
+            isBatchMode = false;
+            if (type === 'storyboard') {
+                document.getElementById('storyboard-batch-bar').classList.add('hidden');
+                document.querySelectorAll('.storyboard-selection-overlay').forEach(overlay => {
+                    overlay.classList.add('hidden');
+                    overlay.querySelector('input').checked = false;
+                });
+                document.querySelectorAll('.storyboard-card').forEach(card => card.classList.remove('selected'));
+                document.getElementById('storyboard-selected-count').textContent = '0';
+            }
+        }
+
+        function toggleStoryboardSelection(checkbox) {
+            const card = checkbox.closest('.storyboard-card');
+            if (checkbox.checked) {
+                card.classList.add('selected', 'border-primary');
+                card.style.borderColor = 'hsl(var(--p))';
+            } else {
+                card.classList.remove('selected', 'border-primary');
+                card.style.borderColor = '';
+            }
+            
+            const selectedCount = document.querySelectorAll('.storyboard-selection-overlay input:checked').length;
+            document.getElementById('storyboard-selected-count').textContent = selectedCount;
         }
 
         function toggleSelectAll(checked) {
@@ -2454,6 +2628,12 @@
         .batch-mode-active .element-card .card-body .dropdown {
             pointer-events: none;
             opacity: 0.5;
+        }
+
+        .storyboard-card.selected {
+            border-color: hsl(var(--p)) !important;
+            background-color: hsla(var(--p) / 0.02);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
     </style>
 </body>

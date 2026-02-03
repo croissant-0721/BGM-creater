@@ -56,6 +56,13 @@
         .editor-canvas-area {
             flex: 1;
             display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .canvas-viewport {
+            flex: 1;
+            display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px;
@@ -63,14 +70,14 @@
         }
 
         .editor-sidebar {
-            width: 320px;
+            width: 460px;
             background: var(--fallback-b1, oklch(var(--b1)));
-            border-left: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            border-right: 1px solid var(--fallback-b3, oklch(var(--b3)));
             display: flex;
             flex-direction: column;
             padding: 20px;
             gap: 20px;
-            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.02);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
             z-index: 5;
         }
 
@@ -210,9 +217,9 @@
     <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
         <div class="navbar-start">
             <div class="flex items-center gap-8">
-                <a href="index.html" class="flex items-center gap-3">
-                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
-                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                <a href="index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
                 </a>
                 <ul class="menu menu-horizontal px-1 gap-2">
                     <li><a href="index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
@@ -286,77 +293,10 @@
     </div>
 
     <div class="editor-container">
-        <!-- Toolbar -->
-        <div class="editor-toolbar">
-            <div class="toolbar-group">
-                <button class="toolbar-btn active" title="局部重绘">
-                    <i class="ri-brush-line text-lg"></i>
-                    <span>局部重绘</span>
-                </button>
-                <button class="toolbar-btn" title="擦除">
-                    <i class="ri-eraser-line text-lg"></i>
-                    <span>擦除</span>
-                </button>
-                <a href="project-detail-imageedit-kuotu.html" class="toolbar-btn" title="扩图">
-                    <i class="ri-aspect-ratio-line text-lg"></i>
-                    <span>扩图</span>
-                </a>
-                <a href="project-detail-imageedit-gaoqingchonghui.html" class="toolbar-btn" title="高清重绘">
-                    <i class="ri-image-edit-line text-lg"></i>
-                    <span>高清重绘</span>
-                </a>
-            </div>
 
-            <div class="divider-v"></div>
-
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="缩小">
-                    <i class="ri-zoom-out-line"></i>
-                </button>
-                <button class="toolbar-btn" title="放大">
-                    <i class="ri-zoom-in-line"></i>
-                </button>
-                <span class="zoom-info">60%</span>
-            </div>
-
-            <div class="divider-v"></div>
-
-            <div class="toolbar-group">
-                <button class="toolbar-btn" title="还原">
-                    <i class="ri-restart-line"></i>
-                </button>
-                <button class="toolbar-btn text-error" title="删除">
-                    <i class="ri-delete-bin-line"></i>
-                </button>
-            </div>
-        </div>
 
         <div class="editor-main">
-            <!-- Canvas Area -->
-            <div class="editor-canvas-area" id="canvasArea">
-                <!-- Initial State: Upload Placeholder -->
-                <div class="upload-placeholder" id="uploadBox">
-                    <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-4">
-                        <i class="ri-image-add-line text-3xl"></i>
-                    </div>
-                    <p class="text-lg font-semibold">点击或拖拽图片到此处上传</p>
-                    <p class="text-sm text-base-content/60 mt-2">支持 JPG, PNG 格式，最大 4096px</p>
-                    <input type="file" class="hidden" id="fileInput" accept="image/*">
-                </div>
-
-                <!-- After Upload: Image Canvas (Hidden by default) -->
-                <div class="canvas-container hidden" id="canvasContainer">
-                    <img src="https://picsum.photos/1200/800?random=1" alt="编辑图片" class="canvas-image" id="targetImage">
-                    <!-- Drawing overlay would be here in a real implementation -->
-                    <div class="absolute inset-0 pointer-events-none border-2 border-primary/20"></div>
-                </div>
-            </div>
-
             <div class="editor-sidebar">
-                <div class="flex flex-col items-center mb-4">
-                    <i class="ri-more-fill text-gray-300 rotate-90 text-2xl"></i>
-                    <div class="divider my-0 w-full opacity-20"></div>
-                </div>
 
                 <!-- Warning Box -->
                 <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-xs">
@@ -406,6 +346,51 @@
                             <i class="ri-magic-line text-lg"></i>
                             生成
                         </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Area -->
+            <div class="editor-canvas-area" id="canvasArea">
+                <div class="editor-toolbar">
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" title="缩小">
+                            <i class="ri-zoom-out-line"></i>
+                        </button>
+                        <button class="toolbar-btn" title="放大">
+                            <i class="ri-zoom-in-line"></i>
+                        </button>
+                        <span class="zoom-info">50%</span>
+                    </div>
+
+                    <div class="divider-v"></div>
+
+                    <div class="toolbar-group">
+                        <button class="toolbar-btn" title="还原">
+                            <i class="ri-restart-line"></i>
+                        </button>
+                        <button class="toolbar-btn text-error" title="删除">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="canvas-viewport">
+                    <!-- Initial State: Upload Placeholder -->
+                    <div class="upload-placeholder" id="uploadBox">
+                        <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="ri-image-add-line text-3xl"></i>
+                        </div>
+                        <p class="text-lg font-semibold">点击或拖拽图片到此处上传</p>
+                        <p class="text-sm text-base-content/60 mt-2">支持 JPG, PNG 格式，最大 4096px</p>
+                        <input type="file" class="hidden" id="fileInput" accept="image/*">
+                    </div>
+
+                    <!-- After Upload: Image Canvas (Hidden by default) -->
+                    <div class="canvas-container hidden" id="canvasContainer">
+                        <img src="https://picsum.photos/1200/800?random=1" alt="编辑图片" class="canvas-image" id="targetImage">
+                        <!-- Drawing overlay would be here in a real implementation -->
+                        <div class="absolute inset-0 pointer-events-none border-2 border-primary/20"></div>
                     </div>
                 </div>
             </div>
