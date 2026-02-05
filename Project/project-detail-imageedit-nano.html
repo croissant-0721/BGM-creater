@@ -70,7 +70,9 @@
         }
 
         .editor-sidebar {
-            width: 460px;
+            width: 24vw;
+            min-width: 320px;
+            max-width: 460px;
             background: var(--fallback-b1, oklch(var(--b1)));
             border-right: 1px solid var(--fallback-b3, oklch(var(--b3)));
             display: flex;
@@ -83,7 +85,9 @@
         }
 
         .editor-right-sidebar {
-            width: 340px;
+            width: 20vw;
+            min-width: 280px;
+            max-width: 340px;
             background: var(--fallback-b1, oklch(var(--b1)));
             border-left: 1px solid var(--fallback-b3, oklch(var(--b3)));
             display: flex;
@@ -93,6 +97,38 @@
             box-shadow: -2px 0 10px rgba(0, 0, 0, 0.02);
             z-index: 5;
             overflow-y: auto;
+        }
+
+        /* 响应式优化 - 笔记本屏幕 */
+        @media (max-width: 1440px) {
+            .editor-sidebar {
+                width: 22vw;
+                min-width: 300px;
+                max-width: 380px;
+            }
+
+            .editor-right-sidebar {
+                width: 18vw;
+                min-width: 260px;
+                max-width: 300px;
+            }
+        }
+
+        /* 响应式优化 - 小屏笔记本 */
+        @media (max-width: 1280px) {
+            .editor-sidebar {
+                width: 20vw;
+                min-width: 280px;
+                max-width: 340px;
+                padding: 16px;
+            }
+
+            .editor-right-sidebar {
+                width: 16vw;
+                min-width: 240px;
+                max-width: 280px;
+                padding: 16px;
+            }
         }
 
         .canvas-container {
@@ -459,6 +495,10 @@
         <div class="editor-main">
             <!-- Sidebar -->
             <div class="editor-sidebar">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="ri-sparkling-line text-lg"></i>
+                    <span>Nano Banana Pro</span>
+                </h3>
 
                 <!-- Image Upload Section -->
                 <div>
@@ -709,26 +749,12 @@
                 </div>
                 
                 <!-- Task Card 1 (Completed) -->
-                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full">
-                    <figure><img src="https://picsum.photos/400/300?random=201" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="1">
+                    <a href="task-detail.html?id=1" target="_blank" rel="noopener noreferrer">
+                        <figure class="cursor-pointer"><img src="https://picsum.photos/400/300?random=201" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                    </a>
                     <div class="card-body p-4">
                         <h3 class="card-title text-base mb-2">智能背景移除</h3>
-                        <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-primary badge-sm">背景移除</span>
-                        </div>
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-2">
-                                <div class="avatar">
-                                    <div class="w-6 rounded-full">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck" alt="用户头像" />
-                                    </div>
-                                </div>
-                                <div class="text-xs font-medium">王大卫</div>
-                            </div>
-                            <div class="text-xs text-base-content/60">
-                                <i class="ri-time-line"></i>10分钟前
-                            </div>
-                        </div>
                         <div class="card-actions justify-between items-center mt-1">
                             <div class="badge badge-success badge-sm gap-1">
                                 <i class="ri-check-circle-fill"></i>
@@ -753,8 +779,10 @@
                 </div>
 
                 <!-- Task Card 2 (Processing) -->
-                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full">
-                    <figure><img src="https://picsum.photos/400/300?random=202" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="2">
+                    <a href="task-detail.html?id=2" target="_blank" rel="noopener noreferrer">
+                        <figure class="cursor-pointer"><img src="https://picsum.photos/400/300?random=202" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                    </a>
                     <div class="card-body p-4">
                         <h3 class="card-title text-base mb-2">画质增强 (4X)</h3>
                         <div class="mb-2 flex gap-1 flex-wrap">
@@ -787,8 +815,10 @@
                 </div>
 
                 <!-- Task Card 3 (Failed) -->
-                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full">
-                    <figure><img src="https://picsum.photos/400/300?random=203" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="3">
+                    <a href="task-detail.html?id=3" target="_blank" rel="noopener noreferrer">
+                        <figure class="cursor-pointer"><img src="https://picsum.photos/400/300?random=203" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                    </a>
                     <div class="card-body p-4">
                         <h3 class="card-title text-base mb-2">智能扩图</h3>
                         <div class="mb-2 flex gap-1 flex-wrap">
