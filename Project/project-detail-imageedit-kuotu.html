@@ -70,7 +70,9 @@
         }
 
         .editor-sidebar {
-            width: 460px;
+            width: 24vw;
+            min-width: 320px;
+            max-width: 460px;
             background: var(--fallback-b1, oklch(var(--b1)));
             border-right: 1px solid var(--fallback-b3, oklch(var(--b3)));
             display: flex;
@@ -79,6 +81,26 @@
             gap: 20px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
             z-index: 5;
+            overflow-y: auto;
+        }
+
+        /* 响应式优化 - 笔记本屏幕 */
+        @media (max-width: 1440px) {
+            .editor-sidebar {
+                width: 22vw;
+                min-width: 300px;
+                max-width: 380px;
+            }
+        }
+
+        /* 响应式优化 - 小屏笔记本 */
+        @media (max-width: 1280px) {
+            .editor-sidebar {
+                width: 20vw;
+                min-width: 280px;
+                max-width: 340px;
+                padding: 16px;
+            }
         }
 
         .canvas-container {
