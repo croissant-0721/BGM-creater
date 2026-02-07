@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>局部重绘 | 盼趣AI</title>
+    <title>扩图 | 盼趣AI</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -109,6 +109,7 @@
             position: relative;
             max-width: 100%;
             max-height: 100%;
+            transition: all 0.3s ease;
         }
 
         .canvas-image {
@@ -231,6 +232,33 @@
                 transform: translateY(0) scale(1);
             }
         }
+
+        .expand-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .expand-label {
+            width: 40px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #6b7280;
+            background: white;
+        }
+
+        .expand-val {
+            min-width: 20px;
+            text-align: right;
+            font-size: 12px;
+            color: #6b7280;
+        }
     </style>
 </head>
 
@@ -252,6 +280,12 @@
             </div>
         </div>
         <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
             <!-- Theme Toggle -->
             <label class="swap swap-rotate btn btn-ghost btn-circle">
                 <input type="checkbox" id="theme-toggle" />
@@ -283,7 +317,7 @@
                             </div>
                             <div class="flex-1">
                                 <div class="text-sm font-medium">任务完成</div>
-                                <div class="text-xs text-base-content/60">局部重绘项目 • 5分钟前</div>
+                                <div class="text-xs text-base-content/60">扩图项目 • 5分钟前</div>
                             </div>
                             <span class="badge badge-xs badge-success"></span>
                         </a>
@@ -318,10 +352,11 @@
 
 
         <div class="editor-main">
+            <!-- Sidebar -->
             <div class="editor-sidebar">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <i class="ri-brush-line text-lg"></i>
-                    <span>局部重绘</span>
+                    <i class="ri-expand-diagonal-line text-lg"></i>
+                    <span>智能扩图</span>
                 </h3>
 
                 <!-- Warning Box -->
@@ -337,13 +372,33 @@
                     </ul>
                 </div>
 
-                <!-- Prompt Area -->
-                <div class="form-control w-full">
-                    <label class="label pt-0">
-                        <span class="label-text font-bold">重绘提示词</span>
-                    </label>
-                    <textarea class="textarea textarea-bordered h-32 text-sm leading-relaxed"
-                        placeholder="描述想要生成的画面内容，例如：一朵红色的花"></textarea>
+                <!-- Expansion Settings -->
+                <div>
+                    <span class="label-text font-bold block mb-4">扩展方向和比例（可多选）</span>
+
+                    <div class="expand-row">
+                        <div class="expand-label">上</div>
+                        <input type="range" min="0" max="1024" value="0" class="range range-primary range-xs flex-1">
+                        <span class="expand-val">0</span>
+                    </div>
+
+                    <div class="expand-row">
+                        <div class="expand-label">下</div>
+                        <input type="range" min="0" max="1024" value="0" class="range range-primary range-xs flex-1">
+                        <span class="expand-val">0</span>
+                    </div>
+
+                    <div class="expand-row">
+                        <div class="expand-label">左</div>
+                        <input type="range" min="0" max="1024" value="0" class="range range-primary range-xs flex-1">
+                        <span class="expand-val">0</span>
+                    </div>
+
+                    <div class="expand-row">
+                        <div class="expand-label">右</div>
+                        <input type="range" min="0" max="1024" value="0" class="range range-primary range-xs flex-1">
+                        <span class="expand-val">0</span>
+                    </div>
                 </div>
 
                 <!-- Brush Settings -->
@@ -354,7 +409,6 @@
                     <input type="range" min="1" max="100" value="20" class="range range-primary range-xs"
                         id="brushSize">
 
-                    <!-- Color Preview Area (as shown in screenshot) -->
                     <div class="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
                         <div class="w-8 h-8 rounded-full bg-red-400 opacity-60 shadow-lg ring-4 ring-white"></div>
                     </div>
@@ -365,7 +419,7 @@
                         <!-- Points Bubble -->
                         <div class="points-tooltip">
                             <i class="ri-coin-fill text-[10px]"></i>
-                            50 积分
+                            20 积分
                         </div>
                         <button class="btn btn-outline flex-1 hover:scale-105 transition-transform">取消</button>
                         <button class="btn btn-primary flex-1 hover:scale-105 transition-transform shadow-lg">
@@ -415,7 +469,6 @@
                     <!-- After Upload: Image Canvas (Hidden by default) -->
                     <div class="canvas-container hidden" id="canvasContainer">
                         <img src="https://picsum.photos/1200/800?random=1" alt="编辑图片" class="canvas-image" id="targetImage">
-                        <!-- Drawing overlay would be here in a real implementation -->
                         <div class="absolute inset-0 pointer-events-none border-2 border-primary/20"></div>
                     </div>
                 </div>
@@ -428,56 +481,70 @@
         const uploadBox = document.getElementById('uploadBox');
         const fileInput = document.getElementById('fileInput');
         const canvasContainer = document.getElementById('canvasContainer');
-        const brushSize = document.getElementById('brushSize');
-        const brushSizeVal = document.getElementById('brushSizeVal');
 
-        uploadBox.onclick = () => fileInput.click();
+        if (uploadBox) {
+            uploadBox.onclick = () => fileInput.click();
 
-        // Drag and Drop
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            uploadBox.addEventListener(eventName, preventDefaults, false);
-        });
+            // Drag and Drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, preventDefaults, false);
+            });
 
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
 
-        ['dragenter', 'dragover'].forEach(eventName => {
-            uploadBox.addEventListener(eventName, () => uploadBox.classList.add('drag-over'), false);
-        });
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, () => uploadBox.classList.add('drag-over'), false);
+            });
 
-        ['dragleave', 'drop'].forEach(eventName => {
-            uploadBox.addEventListener(eventName, () => uploadBox.classList.remove('drag-over'), false);
-        });
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, () => uploadBox.classList.remove('drag-over'), false);
+            });
 
-        uploadBox.addEventListener('drop', handleDrop, false);
+            uploadBox.addEventListener('drop', handleDrop, false);
 
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            handleFiles(files);
-        }
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
 
-        fileInput.onchange = (e) => {
-            handleFiles(e.target.files);
-        };
+            fileInput.onchange = (e) => {
+                handleFiles(e.target.files);
+            };
 
-        function handleFiles(files) {
-            if (files && files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    document.getElementById('targetImage').src = e.target.result;
-                    uploadBox.classList.add('hidden');
-                    canvasContainer.classList.remove('hidden');
-                };
-                reader.readAsDataURL(files[0]);
+            function handleFiles(files) {
+                if (files && files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        document.getElementById('targetImage').src = e.target.result;
+                        uploadBox.classList.add('hidden');
+                        canvasContainer.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(files[0]);
+                }
             }
         }
 
-        brushSize.oninput = (e) => {
-            brushSizeVal.textContent = e.target.value + 'px';
-        };
+        // Expansion range logic
+        const ranges = document.querySelectorAll('.expand-row input');
+        ranges.forEach(range => {
+            range.oninput = (e) => {
+                const valDisp = e.target.parentElement.querySelector('.expand-val');
+                valDisp.textContent = e.target.value;
+            };
+        });
+
+        // Brush logic
+        const brushSize = document.getElementById('brushSize');
+        const brushSizeVal = document.getElementById('brushSizeVal');
+        if (brushSize) {
+            brushSize.oninput = (e) => {
+                brushSizeVal.textContent = e.target.value + 'px';
+            };
+        }
 
         // Simulated toolbar switching
         const toolbarButtons = document.querySelectorAll('.toolbar-btn');

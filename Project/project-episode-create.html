@@ -28,7 +28,7 @@
 
 <body class="bg-base-200">
     <!-- Top Navbar -->
-    <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
         <!-- Logo and Navigation - Start -->
         <div class="navbar-start">
             <div class="flex items-center gap-8">
@@ -128,7 +128,6 @@
                             <span class="badge badge-sm badge-primary">New</span>
                         </a></li>
                     <li><a>使用统计</a></li>
-                    <li><a>API密钥</a></li>
                     <div class="divider my-0"></div>
                     <li><a class="text-error">退出登录</a></li>
                 </ul>
@@ -143,49 +142,49 @@
             <!-- Navigation Menu -->
             <ul class="menu menu-vertical px-4 py-6 gap-2">
                 <li>
-                    <a href="project-detail-episode.html" class="active">
+                    <a href="project-episode.html" class="active">
                         <i class="ri-book-2-line text-lg"></i>
                         <span>剧本</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-character.html">
+                    <a href="project-character.html">
                         <i class="ri-user-line text-lg"></i>
                         <span>角色</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-scene.html">
+                    <a href="project-scene.html">
                         <i class="ri-landscape-line text-lg"></i>
                         <span>场景</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-goods.html">
+                    <a href="project-goods.html">
                         <i class="ri-box-3-line text-lg"></i>
                         <span>物品</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-fusion.html">
+                    <a href="project-fusion.html">
                         <i class="ri-image-add-line text-lg"></i>
                         <span>融合生图</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-video.html">
+                    <a href="project-video.html">
                         <i class="ri-video-line text-lg"></i>
                         <span>视频</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-tts.html">
+                    <a href="project-tts.html">
                         <i class="ri-mic-line text-lg"></i>
                         <span>语音</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-imageedit.html">
+                    <a href="project-imageedit.html">
                         <i class="ri-edit-line text-lg"></i>
                         <span>图片编辑</span>
                     </a>
@@ -2215,16 +2214,16 @@
                 }
 
                 // Determine target page based on parent container or content
-                let targetPage = 'project-detail-character.html'; // Default
+                let targetPage = 'project-character.html'; // Default
                 
                 // Check if it's in the Scenes grid
                 const stepElements = this.closest('#step-elements');
                 if (stepElements && stepElements.querySelector('input[aria-label^="场景"]').checked) {
-                    targetPage = 'project-detail-scene.html';
+                    targetPage = 'project-scene.html';
                 } 
                 // Check if it's in the Items grid
                 else if (stepElements && stepElements.querySelector('input[aria-label^="物品"]').checked) {
-                    targetPage = 'project-detail-goods.html';
+                    targetPage = 'project-goods.html';
                 }
 
                 window.open(targetPage, '_blank');

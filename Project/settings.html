@@ -49,7 +49,7 @@
 
 <body class="bg-base-200 min-h-screen">
     <!-- Navbar -->
-    <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
         <div class="navbar-start">
             <div class="flex items-center gap-8">
                 <a href="index.html" class="flex items-center gap-3">
@@ -67,6 +67,13 @@
             </div>
         </div>
         <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
             <label class="swap swap-rotate btn btn-ghost btn-circle">
                 <input type="checkbox" id="theme-toggle" />
                 <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
@@ -81,11 +88,27 @@
                 </div>
                 <ul tabindex="0"
                     class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
-                    <li class="menu-title">任务消息通知</li>
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
                     <div class="divider my-0"></div>
-                    <li><a>
-                            <div class="text-sm font-medium">设置更新成功</div>
-                        </a></li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
                 </ul>
             </div>
             <div class="dropdown dropdown-end">
@@ -99,8 +122,10 @@
                 <ul tabindex="0"
                     class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
                     <li class="menu-title text-base-content/70">王大卫</li>
-                    <li><a href="settings.html" class="active">个人设置</a></li>
-                    <li><a>退出登录</a></li>
+                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
                 </ul>
             </div>
         </div>

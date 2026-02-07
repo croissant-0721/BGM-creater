@@ -28,55 +28,29 @@
 <body class="bg-base-200">
     <!-- Main Content -->
     <div>
-        <!-- Navbar -->
-        <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
-            <!-- Logo and Navigation - Start -->
+        <!-- Top Navbar -->
+        <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
             <div class="navbar-start">
                 <div class="flex items-center gap-8">
-                    <!-- Logo -->
-                    <a href="../index.html" class="navbar-brand">
+                    <a href="index.html" class="navbar-brand">
                         <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
                         <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
                     </a>
-
-                    <!-- Navigation Menu -->
                     <ul class="menu menu-horizontal px-1 gap-2">
-                        <li>
-                            <a href="../index.html">
-                                <i class="ri-dashboard-line"></i>
-                                <span>总览</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="Projects.html" class="active">
-                                <i class="ri-folder-3-line"></i>
-                                <span>项目</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../billing_demo/billing.html">
-                                <i class="ri-file-list-3-line"></i>
-                                <span>账单</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="settings.html">
-                                <i class="ri-settings-3-line"></i>
-                                <span>系统管理</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../blog/list.html">
-                                <i class="ri-article-line"></i>
-                                <span>博客</span>
-                            </a>
-                        </li>
+                        <li><a href="index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                        <li><a href="Projects.html" class="active"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                        <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                        <li><a href="settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
                     </ul>
                 </div>
             </div>
-
-            <!-- Right side items - End -->
             <div class="navbar-end gap-2">
+                <!-- Credits Balance -->
+                <div class="flex items-center gap-2 px-2">
+                    <i class="ri-coin-fill text-warning text-xl"></i>
+                    <span class="text-base font-semibold">8,888</span>
+                </div>
+
                 <!-- Theme Toggle -->
                 <label class="swap swap-rotate btn btn-ghost btn-circle">
                     <input type="checkbox" id="theme-toggle" />
@@ -107,38 +81,10 @@
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="text-sm font-medium">视频生成完成</div>
-                                    <div class="text-xs text-base-content/60">营销视频制作项目 • 5分钟前</div>
+                                    <div class="text-sm font-medium">任务完成</div>
+                                    <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
                                 </div>
                                 <span class="badge badge-xs badge-success"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="gap-3">
-                                <div class="avatar placeholder">
-                                    <div class="bg-warning text-warning-content rounded-full w-8 h-8">
-                                        <i class="ri-loader-4-line text-sm"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="text-sm font-medium">任务处理中</div>
-                                    <div class="text-xs text-base-content/60">虚拟人生成项目 • 10分钟前</div>
-                                </div>
-                                <span class="badge badge-xs badge-warning"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="gap-3">
-                                <div class="avatar placeholder">
-                                    <div class="bg-error text-error-content rounded-full w-8 h-8">
-                                        <i class="ri-error-warning-line text-sm"></i>
-                                    </div>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="text-sm font-medium">任务执行失败</div>
-                                    <div class="text-xs text-base-content/60">语音合成测试 • 30分钟前</div>
-                                </div>
-                                <span class="badge badge-xs badge-error"></span>
                             </a>
                         </li>
                         <div class="divider my-0"></div>
@@ -158,12 +104,8 @@
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
                         <li class="menu-title text-base-content/70">王大卫</li>
-                        <li><a class="justify-between">
-                                个人设置
-                                <span class="badge badge-sm badge-primary">New</span>
-                            </a></li>
+                        <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
                         <li><a>使用统计</a></li>
-                        <li><a>API密钥</a></li>
                         <div class="divider my-0"></div>
                         <li><a class="text-error">退出登录</a></li>
                     </ul>

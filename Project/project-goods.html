@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>场景列表 | 盼趣AI</title>
+    <title>物品列表 | 盼趣AI</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
 
 <body class="bg-base-200">
     <!-- Top Navbar -->
-    <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
         <!-- Logo and Navigation - Start -->
         <div class="navbar-start">
             <div class="flex items-center gap-8">
@@ -69,6 +69,12 @@
 
         <!-- Right side items - End -->
         <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
             <!-- Theme Toggle -->
             <label class="swap swap-rotate btn btn-ghost btn-circle">
                 <input type="checkbox" id="theme-toggle" />
@@ -99,8 +105,8 @@
                                 </div>
                             </div>
                             <div class="flex-1">
-                                <div class="text-sm font-medium">视频生成完成</div>
-                                <div class="text-xs text-base-content/60">营销视频制作项目 • 5分钟前</div>
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
                             </div>
                             <span class="badge badge-xs badge-success"></span>
                         </a>
@@ -155,7 +161,6 @@
                             <span class="badge badge-sm badge-primary">New</span>
                         </a></li>
                     <li><a>使用统计</a></li>
-                    <li><a>API密钥</a></li>
                     <div class="divider my-0"></div>
                     <li><a class="text-error">退出登录</a></li>
                 </ul>
@@ -171,49 +176,49 @@
             <!-- Navigation Menu -->
             <ul class="menu menu-vertical px-4 py-6 gap-2">
                 <li>
-                    <a href="project-detail-episode.html">
+                    <a href="project-episode.html">
                         <i class="ri-book-2-line text-lg"></i>
                         <span>剧本</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-character.html">
+                    <a href="project-character.html">
                         <i class="ri-user-line text-lg"></i>
                         <span>角色</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-scene.html" class="active">
+                    <a href="project-scene.html">
                         <i class="ri-landscape-line text-lg"></i>
                         <span>场景</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-goods.html">
+                    <a href="project-goods.html" class="active">
                         <i class="ri-box-3-line text-lg"></i>
                         <span>物品</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-fusion.html">
+                    <a href="project-fusion.html">
                         <i class="ri-image-add-line text-lg"></i>
                         <span>融合生图</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-video.html">
+                    <a href="project-video.html">
                         <i class="ri-video-line text-lg"></i>
                         <span>视频</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-tts.html">
+                    <a href="project-tts.html">
                         <i class="ri-mic-line text-lg"></i>
                         <span>语音</span>
                     </a>
                 </li>
                 <li>
-                    <a href="project-detail-imageedit.html">
+                    <a href="project-imageedit.html">
                         <i class="ri-edit-line text-lg"></i>
                         <span>图片编辑</span>
                     </a>
@@ -228,13 +233,13 @@
                 <!-- Page Header -->
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                     <div>
-                        <h2 class="text-3xl font-bold mb-2">场景列表</h2>
-                        <p class="text-base-content/60">管理和查看项目的所有场景</p>
+                        <h2 class="text-3xl font-bold mb-2">物品列表</h2>
+                        <p class="text-base-content/60">管理和查看项目的所有物品</p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="btn btn-primary gap-2" onclick="add_scene_modal.showModal()">
+                        <button class="btn btn-primary gap-2" onclick="add_goods_modal.showModal()">
                             <i class="ri-add-line"></i>
-                            添加场景
+                            添加物品
                         </button>
                     </div>
                 </div>
@@ -257,14 +262,14 @@
                     </div>
                 </div>
 
-                <!-- Scene Cards -->
+                <!-- Goods Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Scene Card 1 -->
+                    <!-- Goods Card 1 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure><img src="https://picsum.photos/400/300?random=201" alt="场景缩略图"
+                        <figure><img src="https://picsum.photos/400/300?random=301" alt="物品缩略图"
                                 class="w-full h-48 object-cover" /></figure>
                         <div class="card-body p-4">
-                            <h3 class="card-title text-base mb-2">办公室场景</h3>
+                            <h3 class="card-title text-base mb-2">高级笔记本电脑</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Seedream4.0</span>
                                 <span class="badge badge-outline badge-sm">4K (3840x2160)</span>
@@ -307,14 +312,14 @@
                         </div>
                     </div>
 
-                    <!-- Scene Card 2 -->
+                    <!-- Goods Card 2 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure><img src="https://picsum.photos/400/300?random=202" alt="场景缩略图"
+                        <figure><img src="https://picsum.photos/400/300?random=302" alt="物品缩略图"
                                 class="w-full h-48 object-cover" /></figure>
                         <div class="card-body p-4">
-                            <h3 class="card-title text-base mb-2">咖啡厅场景</h3>
+                            <h3 class="card-title text-base mb-2">商务公文包</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
-                                <span class="badge badge-primary badge-sm">Midjourney6</span>
+                                <span class="badge badge-primary badge-sm">Flux-Pro</span>
                                 <span class="badge badge-outline badge-sm">2K (2560x1440)</span>
                             </div>
                             <div class="flex items-center justify-between mb-3">
@@ -334,7 +339,7 @@
                             <div class="card-actions justify-between items-center mt-2">
                                 <div class="badge badge-warning badge-sm gap-1">
                                     <span class="loading loading-spinner loading-xs"></span>
-                                    生成中 60%
+                                    生成中 75%
                                 </div>
                                 <div class="flex gap-1 items-center">
                                     <button
@@ -357,15 +362,15 @@
                         </div>
                     </div>
 
-                    <!-- Scene Card 3 -->
+                    <!-- Goods Card 3 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure><img src="https://picsum.photos/400/300?random=203" alt="场景缩略图"
+                        <figure><img src="https://picsum.photos/400/300?random=303" alt="物品缩略图"
                                 class="w-full h-48 object-cover" /></figure>
                         <div class="card-body p-4">
-                            <h3 class="card-title text-base mb-2">城市街道</h3>
+                            <h3 class="card-title text-base mb-2">智能手机</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
-                                <span class="badge badge-primary badge-sm">DALL-E3</span>
-                                <span class="badge badge-outline badge-sm">1:1 (2048x2048)</span>
+                                <span class="badge badge-primary badge-sm">Midjourney6</span>
+                                <span class="badge badge-outline badge-sm">16:9 (1920x1080)</span>
                             </div>
                             <div class="flex items-center justify-between mb-3">
                                 <div class="flex items-center gap-2">
@@ -381,7 +386,7 @@
                                 </div>
                             </div>
                             <div class="card-actions justify-between items-center mt-2">
-                                <div class="tooltip tooltip-error tooltip-top" data-tip="图片分辨率不足">
+                                <div class="tooltip tooltip-error tooltip-top" data-tip="物品细节不清晰">
                                     <div class="badge badge-error badge-sm gap-1">
                                         <i class="ri-error-warning-fill"></i>
                                         生成失败
@@ -406,12 +411,12 @@
                         </div>
                     </div>
 
-                    <!-- Scene Card 4 -->
+                    <!-- Goods Card 4 -->
                     <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                        <figure><img src="https://picsum.photos/400/300?random=204" alt="场景缩略图"
+                        <figure><img src="https://picsum.photos/400/300?random=304" alt="物品缩略图"
                                 class="w-full h-48 object-cover" /></figure>
                         <div class="card-body p-4">
-                            <h3 class="card-title text-base mb-2">豪华别墅</h3>
+                            <h3 class="card-title text-base mb-2">豪华汽车</h3>
                             <div class="mb-2 flex gap-1 flex-wrap">
                                 <span class="badge badge-primary badge-sm">Seedream4.0</span>
                                 <span class="badge badge-outline badge-sm">3:2 (2496x1664)</span>
@@ -458,8 +463,8 @@
         </div>
     </div>
 
-    <!-- Add Scene Modal -->
-    <dialog id="add_scene_modal" class="modal">
+    <!-- Add Goods Modal -->
+    <dialog id="add_goods_modal" class="modal">
         <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh] overflow-hidden">
             <!-- Close button -->
             <form method="dialog">
@@ -521,22 +526,22 @@
                         }
                     }
                 </style>
-                <h3 class="font-bold text-lg mb-4">添加场景</h3>
+                <h3 class="font-bold text-lg mb-4">添加物品</h3>
 
-                <!-- Scene Information -->
+                <!-- Goods Information -->
                 <div class="mb-6">
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">场景名称:</span>
+                            <span class="label-text">物品名称:</span>
                         </label>
                         <input type="text" placeholder="给目标起个名字" class="input input-bordered w-full" />
                     </div>
                 </div>
 
-                <!-- Scene Generation Tabs -->
+                <!-- Goods Generation Tabs -->
                 <div class="mb-6">
                     <div role="tablist" class="tabs tabs-boxed bg-base-100 mb-4">
-                        <input type="radio" name="scene_tabs" role="tab" class="tab" aria-label="AI生成"
+                        <input type="radio" name="goods_tabs" role="tab" class="tab" aria-label="AI生成"
                             checked="checked" />
                         <div role="tabpanel" class="tab-content pt-4 min-h-[400px]">
                             <!-- AI Generation Tab Content -->
@@ -624,10 +629,10 @@
                                         16])</span>
                                 </label>
 
-                                <input type="file" id="scene_ref_image_file" class="hidden" accept="image/*" />
+                                <input type="file" id="goods_ref_image_file" class="hidden" accept="image/*" />
 
                                 <!-- Drag and Drop Area -->
-                                <div id="scene_drop_area"
+                                <div id="goods_drop_area"
                                     class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
                                     <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
                                     <p class="text-sm text-base-content/60">拖动文件到此处或点击上传</p>
@@ -636,7 +641,7 @@
                             </div>
                         </div>
 
-                        <input type="radio" name="scene_tabs" role="tab" class="tab" aria-label="上传" />
+                        <input type="radio" name="goods_tabs" role="tab" class="tab" aria-label="上传" />
                         <div role="tabpanel" class="tab-content pt-4 min-h-[400px]">
                             <!-- Upload Tab Content -->
                             <!-- Upload Image -->
@@ -644,10 +649,10 @@
                                 <label class="label">
                                     <span class="label-text">上传图片:</span>
                                 </label>
-                                <input type="file" id="scene_upload_image_file" class="hidden" accept="image/*" />
+                                <input type="file" id="goods_upload_image_file" class="hidden" accept="image/*" />
 
                                 <!-- Drag and Drop Area -->
-                                <div id="scene_upload_drop_area"
+                                <div id="goods_upload_drop_area"
                                     class="mt-3 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
                                     <i class="ri-upload-cloud-line text-4xl text-base-content/40 mb-2"></i>
                                     <p class="text-sm text-base-content/60">拖动文件到此处或点击上传</p>
@@ -665,7 +670,7 @@
                     <button class="btn btn-ghost">取消</button>
                     <div class="relative">
                         <!-- Points Bubble -->
-                        <div id="scene_points_tooltip" class="points-tooltip">
+                        <div id="goods_points_tooltip" class="points-tooltip">
                             <i class="ri-coin-fill text-[10px]"></i>
                             50 积分
                         </div>
@@ -761,11 +766,11 @@
             }
         });
 
-        // File Upload Handlers for Scene Modal
-        const sceneRefImageFile = document.getElementById('scene_ref_image_file');
-        const sceneUploadImageFile = document.getElementById('scene_upload_image_file');
-        const sceneDropArea = document.getElementById('scene_drop_area');
-        const sceneUploadDropArea = document.getElementById('scene_upload_drop_area');
+        // File Upload Handlers for Goods Modal
+        const goodsRefImageFile = document.getElementById('goods_ref_image_file');
+        const goodsUploadImageFile = document.getElementById('goods_upload_image_file');
+        const goodsDropArea = document.getElementById('goods_drop_area');
+        const goodsUploadDropArea = document.getElementById('goods_upload_drop_area');
 
         // Drag and Drop functionality helper
         function setupDragAndDrop(dropArea, fileInput) {
@@ -807,8 +812,8 @@
         }
 
         // Initialize drag and drop for both tabs
-        setupDragAndDrop(sceneDropArea, sceneRefImageFile);
-        setupDragAndDrop(sceneUploadDropArea, sceneUploadImageFile);
+        setupDragAndDrop(goodsDropArea, goodsRefImageFile);
+        setupDragAndDrop(goodsUploadDropArea, goodsUploadImageFile);
 
         // Resolution switching logic
         const dimensionTypeRadios = document.querySelectorAll('input[name="dimension_type"]');
@@ -887,22 +892,22 @@
             updateTextWeightVisibility(checkedModel ? checkedModel.value : 'seedream3.0');
         }
         // Toggle Points Tooltip based on active tab
-        const sceneTabs = document.querySelectorAll('input[name="scene_tabs"]');
-        const scenePointsTooltip = document.getElementById('scene_points_tooltip');
+        const goodsTabs = document.querySelectorAll('input[name="goods_tabs"]');
+        const goodsPointsTooltip = document.getElementById('goods_points_tooltip');
 
-        sceneTabs.forEach((tab, index) => {
+        goodsTabs.forEach((tab, index) => {
             tab.addEventListener('change', () => {
-                if (scenePointsTooltip) {
-                    scenePointsTooltip.style.display = (index === 0) ? 'block' : 'none';
+                if (goodsPointsTooltip) {
+                    goodsPointsTooltip.style.display = (index === 0) ? 'block' : 'none';
                 }
             });
         });
 
         // Initialize points visibility
-        if (sceneTabs.length > 0) {
-            const checkedTab = Array.from(sceneTabs).indexOf(Array.from(sceneTabs).find(t => t.checked));
-            if (scenePointsTooltip) {
-                scenePointsTooltip.style.display = (checkedTab === 0) ? 'block' : 'none';
+        if (goodsTabs.length > 0) {
+            const checkedTab = Array.from(goodsTabs).indexOf(Array.from(goodsTabs).find(t => t.checked));
+            if (goodsPointsTooltip) {
+                goodsPointsTooltip.style.display = (checkedTab === 0) ? 'block' : 'none';
             }
         }
     </script>
