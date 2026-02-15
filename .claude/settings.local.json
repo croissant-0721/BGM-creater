@@ -13,7 +13,9 @@
       "Bash(git push https://mi@pandatrips.com:d1ddbe654a21a57c3f90f12a5cdf52d0@gitee.com/chucktalk/panqu-demo.git master)",
       "Bash(git push:*)",
       "Bash(git mv:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "WebFetch(domain:www.volcengine.com)",
+      "Bash(git checkout:*)"
     ],
     "additionalDirectories": [
       "/Users/chuckmi/Documents/code/panqu-web/assets/css"

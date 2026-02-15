@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增声音复刻 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .hint-box {
+            background: oklch(var(--wa) / 0.1);
+            border: 1px solid oklch(var(--wa) / 0.15);
+            padding: 0.6rem 0.75rem;
+            border-radius: var(--rounded-btn, 0.5rem);
+            font-size: 0.75rem;
+            color: var(--fallback-bc, oklch(var(--bc)/.7));
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .hint-box i {
+            color: oklch(var(--wa));
+            font-size: 0.9rem;
+        }
+
+        /* Points Tooltip */
+        .points-tooltip {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: oklch(var(--wa));
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 6px oklch(var(--wa) / 0.3);
+            animation: bounceIn 0.3s ease-out;
+            z-index: 50;
+        }
+
+        .points-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid oklch(var(--wa));
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: translateX(-50%) translateY(5px) scale(0.9);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-3px) scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="../index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="../index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Projects.html" class="active"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="../asset/asset-list.html"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">资产处理任务 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout: Sidebar + Content -->
+    <div class="flex">
+        <!-- Fixed Left Sidebar -->
+        <aside class="fixed left-0 top-16 w-64 bg-base-100 shadow-xl border-r border-base-200 h-[calc(100vh-4rem)] overflow-y-auto">
+            <!-- Navigation Menu -->
+            <ul class="menu menu-vertical px-4 py-6 gap-2">
+                <li>
+                    <a href="project-episode.html">
+                        <i class="ri-file-text-line text-lg"></i>
+                        <span>剧本</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-character.html">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>角色</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-scene.html">
+                        <i class="ri-landscape-line text-lg"></i>
+                        <span>场景</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-goods.html">
+                        <i class="ri-box-3-line text-lg"></i>
+                        <span>物品</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-fusion.html">
+                        <i class="ri-image-add-line text-lg"></i>
+                        <span>融合生图</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-video.html">
+                        <i class="ri-video-line text-lg"></i>
+                        <span>视频</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-tts.html" class="active">
+                        <i class="ri-mic-line text-lg"></i>
+                        <span>语音</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-imageedit.html">
+                        <i class="ri-edit-line text-lg"></i>
+                        <span>图片编辑</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 ml-64">
+            <div class="container mx-auto px-6 py-8 max-w-5xl">
+                <!-- Page Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold mb-1">新增声音复刻</h2>
+                    <p class="text-base-content/60">创建高质量的声音复刻，用于语音合成</p>
+                </div>
+
+                <!-- Main Card -->
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body p-8">
+
+                <!-- Voice Name -->
+                <div class="form-control mb-8">
+                    <label class="label">
+                        <span class="label-text font-medium text-base-content/70">声音名称</span>
+                    </label>
+                    <input type="text" id="voice_name" placeholder="留空则自动生成" class="input input-bordered w-full" />
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Step 1: Original Audio -->
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="badge badge-primary badge-lg font-bold">1</div>
+                        <h4 class="font-bold text-base">原始音频</h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Real-time Recording -->
+                        <div class="card bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-dashed border-base-300 hover:border-primary transition-all cursor-pointer" onclick="startRecording()">
+                            <div class="card-body items-center text-center p-8">
+                                <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-3">
+                                    <i class="ri-mic-line text-3xl text-primary"></i>
+                                </div>
+                                <h5 class="font-bold text-base mb-2">开始实时录音</h5>
+                                <p class="text-sm text-base-content/60">点击开始录制您的声音</p>
+                                <p class="text-xs text-base-content/50 mt-2">建议录制时长: 10-30秒</p>
+                            </div>
+                        </div>
+
+                        <!-- Upload Audio File -->
+                        <div class="card bg-gradient-to-br from-accent/5 to-info/5 border-2 border-dashed border-base-300 hover:border-accent transition-all cursor-pointer" onclick="document.getElementById('audio_file_input').click()">
+                            <div class="card-body items-center text-center p-8">
+                                <div class="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mb-3">
+                                    <i class="ri-upload-cloud-line text-3xl text-accent"></i>
+                                </div>
+                                <h5 class="font-bold text-base mb-2">上传音频文件</h5>
+                                <p class="text-sm text-base-content/60">支持 MP3, WAV, M4A 格式</p>
+                                <p class="text-xs text-base-content/50 mt-2">最大文件大小: 50MB</p>
+                            </div>
+                        </div>
+                        <input type="file" id="audio_file_input" accept=".mp3,.wav,.m4a" class="hidden" onchange="handleAudioUpload(event)">
+                    </div>
+
+                    <!-- Audio Preview (Hidden until upload/record) -->
+                    <div id="audio_preview" class="hidden">
+                        <div class="alert alert-success shadow-lg">
+                            <i class="ri-check-circle-line text-xl"></i>
+                            <div class="flex-1">
+                                <h4 class="font-bold">音频已上传</h4>
+                                <p class="text-sm" id="audio_file_name">sample_audio.mp3</p>
+                            </div>
+                            <button class="btn btn-sm btn-ghost" onclick="removeAudio()">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </div>
+                        <audio id="audio_player" controls class="w-full mt-2" controlslist="nodownload"></audio>
+                    </div>
+
+                    <div class="hint-box">
+                        <i class="ri-information-fill"></i>
+                        <span>为获得最佳复刻效果，请提供清晰、无噪音的音频样本。音频时长建议在10-30秒之间。</span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Step 2: Preview Synthesis -->
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="badge badge-primary badge-lg font-bold">2</div>
+                        <h4 class="font-bold text-base">试听合成</h4>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70">输入文本</span>
+                            <span class="label-text-alt text-base-content/50">
+                                <span id="text_counter">0</span>/200
+                            </span>
+                        </label>
+                        <textarea
+                            id="preview_text"
+                            class="textarea textarea-bordered w-full h-24 text-sm"
+                            placeholder="输入要合成的文本进行试听..."
+                            maxlength="200"
+                            oninput="updateTextCounter(this)"></textarea>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button class="btn btn-primary gap-2" onclick="synthesizePreview()">
+                            <i class="ri-play-circle-line text-lg"></i>
+                            试听合成
+                        </button>
+                        <button class="btn btn-ghost gap-2" onclick="stopPreview()">
+                            <i class="ri-stop-circle-line text-lg"></i>
+                            停止
+                        </button>
+                    </div>
+
+                    <!-- Preview Audio Player (Hidden until synthesis) -->
+                    <div id="preview_audio_container" class="hidden">
+                        <div class="card bg-base-200">
+                            <div class="card-body p-4">
+                                <h5 class="font-medium text-sm mb-2">试听音频</h5>
+                                <audio id="preview_audio_player" controls class="w-full" controlslist="nodownload"></audio>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hint-box">
+                        <i class="ri-information-fill"></i>
+                        <span>试听功能可帮助您在正式提交前预览复刻效果。建议多次试听以确保满意。</span>
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="flex justify-between items-center pt-4 border-t border-base-200">
+                    <div class="text-sm text-base-content/60">
+                        <i class="ri-information-line"></i>
+                        提交后将开始声音复刻训练，预计需要 5-10 分钟
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="project-tts.html" class="btn btn-ghost px-6 font-medium">取消</a>
+                        <div class="relative">
+                            <!-- Points Bubble -->
+                            <div class="points-tooltip">
+                                <i class="ri-coin-fill text-[10px]"></i>
+                                50 积分
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-primary px-10 gap-2 shadow-lg shadow-primary/20 font-bold"
+                                onclick="submitCloneVoice()">
+                                <i class="ri-magic-line text-lg"></i>
+                                开始复刻
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ========================================
+        // Theme Toggle Functionality
+        // ========================================
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        if (themeToggle) {
+            themeToggle.checked = savedTheme === 'dark';
+        }
+
+        // Toggle theme
+        if (themeToggle) {
+            themeToggle.addEventListener('change', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+
+        // ========================================
+        // Voice Clone Functions
+        // ========================================
+
+        // Start recording
+        function startRecording() {
+            // TODO: Implement real-time recording functionality
+            alert('录音功能开发中...\n\n建议使用"上传音频文件"功能，或等待后续版本实现实时录音。\n\n火山引擎建议：音频时长10-30秒，采样率≥16kHz');
+        }
+
+        // Handle audio upload
+        function handleAudioUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validate file size (50MB)
+            if (file.size > 50 * 1024 * 1024) {
+                showToast('文件大小超过50MB，请选择更小的文件', 'error');
+                return;
+            }
+
+            // Validate file type
+            const allowedTypes = ['audio/mpeg', 'audio/wav', 'audio/x-m4a', 'audio/mp4'];
+            if (!allowedTypes.includes(file.type)) {
+                showToast('不支持的文件格式，请上传 MP3、WAV 或 M4A 格式的音频文件', 'error');
+                return;
+            }
+
+            // Show preview
+            const preview = document.getElementById('audio_preview');
+            const fileName = document.getElementById('audio_file_name');
+            const player = document.getElementById('audio_player');
+
+            fileName.textContent = file.name;
+            player.src = URL.createObjectURL(file);
+            preview.classList.remove('hidden');
+
+            showToast('音频文件已上传', 'success');
+        }
+
+        // Remove audio
+        function removeAudio() {
+            const preview = document.getElementById('audio_preview');
+            const player = document.getElementById('audio_player');
+            const input = document.getElementById('audio_file_input');
+
+            player.src = '';
+            input.value = '';
+            preview.classList.add('hidden');
+        }
+
+        // Update text counter
+        function updateTextCounter(textarea) {
+            const counter = document.getElementById('text_counter');
+            counter.textContent = textarea.value.length;
+        }
+
+        // Synthesize preview
+        function synthesizePreview() {
+            const text = document.getElementById('preview_text').value.trim();
+
+            if (!text) {
+                showToast('请输入要合成的文本', 'error');
+                return;
+            }
+
+            const audioFile = document.getElementById('audio_file_input').files[0];
+            if (!audioFile) {
+                showToast('请先上传或录制原始音频', 'error');
+                return;
+            }
+
+            // Show loading toast
+            showToast('正在合成音频，请稍候...', 'info', 0);
+
+            // Simulate API call (replace with actual API call)
+            setTimeout(() => {
+                // Remove loading toast
+                const toasts = document.querySelectorAll('.toast');
+                toasts.forEach(toast => toast.remove());
+
+                // Show success
+                showToast('音频合成成功！', 'success');
+
+                // Show preview player
+                const previewContainer = document.getElementById('preview_audio_container');
+                const previewPlayer = document.getElementById('preview_audio_player');
+
+                // TODO: Replace with actual synthesized audio URL from API
+                // previewPlayer.src = 'synthesized_audio_url';
+
+                previewContainer.classList.remove('hidden');
+            }, 2000);
+        }
+
+        // Stop preview
+        function stopPreview() {
+            const previewPlayer = document.getElementById('preview_audio_player');
+            if (previewPlayer) {
+                previewPlayer.pause();
+                previewPlayer.currentTime = 0;
+            }
+        }
+
+        // Submit clone voice
+        function submitCloneVoice() {
+            const audioFile = document.getElementById('audio_file_input').files[0];
+            const voiceName = document.getElementById('voice_name').value.trim();
+
+            // Validation
+            if (!audioFile) {
+                showToast('请先上传或录制原始音频', 'error');
+                return;
+            }
+
+            // Voice name is optional - will be auto-generated if empty
+            // No validation needed for voiceName
+
+            // Show confirmation
+            if (!confirm('确认开始声音复刻？\n\n预计需要 5-10 分钟完成，将消耗 50 积分。')) {
+                return;
+            }
+
+            // Show loading toast
+            showToast('正在提交复刻任务...', 'info', 0);
+
+            // Simulate API call (replace with actual API call)
+            setTimeout(() => {
+                // Remove loading toast
+                const toasts = document.querySelectorAll('.toast');
+                toasts.forEach(toast => toast.remove());
+
+                // Show success
+                showToast('复刻任务已提交！正在跳转到语音列表...', 'success');
+
+                // Redirect to project tts list
+                setTimeout(() => {
+                    window.location.href = 'project-tts.html';
+                }, 1500);
+
+                // TODO: Call backend API to submit voice clone task
+            }, 1500);
+        }
+
+        // Toast notification helper
+        function showToast(message, type = 'info', duration = 3000) {
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-top toast-center z-[100]';
+
+            let alertClass = 'alert-info';
+            let icon = 'ri-information-line';
+
+            if (type === 'success') {
+                alertClass = 'alert-success';
+                icon = 'ri-check-circle-line';
+            } else if (type === 'error') {
+                alertClass = 'alert-error';
+                icon = 'ri-error-warning-line';
+            } else if (type === 'warning') {
+                alertClass = 'alert-warning';
+                icon = 'ri-alert-line';
+            }
+
+            const loadingSpinner = type === 'info' && duration === 0 ? '<span class="loading loading-spinner loading-sm"></span>' : '';
+
+            toast.innerHTML = `
+                <div class="alert ${alertClass} shadow-lg">
+                    ${loadingSpinner || `<i class="${icon} text-lg"></i>`}
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+
+            if (duration > 0) {
+                setTimeout(() => toast.remove(), duration);
+            }
+        }
+    </script>
+</body>
+
+</html>

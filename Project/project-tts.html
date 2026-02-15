@@ -237,10 +237,17 @@
                         <p class="text-base-content/60">管理和查看项目的所有语音</p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="btn btn-primary gap-2" onclick="add_voice_modal.showModal()">
-                            <i class="ri-add-line"></i>
-                            添加语音
-                        </button>
+                        <div class="dropdown dropdown-end">
+                            <button tabindex="0" class="btn btn-primary gap-2">
+                                <i class="ri-add-line"></i>
+                                新建语音
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-300 mt-2">
+                                <li><a onclick="add_voice_modal.showModal()"><i class="ri-mic-line"></i>语音合成</a></li>
+                                <li><a href="voice-clone-create.html" target="_blank"><i class="ri-voice-recognition-line"></i>声音复刻</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
