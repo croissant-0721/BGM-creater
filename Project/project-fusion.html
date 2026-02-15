@@ -550,12 +550,23 @@
                         background: rgba(var(--p), 0.1) !important;
                     }
 
+                    .asset-item:hover .text-base-content\/50 {
+                        color: var(--fallback-bc, oklch(var(--bc))) !important;
+                        opacity: 1;
+                    }
+
                     .asset-item img {
                         width: 48px;
                         height: 48px;
                         object-fit: cover;
                         border-radius: 4px;
                         background: #eee;
+                        flex-shrink: 0;
+                    }
+
+                    .asset-item > div {
+                        flex: 1;
+                        min-width: 0;
                     }
                 </style>
                 <h3 class="font-bold text-lg mb-4">添加融合生图</h3>
@@ -615,14 +626,40 @@
                                         <ul tabindex="0"
                                             class="dropdown-content z-30 menu p-2 shadow-xl bg-base-100 rounded-box w-full border border-base-200 mt-1 asset-selector-content">
                                             <li><a class="asset-item"
-                                                    onclick="selectAsset('character', '林晓雪', 'https://picsum.photos/100/100?random=101')">
+                                                    onclick="selectAsset('character', '林晓雪', 'https://picsum.photos/100/100?random=101', '1', '2026-02-04 16:28:30')">
                                                     <img src="https://picsum.photos/100/100?random=101" alt="">
-                                                    <span class="font-medium">林晓雪</span></a>
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">林晓雪 #1</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-04 16:28:30</span>
+                                                    </div>
+                                                </a>
                                             </li>
                                             <li><a class="asset-item"
-                                                    onclick="selectAsset('character', '陈浩然', 'https://picsum.photos/100/100?random=102')">
+                                                    onclick="selectAsset('character', '林晓雪', 'https://picsum.photos/100/100?random=105', '2', '2026-02-04 17:15:22')">
+                                                    <img src="https://picsum.photos/100/100?random=105" alt="">
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">林晓雪 #2</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-04 17:15:22</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('character', '陈浩然', 'https://picsum.photos/100/100?random=102', '1', '2026-02-04 16:30:10')">
                                                     <img src="https://picsum.photos/100/100?random=102" alt="">
-                                                    <span class="font-medium">陈浩然</span></a>
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">陈浩然 #1</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-04 16:30:10</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('character', '陈浩然', 'https://picsum.photos/100/100?random=106', '2', '2026-02-05 10:22:45')">
+                                                    <img src="https://picsum.photos/100/100?random=106" alt="">
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">陈浩然 #2</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-05 10:22:45</span>
+                                                    </div>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -645,9 +682,22 @@
                                         <ul tabindex="0"
                                             class="dropdown-content z-30 menu p-2 shadow-xl bg-base-100 rounded-box w-full border border-base-200 mt-1 asset-selector-content">
                                             <li><a class="asset-item"
-                                                    onclick="selectAsset('scene', '赛博朋克街道', 'https://picsum.photos/100/100?random=201')">
+                                                    onclick="selectAsset('scene', '赛博朋克街道', 'https://picsum.photos/100/100?random=201', '1', '2026-02-03 14:20:15')">
                                                     <img src="https://picsum.photos/100/100?random=201" alt="">
-                                                    <span class="font-medium">赛博朋克街道</span></a>
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">赛博朋克街道 #1</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-03 14:20:15</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('scene', '赛博朋克街道', 'https://picsum.photos/100/100?random=205', '2', '2026-02-05 09:45:30')">
+                                                    <img src="https://picsum.photos/100/100?random=205" alt="">
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">赛博朋克街道 #2</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-05 09:45:30</span>
+                                                    </div>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -670,9 +720,22 @@
                                         <ul tabindex="0"
                                             class="dropdown-content z-30 menu p-2 shadow-xl bg-base-100 rounded-box w-full border border-base-200 mt-1 asset-selector-content">
                                             <li><a class="asset-item"
-                                                    onclick="selectAsset('goods', '智能手机', 'https://picsum.photos/100/100?random=301')">
+                                                    onclick="selectAsset('goods', '智能手机', 'https://picsum.photos/100/100?random=301', '1', '2026-02-02 11:15:20')">
                                                     <img src="https://picsum.photos/100/100?random=301" alt="">
-                                                    <span class="font-medium">智能手机</span></a>
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">智能手机 #1</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-02 11:15:20</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li><a class="asset-item"
+                                                    onclick="selectAsset('goods', '智能手机', 'https://picsum.photos/100/100?random=305', '2', '2026-02-04 15:30:55')">
+                                                    <img src="https://picsum.photos/100/100?random=305" alt="">
+                                                    <div class="flex flex-col">
+                                                        <span class="font-medium">智能手机 #2</span>
+                                                        <span class="text-xs text-base-content/50">2026-02-04 15:30:55</span>
+                                                    </div>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -822,17 +885,46 @@
             localStorage.setItem('theme', newTheme);
         });
 
+        // Dropdown Toggle Handler - Make dropdowns toggleable on button click
+        function setupDropdownToggle() {
+            const dropdownButtons = document.querySelectorAll('.dropdown [role="button"]');
+
+            dropdownButtons.forEach(button => {
+                button.addEventListener('mousedown', function(e) {
+                    // If button already has focus (dropdown is open), blur it to close
+                    if (document.activeElement === button) {
+                        e.preventDefault();
+                        button.blur();
+                    }
+                });
+            });
+        }
+
+        // Call setup on page load
+        setupDropdownToggle();
+
         // Asset Selection Handler
-        function selectAsset(type, name, imgUrl) {
+        function selectAsset(type, name, imgUrl, version, generatedTime) {
             const containerId = `selected_${type}`;
             const container = document.getElementById(containerId);
             if (container) {
+                // Display with version number and generated time
+                const displayName = version ? `${name} #${version}` : name;
                 container.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <img src="${imgUrl}" class="w-8 h-8 rounded object-cover">
-                        <span class="font-medium">${name}</span>
+                    <div class="flex items-center gap-2 w-full">
+                        <img src="${imgUrl}" class="w-8 h-8 rounded object-cover flex-shrink-0">
+                        <div class="flex flex-col min-w-0 flex-1">
+                            <span class="font-medium truncate">${displayName}</span>
+                            ${generatedTime ? `<span class="text-xs text-base-content/50 truncate">${generatedTime}</span>` : ''}
+                        </div>
                     </div>
                 `;
+                // Store selection data for later use
+                container.dataset.assetName = name;
+                container.dataset.assetVersion = version || '';
+                container.dataset.assetGeneratedTime = generatedTime || '';
+                container.dataset.assetImgUrl = imgUrl;
+
                 // Close dropdown by blurring
                 document.activeElement.blur();
             }
