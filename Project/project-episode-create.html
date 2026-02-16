@@ -1245,24 +1245,13 @@
                             <div class="space-y-4">
                                 <!-- Storyboard Item 1 -->
                                 <div class="storyboard-card card bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200 transition-all flex flex-col md:flex-row">
-                                    <!-- Left: Preview & Sequence -->
-                                    <div class="w-full md:w-48 bg-base-200/30 flex flex-col items-center p-4 border-r border-base-200 group/preview relative">
-                                        <div class="flex items-center gap-3 mb-4">
-                                            <h5 class="card-title text-base">分镜创作 #1</h5>
-                                        </div>
-                                        <div class="avatar placeholder bg-primary/10 rounded-lg w-32 h-32 flex items-center justify-center mb-3 group-hover/preview:scale-105 transition-transform">
-                                            <span class="text-primary font-bold text-xl">S1-1</span>
-                                        </div>
-                                        <div class="badge badge-primary badge-outline text-[10px] mb-2 font-mono">S1-U1-L1</div>
-                                        <div class="text-[10px] text-base-content/40 text-center px-2">暂无生成内容</div>
-                                        <!-- Edit overlay -->
-                                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 flex items-center justify-center transition-opacity cursor-pointer">
-                                            <i class="ri-edit-2-line text-white text-2xl"></i>
-                                        </div>
-                                    </div>
-
-                                    <!-- Middle: Text & Content -->
+                                    <!-- Main Content Area -->
                                     <div class="flex-1 p-5 min-w-0">
+                                        <!-- Header: Storyboard Info -->
+                                        <div class="flex items-center gap-3 mb-3 pb-2 border-b border-base-200">
+                                            <h5 class="card-title text-base">分镜创作 #1</h5>
+                                            <div class="badge badge-primary badge-outline text-[10px] font-mono">S1-U1-L1</div>
+                                        </div>
 
                                         <div class="grid grid-cols-[90px_1fr] gap-x-4 gap-y-3">
                                             <div class="col-span-2 flex items-center gap-8 pb-1 border-b border-base-100">
@@ -1326,52 +1315,75 @@
                                     <!-- Right: Task Production Board -->
                                     <div class="w-full md:w-64 bg-base-200/20 border-l border-base-200 p-4">
                                         <div class="text-xs font-bold text-base-content/50 mb-3 flex items-center justify-between">
-                                            制作管理
+                                            创作管理
                                             <button class="btn btn-ghost btn-xs btn-square"><i class="ri-settings-line"></i></button>
                                         </div>
                                         
                                         <div class="grid grid-cols-1 gap-2">
                                             <!-- Task 1: Fusion Image Model -->
-                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
-                                                <div class="flex items-center gap-2">
-                                                    <div class="w-6 h-6 rounded bg-primary/10 flex items-center justify-center text-primary">
-                                                        <i class="ri-image-add-line text-sm"></i>
+                                            <div class="bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 rounded bg-primary/10 flex items-center justify-center text-primary">
+                                                            <i class="ri-image-add-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">融合图模型</span>
                                                     </div>
-                                                    <span class="text-xs font-medium">融合图模型</span>
+                                                    <div class="flex items-center gap-1">
+                                                        <div class="badge badge-success badge-sm p-1"><i class="ri-check-line"></i></div>
+                                                        <button class="btn btn-ghost btn-xs btn-square opacity-0 group-hover:opacity-100"><i class="ri-refresh-line"></i></button>
+                                                    </div>
                                                 </div>
-                                                <div class="flex items-center gap-1">
-                                                    <div class="badge badge-success badge-sm p-1"><i class="ri-check-line"></i></div>
-                                                    <button class="btn btn-ghost btn-xs btn-square opacity-0 group-hover:opacity-100"><i class="ri-refresh-line"></i></button>
+                                                <!-- Thumbnail Preview -->
+                                                <div class="w-full aspect-video rounded overflow-hidden bg-base-200">
+                                                    <img src="https://panqu.com/assets/img/project.webp" alt="Generated Image" class="w-full h-full object-cover" />
                                                 </div>
                                             </div>
 
-                                            <!-- Task 2: Voice Model -->
-                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
-                                                <div class="flex items-center gap-2">
-                                                    <div class="w-6 h-6 rounded bg-accent/10 flex items-center justify-center text-accent">
-                                                        <i class="ri-mic-line text-sm"></i>
+                                            <!-- Task 2: Video Model -->
+                                            <div class="bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 rounded bg-secondary/10 flex items-center justify-center text-secondary">
+                                                            <i class="ri-movie-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">视频模型</span>
                                                     </div>
-                                                    <span class="text-xs font-medium">语音模型</span>
-                                                </div>
-                                                <div class="flex items-center gap-1">
-                                                    <div class="badge badge-warning badge-sm gap-1 text-[10px] h-6 px-1.5">
-                                                        <span class="loading loading-spinner loading-xs"></span> 45%
+                                                    <div class="flex items-center gap-1">
+                                                        <button class="btn btn-primary btn-xs h-6 min-h-0 text-[10px] gap-1">
+                                                            <i class="ri-magic-line"></i>生成
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!-- Task 3: Video Model -->
-                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
-                                                <div class="flex items-center gap-2">
-                                                    <div class="w-6 h-6 rounded bg-secondary/10 flex items-center justify-center text-secondary">
-                                                        <i class="ri-movie-line text-sm"></i>
+                                            <!-- Task 3: Character Voice Model -->
+                                            <div class="bg-base-100 p-2 rounded border border-base-200 hover:border-primary/50 transition-colors group">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 rounded bg-accent/10 flex items-center justify-center text-accent">
+                                                            <i class="ri-user-voice-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">人物配音</span>
                                                     </div>
-                                                    <span class="text-xs font-medium">视频模型</span>
+                                                    <div class="flex items-center gap-1">
+                                                        <div class="badge badge-warning badge-sm gap-1 text-[10px] h-6 px-1.5">
+                                                            <span class="loading loading-spinner loading-xs"></span> 45%
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="flex items-center gap-1">
-                                                    <button class="btn btn-primary btn-xs h-6 min-h-0 text-[10px] gap-1">
-                                                        <i class="ri-magic-line"></i>生成
-                                                    </button>
+                                            </div>
+
+                                            <!-- Task 4: Voiceover Storyboard -->
+                                            <div class="bg-base-100/50 p-2 rounded border border-base-200/50">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center gap-2 text-base-content/40">
+                                                        <div class="w-6 h-6 rounded bg-base-200 flex items-center justify-center">
+                                                            <i class="ri-voiceprint-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">语音分镜</span>
+                                                    </div>
+                                                    <span class="text-[10px] opacity-40 italic">待定配音</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1401,18 +1413,14 @@
 
                                 <!-- Storyboard Item 2 (Alternative Layout/Status) -->
                                 <div class="storyboard-card card bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200 transition-all flex flex-col md:flex-row">
-                                    <div class="w-full md:w-48 bg-base-200/30 flex flex-col items-center p-4 border-r border-base-200 group/preview relative">
-                                        <div class="flex items-center gap-3 mb-4">
-                                            <h5 class="card-title text-base">分镜创作 #2</h5>
-                                        </div>
-                                        <div class="avatar placeholder bg-warning/10 rounded-lg w-32 h-32 flex items-center justify-center mb-3">
-                                            <i class="ri-image-line text-warning text-4xl"></i>
-                                        </div>
-                                        <div class="badge badge-warning badge-outline text-[10px] mb-2 font-mono">S1-U1-L2</div>
-                                        <div class="text-[10px] text-warning text-center px-2">正在载入预览...</div>
-                                    </div>
-
+                                    <!-- Main Content Area -->
                                     <div class="flex-1 p-5 min-w-0">
+                                        <!-- Header: Storyboard Info -->
+                                        <div class="flex items-center gap-3 mb-3 pb-2 border-b border-base-200">
+                                            <h5 class="card-title text-base">分镜创作 #2</h5>
+                                            <div class="badge badge-warning badge-outline text-[10px] font-mono">S1-U1-L2</div>
+                                            <div class="text-[10px] text-warning">正在载入预览...</div>
+                                        </div>
 
                                         <div class="grid grid-cols-[90px_1fr] gap-x-4 gap-y-3">
                                             <div class="col-span-2 flex items-center gap-8 pb-1 border-b border-base-100">
@@ -1466,7 +1474,7 @@
 
                                     <div class="w-full md:w-64 bg-base-200/20 border-l border-base-200 p-4">
                                         <div class="text-xs font-bold text-base-content/50 mb-3 flex items-center justify-between">
-                                            制作管理
+                                           创作管理
                                         </div>
                                         
                                         <div class="grid grid-cols-1 gap-2">
@@ -1481,16 +1489,7 @@
                                                 </button>
                                             </div>
 
-                                            <!-- Task 2: Voice Model -->
-                                            <div class="flex items-center justify-between bg-base-100 p-2 rounded border border-base-200">
-                                                <div class="flex items-center gap-2 text-base-content/40">
-                                                    <i class="ri-mic-line text-sm"></i>
-                                                    <span class="text-xs font-medium">语音模型</span>
-                                                </div>
-                                                <button class="btn btn-outline btn-xs h-6 min-h-0 text-[10px]">生成</button>
-                                            </div>
-
-                                            <!-- Task 3: Video Model -->
+                                            <!-- Task 2: Video Model -->
                                             <div class="flex items-center justify-between bg-base-100/50 p-2 rounded border border-base-200/50">
                                                 <div class="flex items-center gap-2 text-base-content/20">
                                                     <i class="ri-movie-line text-sm"></i>
@@ -1498,11 +1497,238 @@
                                                 </div>
                                                 <span class="text-[10px] opacity-20 italic">待定图片</span>
                                             </div>
+
+                                            <!-- Task 3: Character Voice -->
+                                            <div class="flex items-center justify-between bg-base-100/50 p-2 rounded border border-base-200/50">
+                                                <div class="flex items-center gap-2 text-base-content/20">
+                                                    <i class="ri-user-voice-line text-sm"></i>
+                                                    <span class="text-xs font-medium">人物配音</span>
+                                                </div>
+                                                <span class="text-[10px] opacity-20 italic">待定视频</span>
+                                            </div>
+
+                                            <!-- Task 4: Voiceover Storyboard -->
+                                            <div class="flex items-center justify-between bg-base-100/50 p-2 rounded border border-base-200/50">
+                                                <div class="flex items-center gap-2 text-base-content/20">
+                                                    <i class="ri-voiceprint-line text-sm"></i>
+                                                    <span class="text-xs font-medium">语音分镜</span>
+                                                </div>
+                                                <span class="text-[10px] opacity-20 italic">待定配音</span>
+                                            </div>
                                         </div>
                                         
                                         <div class="mt-4">
                                             <button class="btn btn-block btn-ghost btn-xs gap-1 opacity-50">
-                                                <i class="ri-play-list-add-line"></i> 一键生产全部内容 
+                                                <i class="ri-play-list-add-line"></i> 一键创建分镜任务 
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- Storyboard Batch Checkbox -->
+                                        <div class="storyboard-selection-overlay hidden absolute bottom-4 right-4 z-20">
+                                            <input type="checkbox" class="checkbox checkbox-primary shadow-sm bg-base-100/100 backdrop-blur-sm" onchange="toggleStoryboardSelection(this)" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Storyboard Item 3 (All Tasks Completed with Thumbnails) -->
+                                <div class="storyboard-card card bg-base-100 shadow-sm hover:shadow-lg overflow-hidden border border-base-200 transition-all flex flex-col md:flex-row">
+                                    <!-- Main Content Area -->
+                                    <div class="flex-1 p-5 min-w-0">
+                                        <!-- Header: Storyboard Info -->
+                                        <div class="flex items-center gap-3 mb-3 pb-2 border-b border-base-200">
+                                            <h5 class="card-title text-base">分镜创作 #3</h5>
+                                            <div class="badge badge-success badge-outline text-[10px] font-mono">S1-U1-L3</div>
+                                            <div class="badge badge-success badge-sm gap-1"><i class="ri-check-line"></i> 全部完成</div>
+                                        </div>
+
+                                        <div class="grid grid-cols-[90px_1fr] gap-x-4 gap-y-3">
+                                            <div class="col-span-2 flex items-center gap-8 pb-1 border-b border-base-100">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xs font-bold text-base-content/40">运镜</span>
+                                                    <span class="text-xs text-base-content/80">拉镜</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xs font-bold text-base-content/40">景别</span>
+                                                    <span class="text-xs text-base-content/80">特写</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">镜头文案</div>
+                                            <div class="text-sm text-base-content/90 leading-relaxed">镜头缓缓推进，聚焦在何玲子专注的眼神上，她正在审阅重要文件。</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">图片提示词</div>
+                                            <div class="text-xs text-base-content/80 leading-relaxed mb-1">
+                                                <span class="badge badge-xs bg-primary/10 text-primary border-0 font-normal mb-1">@何玲子</span>
+                                                <span class="badge badge-xs bg-success/10 text-success border-0 font-normal mb-1">#办公室</span>
+                                                <span class="text-base-content/80">Close-up portrait, professional woman, focused expression, office setting...</span>
+                                            </div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">视频提示词</div>
+                                            <div class="text-xs text-base-content/80 leading-relaxed">Slow push-in shot focusing on woman's eyes, professional atmosphere...</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">角色A</div>
+                                            <div class="flex flex-col gap-1">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="badge badge-sm badge-primary rounded-md px-1.5">何玲子</span>
+                                                    <span class="text-xs text-base-content/80">"这份数据需要再核实一遍。"</span>
+                                                </div>
+                                                <div class="text-[10px] text-base-content/70">语音提示：严谨、专业</div>
+                                            </div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">场景</div>
+                                            <div class="text-xs text-base-content/80">办公室</div>
+
+                                            <div class="text-xs font-bold text-base-content/40 pt-1">语音分镜</div>
+                                            <div class="text-xs text-base-content/80">背景音：键盘敲击声，轻柔的背景音乐。</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right: Task Production Board -->
+                                    <div class="w-full md:w-64 bg-base-200/20 border-l border-base-200 p-4">
+                                        <div class="text-xs font-bold text-base-content/50 mb-3 flex items-center justify-between">
+                                            创作管理
+                                            <button class="btn btn-ghost btn-xs btn-square"><i class="ri-settings-line"></i></button>
+                                        </div>
+                                        
+                                        <div class="grid grid-cols-1 gap-2">
+                                            <!-- Task 1: Fusion Image Model - Completed with Thumbnail -->
+                                            <div class="bg-base-100 p-2 rounded border border-success/30 hover:border-success/50 transition-colors group">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 rounded bg-success/10 flex items-center justify-center text-success">
+                                                            <i class="ri-image-add-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">融合图模型</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <div class="badge badge-success badge-sm p-1"><i class="ri-check-line"></i></div>
+                                                        <button class="btn btn-ghost btn-xs btn-square opacity-0 group-hover:opacity-100"><i class="ri-refresh-line"></i></button>
+                                                    </div>
+                                                </div>
+                                                <!-- Image Thumbnail -->
+                                                <div class="w-full aspect-video rounded overflow-hidden bg-base-200 relative group/img">
+                                                    <img src="https://panqu.com/assets/img/project.webp" alt="Generated Image" class="w-full h-full object-cover" />
+                                                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                                        <button class="btn btn-circle btn-sm btn-ghost text-white"><i class="ri-eye-line"></i></button>
+                                                        <button class="btn btn-circle btn-sm btn-ghost text-white"><i class="ri-download-line"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Task 2: Video Model - Completed with Video Thumbnail -->
+                                            <div class="bg-base-100 p-2 rounded border border-success/30 hover:border-success/50 transition-colors group">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 rounded bg-success/10 flex items-center justify-center text-success">
+                                                            <i class="ri-movie-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">视频模型</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <div class="badge badge-success badge-sm p-1"><i class="ri-check-line"></i></div>
+                                                        <button class="btn btn-ghost btn-xs btn-square opacity-0 group-hover:opacity-100"><i class="ri-refresh-line"></i></button>
+                                                    </div>
+                                                </div>
+                                                <!-- Video Thumbnail -->
+                                                <div class="w-full aspect-video rounded overflow-hidden bg-base-200 relative group/video">
+                                                    <img src="https://panqu.com/assets/img/project.webp" alt="Video Frame" class="w-full h-full object-cover" />
+                                                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover/video:opacity-100 transition-opacity flex items-center justify-center">
+                                                        <button class="btn btn-circle btn-primary"><i class="ri-play-fill text-xl"></i></button>
+                                                    </div>
+                                                    <div class="absolute bottom-2 right-2 badge badge-sm bg-black/70 text-white border-0">00:05</div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Task 3: Character Voice - Completed with Waveform -->
+                                            <div class="bg-base-100 p-2 rounded border border-success/30 hover:border-success/50 transition-colors group">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 rounded bg-success/10 flex items-center justify-center text-success">
+                                                            <i class="ri-user-voice-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">人物配音</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <div class="badge badge-success badge-sm p-1"><i class="ri-check-line"></i></div>
+                                                        <button class="btn btn-ghost btn-xs btn-square opacity-0 group-hover:opacity-100"><i class="ri-refresh-line"></i></button>
+                                                    </div>
+                                                </div>
+                                                <!-- Audio Waveform Visualization -->
+                                                <div class="w-full h-16 rounded overflow-hidden bg-gradient-to-r from-accent/5 to-accent/10 relative flex items-center justify-center gap-0.5 px-2">
+                                                    <div class="w-1 bg-accent/60 rounded-full" style="height: 30%"></div>
+                                                    <div class="w-1 bg-accent/70 rounded-full" style="height: 50%"></div>
+                                                    <div class="w-1 bg-accent/80 rounded-full" style="height: 70%"></div>
+                                                    <div class="w-1 bg-accent rounded-full" style="height: 85%"></div>
+                                                    <div class="w-1 bg-accent/90 rounded-full" style="height: 60%"></div>
+                                                    <div class="w-1 bg-accent/70 rounded-full" style="height: 40%"></div>
+                                                    <div class="w-1 bg-accent/80 rounded-full" style="height: 65%"></div>
+                                                    <div class="w-1 bg-accent rounded-full" style="height: 90%"></div>
+                                                    <div class="w-1 bg-accent/85 rounded-full" style="height: 75%"></div>
+                                                    <div class="w-1 bg-accent/70 rounded-full" style="height: 55%"></div>
+                                                    <div class="w-1 bg-accent/60 rounded-full" style="height: 35%"></div>
+                                                    <div class="w-1 bg-accent/80 rounded-full" style="height: 60%"></div>
+                                                    <div class="w-1 bg-accent rounded-full" style="height: 80%"></div>
+                                                    <div class="w-1 bg-accent/90 rounded-full" style="height: 70%"></div>
+                                                    <div class="w-1 bg-accent/75 rounded-full" style="height: 50%"></div>
+                                                    <div class="w-1 bg-accent/60 rounded-full" style="height: 30%"></div>
+                                                    <button class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 bg-black/30 transition-opacity">
+                                                        <div class="btn btn-circle btn-sm btn-primary"><i class="ri-play-fill"></i></div>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Task 4: Voiceover Storyboard - Completed with Waveform -->
+                                            <div class="bg-base-100 p-2 rounded border border-success/30 hover:border-success/50 transition-colors group">
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="flex items-center gap-2">
+                                                        <div class="w-6 h-6 rounded bg-success/10 flex items-center justify-center text-success">
+                                                            <i class="ri-voiceprint-line text-sm"></i>
+                                                        </div>
+                                                        <span class="text-xs font-medium">语音分镜</span>
+                                                    </div>
+                                                    <div class="flex items-center gap-1">
+                                                        <div class="badge badge-success badge-sm p-1"><i class="ri-check-line"></i></div>
+                                                        <button class="btn btn-ghost btn-xs btn-square opacity-0 group-hover:opacity-100"><i class="ri-refresh-line"></i></button>
+                                                    </div>
+                                                </div>
+                                                <!-- Audio Waveform Visualization -->
+                                                <div class="w-full h-16 rounded overflow-hidden bg-gradient-to-r from-info/5 to-info/10 relative flex items-center justify-center gap-0.5 px-2">
+                                                    <div class="w-1 bg-info/50 rounded-full" style="height: 25%"></div>
+                                                    <div class="w-1 bg-info/60 rounded-full" style="height: 45%"></div>
+                                                    <div class="w-1 bg-info/75 rounded-full" style="height: 65%"></div>
+                                                    <div class="w-1 bg-info/90 rounded-full" style="height: 80%"></div>
+                                                    <div class="w-1 bg-info rounded-full" style="height: 90%"></div>
+                                                    <div class="w-1 bg-info/85 rounded-full" style="height: 70%"></div>
+                                                    <div class="w-1 bg-info/70 rounded-full" style="height: 50%"></div>
+                                                    <div class="w-1 bg-info/60 rounded-full" style="height: 35%"></div>
+                                                    <div class="w-1 bg-info/75 rounded-full" style="height: 55%"></div>
+                                                    <div class="w-1 bg-info/85 rounded-full" style="height: 75%"></div>
+                                                    <div class="w-1 bg-info rounded-full" style="height: 85%"></div>
+                                                    <div class="w-1 bg-info/80 rounded-full" style="height: 65%"></div>
+                                                    <div class="w-1 bg-info/65 rounded-full" style="height: 45%"></div>
+                                                    <div class="w-1 bg-info/55 rounded-full" style="height: 30%"></div>
+                                                    <div class="w-1 bg-info/70 rounded-full" style="height: 50%"></div>
+                                                    <div class="w-1 bg-info/50 rounded-full" style="height: 25%"></div>
+                                                    <button class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 bg-black/30 transition-opacity">
+                                                        <div class="btn btn-circle btn-sm btn-info"><i class="ri-play-fill"></i></div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4 flex gap-1 justify-between">
+                                            <div class="dropdown dropdown-top">
+                                                <div tabindex="0" role="button" class="btn btn-ghost btn-xs gap-1 opacity-50 hover:opacity-100">
+                                                    <i class="ri-more-2-line"></i>
+                                                </div>
+                                                <ul tabindex="0" class="dropdown-content z-[2] menu p-1 shadow bg-base-100 rounded-box w-32 text-xs">
+                                                    <li><a><i class="ri-edit-line"></i>编辑剧情</a></li>
+                                                    <li><a><i class="ri-file-copy-line"></i>复制分镜</a></li>
+                                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除分镜</a></li>
+                                                </ul>
+                                            </div>
+                                            <button class="btn btn-primary btn-xs gap-1">
+                                                预览合成 <i class="ri-external-link-line"></i>
                                             </button>
                                         </div>
                                         
@@ -1531,7 +1757,7 @@
                                             <li><a><i class="ri-mic-line"></i> 批量生成语音模型</a></li>
                                             <li><a><i class="ri-movie-line"></i> 批量生成视频模型</a></li>
                                             <div class="divider my-1"></div>
-                                            <li><a class="text-primary font-bold"><i class="ri-play-circle-line"></i> 一键生产全部内容</a></li>
+                                            <li><a class="text-primary font-bold"><i class="ri-play-circle-line"></i> 一键创建分镜任务</a></li>
                                         </ul>
                                     </div>
                                     <button class="btn btn-sm btn-ghost" onclick="cancelBatchMode('storyboard')">

@@ -123,6 +123,499 @@
                 transform: translateX(-50%) translateY(0) scale(1);
             }
         }
+
+        /* Info Tooltip */
+        .info-icon-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+
+        .info-icon {
+            color: oklch(var(--bc) / 0.4);
+            font-size: 1rem;
+            cursor: help;
+            transition: color 0.2s ease;
+        }
+
+        .info-icon:hover {
+            color: oklch(var(--p));
+        }
+
+        .info-tooltip {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: oklch(var(--n));
+            color: oklch(var(--nc));
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 100;
+        }
+
+        .info-icon-wrapper:hover .info-tooltip {
+            opacity: 1;
+        }
+
+        .info-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid oklch(var(--n));
+        }
+
+        /* Image Upload List */
+        .image-upload-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .image-upload-item {
+            border: 2px dashed var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 8px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            overflow: visible;
+            height: 100px;
+        }
+
+        .image-upload-item:hover {
+            background: var(--fallback-b2, oklch(var(--b2)));
+        }
+
+        .image-upload-item.has-image {
+            border-style: solid;
+            border-color: var(--fallback-b3, oklch(var(--b3)));
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 12px;
+            height: 100px;
+            min-height: unset;
+        }
+
+        .image-upload-item .image-preview {
+            width: 76px;
+            height: 76px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--fallback-b2, oklch(var(--b2)));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .image-upload-item .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-upload-item .image-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            text-align: left;
+        }
+
+        .image-upload-item.has-image .image-info {
+            align-items: flex-start;
+            text-align: left;
+            flex: 1;
+        }
+
+        .image-upload-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .image-upload-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        .image-upload-item .image-tag-wrapper {
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .image-tag {
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .image-tag:hover {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .image-tag:active {
+            transform: scale(0.95);
+        }
+
+        .upload-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .upload-actions button {
+            height: 36px;
+            font-size: 13px;
+        }
+
+        /* Responsive adjustments for image upload grid */
+        @media (max-width: 768px) {
+            .image-upload-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Video Upload List - Same style as image upload */
+        .video-upload-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .video-upload-item {
+            border: 2px dashed var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 8px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            overflow: visible;
+            height: 100px;
+        }
+
+        .video-upload-item:hover {
+            background: var(--fallback-b2, oklch(var(--b2)));
+        }
+
+        .video-upload-item.has-video {
+            border-style: solid;
+            border-color: var(--fallback-b3, oklch(var(--b3)));
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 12px;
+            height: 100px;
+            min-height: unset;
+        }
+
+        .video-upload-item .video-preview {
+            width: 76px;
+            height: 76px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--fallback-b2, oklch(var(--b2)));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .video-upload-item .video-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-upload-item .video-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            text-align: left;
+        }
+
+        .video-upload-item.has-video .video-info {
+            align-items: flex-start;
+            text-align: left;
+            flex: 1;
+        }
+
+        .video-upload-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .video-upload-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        .video-upload-item .video-tag-wrapper {
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .video-tag {
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .video-tag:hover {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .video-tag:active {
+            transform: scale(0.95);
+        }
+
+        /* Responsive adjustments for video upload grid */
+        @media (max-width: 768px) {
+            .video-upload-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Audio Upload List - Same style as image and video upload */
+        .audio-upload-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .audio-upload-item {
+            border: 2px dashed var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 8px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            overflow: visible;
+            height: 100px;
+        }
+
+        .audio-upload-item:hover {
+            background: var(--fallback-b2, oklch(var(--b2)));
+        }
+
+        .audio-upload-item.has-audio {
+            border-style: solid;
+            border-color: var(--fallback-b3, oklch(var(--b3)));
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 12px;
+            height: 100px;
+            min-height: unset;
+        }
+
+        .audio-upload-item .audio-preview {
+            width: 76px;
+            height: 76px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--fallback-b2, oklch(var(--b2)));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .audio-upload-item .audio-preview i {
+            font-size: 2.5rem;
+            color: oklch(var(--a));
+        }
+
+        .audio-upload-item .audio-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            text-align: left;
+        }
+
+        .audio-upload-item.has-audio .audio-info {
+            align-items: flex-start;
+            text-align: left;
+            flex: 1;
+        }
+
+        .audio-upload-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .audio-upload-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        .audio-upload-item .audio-tag-wrapper {
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .audio-tag {
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .audio-tag:hover {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .audio-tag:active {
+            transform: scale(0.95);
+        }
+
+        /* Responsive adjustments for audio upload grid */
+        @media (max-width: 768px) {
+            .audio-upload-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Project Image Selection */
+        .project-image-item.selected .group::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 3px solid var(--fallback-p, oklch(var(--p)));
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .project-image-item.selected .ri-checkbox-circle-line {
+            color: var(--fallback-p, oklch(var(--p)));
+        }
+
+        /* Project Video Selection */
+        .project-video-item.selected .group::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 3px solid var(--fallback-p, oklch(var(--p)));
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .project-video-item.selected .ri-checkbox-circle-line {
+            color: var(--fallback-p, oklch(var(--p)));
+        }
+
+        /* Project Audio Selection */
+        .project-audio-item.selected .group::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 3px solid var(--fallback-p, oklch(var(--p)));
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .project-audio-item.selected .ri-checkbox-circle-line {
+            color: var(--fallback-p, oklch(var(--p)));
+        }
     </style>
 </head>
 
@@ -291,40 +784,124 @@
                             <input type="text" id="task_name" placeholder="留空则自动生成" class="input input-bordered w-full" />
                         </div>
 
+                        <!-- Model Selection -->
+                        <div class="form-control mb-8">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70">模型选择</span>
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="model_select" value="fast" class="radio radio-primary" checked />
+                                    <span class="label-text">Seedance 2.0 Fast</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="model_select" value="standard" class="radio radio-primary" />
+                                    <span class="label-text">Seedance 2.0</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Task Type Selection -->
+                        <div class="form-control mb-8" id="task_type_container">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70">任务类型</span>
+                            </label>
+                            <div class="flex gap-4" id="task_type_radios">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="task_type_select" value="universal" class="radio radio-primary" checked />
+                                    <span class="label-text">全能参考</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer" id="first_last_frame_option">
+                                    <input type="radio" name="task_type_select" value="first_last_frame" class="radio radio-primary" />
+                                    <span class="label-text">首尾帧</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- First and Last Frame Upload (Hidden by default) -->
+                        <div class="mb-8" id="first_last_frame_container" style="display: none;">
+                            <div class="grid grid-cols-2 gap-6">
+                                <!-- First Frame -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text font-medium text-base-content/70">首帧</span>
+                                    </label>
+                                    <div class="image-upload-item" id="first_frame_upload">
+                                        <div class="image-preview">
+                                            <i class="ri-add-line text-3xl text-base-content/30"></i>
+                                        </div>
+                                        <div class="image-info">
+                                            <span class="text-xs font-medium text-base-content/60">添加首帧图片</span>
+                                            <span class="text-xs text-base-content/40">JPEG、PNG</span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-actions mt-2">
+                                        <button type="button" class="btn btn-sm btn-outline gap-1" id="select_first_frame_btn">
+                                            <i class="ri-folder-image-line"></i>
+                                            从项目选择
+                                        </button>
+                                    </div>
+                                    <input type="file" id="first_frame_input" accept=".jpg,.jpeg,.png,.webp,.bmp,.tiff,.gif" class="hidden">
+                                </div>
+
+                                <!-- Last Frame -->
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text font-medium text-base-content/70">尾帧</span>
+                                    </label>
+                                    <div class="image-upload-item" id="last_frame_upload">
+                                        <div class="image-preview">
+                                            <i class="ri-add-line text-3xl text-base-content/30"></i>
+                                        </div>
+                                        <div class="image-info">
+                                            <span class="text-xs font-medium text-base-content/60">添加尾帧图片</span>
+                                            <span class="text-xs text-base-content/40">JPEG、PNG</span>
+                                        </div>
+                                    </div>
+                                    <div class="upload-actions mt-2">
+                                        <button type="button" class="btn btn-sm btn-outline gap-1" id="select_last_frame_btn">
+                                            <i class="ri-folder-image-line"></i>
+                                            从项目选择
+                                        </button>
+                                    </div>
+                                    <input type="file" id="last_frame_input" accept=".jpg,.jpeg,.png,.webp,.bmp,.tiff,.gif" class="hidden">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="divider"></div>
 
                         <!-- Step 1: Image Input -->
                         <div class="space-y-4 mb-8">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-2">
-                                    <div class="badge badge-primary badge-lg font-bold">1</div>
-                                    <h4 class="font-bold text-base">图片输入</h4>
-                                    <span class="text-xs text-base-content/50">（最多 9 张）</span>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="badge badge-primary badge-lg font-bold">1</div>
+                                        <h4 class="font-bold text-base">图片输入</h4>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <span class="text-base-content/60">
+                                            <i class="ri-image-line"></i> JPG/PNG/WEBP 等格式
+                                        </span>
+                                    </div>
                                 </div>
                                 <span class="text-sm text-base-content/60" id="image_count">0 / 9</span>
                             </div>
 
-                            <div class="upload-area" onclick="document.getElementById('image_input').click()">
-                                <div class="flex flex-col items-center gap-3">
-                                    <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center">
-                                        <i class="ri-image-add-line text-3xl text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium mb-1">点击上传图片</p>
-                                        <p class="text-xs text-base-content/50">支持 JPEG、PNG、WebP、BMP、TIFF、GIF 格式，单张小于 30 MB</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="file" id="image_input" accept=".jpg,.jpeg,.png,.webp,.bmp,.tiff,.gif" multiple class="hidden" onchange="handleImageUpload(event)">
-
-                            <!-- Image Preview Grid -->
-                            <div id="image_preview_grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 hidden">
+                            <!-- Image Upload List -->
+                            <div class="image-upload-list" id="image_list">
+                                <!-- Image upload items will be generated by JS -->
                             </div>
 
-                            <div class="hint-box">
-                                <i class="ri-information-fill"></i>
-                                <span>建议优先上传对画面或节奏影响最大的素材</span>
+                            <!-- Upload Actions -->
+                            <div class="upload-actions">
+                                <button class="btn btn-sm btn-outline gap-1" id="select_from_project_btn">
+                                    <i class="ri-folder-image-line"></i>
+                                    从项目选择
+                                </button>
                             </div>
+
+                            <input type="file" id="image_input" accept=".jpg,.jpeg,.png,.webp,.bmp,.tiff,.gif" multiple class="hidden">
                         </div>
 
                         <div class="divider"></div>
@@ -332,36 +909,40 @@
                         <!-- Step 2: Video Input -->
                         <div class="space-y-4 mb-8">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-2">
-                                    <div class="badge badge-primary badge-lg font-bold">2</div>
-                                    <h4 class="font-bold text-base">视频输入</h4>
-                                    <span class="text-xs text-base-content/50">（最多 3 个）</span>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="badge badge-primary badge-lg font-bold">2</div>
+                                        <h4 class="font-bold text-base">视频输入</h4>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <span class="text-base-content/60">
+                                            <i class="ri-file-line"></i> MP4/MOV &lt;50MB
+                                        </span>
+                                        <span class="badge badge-warning badge-sm gap-1">
+                                            <i class="ri-time-line"></i>总时长： 2-15秒
+                                        </span>
+                                        <span class="text-base-content/60">
+                                            <i class="ri-aspect-ratio-line"></i> 像素: 409K-927K
+                                        </span>
+                                    </div>
                                 </div>
                                 <span class="text-sm text-base-content/60" id="video_count">0 / 3</span>
                             </div>
 
-                            <div class="upload-area" onclick="document.getElementById('video_input').click()">
-                                <div class="flex flex-col items-center gap-3">
-                                    <div class="bg-secondary/10 w-16 h-16 rounded-full flex items-center justify-center">
-                                        <i class="ri-video-add-line text-3xl text-secondary"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium mb-1">点击上传视频</p>
-                                        <p class="text-xs text-base-content/50">支持 MP4、MOV 格式，单个小于 50 MB，总时长 2-15 秒</p>
-                                        <p class="text-xs text-base-content/50 mt-1">视频分辨率范围：640×640 至 834×1112</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="file" id="video_input" accept=".mp4,.mov" multiple class="hidden" onchange="handleVideoUpload(event)">
-
-                            <!-- Video Preview Grid -->
-                            <div id="video_preview_grid" class="grid grid-cols-2 md:grid-cols-3 gap-3 hidden">
+                            <!-- Video Upload List -->
+                            <div class="video-upload-list" id="video_list">
+                                <!-- Video upload items will be generated by JS -->
                             </div>
 
-                            <div class="hint-box">
-                                <i class="ri-information-fill"></i>
-                                <span>视频总时长需在 2-15 秒之间，总像素数范围：409,600 - 927,408</span>
+                            <!-- Upload Actions -->
+                            <div class="upload-actions">
+                                <button class="btn btn-sm btn-outline gap-1" id="select_from_project_video_btn">
+                                    <i class="ri-folder-video-line"></i>
+                                    从现有视频选择
+                                </button>
                             </div>
+
+                            <input type="file" id="video_input" accept=".mp4,.mov" multiple class="hidden">
                         </div>
 
                         <div class="divider"></div>
@@ -369,53 +950,51 @@
                         <!-- Step 3: Audio Input -->
                         <div class="space-y-4 mb-8">
                             <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-2">
-                                    <div class="badge badge-primary badge-lg font-bold">3</div>
-                                    <h4 class="font-bold text-base">音频输入</h4>
-                                    <span class="text-xs text-base-content/50">（最多 3 个）</span>
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="badge badge-primary badge-lg font-bold">3</div>
+                                        <h4 class="font-bold text-base">语音输入</h4>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <span class="text-base-content/60">
+                                            <i class="ri-file-music-line"></i> MP3/WAV &lt;15MB
+                                        </span>
+                                    </div>
                                 </div>
                                 <span class="text-sm text-base-content/60" id="audio_count">0 / 3</span>
                             </div>
 
-                            <div class="upload-area" onclick="document.getElementById('audio_input').click()">
-                                <div class="flex flex-col items-center gap-3">
-                                    <div class="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center">
-                                        <i class="ri-music-2-line text-3xl text-accent"></i>
-                                    </div>
-                                    <div>
-                                        <p class="font-medium mb-1">点击上传音频</p>
-                                        <p class="text-xs text-base-content/50">支持 MP3、WAV 格式，单个小于 15 MB，总时长不超过 15 秒</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="file" id="audio_input" accept=".mp3,.wav" multiple class="hidden" onchange="handleAudioUpload(event)">
-
-                            <!-- Audio Preview List -->
-                            <div id="audio_preview_list" class="space-y-2 hidden">
+                            <!-- Audio Upload List -->
+                            <div class="audio-upload-list" id="audio_list">
+                                <!-- Audio upload items will be generated by JS -->
                             </div>
 
-                            <div class="hint-box">
-                                <i class="ri-information-fill"></i>
-                                <span>可选择自带音效/配乐</span>
+                            <!-- Upload Actions -->
+                            <div class="upload-actions">
+                                <button class="btn btn-sm btn-outline gap-1" id="select_from_project_audio_btn">
+                                    <i class="ri-folder-music-line"></i>
+                                    从已有语音选择
+                                </button>
                             </div>
+
+                            <input type="file" id="audio_input" accept=".mp3,.wav" multiple class="hidden">
                         </div>
 
                         <div class="divider"></div>
 
                         <!-- Step 4: Text Input -->
                         <div class="space-y-4 mb-8">
-                            <div class="flex items-center gap-2 mb-4">
-                                <div class="badge badge-primary badge-lg font-bold">4</div>
-                                <h4 class="font-bold text-base">文本输入</h4>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="badge badge-primary badge-lg font-bold">4</div>
+                                    <h4 class="font-bold text-base">文本输入</h4>
+                                </div>
+                                <span class="text-sm text-base-content/60">
+                                    <span id="text_counter">0</span>/500
+                                </span>
                             </div>
 
                             <div class="form-control">
-                                <label class="label">
-                                    <span class="label-text font-medium text-base-content/70">自然语言描述</span>
-                                    <span class="label-text-alt text-base-content/50">
-                                        <span id="text_counter">0</span>/500
-                                    </span>
-                                </label>
                                 <textarea
                                     id="text_input"
                                     class="textarea textarea-bordered w-full h-32 text-sm"
@@ -423,27 +1002,21 @@
                                     maxlength="500"
                                     oninput="updateTextCounter(this)"></textarea>
                             </div>
-
-                            <div class="hint-box">
-                                <i class="ri-information-fill"></i>
-                                <span>使用自然语言描述视频的场景、氛围、风格等，帮助 AI 更好地理解您的创意</span>
-                            </div>
                         </div>
 
                         <div class="divider"></div>
 
                         <!-- Step 5: Duration Setting -->
                         <div class="space-y-4 mb-8">
-                            <div class="flex items-center gap-2 mb-4">
-                                <div class="badge badge-primary badge-lg font-bold">5</div>
-                                <h4 class="font-bold text-base">生成时长</h4>
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="badge badge-primary badge-lg font-bold">5</div>
+                                    <h4 class="font-bold text-base">生成时长</h4>
+                                </div>
+                                <span class="text-sm text-base-content/60 font-medium" id="duration_display">8 秒</span>
                             </div>
 
                             <div class="form-control">
-                                <label class="label">
-                                    <span class="label-text font-medium text-base-content/70">选择视频时长（秒）</span>
-                                    <span class="label-text-alt text-base-content/60 font-medium" id="duration_display">8 秒</span>
-                                </label>
                                 <input type="range" id="duration_slider" min="4" max="15" value="8" class="range range-primary" oninput="updateDuration(this.value)" />
                                 <div class="w-full flex justify-between text-xs px-2 text-base-content/50 mt-1">
                                     <span>4s</span>
@@ -452,29 +1025,14 @@
                                     <span>15s</span>
                                 </div>
                             </div>
-
-                            <div class="hint-box">
-                                <i class="ri-information-fill"></i>
-                                <span>生成时长最长为 15 秒，建议根据素材内容选择合适的时长</span>
-                            </div>
                         </div>
 
-                        <div class="divider"></div>
-
-                        <!-- File Count Summary -->
-                        <div class="alert alert-info shadow-lg mb-6">
-                            <i class="ri-information-line text-lg"></i>
-                            <div class="flex-1">
-                                <div class="font-medium">文件上传限制</div>
-                                <div class="text-sm">混合输入总上限为 12 个文件。当前已上传：<span id="total_files" class="font-bold">0</span> / 12</div>
-                            </div>
-                        </div>
-
+                
+                    
                         <!-- Footer Actions -->
                         <div class="flex justify-between items-center pt-4 border-t border-base-200">
                             <div class="text-sm text-base-content/60">
-                                <i class="ri-information-line"></i>
-                                提交后将开始视频生成任务，预计需要 3-8 分钟
+                                <i class="ri-information-line"></i> 输入总上限为 12 个文件，建议优先上传对画面或节奏影响最大的素材。当前已上传：<span class="badge badge-primary badge-lg font-bold mx-1"><span id="total_files">0</span> / 12</span>
                             </div>
                             <div class="flex gap-3">
                                 <a href="project-video.html" class="btn btn-ghost px-6 font-medium">取消</a>
@@ -488,7 +1046,7 @@
                                         type="button"
                                         class="btn btn-primary px-10 gap-2 shadow-lg shadow-primary/20 font-bold"
                                         onclick="submitSeedanceTask()">
-                                        <i class="ri-send-plane-fill text-lg"></i>
+                                        <i class="ri-magic-fill text-lg"></i>
                                         提交任务
                                     </button>
                                 </div>
@@ -500,6 +1058,257 @@
             </div>
         </div>
     </div>
+
+    <!-- Select from Project Modal -->
+    <dialog id="select_project_image_modal" class="modal">
+        <div class="modal-box max-w-4xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4">从项目中选择图片</h3>
+
+            <!-- Tabs for different sources -->
+            <div role="tablist" class="tabs tabs-boxed mb-4">
+                <a role="tab" class="tab tab-active" data-source="character">角色</a>
+                <a role="tab" class="tab" data-source="scene">场景</a>
+                <a role="tab" class="tab" data-source="goods">物品</a>
+                <a role="tab" class="tab" data-source="fusion">融合生图</a>
+            </div>
+
+            <!-- Image Grid -->
+            <div class="grid grid-cols-4 gap-4 max-h-96 overflow-y-auto p-2" id="project_image_grid">
+                <!-- Character Images -->
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="1">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=101" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 14:30</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="2">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=111" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 16:45</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-02" data-version="1">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=102" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 10:15</p>
+                </div>
+
+                <!-- Scene Images -->
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-01" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=201" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">城市街道</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-12 13:45</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-02" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=202" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">室内办公室</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-11 16:20</p>
+                </div>
+
+                <!-- Goods Images -->
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-01" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=301" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">笔记本电脑</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-09 11:30</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-02" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=302" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">手机</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-08 17:10</p>
+                </div>
+
+                <!-- Fusion Images -->
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=401" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 10:25</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-02" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=402" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 09:18</p>
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-ghost">取消</button>
+                    <button class="btn btn-primary" id="confirm_select_btn">确认选择</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Select from Project Video Modal -->
+    <dialog id="select_project_video_modal" class="modal">
+        <div class="modal-box max-w-4xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4">从现有视频中选择</h3>
+
+            <!-- Video Grid -->
+            <div class="grid grid-cols-3 gap-4 max-h-96 overflow-y-auto p-2" id="project_video_grid">
+                <!-- Sample Video Items -->
+                <div class="project-video-item cursor-pointer" data-item-id="video-01">
+                    <div class="relative group">
+                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" class="w-full h-32 object-cover rounded-lg"></video>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 badge badge-sm badge-neutral">5s</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">视频01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 14:30</p>
+                </div>
+                <div class="project-video-item cursor-pointer" data-item-id="video-02">
+                    <div class="relative group">
+                        <video src="https://www.w3schools.com/html/movie.mp4" class="w-full h-32 object-cover rounded-lg"></video>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 badge badge-sm badge-neutral">8s</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">视频02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 10:15</p>
+                </div>
+                <div class="project-video-item cursor-pointer" data-item-id="video-03">
+                    <div class="relative group">
+                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" class="w-full h-32 object-cover rounded-lg"></video>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 badge badge-sm badge-neutral">3s</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">视频03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-12 16:45</p>
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-ghost">取消</button>
+                    <button class="btn btn-primary" id="confirm_select_video_btn">确认选择</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Select from Project Audio Modal -->
+    <dialog id="select_project_audio_modal" class="modal">
+        <div class="modal-box max-w-4xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4">从已有语音中选择</h3>
+
+            <!-- Audio Grid -->
+            <div class="grid grid-cols-3 gap-4 max-h-96 overflow-y-auto p-2" id="project_audio_grid">
+                <!-- Sample Audio Items -->
+                <div class="project-audio-item cursor-pointer" data-item-id="audio-01">
+                    <div class="relative group">
+                        <div class="w-full h-32 bg-base-200 rounded-lg flex items-center justify-center">
+                            <i class="ri-music-2-line text-5xl text-accent"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 badge badge-sm badge-neutral">3.2s</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">背景音乐01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 14:30</p>
+                </div>
+                <div class="project-audio-item cursor-pointer" data-item-id="audio-02">
+                    <div class="relative group">
+                        <div class="w-full h-32 bg-base-200 rounded-lg flex items-center justify-center">
+                            <i class="ri-music-2-line text-5xl text-accent"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 badge badge-sm badge-neutral">5.8s</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">音效02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 10:15</p>
+                </div>
+                <div class="project-audio-item cursor-pointer" data-item-id="audio-03">
+                    <div class="relative group">
+                        <div class="w-full h-32 bg-base-200 rounded-lg flex items-center justify-center">
+                            <i class="ri-music-2-line text-5xl text-accent"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 badge badge-sm badge-neutral">2.5s</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">配乐03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-12 16:45</p>
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-ghost">取消</button>
+                    <button class="btn btn-primary" id="confirm_select_audio_btn">确认选择</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 
     <!-- JavaScript -->
     <script>
@@ -527,264 +1336,983 @@
         }
 
         // ========================================
+        // Model and Task Type Selection
+        // ========================================
+        const modelRadios = document.querySelectorAll('input[name="model_select"]');
+        const taskTypeRadios = document.querySelectorAll('input[name="task_type_select"]');
+        const taskTypeContainer = document.getElementById('task_type_container');
+        const firstLastFrameOption = document.getElementById('first_last_frame_option');
+        const firstLastFrameContainer = document.getElementById('first_last_frame_container');
+        const firstFrameUpload = document.getElementById('first_frame_upload');
+        const lastFrameUpload = document.getElementById('last_frame_upload');
+        const firstFrameInput = document.getElementById('first_frame_input');
+        const lastFrameInput = document.getElementById('last_frame_input');
+
+        let firstFrameData = null;
+        let lastFrameData = null;
+
+        // Handle model selection change
+        modelRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const selectedModel = this.value;
+
+                if (selectedModel === 'fast') {
+                    // Seedance 2.0 Fast: Show task type options including first/last frame
+                    firstLastFrameOption.style.display = 'flex';
+                } else if (selectedModel === 'standard') {
+                    // Seedance 2.0: Only show universal reference
+                    firstLastFrameOption.style.display = 'none';
+                    // Reset to universal reference
+                    document.querySelector('input[name="task_type_select"][value="universal"]').checked = true;
+                    // Hide first/last frame container if it was visible
+                    firstLastFrameContainer.style.display = 'none';
+                }
+            });
+        });
+
+        // Handle task type selection change
+        taskTypeRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                const selectedType = this.value;
+
+                if (selectedType === 'first_last_frame') {
+                    firstLastFrameContainer.style.display = 'block';
+                } else {
+                    firstLastFrameContainer.style.display = 'none';
+                }
+            });
+        });
+
+        // First frame upload handling
+        firstFrameUpload.addEventListener('click', function() {
+            if (!this.classList.contains('has-image')) {
+                firstFrameInput.click();
+            }
+        });
+
+        firstFrameInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Validate file size (30MB)
+                if (file.size > 30 * 1024 * 1024) {
+                    showToast('文件大小超过 30MB', 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    firstFrameData = event.target.result;
+                    updateFrameDisplay(firstFrameUpload, firstFrameData, '首帧');
+                };
+                reader.readAsDataURL(file);
+            }
+            firstFrameInput.value = '';
+        });
+
+        // Last frame upload handling
+        lastFrameUpload.addEventListener('click', function() {
+            if (!this.classList.contains('has-image')) {
+                lastFrameInput.click();
+            }
+        });
+
+        lastFrameInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Validate file size (30MB)
+                if (file.size > 30 * 1024 * 1024) {
+                    showToast('文件大小超过 30MB', 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    lastFrameData = event.target.result;
+                    updateFrameDisplay(lastFrameUpload, lastFrameData, '尾帧');
+                };
+                reader.readAsDataURL(file);
+            }
+            lastFrameInput.value = '';
+        });
+
+        // Update frame display
+        function updateFrameDisplay(uploadElement, imageData, frameName) {
+            uploadElement.classList.add('has-image');
+            uploadElement.innerHTML = `
+                <div class="image-preview">
+                    <img src="${imageData}" alt="${frameName}">
+                </div>
+                <div class="image-info">
+                    <span class="text-sm font-medium">${frameName}</span>
+                    <span class="text-xs text-base-content/60">已上传</span>
+                </div>
+                <button class="remove-btn" onclick="removeFrame('${frameName === '首帧' ? 'first' : 'last'}', event)">
+                    <i class="ri-close-line"></i>
+                </button>
+            `;
+        }
+
+        // Remove frame
+        function removeFrame(frameType, event) {
+            event.stopPropagation();
+
+            if (frameType === 'first') {
+                firstFrameData = null;
+                firstFrameUpload.classList.remove('has-image');
+                firstFrameUpload.innerHTML = `
+                    <div class="image-preview">
+                        <i class="ri-add-line text-3xl text-base-content/30"></i>
+                    </div>
+                    <div class="image-info">
+                        <span class="text-xs font-medium text-base-content/60">添加首帧图片</span>
+                        <span class="text-xs text-base-content/40">JPEG、PNG</span>
+                    </div>
+                `;
+            } else if (frameType === 'last') {
+                lastFrameData = null;
+                lastFrameUpload.classList.remove('has-image');
+                lastFrameUpload.innerHTML = `
+                    <div class="image-preview">
+                        <i class="ri-add-line text-3xl text-base-content/30"></i>
+                    </div>
+                    <div class="image-info">
+                        <span class="text-xs font-medium text-base-content/60">添加尾帧图片</span>
+                        <span class="text-xs text-base-content/40">JPEG、PNG</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Select from project for first/last frames
+        const selectFirstFrameBtn = document.getElementById('select_first_frame_btn');
+        const selectLastFrameBtn = document.getElementById('select_last_frame_btn');
+        let currentFrameTarget = null; // 'first' or 'last'
+
+        selectFirstFrameBtn.addEventListener('click', function() {
+            currentFrameTarget = 'first';
+            const selectProjectImageModal = document.getElementById('select_project_image_modal');
+            selectProjectImageModal.showModal();
+        });
+
+        selectLastFrameBtn.addEventListener('click', function() {
+            currentFrameTarget = 'last';
+            const selectProjectImageModal = document.getElementById('select_project_image_modal');
+            selectProjectImageModal.showModal();
+        });
+
+        // ========================================
         // File Upload Management
         // ========================================
+        const MAX_IMAGES = 9;
+        const MAX_VIDEOS = 3;
+        const MAX_AUDIOS = 3;
+
         let uploadedImages = [];
         let uploadedVideos = [];
         let uploadedAudios = [];
+
+        const imageList = document.getElementById('image_list');
+        const imageInput = document.getElementById('image_input');
+        const imageCount = document.getElementById('image_count');
+        const selectFromProjectBtn = document.getElementById('select_from_project_btn');
+        const selectProjectImageModal = document.getElementById('select_project_image_modal');
+        const projectImageGrid = document.getElementById('project_image_grid');
+        const confirmSelectBtn = document.getElementById('confirm_select_btn');
+        const modalTabs = document.querySelectorAll('.tabs .tab');
+        let selectedProjectImages = [];
+
+        const videoList = document.getElementById('video_list');
+        const videoInput = document.getElementById('video_input');
+        const videoCount = document.getElementById('video_count');
+        const selectFromProjectVideoBtn = document.getElementById('select_from_project_video_btn');
+        const selectProjectVideoModal = document.getElementById('select_project_video_modal');
+        const projectVideoGrid = document.getElementById('project_video_grid');
+        const confirmSelectVideoBtn = document.getElementById('confirm_select_video_btn');
+        let selectedProjectVideos = [];
+
+        const audioList = document.getElementById('audio_list');
+        const audioInput = document.getElementById('audio_input');
+        const audioCount = document.getElementById('audio_count');
+        const selectFromProjectAudioBtn = document.getElementById('select_from_project_audio_btn');
+        const selectProjectAudioModal = document.getElementById('select_project_audio_modal');
+        const projectAudioGrid = document.getElementById('project_audio_grid');
+        const confirmSelectAudioBtn = document.getElementById('confirm_select_audio_btn');
+        let selectedProjectAudios = [];
+
+        // Initialize image list
+        function initImageList() {
+            renderImageList();
+        }
+
+        function renderImageList() {
+            imageList.innerHTML = '';
+
+            // Show uploaded images
+            uploadedImages.forEach((image, index) => {
+                if (image) {
+                    const item = createImageItem(image, index, true);
+                    imageList.appendChild(item);
+                }
+            });
+
+            // Show one empty slot if under max limit
+            if (uploadedImages.length < MAX_IMAGES) {
+                const emptyItem = createImageItem(null, uploadedImages.length, false);
+                imageList.appendChild(emptyItem);
+            }
+
+            updateImageCount();
+        }
+
+        function createImageItem(imageData, index, hasImage) {
+            const item = document.createElement('div');
+            item.className = 'image-upload-item' + (hasImage ? ' has-image' : '');
+            item.dataset.index = index;
+
+            if (hasImage) {
+                // Handle both string (legacy) and object formats
+                const imageSrc = typeof imageData === 'string' ? imageData : imageData.src;
+                const isProjectImage = typeof imageData === 'object' && imageData.isProjectImage;
+
+                let displayName, displayInfo;
+                if (isProjectImage) {
+                    // Use saved display name and version
+                    displayName = imageData.name;
+                    displayInfo = `#${imageData.version}`;
+                } else {
+                    // Local upload
+                    displayName = `参考图 ${index + 1}`;
+                    displayInfo = '已上传';
+                }
+
+                item.innerHTML = `
+                    <div class="image-preview">
+                        <img src="${imageSrc}" alt="上传的图片">
+                    </div>
+                    <div class="image-info">
+                        <span class="text-sm font-medium">${displayName}</span>
+                        <span class="text-xs text-base-content/60">${displayInfo}</span>
+                    </div>
+                    <div class="tooltip tooltip-left image-tag-wrapper" data-tip="点击复制">
+                        <div class="image-tag" onclick="copyImageTag(${index + 1}, event)">
+                            图片${index + 1}
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeImageItem(${index}, event)">
+                        <i class="ri-close-line"></i>
+                    </button>
+                `;
+            } else {
+                item.innerHTML = `
+                    <div class="image-preview">
+                        <i class="ri-add-line text-3xl text-base-content/30"></i>
+                    </div>
+                    <div class="image-info">
+                        <span class="text-xs font-medium text-base-content/60">添加图片</span>
+                        <span class="text-xs text-base-content/40">JPEG、PNG</span>
+                    </div>
+                `;
+                item.onclick = () => {
+                    imageInput.dataset.targetIndex = index;
+                    imageInput.click();
+                };
+            }
+
+            return item;
+        }
+
+        // File input handler
+        imageInput.onchange = (e) => {
+            const files = Array.from(e.target.files);
+
+            files.forEach((file) => {
+                if (uploadedImages.length < MAX_IMAGES) {
+                    // Validate file size (30MB)
+                    if (file.size > 30 * 1024 * 1024) {
+                        showToast(`${file.name} 文件大小超过 30MB`, 'error');
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        // Save as object for consistency
+                        uploadedImages.push({
+                            src: event.target.result,
+                            isProjectImage: false
+                        });
+                        renderImageList();
+                        updateTotalFileCount();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Reset input
+            imageInput.value = '';
+        };
+
+        function removeImageItem(index, event) {
+            event.stopPropagation();
+            uploadedImages.splice(index, 1);
+            renderImageList();
+            updateTotalFileCount();
+        }
+
+        function copyImageTag(imageNumber, event) {
+            event.stopPropagation();
+            const textToCopy = `图片${imageNumber}`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showCopyTooltip(event.currentTarget);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                });
+            }
+        }
+
+        function showCopyTooltip(element) {
+            const tooltipContainer = element.parentElement;
+            if (tooltipContainer && tooltipContainer.classList.contains('tooltip')) {
+                const originalTip = tooltipContainer.getAttribute('data-tip');
+                tooltipContainer.setAttribute('data-tip', '复制成功!');
+                setTimeout(() => {
+                    tooltipContainer.setAttribute('data-tip', originalTip);
+                }, 1500);
+            }
+        }
+
+        function updateImageCount() {
+            imageCount.textContent = `${uploadedImages.length} / ${MAX_IMAGES}`;
+        }
+
+        // Project image selection modal
+        selectFromProjectBtn.onclick = () => {
+            selectProjectImageModal.showModal();
+        };
+
+        // Tab switching
+        modalTabs.forEach(tab => {
+            tab.onclick = () => {
+                modalTabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+                const source = tab.dataset.source;
+                filterProjectImages(source);
+            };
+        });
+
+        function filterProjectImages(source) {
+            const items = projectImageGrid.querySelectorAll('.project-image-item');
+            items.forEach(item => {
+                if (item.dataset.source === source) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Image selection in modal
+        projectImageGrid.onclick = (e) => {
+            const item = e.target.closest('.project-image-item');
+            if (item) {
+                const img = item.querySelector('img');
+                const imgSrc = img.src;
+                const itemId = item.dataset.itemId;
+                const version = item.dataset.version;
+                const source = item.dataset.source;
+                // Get display name from the p tag
+                const nameElement = item.querySelector('p.font-medium');
+                const displayName = nameElement ? nameElement.textContent.trim() : itemId;
+
+                // If selecting for first/last frame, only allow one selection
+                if (currentFrameTarget === 'first' || currentFrameTarget === 'last') {
+                    // Clear all previous selections
+                    projectImageGrid.querySelectorAll('.project-image-item').forEach(i => {
+                        i.classList.remove('selected');
+                    });
+                    selectedProjectImages = [];
+
+                    // Select the clicked item
+                    item.classList.add('selected');
+                    selectedProjectImages.push({
+                        src: imgSrc,
+                        itemId: itemId,
+                        version: version,
+                        source: source,
+                        displayName: displayName
+                    });
+                } else {
+                    // Default behavior: toggle selection
+                    item.classList.toggle('selected');
+
+                    if (item.classList.contains('selected')) {
+                        if (uploadedImages.length + selectedProjectImages.length < MAX_IMAGES) {
+                            selectedProjectImages.push({
+                                src: imgSrc,
+                                itemId: itemId,
+                                version: version,
+                                source: source,
+                                displayName: displayName
+                            });
+                        } else {
+                            item.classList.remove('selected');
+                            showToast(`最多只能选择 ${MAX_IMAGES} 张图片`, 'error');
+                        }
+                    } else {
+                        const index = selectedProjectImages.findIndex(
+                            img => img.itemId === itemId && img.version === version
+                        );
+                        if (index > -1) {
+                            selectedProjectImages.splice(index, 1);
+                        }
+                    }
+                }
+
+                updateSelectionCount();
+            }
+        };
+
+        function updateSelectionCount() {
+            const count = selectedProjectImages.length;
+            if (count > 0) {
+                confirmSelectBtn.textContent = `确认选择 (${count})`;
+            } else {
+                confirmSelectBtn.textContent = '确认选择';
+            }
+        }
+
+        // Confirm selection
+        confirmSelectBtn.onclick = () => {
+            // Check if selecting for first/last frame
+            if (currentFrameTarget === 'first' && selectedProjectImages.length > 0) {
+                // Only use the first selected image for first frame
+                const imgData = selectedProjectImages[0];
+                firstFrameData = imgData.src;
+                updateFrameDisplay(firstFrameUpload, imgData.src, '首帧');
+
+                // Clear selection and reset
+                selectedProjectImages = [];
+                projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                updateSelectionCount();
+                currentFrameTarget = null;
+                selectProjectImageModal.close();
+                return;
+            }
+
+            if (currentFrameTarget === 'last' && selectedProjectImages.length > 0) {
+                // Only use the first selected image for last frame
+                const imgData = selectedProjectImages[0];
+                lastFrameData = imgData.src;
+                updateFrameDisplay(lastFrameUpload, imgData.src, '尾帧');
+
+                // Clear selection and reset
+                selectedProjectImages = [];
+                projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                updateSelectionCount();
+                currentFrameTarget = null;
+                selectProjectImageModal.close();
+                return;
+            }
+
+            // Default behavior: add to uploaded images
+            selectedProjectImages.forEach(imgData => {
+                if (uploadedImages.length < MAX_IMAGES) {
+                    // Save complete image data including metadata
+                    uploadedImages.push({
+                        src: imgData.src,
+                        name: imgData.displayName,
+                        version: imgData.version,
+                        source: imgData.source,
+                        isProjectImage: true
+                    });
+                }
+            });
+
+            renderImageList();
+            updateTotalFileCount();
+
+            // Clear selection
+            selectedProjectImages = [];
+            projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            updateSelectionCount();
+        };
+
+        // Listen for modal close event
+        selectProjectImageModal.addEventListener('close', () => {
+            selectedProjectImages = [];
+            projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            updateSelectionCount();
+            currentFrameTarget = null; // Reset frame target
+        });
+
+        // ========================================
+        // Video Upload Management
+        // ========================================
+
+        // Initialize video list
+        function initVideoList() {
+            renderVideoList();
+        }
+
+        function renderVideoList() {
+            videoList.innerHTML = '';
+
+            // Show uploaded videos
+            uploadedVideos.forEach((video, index) => {
+                if (video) {
+                    const item = createVideoItem(video, index, true);
+                    videoList.appendChild(item);
+                }
+            });
+
+            // Show one empty slot if under max limit
+            if (uploadedVideos.length < MAX_VIDEOS) {
+                const emptyItem = createVideoItem(null, uploadedVideos.length, false);
+                videoList.appendChild(emptyItem);
+            }
+
+            updateVideoCount();
+        }
+
+        function createVideoItem(videoData, index, hasVideo) {
+            const item = document.createElement('div');
+            item.className = 'video-upload-item' + (hasVideo ? ' has-video' : '');
+            item.dataset.index = index;
+
+            if (hasVideo) {
+                // Handle both File and object formats
+                const isProjectVideo = typeof videoData === 'object' && videoData.isProjectVideo;
+
+                let displayName, displayInfo, videoSrc;
+                if (isProjectVideo) {
+                    // Use saved display name
+                    displayName = videoData.name;
+                    displayInfo = videoData.duration || '';
+                    videoSrc = videoData.src;
+                } else {
+                    // Local upload (File object)
+                    displayName = `视频 ${index + 1}`;
+                    displayInfo = '已上传';
+                    // Create object URL for File object
+                    videoSrc = videoData instanceof File ? URL.createObjectURL(videoData) : videoData.src;
+                }
+
+                item.innerHTML = `
+                    <div class="video-preview">
+                        <video src="${videoSrc}" muted></video>
+                    </div>
+                    <div class="video-info">
+                        <span class="text-sm font-medium">${displayName}</span>
+                        <span class="text-xs text-base-content/60">${displayInfo}</span>
+                    </div>
+                    <div class="tooltip tooltip-left video-tag-wrapper" data-tip="点击复制">
+                        <div class="video-tag" onclick="copyVideoTag(${index + 1}, event)">
+                            视频${index + 1}
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeVideoItem(${index}, event)">
+                        <i class="ri-close-line"></i>
+                    </button>
+                `;
+            } else {
+                item.innerHTML = `
+                    <div class="video-preview">
+                        <i class="ri-video-add-line text-3xl text-base-content/30"></i>
+                    </div>
+                    <div class="video-info">
+                        <span class="text-xs font-medium text-base-content/60">添加视频</span>
+                        <span class="text-xs text-base-content/40">MP4、MOV</span>
+                    </div>
+                `;
+                item.onclick = () => {
+                    videoInput.dataset.targetIndex = index;
+                    videoInput.click();
+                };
+            }
+
+            return item;
+        }
+
+        // Video file input handler
+        videoInput.onchange = (e) => {
+            const files = Array.from(e.target.files);
+
+            files.forEach((file) => {
+                if (uploadedVideos.length < MAX_VIDEOS) {
+                    // Validate file size (50MB)
+                    if (file.size > 50 * 1024 * 1024) {
+                        showToast(`${file.name} 文件大小超过 50MB`, 'error');
+                        return;
+                    }
+
+                    // Save as File object
+                    uploadedVideos.push(file);
+                    renderVideoList();
+                    updateTotalFileCount();
+                }
+            });
+
+            // Reset input
+            videoInput.value = '';
+        };
+
+        function removeVideoItem(index, event) {
+            event.stopPropagation();
+            // Revoke object URL if it's a File object
+            if (uploadedVideos[index] instanceof File) {
+                const videoSrc = URL.createObjectURL(uploadedVideos[index]);
+                URL.revokeObjectURL(videoSrc);
+            }
+            uploadedVideos.splice(index, 1);
+            renderVideoList();
+            updateTotalFileCount();
+        }
+
+        function copyVideoTag(videoNumber, event) {
+            event.stopPropagation();
+            const textToCopy = `视频${videoNumber}`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showCopyTooltip(event.currentTarget);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                });
+            }
+        }
+
+        function updateVideoCount() {
+            videoCount.textContent = `${uploadedVideos.length} / ${MAX_VIDEOS}`;
+        }
+
+        // Project video selection modal
+        selectFromProjectVideoBtn.onclick = () => {
+            selectProjectVideoModal.showModal();
+        };
+
+        // Video selection in modal
+        projectVideoGrid.onclick = (e) => {
+            const item = e.target.closest('.project-video-item');
+            if (item) {
+                const video = item.querySelector('video');
+                const videoSrc = video.src;
+                const itemId = item.dataset.itemId;
+                // Get display name from the p tag
+                const nameElement = item.querySelector('p.font-medium');
+                const displayName = nameElement ? nameElement.textContent.trim() : itemId;
+                // Get duration badge
+                const durationBadge = item.querySelector('.badge');
+                const duration = durationBadge ? durationBadge.textContent.trim() : '';
+
+                // Toggle selection
+                item.classList.toggle('selected');
+
+                if (item.classList.contains('selected')) {
+                    if (uploadedVideos.length + selectedProjectVideos.length < MAX_VIDEOS) {
+                        selectedProjectVideos.push({
+                            src: videoSrc,
+                            itemId: itemId,
+                            displayName: displayName,
+                            duration: duration
+                        });
+                    } else {
+                        item.classList.remove('selected');
+                        showToast(`最多只能选择 ${MAX_VIDEOS} 个视频`, 'error');
+                    }
+                } else {
+                    const index = selectedProjectVideos.findIndex(
+                        vid => vid.itemId === itemId
+                    );
+                    if (index > -1) {
+                        selectedProjectVideos.splice(index, 1);
+                    }
+                }
+
+                updateVideoSelectionCount();
+            }
+        };
+
+        function updateVideoSelectionCount() {
+            const count = selectedProjectVideos.length;
+            if (count > 0) {
+                confirmSelectVideoBtn.textContent = `确认选择 (${count})`;
+            } else {
+                confirmSelectVideoBtn.textContent = '确认选择';
+            }
+        }
+
+        // Confirm video selection
+        confirmSelectVideoBtn.onclick = () => {
+            selectedProjectVideos.forEach(vidData => {
+                if (uploadedVideos.length < MAX_VIDEOS) {
+                    // Save complete video data including metadata
+                    uploadedVideos.push({
+                        src: vidData.src,
+                        name: vidData.displayName,
+                        duration: vidData.duration,
+                        isProjectVideo: true
+                    });
+                }
+            });
+
+            renderVideoList();
+            updateTotalFileCount();
+
+            // Clear selection
+            selectedProjectVideos = [];
+            projectVideoGrid.querySelectorAll('.project-video-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            updateVideoSelectionCount();
+        };
+
+        // Listen for modal close event
+        selectProjectVideoModal.addEventListener('close', () => {
+            selectedProjectVideos = [];
+            projectVideoGrid.querySelectorAll('.project-video-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            updateVideoSelectionCount();
+        });
+
+        // Initialize
+        initImageList();
+        initVideoList();
+        initAudioList();
+        filterProjectImages('character');
+
+        // ========================================
+        // Audio Upload Management
+        // ========================================
+
+        // Initialize audio list
+        function initAudioList() {
+            renderAudioList();
+        }
+
+        function renderAudioList() {
+            audioList.innerHTML = '';
+
+            // Show uploaded audios
+            uploadedAudios.forEach((audio, index) => {
+                if (audio) {
+                    const item = createAudioItem(audio, index, true);
+                    audioList.appendChild(item);
+                }
+            });
+
+            // Show one empty slot if under max limit
+            if (uploadedAudios.length < MAX_AUDIOS) {
+                const emptyItem = createAudioItem(null, uploadedAudios.length, false);
+                audioList.appendChild(emptyItem);
+            }
+
+            updateAudioCount();
+        }
+
+        function createAudioItem(audioData, index, hasAudio) {
+            const item = document.createElement('div');
+            item.className = 'audio-upload-item' + (hasAudio ? ' has-audio' : '');
+            item.dataset.index = index;
+
+            if (hasAudio) {
+                // Handle both File and object formats
+                const isProjectAudio = typeof audioData === 'object' && audioData.isProjectAudio;
+
+                let displayName, displayInfo;
+                if (isProjectAudio) {
+                    // Use saved display name
+                    displayName = audioData.name;
+                    displayInfo = audioData.duration || '';
+                } else {
+                    // Local upload (File object)
+                    displayName = `音频 ${index + 1}`;
+                    const fileSizeInMB = audioData instanceof File ? (audioData.size / 1024 / 1024).toFixed(2) : '';
+                    displayInfo = fileSizeInMB ? `${fileSizeInMB}MB` : '已上传';
+                }
+
+                item.innerHTML = `
+                    <div class="audio-preview">
+                        <i class="ri-music-2-line"></i>
+                    </div>
+                    <div class="audio-info">
+                        <span class="text-sm font-medium">${displayName}</span>
+                        <span class="text-xs text-base-content/60">${displayInfo}</span>
+                    </div>
+                    <div class="tooltip tooltip-left audio-tag-wrapper" data-tip="点击复制">
+                        <div class="audio-tag" onclick="copyAudioTag(${index + 1}, event)">
+                            音频${index + 1}
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeAudioItem(${index}, event)">
+                        <i class="ri-close-line"></i>
+                    </button>
+                `;
+            } else {
+                item.innerHTML = `
+                    <div class="audio-preview">
+                        <i class="ri-add-line text-3xl text-base-content/30"></i>
+                    </div>
+                    <div class="audio-info">
+                        <span class="text-xs font-medium text-base-content/60">添加音频</span>
+                        <span class="text-xs text-base-content/40">MP3、WAV</span>
+                    </div>
+                `;
+                item.onclick = () => {
+                    audioInput.dataset.targetIndex = index;
+                    audioInput.click();
+                };
+            }
+
+            return item;
+        }
+
+        // Audio file input handler
+        audioInput.onchange = (e) => {
+            const files = Array.from(e.target.files);
+
+            files.forEach((file) => {
+                if (uploadedAudios.length < MAX_AUDIOS) {
+                    // Validate file size (15MB)
+                    if (file.size > 15 * 1024 * 1024) {
+                        showToast(`${file.name} 文件大小超过 15MB`, 'error');
+                        return;
+                    }
+
+                    // Save as File object
+                    uploadedAudios.push(file);
+                    renderAudioList();
+                    updateTotalFileCount();
+                }
+            });
+
+            // Reset input
+            audioInput.value = '';
+        };
+
+        function removeAudioItem(index, event) {
+            event.stopPropagation();
+            uploadedAudios.splice(index, 1);
+            renderAudioList();
+            updateTotalFileCount();
+        }
+
+        function copyAudioTag(audioNumber, event) {
+            event.stopPropagation();
+            const textToCopy = `音频${audioNumber}`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showCopyTooltip(event.currentTarget);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                });
+            }
+        }
+
+        function updateAudioCount() {
+            audioCount.textContent = `${uploadedAudios.length} / ${MAX_AUDIOS}`;
+        }
+
+        // Project audio selection modal
+        selectFromProjectAudioBtn.onclick = () => {
+            selectProjectAudioModal.showModal();
+        };
+
+        // Audio selection in modal
+        projectAudioGrid.onclick = (e) => {
+            const item = e.target.closest('.project-audio-item');
+            if (item) {
+                const itemId = item.dataset.itemId;
+                // Get display name from the p tag
+                const nameElement = item.querySelector('p.font-medium');
+                const displayName = nameElement ? nameElement.textContent.trim() : itemId;
+                // Get duration badge
+                const durationBadge = item.querySelector('.badge');
+                const duration = durationBadge ? durationBadge.textContent.trim() : '';
+
+                // Toggle selection
+                item.classList.toggle('selected');
+
+                if (item.classList.contains('selected')) {
+                    if (uploadedAudios.length + selectedProjectAudios.length < MAX_AUDIOS) {
+                        selectedProjectAudios.push({
+                            itemId: itemId,
+                            displayName: displayName,
+                            duration: duration
+                        });
+                    } else {
+                        item.classList.remove('selected');
+                        showToast(`最多只能选择 ${MAX_AUDIOS} 个音频`, 'error');
+                    }
+                } else {
+                    const index = selectedProjectAudios.findIndex(
+                        aud => aud.itemId === itemId
+                    );
+                    if (index > -1) {
+                        selectedProjectAudios.splice(index, 1);
+                    }
+                }
+
+                updateAudioSelectionCount();
+            }
+        };
+
+        function updateAudioSelectionCount() {
+            const count = selectedProjectAudios.length;
+            if (count > 0) {
+                confirmSelectAudioBtn.textContent = `确认选择 (${count})`;
+            } else {
+                confirmSelectAudioBtn.textContent = '确认选择';
+            }
+        }
+
+        // Confirm audio selection
+        confirmSelectAudioBtn.onclick = () => {
+            selectedProjectAudios.forEach(audData => {
+                if (uploadedAudios.length < MAX_AUDIOS) {
+                    // Save complete audio data including metadata
+                    uploadedAudios.push({
+                        name: audData.displayName,
+                        duration: audData.duration,
+                        isProjectAudio: true
+                    });
+                }
+            });
+
+            renderAudioList();
+            updateTotalFileCount();
+
+            // Clear selection
+            selectedProjectAudios = [];
+            projectAudioGrid.querySelectorAll('.project-audio-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            updateAudioSelectionCount();
+        };
+
+        // Listen for modal close event
+        selectProjectAudioModal.addEventListener('close', () => {
+            selectedProjectAudios = [];
+            projectAudioGrid.querySelectorAll('.project-audio-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            updateAudioSelectionCount();
+        });
 
         // Update total file count
         function updateTotalFileCount() {
             const total = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
             document.getElementById('total_files').textContent = total;
-
-            // Update individual counters
-            document.getElementById('image_count').textContent = `${uploadedImages.length} / 9`;
-            document.getElementById('video_count').textContent = `${uploadedVideos.length} / 3`;
-            document.getElementById('audio_count').textContent = `${uploadedAudios.length} / 3`;
-        }
-
-        // Handle Image Upload
-        function handleImageUpload(event) {
-            const files = Array.from(event.target.files);
-
-            // Check total file limit
-            const totalFiles = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
-            if (totalFiles + files.length > 12) {
-                showToast('文件总数不能超过 12 个', 'error');
-                return;
-            }
-
-            // Check image count limit
-            if (uploadedImages.length + files.length > 9) {
-                showToast('图片数量不能超过 9 张', 'error');
-                return;
-            }
-
-            files.forEach(file => {
-                // Validate file size (30MB)
-                if (file.size > 30 * 1024 * 1024) {
-                    showToast(`${file.name} 文件大小超过 30MB`, 'error');
-                    return;
-                }
-
-                // Add to array
-                uploadedImages.push(file);
-
-                // Show preview
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const grid = document.getElementById('image_preview_grid');
-                    grid.classList.remove('hidden');
-
-                    const item = document.createElement('div');
-                    item.className = 'file-preview-item aspect-square';
-                    item.innerHTML = `
-                        <img src="${e.target.result}" alt="${file.name}" />
-                        <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeImage(${uploadedImages.length - 1})">
-                            <i class="ri-close-line"></i>
-                        </button>
-                    `;
-                    grid.appendChild(item);
-                };
-                reader.readAsDataURL(file);
-            });
-
-            updateTotalFileCount();
-            event.target.value = '';
-        }
-
-        // Remove Image
-        function removeImage(index) {
-            uploadedImages.splice(index, 1);
-
-            // Rebuild preview
-            const grid = document.getElementById('image_preview_grid');
-            grid.innerHTML = '';
-
-            if (uploadedImages.length === 0) {
-                grid.classList.add('hidden');
-            } else {
-                uploadedImages.forEach((file, i) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const item = document.createElement('div');
-                        item.className = 'file-preview-item aspect-square';
-                        item.innerHTML = `
-                            <img src="${e.target.result}" alt="${file.name}" />
-                            <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeImage(${i})">
-                                <i class="ri-close-line"></i>
-                            </button>
-                        `;
-                        grid.appendChild(item);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-
-            updateTotalFileCount();
-        }
-
-        // Handle Video Upload
-        function handleVideoUpload(event) {
-            const files = Array.from(event.target.files);
-
-            // Check total file limit
-            const totalFiles = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
-            if (totalFiles + files.length > 12) {
-                showToast('文件总数不能超过 12 个', 'error');
-                return;
-            }
-
-            // Check video count limit
-            if (uploadedVideos.length + files.length > 3) {
-                showToast('视频数量不能超过 3 个', 'error');
-                return;
-            }
-
-            files.forEach(file => {
-                // Validate file size (50MB)
-                if (file.size > 50 * 1024 * 1024) {
-                    showToast(`${file.name} 文件大小超过 50MB`, 'error');
-                    return;
-                }
-
-                // Add to array
-                uploadedVideos.push(file);
-
-                // Show preview
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const grid = document.getElementById('video_preview_grid');
-                    grid.classList.remove('hidden');
-
-                    const item = document.createElement('div');
-                    item.className = 'file-preview-item aspect-video';
-                    item.innerHTML = `
-                        <video src="${e.target.result}" controls></video>
-                        <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeVideo(${uploadedVideos.length - 1})">
-                            <i class="ri-close-line"></i>
-                        </button>
-                    `;
-                    grid.appendChild(item);
-                };
-                reader.readAsDataURL(file);
-            });
-
-            updateTotalFileCount();
-            event.target.value = '';
-        }
-
-        // Remove Video
-        function removeVideo(index) {
-            uploadedVideos.splice(index, 1);
-
-            // Rebuild preview
-            const grid = document.getElementById('video_preview_grid');
-            grid.innerHTML = '';
-
-            if (uploadedVideos.length === 0) {
-                grid.classList.add('hidden');
-            } else {
-                uploadedVideos.forEach((file, i) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const item = document.createElement('div');
-                        item.className = 'file-preview-item aspect-video';
-                        item.innerHTML = `
-                            <video src="${e.target.result}" controls></video>
-                            <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeVideo(${i})">
-                                <i class="ri-close-line"></i>
-                            </button>
-                        `;
-                        grid.appendChild(item);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-
-            updateTotalFileCount();
-        }
-
-        // Handle Audio Upload
-        function handleAudioUpload(event) {
-            const files = Array.from(event.target.files);
-
-            // Check total file limit
-            const totalFiles = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
-            if (totalFiles + files.length > 12) {
-                showToast('文件总数不能超过 12 个', 'error');
-                return;
-            }
-
-            // Check audio count limit
-            if (uploadedAudios.length + files.length > 3) {
-                showToast('音频数量不能超过 3 个', 'error');
-                return;
-            }
-
-            files.forEach(file => {
-                // Validate file size (15MB)
-                if (file.size > 15 * 1024 * 1024) {
-                    showToast(`${file.name} 文件大小超过 15MB`, 'error');
-                    return;
-                }
-
-                // Add to array
-                uploadedAudios.push(file);
-
-                // Show preview
-                const list = document.getElementById('audio_preview_list');
-                list.classList.remove('hidden');
-
-                const item = document.createElement('div');
-                item.className = 'alert shadow-sm';
-                item.innerHTML = `
-                    <i class="ri-music-2-line text-xl"></i>
-                    <div class="flex-1">
-                        <p class="font-medium text-sm">${file.name}</p>
-                        <p class="text-xs text-base-content/60">${(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                    </div>
-                    <button class="btn btn-sm btn-circle btn-ghost" onclick="removeAudio(${uploadedAudios.length - 1})">
-                        <i class="ri-close-line"></i>
-                    </button>
-                `;
-                list.appendChild(item);
-            });
-
-            updateTotalFileCount();
-            event.target.value = '';
-        }
-
-        // Remove Audio
-        function removeAudio(index) {
-            uploadedAudios.splice(index, 1);
-
-            // Rebuild preview
-            const list = document.getElementById('audio_preview_list');
-            list.innerHTML = '';
-
-            if (uploadedAudios.length === 0) {
-                list.classList.add('hidden');
-            } else {
-                uploadedAudios.forEach((file, i) => {
-                    const item = document.createElement('div');
-                    item.className = 'alert shadow-sm';
-                    item.innerHTML = `
-                        <i class="ri-music-2-line text-xl"></i>
-                        <div class="flex-1">
-                            <p class="font-medium text-sm">${file.name}</p>
-                            <p class="text-xs text-base-content/60">${(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                        </div>
-                        <button class="btn btn-sm btn-circle btn-ghost" onclick="removeAudio(${i})">
-                            <i class="ri-close-line"></i>
-                        </button>
-                    `;
-                    list.appendChild(item);
-                });
-            }
-
-            updateTotalFileCount();
         }
 
         // Update text counter
@@ -842,7 +2370,7 @@
         // Toast notification helper
         function showToast(message, type = 'info', duration = 3000) {
             const toast = document.createElement('div');
-            toast.className = 'toast toast-top toast-center z-[100]';
+            toast.className = 'toast toast-bottom toast-center z-[100]';
 
             let alertClass = 'alert-info';
             let icon = 'ri-information-line';
