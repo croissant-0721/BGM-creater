@@ -778,7 +778,7 @@
 
                         <!-- Task Name -->
                         <div class="form-control mb-8">
-                            <label class="label">
+                            <label class="label" for="task_name">
                                 <span class="label-text font-medium text-base-content/70">任务名称</span>
                             </label>
                             <input type="text" id="task_name" placeholder="留空则自动生成" class="input input-bordered w-full" />
@@ -823,7 +823,7 @@
                             <div class="grid grid-cols-2 gap-6">
                                 <!-- First Frame -->
                                 <div class="form-control">
-                                    <label class="label">
+                                    <label class="label" for="first_frame_input">
                                         <span class="label-text font-medium text-base-content/70">首帧</span>
                                     </label>
                                     <div class="image-upload-item" id="first_frame_upload">
@@ -846,7 +846,7 @@
 
                                 <!-- Last Frame -->
                                 <div class="form-control">
-                                    <label class="label">
+                                    <label class="label" for="last_frame_input">
                                         <span class="label-text font-medium text-base-content/70">尾帧</span>
                                     </label>
                                     <div class="image-upload-item" id="last_frame_upload">
@@ -895,12 +895,13 @@
 
                             <!-- Upload Actions -->
                             <div class="upload-actions">
-                                <button class="btn btn-sm btn-outline gap-1" id="select_from_project_btn">
+                                <button type="button" class="btn btn-sm btn-outline gap-1" id="select_from_project_btn">
                                     <i class="ri-folder-image-line"></i>
                                     从项目选择
                                 </button>
                             </div>
 
+                            <label for="image_input" class="sr-only">图片输入</label>
                             <input type="file" id="image_input" accept=".jpg,.jpeg,.png,.webp,.bmp,.tiff,.gif" multiple class="hidden">
                         </div>
 
@@ -936,12 +937,13 @@
 
                             <!-- Upload Actions -->
                             <div class="upload-actions">
-                                <button class="btn btn-sm btn-outline gap-1" id="select_from_project_video_btn">
+                                <button type="button" class="btn btn-sm btn-outline gap-1" id="select_from_project_video_btn">
                                     <i class="ri-folder-video-line"></i>
                                     从现有视频选择
                                 </button>
                             </div>
 
+                            <label for="video_input" class="sr-only">视频输入</label>
                             <input type="file" id="video_input" accept=".mp4,.mov" multiple class="hidden">
                         </div>
 
@@ -971,12 +973,13 @@
 
                             <!-- Upload Actions -->
                             <div class="upload-actions">
-                                <button class="btn btn-sm btn-outline gap-1" id="select_from_project_audio_btn">
+                                <button type="button" class="btn btn-sm btn-outline gap-1" id="select_from_project_audio_btn">
                                     <i class="ri-folder-music-line"></i>
                                     从已有语音选择
                                 </button>
                             </div>
 
+                            <label for="audio_input" class="sr-only">音频输入</label>
                             <input type="file" id="audio_input" accept=".mp3,.wav" multiple class="hidden">
                         </div>
 
@@ -995,6 +998,7 @@
                             </div>
 
                             <div class="form-control">
+                                <label for="text_input" class="sr-only">文本输入</label>
                                 <textarea
                                     id="text_input"
                                     class="textarea textarea-bordered w-full h-32 text-sm"
@@ -1017,6 +1021,7 @@
                             </div>
 
                             <div class="form-control">
+                                <label for="duration_slider" class="sr-only">生成时长</label>
                                 <input type="range" id="duration_slider" min="4" max="15" value="8" class="range range-primary" oninput="updateDuration(this.value)" />
                                 <div class="w-full flex justify-between text-xs px-2 text-base-content/50 mt-1">
                                     <span>4s</span>
@@ -1188,7 +1193,7 @@
             <div class="modal-action">
                 <form method="dialog">
                     <button class="btn btn-ghost">取消</button>
-                    <button class="btn btn-primary" id="confirm_select_btn">确认选择</button>
+                    <button type="button" class="btn btn-primary" id="confirm_select_btn">确认选择</button>
                 </form>
             </div>
         </div>
@@ -1243,7 +1248,7 @@
             <div class="modal-action">
                 <form method="dialog">
                     <button class="btn btn-ghost">取消</button>
-                    <button class="btn btn-primary" id="confirm_select_video_btn">确认选择</button>
+                    <button type="button" class="btn btn-primary" id="confirm_select_video_btn">确认选择</button>
                 </form>
             </div>
         </div>
@@ -1304,7 +1309,7 @@
             <div class="modal-action">
                 <form method="dialog">
                     <button class="btn btn-ghost">取消</button>
-                    <button class="btn btn-primary" id="confirm_select_audio_btn">确认选择</button>
+                    <button type="button" class="btn btn-primary" id="confirm_select_audio_btn">确认选择</button>
                 </form>
             </div>
         </div>
@@ -1446,7 +1451,7 @@
                     <span class="text-sm font-medium">${frameName}</span>
                     <span class="text-xs text-base-content/60">已上传</span>
                 </div>
-                <button class="remove-btn" onclick="removeFrame('${frameName === '首帧' ? 'first' : 'last'}', event)">
+                <button type="button" class="remove-btn" onclick="removeFrame('${frameName === '首帧' ? 'first' : 'last'}', event)">
                     <i class="ri-close-line"></i>
                 </button>
             `;
@@ -1598,7 +1603,7 @@
                             图片${index + 1}
                         </div>
                     </div>
-                    <button class="remove-btn" onclick="removeImageItem(${index}, event)">
+                    <button type="button" class="remove-btn" onclick="removeImageItem(${index}, event)">
                         <i class="ri-close-line"></i>
                     </button>
                 `;
@@ -1919,7 +1924,7 @@
                             视频${index + 1}
                         </div>
                     </div>
-                    <button class="remove-btn" onclick="removeVideoItem(${index}, event)">
+                    <button type="button" class="remove-btn" onclick="removeVideoItem(${index}, event)">
                         <i class="ri-close-line"></i>
                     </button>
                 `;
@@ -2153,7 +2158,7 @@
                             音频${index + 1}
                         </div>
                     </div>
-                    <button class="remove-btn" onclick="removeAudioItem(${index}, event)">
+                    <button type="button" class="remove-btn" onclick="removeAudioItem(${index}, event)">
                         <i class="ri-close-line"></i>
                     </button>
                 `;
