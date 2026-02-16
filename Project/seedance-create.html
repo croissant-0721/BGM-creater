@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增 Seedance 2.0 任务 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .hint-box {
+            background: oklch(var(--wa) / 0.1);
+            border: 1px solid oklch(var(--wa) / 0.15);
+            padding: 0.6rem 0.75rem;
+            border-radius: var(--rounded-btn, 0.5rem);
+            font-size: 0.75rem;
+            color: var(--fallback-bc, oklch(var(--bc)/.7));
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .hint-box i {
+            color: oklch(var(--wa));
+            font-size: 0.9rem;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed oklch(var(--bc) / 0.2);
+            border-radius: var(--rounded-box, 1rem);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            border-color: oklch(var(--p));
+            background: oklch(var(--p) / 0.05);
+        }
+
+        /* File Preview */
+        .file-preview-item {
+            position: relative;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background: oklch(var(--b2));
+        }
+        .file-preview-item img,
+        .file-preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .file-preview-remove {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            z-index: 10;
+        }
+
+        /* Points Tooltip */
+        .points-tooltip {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: oklch(var(--wa));
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 6px oklch(var(--wa) / 0.3);
+            animation: bounceIn 0.3s ease-out;
+            z-index: 50;
+        }
+
+        .points-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid oklch(var(--wa));
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: translateX(-50%) translateY(5px) scale(0.9);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-3px) scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="../index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="../index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Projects.html" class="active"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="../asset/asset-list.html"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">资产处理任务 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout: Sidebar + Content -->
+    <div class="flex">
+        <!-- Fixed Left Sidebar -->
+        <aside class="fixed left-0 top-16 w-64 bg-base-100 shadow-xl border-r border-base-200 h-[calc(100vh-4rem)] overflow-y-auto">
+            <!-- Navigation Menu -->
+            <ul class="menu menu-vertical px-4 py-6 gap-2">
+                <li>
+                    <a href="project-episode.html">
+                        <i class="ri-file-text-line text-lg"></i>
+                        <span>剧本</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-character.html">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>角色</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-scene.html">
+                        <i class="ri-landscape-line text-lg"></i>
+                        <span>场景</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-goods.html">
+                        <i class="ri-box-3-line text-lg"></i>
+                        <span>物品</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-fusion.html">
+                        <i class="ri-image-add-line text-lg"></i>
+                        <span>融合生图</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-video.html" class="active">
+                        <i class="ri-video-line text-lg"></i>
+                        <span>视频</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-tts.html">
+                        <i class="ri-mic-line text-lg"></i>
+                        <span>语音</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-imageedit.html">
+                        <i class="ri-edit-line text-lg"></i>
+                        <span>图片编辑</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 ml-64">
+            <div class="container mx-auto px-6 py-8 max-w-6xl">
+                <!-- Page Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold mb-1">新增 Seedance 2.0 任务</h2>
+                    <p class="text-base-content/60">通过混合输入（图片、视频、音频、文本）创建多模态视频内容</p>
+                </div>
+
+                <!-- Main Card -->
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body p-8">
+
+                        <!-- Task Name -->
+                        <div class="form-control mb-8">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70">任务名称</span>
+                            </label>
+                            <input type="text" id="task_name" placeholder="留空则自动生成" class="input input-bordered w-full" />
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Step 1: Image Input -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="badge badge-primary badge-lg font-bold">1</div>
+                                    <h4 class="font-bold text-base">图片输入</h4>
+                                    <span class="text-xs text-base-content/50">（最多 9 张）</span>
+                                </div>
+                                <span class="text-sm text-base-content/60" id="image_count">0 / 9</span>
+                            </div>
+
+                            <div class="upload-area" onclick="document.getElementById('image_input').click()">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center">
+                                        <i class="ri-image-add-line text-3xl text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium mb-1">点击上传图片</p>
+                                        <p class="text-xs text-base-content/50">支持 JPEG、PNG、WebP、BMP、TIFF、GIF 格式，单张小于 30 MB</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="file" id="image_input" accept=".jpg,.jpeg,.png,.webp,.bmp,.tiff,.gif" multiple class="hidden" onchange="handleImageUpload(event)">
+
+                            <!-- Image Preview Grid -->
+                            <div id="image_preview_grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 hidden">
+                            </div>
+
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>建议优先上传对画面或节奏影响最大的素材</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Step 2: Video Input -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="badge badge-primary badge-lg font-bold">2</div>
+                                    <h4 class="font-bold text-base">视频输入</h4>
+                                    <span class="text-xs text-base-content/50">（最多 3 个）</span>
+                                </div>
+                                <span class="text-sm text-base-content/60" id="video_count">0 / 3</span>
+                            </div>
+
+                            <div class="upload-area" onclick="document.getElementById('video_input').click()">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="bg-secondary/10 w-16 h-16 rounded-full flex items-center justify-center">
+                                        <i class="ri-video-add-line text-3xl text-secondary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium mb-1">点击上传视频</p>
+                                        <p class="text-xs text-base-content/50">支持 MP4、MOV 格式，单个小于 50 MB，总时长 2-15 秒</p>
+                                        <p class="text-xs text-base-content/50 mt-1">视频分辨率范围：640×640 至 834×1112</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="file" id="video_input" accept=".mp4,.mov" multiple class="hidden" onchange="handleVideoUpload(event)">
+
+                            <!-- Video Preview Grid -->
+                            <div id="video_preview_grid" class="grid grid-cols-2 md:grid-cols-3 gap-3 hidden">
+                            </div>
+
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>视频总时长需在 2-15 秒之间，总像素数范围：409,600 - 927,408</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Step 3: Audio Input -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="badge badge-primary badge-lg font-bold">3</div>
+                                    <h4 class="font-bold text-base">音频输入</h4>
+                                    <span class="text-xs text-base-content/50">（最多 3 个）</span>
+                                </div>
+                                <span class="text-sm text-base-content/60" id="audio_count">0 / 3</span>
+                            </div>
+
+                            <div class="upload-area" onclick="document.getElementById('audio_input').click()">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center">
+                                        <i class="ri-music-2-line text-3xl text-accent"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium mb-1">点击上传音频</p>
+                                        <p class="text-xs text-base-content/50">支持 MP3、WAV 格式，单个小于 15 MB，总时长不超过 15 秒</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="file" id="audio_input" accept=".mp3,.wav" multiple class="hidden" onchange="handleAudioUpload(event)">
+
+                            <!-- Audio Preview List -->
+                            <div id="audio_preview_list" class="space-y-2 hidden">
+                            </div>
+
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>可选择自带音效/配乐</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Step 4: Text Input -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="badge badge-primary badge-lg font-bold">4</div>
+                                <h4 class="font-bold text-base">文本输入</h4>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium text-base-content/70">自然语言描述</span>
+                                    <span class="label-text-alt text-base-content/50">
+                                        <span id="text_counter">0</span>/500
+                                    </span>
+                                </label>
+                                <textarea
+                                    id="text_input"
+                                    class="textarea textarea-bordered w-full h-32 text-sm"
+                                    placeholder="描述您想要创建的视频内容..."
+                                    maxlength="500"
+                                    oninput="updateTextCounter(this)"></textarea>
+                            </div>
+
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>使用自然语言描述视频的场景、氛围、风格等，帮助 AI 更好地理解您的创意</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Step 5: Duration Setting -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="badge badge-primary badge-lg font-bold">5</div>
+                                <h4 class="font-bold text-base">生成时长</h4>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium text-base-content/70">选择视频时长（秒）</span>
+                                    <span class="label-text-alt text-base-content/60 font-medium" id="duration_display">8 秒</span>
+                                </label>
+                                <input type="range" id="duration_slider" min="4" max="15" value="8" class="range range-primary" oninput="updateDuration(this.value)" />
+                                <div class="w-full flex justify-between text-xs px-2 text-base-content/50 mt-1">
+                                    <span>4s</span>
+                                    <span>8s</span>
+                                    <span>12s</span>
+                                    <span>15s</span>
+                                </div>
+                            </div>
+
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>生成时长最长为 15 秒，建议根据素材内容选择合适的时长</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- File Count Summary -->
+                        <div class="alert alert-info shadow-lg mb-6">
+                            <i class="ri-information-line text-lg"></i>
+                            <div class="flex-1">
+                                <div class="font-medium">文件上传限制</div>
+                                <div class="text-sm">混合输入总上限为 12 个文件。当前已上传：<span id="total_files" class="font-bold">0</span> / 12</div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Actions -->
+                        <div class="flex justify-between items-center pt-4 border-t border-base-200">
+                            <div class="text-sm text-base-content/60">
+                                <i class="ri-information-line"></i>
+                                提交后将开始视频生成任务，预计需要 3-8 分钟
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="project-video.html" class="btn btn-ghost px-6 font-medium">取消</a>
+                                <div class="relative">
+                                    <!-- Points Bubble -->
+                                    <div class="points-tooltip">
+                                        <i class="ri-coin-fill text-[10px]"></i>
+                                        100 积分
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary px-10 gap-2 shadow-lg shadow-primary/20 font-bold"
+                                        onclick="submitSeedanceTask()">
+                                        <i class="ri-send-plane-fill text-lg"></i>
+                                        提交任务
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ========================================
+        // Theme Toggle Functionality
+        // ========================================
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        if (themeToggle) {
+            themeToggle.checked = savedTheme === 'dark';
+        }
+
+        // Toggle theme
+        if (themeToggle) {
+            themeToggle.addEventListener('change', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+
+        // ========================================
+        // File Upload Management
+        // ========================================
+        let uploadedImages = [];
+        let uploadedVideos = [];
+        let uploadedAudios = [];
+
+        // Update total file count
+        function updateTotalFileCount() {
+            const total = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
+            document.getElementById('total_files').textContent = total;
+
+            // Update individual counters
+            document.getElementById('image_count').textContent = `${uploadedImages.length} / 9`;
+            document.getElementById('video_count').textContent = `${uploadedVideos.length} / 3`;
+            document.getElementById('audio_count').textContent = `${uploadedAudios.length} / 3`;
+        }
+
+        // Handle Image Upload
+        function handleImageUpload(event) {
+            const files = Array.from(event.target.files);
+
+            // Check total file limit
+            const totalFiles = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
+            if (totalFiles + files.length > 12) {
+                showToast('文件总数不能超过 12 个', 'error');
+                return;
+            }
+
+            // Check image count limit
+            if (uploadedImages.length + files.length > 9) {
+                showToast('图片数量不能超过 9 张', 'error');
+                return;
+            }
+
+            files.forEach(file => {
+                // Validate file size (30MB)
+                if (file.size > 30 * 1024 * 1024) {
+                    showToast(`${file.name} 文件大小超过 30MB`, 'error');
+                    return;
+                }
+
+                // Add to array
+                uploadedImages.push(file);
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const grid = document.getElementById('image_preview_grid');
+                    grid.classList.remove('hidden');
+
+                    const item = document.createElement('div');
+                    item.className = 'file-preview-item aspect-square';
+                    item.innerHTML = `
+                        <img src="${e.target.result}" alt="${file.name}" />
+                        <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeImage(${uploadedImages.length - 1})">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    `;
+                    grid.appendChild(item);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            updateTotalFileCount();
+            event.target.value = '';
+        }
+
+        // Remove Image
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+
+            // Rebuild preview
+            const grid = document.getElementById('image_preview_grid');
+            grid.innerHTML = '';
+
+            if (uploadedImages.length === 0) {
+                grid.classList.add('hidden');
+            } else {
+                uploadedImages.forEach((file, i) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const item = document.createElement('div');
+                        item.className = 'file-preview-item aspect-square';
+                        item.innerHTML = `
+                            <img src="${e.target.result}" alt="${file.name}" />
+                            <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeImage(${i})">
+                                <i class="ri-close-line"></i>
+                            </button>
+                        `;
+                        grid.appendChild(item);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            updateTotalFileCount();
+        }
+
+        // Handle Video Upload
+        function handleVideoUpload(event) {
+            const files = Array.from(event.target.files);
+
+            // Check total file limit
+            const totalFiles = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
+            if (totalFiles + files.length > 12) {
+                showToast('文件总数不能超过 12 个', 'error');
+                return;
+            }
+
+            // Check video count limit
+            if (uploadedVideos.length + files.length > 3) {
+                showToast('视频数量不能超过 3 个', 'error');
+                return;
+            }
+
+            files.forEach(file => {
+                // Validate file size (50MB)
+                if (file.size > 50 * 1024 * 1024) {
+                    showToast(`${file.name} 文件大小超过 50MB`, 'error');
+                    return;
+                }
+
+                // Add to array
+                uploadedVideos.push(file);
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const grid = document.getElementById('video_preview_grid');
+                    grid.classList.remove('hidden');
+
+                    const item = document.createElement('div');
+                    item.className = 'file-preview-item aspect-video';
+                    item.innerHTML = `
+                        <video src="${e.target.result}" controls></video>
+                        <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeVideo(${uploadedVideos.length - 1})">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    `;
+                    grid.appendChild(item);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            updateTotalFileCount();
+            event.target.value = '';
+        }
+
+        // Remove Video
+        function removeVideo(index) {
+            uploadedVideos.splice(index, 1);
+
+            // Rebuild preview
+            const grid = document.getElementById('video_preview_grid');
+            grid.innerHTML = '';
+
+            if (uploadedVideos.length === 0) {
+                grid.classList.add('hidden');
+            } else {
+                uploadedVideos.forEach((file, i) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const item = document.createElement('div');
+                        item.className = 'file-preview-item aspect-video';
+                        item.innerHTML = `
+                            <video src="${e.target.result}" controls></video>
+                            <button class="btn btn-sm btn-circle btn-error file-preview-remove" onclick="removeVideo(${i})">
+                                <i class="ri-close-line"></i>
+                            </button>
+                        `;
+                        grid.appendChild(item);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            updateTotalFileCount();
+        }
+
+        // Handle Audio Upload
+        function handleAudioUpload(event) {
+            const files = Array.from(event.target.files);
+
+            // Check total file limit
+            const totalFiles = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
+            if (totalFiles + files.length > 12) {
+                showToast('文件总数不能超过 12 个', 'error');
+                return;
+            }
+
+            // Check audio count limit
+            if (uploadedAudios.length + files.length > 3) {
+                showToast('音频数量不能超过 3 个', 'error');
+                return;
+            }
+
+            files.forEach(file => {
+                // Validate file size (15MB)
+                if (file.size > 15 * 1024 * 1024) {
+                    showToast(`${file.name} 文件大小超过 15MB`, 'error');
+                    return;
+                }
+
+                // Add to array
+                uploadedAudios.push(file);
+
+                // Show preview
+                const list = document.getElementById('audio_preview_list');
+                list.classList.remove('hidden');
+
+                const item = document.createElement('div');
+                item.className = 'alert shadow-sm';
+                item.innerHTML = `
+                    <i class="ri-music-2-line text-xl"></i>
+                    <div class="flex-1">
+                        <p class="font-medium text-sm">${file.name}</p>
+                        <p class="text-xs text-base-content/60">${(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    </div>
+                    <button class="btn btn-sm btn-circle btn-ghost" onclick="removeAudio(${uploadedAudios.length - 1})">
+                        <i class="ri-close-line"></i>
+                    </button>
+                `;
+                list.appendChild(item);
+            });
+
+            updateTotalFileCount();
+            event.target.value = '';
+        }
+
+        // Remove Audio
+        function removeAudio(index) {
+            uploadedAudios.splice(index, 1);
+
+            // Rebuild preview
+            const list = document.getElementById('audio_preview_list');
+            list.innerHTML = '';
+
+            if (uploadedAudios.length === 0) {
+                list.classList.add('hidden');
+            } else {
+                uploadedAudios.forEach((file, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'alert shadow-sm';
+                    item.innerHTML = `
+                        <i class="ri-music-2-line text-xl"></i>
+                        <div class="flex-1">
+                            <p class="font-medium text-sm">${file.name}</p>
+                            <p class="text-xs text-base-content/60">${(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                        </div>
+                        <button class="btn btn-sm btn-circle btn-ghost" onclick="removeAudio(${i})">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+
+            updateTotalFileCount();
+        }
+
+        // Update text counter
+        function updateTextCounter(textarea) {
+            const counter = document.getElementById('text_counter');
+            counter.textContent = textarea.value.length;
+        }
+
+        // Update duration
+        function updateDuration(value) {
+            const display = document.getElementById('duration_display');
+            display.textContent = `${value} 秒`;
+        }
+
+        // Submit Seedance Task
+        function submitSeedanceTask() {
+            const taskName = document.getElementById('task_name').value.trim();
+            const textInput = document.getElementById('text_input').value.trim();
+            const duration = document.getElementById('duration_slider').value;
+
+            // Validation
+            const totalFiles = uploadedImages.length + uploadedVideos.length + uploadedAudios.length;
+            if (totalFiles === 0 && !textInput) {
+                showToast('请至少上传一个文件或输入文本描述', 'error');
+                return;
+            }
+
+            // Show confirmation
+            const filesSummary = `图片: ${uploadedImages.length}, 视频: ${uploadedVideos.length}, 音频: ${uploadedAudios.length}`;
+            if (!confirm(`确认提交 Seedance 2.0 任务？\n\n${filesSummary}\n生成时长: ${duration} 秒\n预计需要 3-8 分钟完成，将消耗 100 积分。`)) {
+                return;
+            }
+
+            // Show loading toast
+            showToast('正在提交任务...', 'info', 0);
+
+            // Simulate API call (replace with actual API call)
+            setTimeout(() => {
+                // Remove loading toast
+                const toasts = document.querySelectorAll('.toast');
+                toasts.forEach(toast => toast.remove());
+
+                // Show success
+                showToast('Seedance 2.0 任务已提交！正在跳转到视频列表...', 'success');
+
+                // Redirect to project video list
+                setTimeout(() => {
+                    window.location.href = 'project-video.html';
+                }, 1500);
+
+                // TODO: Call backend API to submit Seedance task
+            }, 1500);
+        }
+
+        // Toast notification helper
+        function showToast(message, type = 'info', duration = 3000) {
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-top toast-center z-[100]';
+
+            let alertClass = 'alert-info';
+            let icon = 'ri-information-line';
+
+            if (type === 'success') {
+                alertClass = 'alert-success';
+                icon = 'ri-check-circle-line';
+            } else if (type === 'error') {
+                alertClass = 'alert-error';
+                icon = 'ri-error-warning-line';
+            } else if (type === 'warning') {
+                alertClass = 'alert-warning';
+                icon = 'ri-alert-line';
+            }
+
+            const loadingSpinner = type === 'info' && duration === 0 ? '<span class="loading loading-spinner loading-sm"></span>' : '';
+
+            toast.innerHTML = `
+                <div class="alert ${alertClass} shadow-lg">
+                    ${loadingSpinner || `<i class="${icon} text-lg"></i>`}
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+
+            if (duration > 0) {
+                setTimeout(() => toast.remove(), duration);
+            }
+        }
+    </script>
+</body>
+
+</html>

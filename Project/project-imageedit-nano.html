@@ -902,120 +902,235 @@
 
             <!-- Image Grid -->
             <div class="grid grid-cols-4 gap-4 max-h-96 overflow-y-auto p-2" id="projectImageGrid">
-                <!-- Character Images -->
-                <div class="project-image-item cursor-pointer" data-source="character">
+                <!-- Character Images - 角色01 的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="1">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=101" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">角色01</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 14:30</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="character">
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="2">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=111" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 16:45</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="3">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=112" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-accent">#3</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 09:20</p>
+                </div>
+
+                <!-- 角色02 -->
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-02" data-version="1">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=102" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">角色02</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 10:15</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="character">
+
+                <!-- 角色03 的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-03" data-version="1">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=103" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">角色03</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-13 15:22</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="character">
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-03" data-version="2">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=104" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=113" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">角色04</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 11:08</p>
                 </div>
 
-                <!-- Scene Images -->
-                <div class="project-image-item cursor-pointer" data-source="scene" style="display: none;">
+                <!-- Scene Images - 城市街道的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-01" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=201" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">城市街道</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">城市街道</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-12 13:45</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="scene" style="display: none;">
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-01" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=211" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">城市街道</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-13 08:30</p>
+                </div>
+
+                <!-- 室内办公室 -->
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-02" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=202" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">室内办公室</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">室内办公室</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-11 16:20</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="scene" style="display: none;">
+
+                <!-- 自然风景 -->
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-03" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=203" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">自然风景</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">自然风景</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-10 14:55</p>
                 </div>
 
-                <!-- Goods Images -->
-                <div class="project-image-item cursor-pointer" data-source="goods" style="display: none;">
+                <!-- Goods Images - 笔记本电脑的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-01" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=301" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">笔记本电脑</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">笔记本电脑</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-09 11:30</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="goods" style="display: none;">
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-01" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=311" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">笔记本电脑</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-09 15:42</p>
+                </div>
+
+                <!-- 手机 -->
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-02" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=302" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">手机</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">手机</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-08 17:10</p>
                 </div>
 
-                <!-- Fusion Images -->
-                <div class="project-image-item cursor-pointer" data-source="fusion" style="display: none;">
+                <!-- Fusion Images - 融合图的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=401" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">融合图01</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 10:25</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="fusion" style="display: none;">
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=411" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 11:15</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="3" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=412" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-accent">#3</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 13:40</p>
+                </div>
+
+                <!-- 融合图02 -->
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-02" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=402" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">融合图02</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 09:18</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="fusion" style="display: none;">
+
+                <!-- 融合图03 的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-03" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=403" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
                     </div>
-                    <p class="text-xs text-center mt-1 truncate">融合图03</p>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 16:50</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-03" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=413" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 12:22</p>
                 </div>
             </div>
 
@@ -1202,6 +1317,17 @@
             selectProjectImageModal.showModal();
         };
 
+        // 监听modal关闭事件,清空选择状态
+        selectProjectImageModal.addEventListener('close', () => {
+            // 清空选择
+            selectedProjectImages = [];
+            projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            // 重置按钮文本
+            updateSelectionCount();
+        });
+
         // Project image selection modal
         const projectImageGrid = document.getElementById('projectImageGrid');
         const confirmSelectBtn = document.getElementById('confirmSelectBtn');
@@ -1229,34 +1355,64 @@
             });
         }
 
-        // Image selection in modal
+        // Image selection in modal - 支持多版本选择
         projectImageGrid.onclick = (e) => {
             const item = e.target.closest('.project-image-item');
             if (item) {
                 const img = item.querySelector('img');
                 const imgSrc = img.src;
+                const itemId = item.dataset.itemId;
+                const version = item.dataset.version;
+                const source = item.dataset.source;
 
                 // Toggle selection
                 item.classList.toggle('selected');
 
                 if (item.classList.contains('selected')) {
-                    if (uploadedImages.length < MAX_IMAGES) {
-                        selectedProjectImages.push(imgSrc);
+                    if (uploadedImages.length + selectedProjectImages.length < MAX_IMAGES) {
+                        // 保存完整的图片信息,包括版本号
+                        selectedProjectImages.push({
+                            src: imgSrc,
+                            itemId: itemId,
+                            version: version,
+                            source: source
+                        });
+                    } else {
+                        // 达到最大数量限制,取消选择
+                        item.classList.remove('selected');
+                        alert(`最多只能选择 ${MAX_IMAGES} 张图片`);
                     }
                 } else {
-                    const index = selectedProjectImages.indexOf(imgSrc);
+                    // 移除选择
+                    const index = selectedProjectImages.findIndex(
+                        img => img.itemId === itemId && img.version === version
+                    );
                     if (index > -1) {
                         selectedProjectImages.splice(index, 1);
                     }
                 }
+
+                // 更新选择计数显示
+                updateSelectionCount();
             }
         };
 
+        // 更新选择计数显示
+        function updateSelectionCount() {
+            const count = selectedProjectImages.length;
+            if (count > 0) {
+                confirmSelectBtn.textContent = `确认选择 (${count})`;
+            } else {
+                confirmSelectBtn.textContent = '确认选择';
+            }
+        }
+
         // Confirm selection
         confirmSelectBtn.onclick = () => {
-            selectedProjectImages.forEach(imgSrc => {
+            selectedProjectImages.forEach(imgData => {
                 if (uploadedImages.length < MAX_IMAGES) {
-                    uploadedImages.push(imgSrc);
+                    // 将选中的图片添加到上传列表
+                    uploadedImages.push(imgData.src);
                 }
             });
 
@@ -1267,6 +1423,9 @@
             projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
                 item.classList.remove('selected');
             });
+
+            // 重置按钮文本
+            updateSelectionCount();
         };
 
         // Initialize

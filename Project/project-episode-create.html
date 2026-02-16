@@ -250,6 +250,31 @@
                             </div>
                         </div>
 
+                        <!-- Storyboard Count Selection -->
+                        <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2 mb-6">
+                            <label class="label py-0">
+                                <span class="label-text font-medium text-base-content/70">分镜数量</span>
+                            </label>
+                            <div class="flex flex-wrap gap-x-6 gap-y-2 items-center">
+                                <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                    <input type="radio" name="storyboard_count_mode" class="radio radio-sm radio-primary"
+                                        value="auto" checked onchange="toggleStoryboardCountInput()" />
+                                    <span class="label-text">自动</span>
+                                </label>
+                                <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                    <input type="radio" name="storyboard_count_mode" class="radio radio-sm radio-primary"
+                                        value="custom" onchange="toggleStoryboardCountInput()" />
+                                    <span class="label-text">自定义</span>
+                                </label>
+                                <input type="number" id="custom-storyboard-count" 
+                                    class="input input-sm input-bordered w-24 hidden" 
+                                    placeholder="数量" 
+                                    min="1" 
+                                    max="100" />
+                            </div>
+                        </div>
+
+
                         <div class="form-control mb-6">
                             <label class="label">
                                 <span class="label-text font-medium">剧本内容</span>
@@ -300,6 +325,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <!-- Action Buttons -->
                         <div class="card-actions justify-end mt-6">
@@ -2007,6 +2033,19 @@
                 uploadedFile.classList.add('hidden');
                 scriptDropArea.classList.remove('hidden');
                 scriptFile.value = '';
+            }
+        }
+
+        // Toggle storyboard count input
+        function toggleStoryboardCountInput() {
+            const customInput = document.getElementById('custom-storyboard-count');
+            const customRadio = document.querySelector('input[name="storyboard_count_mode"][value="custom"]');
+            
+            if (customRadio && customRadio.checked) {
+                customInput.classList.remove('hidden');
+            } else {
+                customInput.classList.add('hidden');
+                customInput.value = ''; // Clear the value when switching to auto
             }
         }
 
