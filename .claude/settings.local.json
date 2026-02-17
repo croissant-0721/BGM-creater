@@ -15,7 +15,9 @@
       "Bash(git mv:*)",
       "Bash(git add:*)",
       "WebFetch(domain:www.volcengine.com)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(open -a \"Google Chrome\" Project/project-episode-create.html)",
+      "Bash(open:*)"
     ],
     "additionalDirectories": [
       "/Users/chuckmi/Documents/code/panqu-web/assets/css"

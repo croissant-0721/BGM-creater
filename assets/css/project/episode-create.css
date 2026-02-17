@@ -259,3 +259,36 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* Voice Task Selector Styles */
+.voice-task-selector-content {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.voice-task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px !important;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.voice-task-item:hover {
+    background: hsl(var(--p) / 0.1) !important;
+}
+
+.voice-task-item:hover .text-base-content\/50 {
+    color: hsl(var(--bc)) !important;
+    opacity: 1;
+}
+
+.voice-task-item .avatar {
+    flex-shrink: 0;
+}
+
+.voice-task-item > div:last-child {
+    flex: 1;
+    min-width: 0;
+}

@@ -2293,7 +2293,7 @@
                 <!-- Tabs with Content -->
                 <div role="tablist" class="tabs tabs-boxed bg-base-100 mb-4">
                     <input type="radio" name="voice_tabs" role="tab" class="tab" aria-label="语音合成" checked="checked" />
-                    <div role="tabpanel" class="tab-content pt-4 space-y-6">
+                    <div role="tabpanel" class="tab-content pt-4 min-h-[400px] space-y-6">
                     <!-- Model Version -->
                     <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
                         <label class="label py-0">
@@ -2425,37 +2425,70 @@
                     </div>
 
                     <input type="radio" name="voice_tabs" role="tab" class="tab" aria-label="语音参考" />
-                    <div role="tabpanel" class="tab-content pt-4 space-y-6">
+                    <div role="tabpanel" class="tab-content pt-4 min-h-[400px]">
                         <!-- Voice Type Selection -->
-                        <div class="form-control">
-                            <label class="label py-0 mb-2">
-                                <span class="label-text font-medium text-base-content/70">选择语音来源</span>
-                            </label>
-                            <div class="flex flex-wrap gap-4">
-                                <label class="label cursor-pointer gap-2 p-0 justify-start">
-                                    <input type="radio" name="modal_voice_source" class="radio radio-sm radio-primary" value="task" checked onchange="toggleVoiceReferenceType(this.value)" />
+                        <div class="form-control mb-4">
+                            
+                            <div class="flex gap-4">
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="modal_voice_source" class="radio radio-sm" value="task" checked onchange="toggleVoiceReferenceType(this.value)" />
                                     <span class="label-text">从已有任务选择</span>
                                 </label>
-                                <label class="label cursor-pointer gap-2 p-0 justify-start">
-                                    <input type="radio" name="modal_voice_source" class="radio radio-sm radio-primary" value="upload" onchange="toggleVoiceReferenceType(this.value)" />
+                                <label class="label cursor-pointer gap-2">
+                                    <input type="radio" name="modal_voice_source" class="radio radio-sm" value="upload" onchange="toggleVoiceReferenceType(this.value)" />
                                     <span class="label-text">上传语音参考</span>
                                 </label>
                             </div>
                         </div>
 
                         <!-- Task Selection (已有任务选择) -->
-                        <div id="voice_task_selection" class="form-control">
-                            <label class="label py-0">
-                                <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
-                                    选择任务<span class="text-error text-xs">*</span>
-                                </span>
+                        <div id="voice_task_selection" class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">选择任务:</span>
                             </label>
-                            <select id="voice_task_select" class="select select-bordered w-full h-11 text-sm font-normal">
-                                <option disabled selected>请选择已有任务</option>
-                                <option>任务1 - 角色配音示例</option>
-                                <option>任务2 - 旁白语音</option>
-                                <option>任务3 - 对话场景</option>
-                            </select>
+                            <div class="dropdown dropdown-bottom w-full">
+                                <div tabindex="0" role="button" class="btn btn-outline justify-between w-full font-normal">
+                                    <div id="selected_voice_task" class="flex items-center gap-2 overflow-hidden truncate">
+                                        <span>请选择已有任务</span>
+                                    </div>
+                                    <i class="ri-arrow-down-s-line text-lg"></i>
+                                </div>
+                                <ul tabindex="0" class="dropdown-content z-30 menu p-2 shadow-xl bg-base-100 rounded-box w-full border border-base-200 mt-1 voice-task-selector-content">
+                                    <li><a class="voice-task-item" onclick="selectVoiceTask('任务1 - 角色配音示例', '2026-02-04 16:28:30')">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-primary/10 text-primary rounded w-12 h-12">
+                                                <i class="ri-mic-line text-xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="font-medium">任务1 - 角色配音示例</span>
+                                            <span class="text-xs text-base-content/50">2026-02-04 16:28:30</span>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="voice-task-item" onclick="selectVoiceTask('任务2 - 旁白语音', '2026-02-03 14:20:15')">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-primary/10 text-primary rounded w-12 h-12">
+                                                <i class="ri-mic-line text-xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="font-medium">任务2 - 旁白语音</span>
+                                            <span class="text-xs text-base-content/50">2026-02-03 14:20:15</span>
+                                        </div>
+                                    </a></li>
+                                    <li><a class="voice-task-item" onclick="selectVoiceTask('任务3 - 对话场景', '2026-02-02 09:15:40')">
+                                        <div class="avatar placeholder">
+                                            <div class="bg-primary/10 text-primary rounded w-12 h-12">
+                                                <i class="ri-mic-line text-xl"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="font-medium">任务3 - 对话场景</span>
+                                            <span class="text-xs text-base-content/50">2026-02-02 09:15:40</span>
+                                        </div>
+                                    </a></li>
+                                </ul>
+                            </div>
 
                             <!-- Preview Audio -->
                             <div class="mt-3 p-3 bg-base-200/50 rounded-lg hidden" id="task_audio_preview">
@@ -2475,15 +2508,13 @@
                         </div>
 
                         <!-- Upload Section (上传语音参考) -->
-                        <div id="voice_upload_section" class="form-control hidden">
-                            <label class="label py-0">
-                                <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
-                                    上传语音文件<span class="text-error text-xs">*</span>
-                                </span>
+                        <div id="voice_upload_section" class="form-control mb-4 hidden">
+                            <label class="label">
+                                <span class="label-text">上传语音文件:</span>
                             </label>
 
                             <!-- Upload Area -->
-                            <div class="mt-2 border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer" id="voice_upload_area">
+                            <div class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer" id="voice_upload_area">
                                 <input type="file" id="voice_file_input" accept="audio/*" class="hidden" onchange="handleVoiceFileUpload(this)" />
                                 <div id="upload_placeholder">
                                     <i class="ri-upload-cloud-2-line text-4xl text-base-content/30 mb-2"></i>
@@ -2517,32 +2548,9 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Voice Reference Settings -->
-                            <div class="mt-4 space-y-4">
-                                <div class="form-control">
-                                    <label class="label">
-                                        <span class="label-text font-medium text-base-content/70 text-sm">相似度</span>
-                                        <span class="slider-value-badge">70%</span>
-                                    </label>
-                                    <input type="range" min="0" max="100" value="70" class="range range-primary range-xs" oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value + '%'" />
-                                    <div class="flex justify-between px-1 mt-1">
-                                        <span class="text-[10px] text-base-content/40">0%</span>
-                                        <span class="text-[10px] text-base-content/40">100%</span>
-                                    </div>
-                                    <p class="text-xs text-base-content/50 mt-1">控制合成语音与参考音频的相似程度</p>
-                                </div>
-                            </div>
                         </div>
 
-                        <!-- Info Alert -->
-                        <div class="alert bg-info/10 border-info/20">
-                            <i class="ri-information-line text-info"></i>
-                            <div class="text-xs">
-                                <p class="font-medium mb-1">语音参考说明</p>
-                                <p class="text-base-content/60">使用语音参考功能可以让 AI 模仿指定的音色和语调。建议上传 3-30 秒的清晰语音片段以获得最佳效果。</p>
-                            </div>
-                        </div>
+                
                     </div>
                 </div>
             </div>
@@ -2916,6 +2924,30 @@
             voice_settings_modal.close();
         }
 
+        // Select voice task from dropdown
+        function selectVoiceTask(taskName, timestamp) {
+            const selectedTaskElement = document.getElementById('selected_voice_task');
+            if (selectedTaskElement) {
+                selectedTaskElement.innerHTML = `
+                    <div class="avatar placeholder">
+                        <div class="bg-primary/10 text-primary rounded w-8 h-8">
+                            <i class="ri-mic-line text-base"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-medium">${taskName}</span>
+                        <span class="text-xs text-base-content/50">${timestamp}</span>
+                    </div>
+                `;
+            }
+
+            // Show preview audio section
+            const previewSection = document.getElementById('task_audio_preview');
+            if (previewSection) {
+                previewSection.classList.remove('hidden');
+            }
+        }
+
         // Toggle voice reference type (task vs upload)
         function toggleVoiceReferenceType(type) {
             const taskSelection = document.getElementById('voice_task_selection');
@@ -3013,20 +3045,6 @@
         // Initialize tabs when modal opens
         document.addEventListener('DOMContentLoaded', function() {
             initVoiceUploadDragDrop();
-
-            // Add event listener for task selection
-            const taskSelect = document.getElementById('voice_task_select');
-            const taskPreview = document.getElementById('task_audio_preview');
-
-            if (taskSelect && taskPreview) {
-                taskSelect.addEventListener('change', function() {
-                    if (this.value && !this.value.includes('请选择')) {
-                        taskPreview.classList.remove('hidden');
-                    } else {
-                        taskPreview.classList.add('hidden');
-                    }
-                });
-            }
         });
 
 
