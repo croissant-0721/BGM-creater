@@ -348,3 +348,20 @@
 [data-theme="dark"] .cancel-confirm-overlay {
     background: hsl(var(--b2) / 0.95);
 }
+
+/* ============================================ */
+/* 隐藏 number 输入框的上下调节箭头             */
+/* ============================================ */
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
