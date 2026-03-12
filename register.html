@@ -213,6 +213,124 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* 分割线 */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #ccc;
+            font-size: 13px;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        .divider span { padding: 0 12px; }
+
+        /* 微信登录按钮 */
+        .btn-wechat {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #07C160;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-wechat:hover {
+            background: #06AD56;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(7,193,96,0.35);
+        }
+        .btn-wechat:active { transform: translateY(0); }
+        .btn-wechat .wechat-icon {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+        }
+
+        /* 微信二维码面板 */
+        .wechat-qr-wrap {
+            text-align: center;
+        }
+        .wechat-qr-wrap h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 6px;
+        }
+        .wechat-qr-wrap p {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .wechat-qr-frame {
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wechat-qr-frame iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+        .wechat-qr-back {
+            color: #07C160;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .wechat-qr-back:hover { opacity: 0.8; }
+
+        /* 模拟扫码按钮组（仅测试用） */
+        .mock-scan-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 16px 0 12px;
+        }
+        .btn-mock {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-mock-registered {
+            background: #111;
+            color: #fff;
+        }
+        .btn-mock-registered:hover { background: #333; }
+        .btn-mock-new {
+            background: #07C160;
+            color: #fff;
+        }
+        .btn-mock-new:hover { background: #06AD56; }
+        .mock-label {
+            font-size: 11px;
+            color: #bbb;
+            margin-bottom: 4px;
+        }
     </style>
 </head>
 <body>
@@ -220,7 +338,7 @@
         <div class="logo-section">
             <img src="https://panqu.com/assets/img/logo.webp" class="logo-img" alt="logo">
             <h1 class="logo-title">盼趣AI</h1>
-            <p class="logo-subtitle">让想象成为可能</p>
+            <p class="logo-subtitle">做短剧，用盼趣！</p>
         </div>
 
         <!-- 登录表单 -->
@@ -253,8 +371,32 @@
                 </div>
                 <button type="submit" class="btn-black">登 录</button>
             </form>
-            <div class="switch-link">
-                还没有账号？<span onclick="toggleForm('register')">注册</span>
+            <div class="divider"><span>或</span></div>
+            <button type="button" class="btn-wechat" onclick="showWechatLogin()">
+                <!-- 微信官方 Logo SVG -->
+                <svg class="wechat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.69 11.52c-.57 0-1.03-.48-1.03-1.06 0-.59.46-1.06 1.03-1.06.57 0 1.03.47 1.03 1.06 0 .58-.46 1.06-1.03 1.06zm4.63 0c-.57 0-1.03-.48-1.03-1.06 0-.59.46-1.06 1.03-1.06.57 0 1.03.47 1.03 1.06 0 .58-.46 1.06-1.03 1.06zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.24 13.77c-.42.06-.85.09-1.28.09-1.08 0-2.12-.2-3.02-.57l-2.07.55.55-1.88C4.37 13.12 4 12.1 4 11c0-2.76 2.91-5 6.5-5 .06 0 .12 0 .18.01C10.25 7.36 9.5 8.87 9.5 10.5c0 2.02 1.12 3.81 2.87 4.91-.5.14-.98.28-1.61.36zm6.56-.22l.42 1.49-1.62-.43c-.74.31-1.56.49-2.43.49C11.42 17.1 9 15.04 9 12.5S11.42 7.9 14.69 7.9C17.96 7.9 20 9.96 20 12.5c0 1.19-.49 2.26-1.28 3.05z"/>
+                </svg>
+                微信登录
+            </button>
+        </div>
+
+        <!-- 微信登录二维码面板 -->
+        <div id="wechat-qr-container" class="fade-in hidden">
+            <div class="wechat-qr-wrap">
+                <h3>微信扫码登录</h3>
+                <p>使用微信扫描二维码完成登录</p>
+                <div class="wechat-qr-frame">
+                    <!-- 微信官方 WxLogin 组件将注入此容器 -->
+                    <div id="wechat-qr-inner"></div>
+                </div>
+                <!-- 模拟扫码（仅测试用，上线前删除） -->
+                <div class="mock-label">— 模拟扫码结果 —</div>
+                <div class="mock-scan-group">
+                    <button class="btn-mock btn-mock-registered" onclick="mockScan('registered')">已注册用户</button>
+                    <button class="btn-mock btn-mock-new" onclick="mockScan('new')">新用户</button>
+                </div>
+                <div class="wechat-qr-back" onclick="toggleForm('login')">← 返回账号密码登录</div>
             </div>
         </div>
 
@@ -295,16 +437,8 @@
                         <input type="text" class="form-control" name="company" placeholder="公司名称（选填）" autocomplete="off">
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="captcha-group">
-                        <div class="input-group" style="flex: 1;">
-                            <i class="ri-shield-keyhole-line input-icon"></i>
-                            <input type="text" class="form-control" name="captcha" placeholder="验证码" required autocomplete="off">
-                        </div>
-                        <img src="https://panqu.com/indexin.php?s=/captcha" class="captcha-img" alt="captcha" onclick="this.src=this.src+'&'+Math.random()">
-                    </div>
-                    <div class="error-text">验证码错误</div>
-                </div>
+                <!-- 来自微信授权时携带的 openid（不可见） -->
+                <input type="hidden" name="wechat_openid" id="wechat-openid-field" value="">
                 <button type="submit" class="btn-black">注 册</button>
             </form>
             <div class="switch-link">
@@ -312,7 +446,7 @@
             </div>
         </div>
 
-        <!-- 邮箱验证码确认环节 -->
+        <!-- 邮箱验证码确认环节（暂时注释，使用微信登录注册流程替代）
         <div id="verify-container" class="fade-in hidden">
             <div style="text-align: center; margin-bottom: 24px;">
                 <div style="width: 64px; height: 64px; background: #f3f4f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
@@ -339,80 +473,97 @@
                 <span id="resend-btn" style="color: #000; font-weight: 600; cursor: pointer; display: none;" onclick="handleResend()">重新发送</span>
                 <p id="resend-limit-msg" style="color: #ef4444; font-size: 12px; margin-top: 8px; display: none;">今日发送次数已达上限</p>
             </div>
-            
+
             <div class="switch-link">
                 <span onclick="toggleForm('register')">返回修改注册信息</span>
             </div>
         </div>
+        -->
     </div>
 
+    <!-- 微信官方 WxLogin JS SDK -->
+    <script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
     <script>
-        let resendTimer = null;
-        let resendCount = 0;
-        const RESEND_LIMIT = 5;
+        // TODO: 替换为实际的微信开放平台 AppID 和回调地址
+        var WECHAT_APPID = 'YOUR_WECHAT_APPID';
+        var WECHAT_REDIRECT_URI = encodeURIComponent('https://panqu.com/wechat/callback');
+        var WECHAT_STATE = Math.random().toString(36).slice(2);
 
+        /* ===== 模拟扫码（测试用）===== */
+        function mockScan(type) {
+            if (type === 'registered') {
+                // 模拟已注册用户：后端完成登录后跳转后台
+                alert('模拟：已注册用户，登录成功，即将跳转后台...');
+                window.location.href = '/dashboard';
+            } else {
+                // 模拟新用户：展示注册表单
+                document.getElementById('wechat-openid-field').value = 'mock_openid_' + Date.now();
+                toggleForm('register');
+            }
+        }
+
+        /* ===== 微信登录相关 ===== */
+        function showWechatLogin() {
+            toggleForm('wechat');
+            // 初始化微信 WxLogin 二维码组件
+            var wxLogin = new WxLogin({
+                self_redirect: false,       // false = 在当前页面完成跳转
+                id: 'wechat-qr-inner',      // 注入容器 id
+                appid: WECHAT_APPID,
+                scope: 'snsapi_login',
+                redirect_uri: WECHAT_REDIRECT_URI,
+                state: WECHAT_STATE,
+                style: 'black',             // 二维码边框样式
+                href: ''                    // 可自定义二维码样式 CSS URL
+            });
+        }
+
+        // 扫码回调处理：后端重定向回本页面时携带参数
+        // 已注册用户：后端直接完成登录跳转，不会回到本页
+        // 未注册用户：后端重定向至 register.html?wechat_signup=1&openid=xxx&nickname=xxx
+        function handleWechatCallback() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('wechat_signup') === '1') {
+                var openid = params.get('openid') || '';
+                var nickname = params.get('nickname') || '';
+                // 填入 openid 隐藏字段
+                document.getElementById('wechat-openid-field').value = openid;
+                toggleForm('register');
+            }
+        }
+
+        /* ===== 表单切换 ===== */
         function toggleForm(type) {
-            const loginContainer = document.getElementById('login-container');
-            const registerContainer = document.getElementById('register-container');
-            const verifyContainer = document.getElementById('verify-container');
-            const title = document.querySelector('title');
+            var loginContainer    = document.getElementById('login-container');
+            var registerContainer = document.getElementById('register-container');
+            var wechatContainer   = document.getElementById('wechat-qr-container');
+            var title             = document.querySelector('title');
 
-            // 隐藏所有
-            [loginContainer, registerContainer, verifyContainer].forEach(c => c.classList.add('hidden'));
+            // 隐藏所有面板
+            [loginContainer, registerContainer, wechatContainer].forEach(function(c) {
+                if (c) c.classList.add('hidden');
+            });
 
             if (type === 'register') {
                 registerContainer.classList.remove('hidden');
                 title.innerText = '盼趣AI - 注册';
-            } else if (type === 'verify') {
-                verifyContainer.classList.remove('hidden');
-                title.innerText = '盼趣AI - 邮箱验证';
-                startResendTimer();
+            } else if (type === 'wechat') {
+                wechatContainer.classList.remove('hidden');
+                title.innerText = '盼趣AI - 微信登录';
             } else {
                 loginContainer.classList.remove('hidden');
                 title.innerText = '盼趣AI - 登录';
             }
         }
 
-        // 重新发送验证码逻辑
-        function startResendTimer() {
-            const timerSpan = document.getElementById('resend-timer-text');
-            const resendBtn = document.getElementById('resend-btn');
-            const limitMsg = document.getElementById('resend-limit-msg');
-            
-            if (resendCount >= RESEND_LIMIT) {
-                timerSpan.style.display = 'none';
-                resendBtn.style.display = 'none';
-                limitMsg.style.display = 'block';
-                return;
-            }
+        /* ===== 重新发送逻辑（保留备用，邮件验证暂时注释）===== */
+        // let resendTimer = null;
+        // let resendCount = 0;
+        // const RESEND_LIMIT = 5;
+        // function startResendTimer() { ... }
+        // function handleResend() { ... }
 
-            let seconds = 60;
-            resendBtn.style.display = 'none';
-            timerSpan.style.display = 'inline';
-            
-            clearInterval(resendTimer);
-            resendTimer = setInterval(() => {
-                seconds--;
-                timerSpan.innerText = `${seconds}秒后可重新发送`;
-                if (seconds <= 0) {
-                    clearInterval(resendTimer);
-                    timerSpan.style.display = 'none';
-                    resendBtn.style.display = 'inline';
-                }
-            }, 1000);
-        }
-
-        function handleResend() {
-            if (resendCount < RESEND_LIMIT) {
-                resendCount++;
-                console.log(`已发送验证码次数: ${resendCount}`);
-                // 这里调用发送邮件接口
-                alert('验证码已重新发送');
-                startResendTimer();
-            }
-        }
-
-        // 注册表单验证逻辑
+        /* ===== 注册表单验证 ===== */
         const registerForm = document.getElementById('register-form');
         const inputs = registerForm.querySelectorAll('.form-control');
 
@@ -420,16 +571,11 @@
             username: async (val) => {
                 if (val.length < 5) return "用户名长度不得小于5位";
                 if (/^\d+$/.test(val)) return "用户名不能为纯数字";
-                // 模拟用户名判重逻辑
                 const takenUsernames = ['administrator', 'testuser', 'panqu_account'];
-                if (takenUsernames.includes(val.toLowerCase())) {
-                    return "该用户名已被注册";
-                }
+                if (takenUsernames.includes(val.toLowerCase())) return "该用户名已被注册";
                 return null;
             },
-            password: (val) => {
-                return val.length >= 6 ? null : "密码长度不得小于6位";
-            },
+            password: (val) => val.length >= 6 ? null : "密码长度不得小于6位",
             email: (val) => {
                 const reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return reg.test(val) ? null : "请输入有效的邮箱地址";
@@ -437,9 +583,6 @@
             mobile: (val) => {
                 const reg = /^1[3-9]\d{9}$/;
                 return reg.test(val) ? null : "请输入有效的手机号";
-            },
-            captcha: (val) => {
-                return val ? null : "请输入验证码";
             }
         };
 
@@ -448,17 +591,14 @@
             const value = input.value;
             const parent = input.closest('.form-group');
             const group = input.closest('.input-group') || input.closest('.captcha-group');
-            const errorDiv = parent.querySelector('.error-text');
-            
+            const errorDiv = parent ? parent.querySelector('.error-text') : null;
+
             if (!validators[name]) return true;
 
             const error = await validators[name](value);
             if (error) {
                 if (group) group.classList.add('invalid');
-                if (errorDiv) {
-                    errorDiv.innerText = error;
-                    errorDiv.style.display = 'block';
-                }
+                if (errorDiv) { errorDiv.innerText = error; errorDiv.style.display = 'block'; }
                 return false;
             } else {
                 if (group) group.classList.remove('invalid');
@@ -467,32 +607,26 @@
             }
         }
 
-        // 为每个输入框绑定事件
         inputs.forEach(input => {
-            // 输入时清除错误状态
             input.addEventListener('input', () => {
                 const parent = input.closest('.form-group');
                 const group = input.closest('.input-group') || input.closest('.captcha-group');
-                const errorDiv = parent.querySelector('.error-text');
-                
+                const errorDiv = parent ? parent.querySelector('.error-text') : null;
                 if (group) group.classList.remove('invalid');
                 if (errorDiv) errorDiv.style.display = 'none';
             });
-
-            // 失去焦点时进行实时验证 (除了选填项)
             if (input.name !== 'company') {
-                input.addEventListener('blur', () => {
-                    if (input.value) validateField(input);
-                });
+                input.addEventListener('blur', () => { if (input.value) validateField(input); });
             }
         });
 
-        // 注册提交
+        // 注册提交（去除邮件验证跳转，直接提交表单）
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             let isValid = true;
-            const fieldsToValidate = ['username', 'password', 'email', 'mobile', 'captcha'];
-            
+            // captcha 字段已移除，无需验证
+            const fieldsToValidate = ['username', 'password', 'email', 'mobile'];
+
             for (const name of fieldsToValidate) {
                 const input = registerForm.querySelector(`[name="${name}"]`);
                 if (input) {
@@ -502,21 +636,18 @@
             }
 
             if (isValid) {
-                const email = registerForm.querySelector('[name="email"]').value;
-                document.getElementById('display-email').innerText = email;
-                toggleForm('verify');
+                // 直接提交表单（原邮件验证流程已注释）
+                registerForm.submit();
             }
         });
 
-        // 验证码验证提交
+        /* ===== 邮箱验证码验证（暂时注释）=====
         const verifyForm = document.getElementById('verify-form');
         verifyForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const code = verifyForm.querySelector('[name="verify_code"]').value;
             const errorDiv = document.getElementById('verify-error');
             const group = verifyForm.querySelector('.input-group');
-
-            // 模拟验证码校验 (假设 123456 为正确)
             if (code === '123456') {
                 group.classList.remove('invalid');
                 errorDiv.style.display = 'none';
@@ -528,10 +659,13 @@
                 errorDiv.style.display = 'block';
             }
         });
+        ===== 邮箱验证码验证结束 ===== */
 
-        // 初始化
+        /* ===== 初始化 ===== */
         if (window.location.hash === '#register') {
             toggleForm('register');
         }
+        // 处理微信扫码回调参数
+        handleWechatCallback();
     </script>
 </body>

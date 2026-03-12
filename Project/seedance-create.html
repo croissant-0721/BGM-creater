@@ -616,6 +616,41 @@
         .project-audio-item.selected .ri-checkbox-circle-line {
             color: var(--fallback-p, oklch(var(--p)));
         }
+
+        /* Right Sidebar: Recent Tasks */
+        .recent-tasks-sidebar {
+            width: 20vw;
+            min-width: 280px;
+            max-width: 340px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-left: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 16px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 1440px) {
+            .recent-tasks-sidebar {
+                width: 18vw;
+                min-width: 260px;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 1280px) {
+            .recent-tasks-sidebar {
+                width: 16vw;
+                min-width: 240px;
+                max-width: 280px;
+                padding: 16px;
+            }
+        }
     </style>
 </head>
 
@@ -706,65 +741,9 @@
         </div>
     </div>
 
-    <!-- Main Layout: Sidebar + Content -->
+    <!-- Main Content Area -->
     <div class="flex">
-        <!-- Fixed Left Sidebar -->
-        <aside class="fixed left-0 top-16 w-64 bg-base-100 shadow-xl border-r border-base-200 h-[calc(100vh-4rem)] overflow-y-auto">
-            <!-- Navigation Menu -->
-            <ul class="menu menu-vertical px-4 py-6 gap-2">
-                <li>
-                    <a href="project-episode.html">
-                        <i class="ri-file-text-line text-lg"></i>
-                        <span>剧本</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project-character.html">
-                        <i class="ri-user-line text-lg"></i>
-                        <span>角色</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project-scene.html">
-                        <i class="ri-landscape-line text-lg"></i>
-                        <span>场景</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project-goods.html">
-                        <i class="ri-box-3-line text-lg"></i>
-                        <span>物品</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project-fusion.html">
-                        <i class="ri-image-add-line text-lg"></i>
-                        <span>融合生图</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project-video.html" class="active">
-                        <i class="ri-video-line text-lg"></i>
-                        <span>视频</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project-tts.html">
-                        <i class="ri-mic-line text-lg"></i>
-                        <span>语音</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project-imageedit.html">
-                        <i class="ri-edit-line text-lg"></i>
-                        <span>图片编辑</span>
-                    </a>
-                </li>
-            </ul>
-        </aside>
-
-        <!-- Main Content Area -->
-        <div class="flex-1 ml-64">
+        <div class="flex-1">
             <div class="container mx-auto px-6 py-8 max-w-6xl">
                 <!-- Page Header -->
                 <div class="mb-8">
@@ -1062,7 +1041,154 @@
                 </div>
             </div>
         </div>
+
+        <!-- Right Sidebar: Recent Tasks -->
+        <div class="recent-tasks-sidebar">
+            <div class="flex items-center justify-between mb-2">
+                <span class="font-bold text-lg">最近任务</span>
+            </div>
+
+            <!-- Task Card 1 (Completed) -->
+            <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="1">
+                <figure class="relative overflow-hidden rounded-t-2xl task-preview-trigger cursor-pointer" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="角色行走场景视频">
+                    <img src="https://picsum.photos/400/225?random=301" alt="视频预览" class="w-full h-36 object-cover" />
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors">
+                        <div class="btn btn-circle btn-md bg-white/90 hover:bg-white border-0">
+                            <i class="ri-play-fill text-2xl text-primary"></i>
+                        </div>
+                    </div>
+                </figure>
+                <div class="card-body p-4">
+                    <h3 class="card-title text-sm mb-1">角色行走场景视频</h3>
+                    <div class="mb-2 flex gap-1 flex-wrap">
+                        <span class="badge badge-primary badge-sm">Seedance 2.0</span>
+                        <span class="badge badge-secondary badge-sm">全能参考</span>
+                        <span class="badge badge-outline badge-sm">5s</span>
+                        <span class="badge badge-outline badge-sm">1920×1080</span>
+                        <span class="badge badge-outline badge-sm">16:9</span>
+                    </div>
+                    <div class="card-actions justify-between items-center mt-1">
+                        <div class="badge badge-success badge-sm gap-1">
+                            <i class="ri-check-circle-fill"></i>
+                            已完成
+                        </div>
+                        <div class="flex gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-download-line font-normal"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                    <li><a onclick="openRegenerateConfirm(1)"><i class="ri-refresh-line"></i>重新生成</a></li>
+                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Card 2 (Processing) -->
+            <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="2">
+                <figure class="relative overflow-hidden rounded-t-2xl cursor-not-allowed">
+                    <img src="https://picsum.photos/400/225?random=302" alt="视频预览" class="w-full h-36 object-cover opacity-60" />
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/40">
+                        <div class="btn btn-circle btn-md bg-white/50 border-0 pointer-events-none">
+                            <i class="ri-play-fill text-2xl text-white/60"></i>
+                        </div>
+                    </div>
+                </figure>
+                <div class="card-body p-4">
+                    <h3 class="card-title text-sm mb-1">城市街道穿行镜头</h3>
+                    <div class="mb-2 flex gap-1 flex-wrap">
+                        <span class="badge badge-primary badge-sm">Seedance 2.0 Fast</span>
+                        <span class="badge badge-secondary badge-sm">首尾帧</span>
+                        <span class="badge badge-outline badge-sm">10s</span>
+                        <span class="badge badge-outline badge-sm">1280×720</span>
+                        <span class="badge badge-outline badge-sm">16:9</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-xs text-base-content/60">
+                            <i class="ri-time-line"></i> 30分钟前
+                        </div>
+                    </div>
+                    <div class="card-actions justify-between items-center mt-1">
+                        <div class="badge badge-warning badge-sm gap-1">
+                            <span class="loading loading-spinner loading-xs"></span>
+                            处理中
+                        </div>
+                        <button class="btn btn-ghost btn-xs text-error gap-1">
+                            <i class="ri-close-circle-line"></i>
+                            取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Card 3 (Failed) -->
+            <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="3">
+                <figure class="relative overflow-hidden rounded-t-2xl cursor-not-allowed">
+                    <img src="https://picsum.photos/400/225?random=303" alt="视频预览" class="w-full h-36 object-cover opacity-40" />
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/50">
+                        <div class="btn btn-circle btn-md bg-white/40 border-0 pointer-events-none">
+                            <i class="ri-play-fill text-2xl text-white/50"></i>
+                        </div>
+                    </div>
+                </figure>
+                <div class="card-body p-4">
+                    <h3 class="card-title text-sm mb-1">古风庭院动态场景</h3>
+                    <div class="mb-2 flex gap-1 flex-wrap">
+                        <span class="badge badge-primary badge-sm">Seedance 2.0</span>
+                        <span class="badge badge-secondary badge-sm">全能参考</span>
+                        <span class="badge badge-outline badge-sm">5s</span>
+                        <span class="badge badge-outline badge-sm">1080×1920</span>
+                        <span class="badge badge-outline badge-sm">9:16</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="text-xs text-base-content/60">
+                            <i class="ri-time-line"></i> 1小时前
+                        </div>
+                    </div>
+                    <div class="card-actions justify-between items-center mt-1">
+                        <div class="tooltip tooltip-error tooltip-top" data-tip="输入视频格式不支持">
+                            <div class="badge badge-error badge-sm gap-1">
+                                <i class="ri-error-warning-fill"></i>
+                                处理失败
+                            </div>
+                        </div>
+                        <div class="dropdown dropdown-end">
+                            <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-more-2-fill text-lg"></i>
+                            </div>
+                            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                <li><a onclick="openRegenerateConfirm(3)"><i class="ri-refresh-line"></i>重新生成</a></li>
+                                <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+    <!-- Task Video Preview Modal -->
+    <dialog id="task_video_preview_modal" class="modal">
+        <div class="modal-box max-w-3xl p-0 overflow-hidden bg-black">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10 text-white hover:bg-white/20">✕</button>
+            </form>
+            <div class="px-4 pt-4 pb-2">
+                <h3 class="font-bold text-base text-white" id="preview_video_title"></h3>
+            </div>
+            <video id="preview_video_player" class="w-full max-h-[70vh]" controls></video>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
 
     <!-- Select from Project Modal -->
     <dialog id="select_project_image_modal" class="modal">
@@ -1074,7 +1200,8 @@
 
             <!-- Tabs for different sources -->
             <div role="tablist" class="tabs tabs-boxed mb-4">
-                <a role="tab" class="tab tab-active" data-source="character">角色</a>
+                <a role="tab" class="tab tab-active" data-source="recent">最近上传</a>
+                <a role="tab" class="tab" data-source="character">角色</a>
                 <a role="tab" class="tab" data-source="scene">场景</a>
                 <a role="tab" class="tab" data-source="goods">物品</a>
                 <a role="tab" class="tab" data-source="fusion">融合生图</a>
@@ -1083,7 +1210,7 @@
             <!-- Image Grid -->
             <div class="grid grid-cols-4 gap-4 max-h-96 overflow-y-auto p-2" id="project_image_grid">
                 <!-- Character Images -->
-                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="1">
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=101" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -1094,7 +1221,7 @@
                     <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
                     <p class="text-xs text-center text-base-content/60">2024-02-15 14:30</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="2">
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="2" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=111" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -1105,7 +1232,7 @@
                     <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
                     <p class="text-xs text-center text-base-content/60">2024-02-15 16:45</p>
                 </div>
-                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-02" data-version="1">
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-02" data-version="1" style="display: none;">
                     <div class="relative group">
                         <img src="https://picsum.photos/200/200?random=102" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -1187,6 +1314,14 @@
                     </div>
                     <p class="text-xs text-center mt-1 truncate font-medium">融合图02</p>
                     <p class="text-xs text-center text-base-content/60">2024-02-15 09:18</p>
+                </div>
+
+                <!-- Recent Uploads (dynamically rendered) -->
+                <div id="recent_uploads_container" style="display: contents;"></div>
+                <div id="recent_uploads_empty" data-source="recent" style="display: none;" class="col-span-4 py-8 text-center text-base-content/40">
+                    <i class="ri-upload-cloud-line text-4xl mb-2"></i>
+                    <p class="text-sm">还没有上传过图片</p>
+                    <p class="text-xs mt-1">上传图片后可在此处快速复用</p>
                 </div>
             </div>
 
@@ -1313,6 +1448,21 @@
                 </form>
             </div>
         </div>
+    </dialog>
+
+    <!-- Regenerate Confirm Modal -->
+    <dialog id="regenerate_confirm_modal" class="modal">
+        <div class="modal-box max-w-sm">
+            <h3 class="font-bold text-base mb-2">重新生成</h3>
+            <p class="text-sm text-base-content/70">将任务配置覆盖当前信息，是否继续？</p>
+            <div class="modal-action mt-4">
+                <form method="dialog">
+                    <button class="btn btn-ghost btn-sm">取消</button>
+                </form>
+                <button type="button" class="btn btn-primary btn-sm" id="regenerate_confirm_btn">确认</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>close</button></form>
     </dialog>
 
     <!-- JavaScript -->
@@ -1643,6 +1793,8 @@
                         // Save as object for consistency
                         uploadedImages.push({
                             src: event.target.result,
+                            filename: file.name,
+                            uploadedAt: new Date().toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
                             isProjectImage: false
                         });
                         renderImageList();
@@ -1694,6 +1846,11 @@
         // Project image selection modal
         selectFromProjectBtn.onclick = () => {
             selectProjectImageModal.showModal();
+            // Reset to "最近上传" tab each time modal opens
+            modalTabs.forEach(t => t.classList.remove('tab-active'));
+            const recentTab = [...modalTabs].find(t => t.dataset.source === 'recent');
+            if (recentTab) recentTab.classList.add('tab-active');
+            filterProjectImages('recent');
         };
 
         // Tab switching
@@ -1709,12 +1866,54 @@
         function filterProjectImages(source) {
             const items = projectImageGrid.querySelectorAll('.project-image-item');
             items.forEach(item => {
-                if (item.dataset.source === source) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.display = item.dataset.source === source ? 'block' : 'none';
             });
+
+            const recentContainer = document.getElementById('recent_uploads_container');
+            const recentEmpty = document.getElementById('recent_uploads_empty');
+
+            if (source === 'recent') {
+                recentContainer.innerHTML = '';
+                const allImages = uploadedImages.filter(img => img);
+                if (allImages.length === 0) {
+                    recentEmpty.style.display = 'block';
+                } else {
+                    recentEmpty.style.display = 'none';
+                    allImages.slice().reverse().forEach((image, idx) => {
+                        const realIndex = allImages.length - 1 - idx;
+                        const src = typeof image === 'string' ? image : image.src;
+                        const isProject = typeof image === 'object' && image.isProjectImage;
+                        // Name: prefer explicit name, fallback to filename, then generic label
+                        const name = isProject
+                            ? (image.name || image.filename || '项目图片')
+                            : (image.name || image.filename || `上传图片 ${realIndex + 1}`);
+                        const time = image.uploadedAt || (isProject ? `#${image.version || 1}` : '');
+
+                        const el = document.createElement('div');
+                        el.className = 'project-image-item cursor-pointer';
+                        el.dataset.source = 'recent';
+                        el.dataset.itemId = `recent-${realIndex}`;
+                        el.dataset.version = image.version || '1';
+                        el.dataset.recentIndex = realIndex;
+                        el.innerHTML = `
+                            <div class="relative group">
+                                <img src="${src}" alt="${name}" class="w-full h-32 object-cover rounded-lg">
+                                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                                    <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                                </div>
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/50 rounded-b-lg px-1 py-0.5">
+                                    <p class="text-xs text-white truncate leading-tight">${name}</p>
+                                    ${time ? `<p class="text-xs text-white/70 leading-tight">${time}</p>` : ''}
+                                </div>
+                            </div>
+                        `;
+                        recentContainer.appendChild(el);
+                    });
+                }
+            } else {
+                recentContainer.innerHTML = '';
+                recentEmpty.style.display = 'none';
+            }
         }
 
         // Image selection in modal
@@ -2406,6 +2605,44 @@
                 setTimeout(() => toast.remove(), duration);
             }
         }
+        // Task video preview
+        const taskVideoModal = document.getElementById('task_video_preview_modal');
+        const taskVideoPlayer = document.getElementById('preview_video_player');
+        const taskVideoTitle = document.getElementById('preview_video_title');
+
+        document.querySelectorAll('.task-preview-trigger').forEach(figure => {
+            figure.addEventListener('click', () => {
+                const videoSrc = figure.dataset.video;
+                if (!videoSrc) return;
+                taskVideoTitle.textContent = figure.dataset.title || '';
+                taskVideoPlayer.src = videoSrc;
+                taskVideoModal.showModal();
+            });
+        });
+
+        taskVideoModal.addEventListener('close', () => {
+            taskVideoPlayer.pause();
+            taskVideoPlayer.src = '';
+        });
+
+        // Regenerate confirm
+        let regenerateTargetTaskId = null;
+        const regenerateModal = document.getElementById('regenerate_confirm_modal');
+        const regenerateConfirmBtn = document.getElementById('regenerate_confirm_btn');
+
+        function openRegenerateConfirm(taskId) {
+            regenerateTargetTaskId = taskId;
+            regenerateModal.showModal();
+        }
+
+        regenerateConfirmBtn.onclick = () => {
+            regenerateModal.close();
+            if (regenerateTargetTaskId != null) {
+                // TODO: 执行重新生成逻辑，传入 regenerateTargetTaskId
+                console.log('重新生成 task:', regenerateTargetTaskId);
+                regenerateTargetTaskId = null;
+            }
+        };
     </script>
 </body>
 

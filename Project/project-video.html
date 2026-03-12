@@ -254,8 +254,8 @@
                             <img src="https://picsum.photos/400/300?random=501" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
-                            <div
-                                class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer">
+                            <div class="video-play-trigger absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer"
+                                data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="产品宣传视频">
                                 <div class="btn btn-circle btn-lg bg-white/90 hover:bg-white border-0">
                                     <i class="ri-play-fill text-3xl text-primary"></i>
                                 </div>
@@ -320,12 +320,11 @@
                                     class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
                             </div>
                             <img src="https://picsum.photos/400/300?random=502" alt="视频缩略图"
-                                class="w-full h-48 object-cover" />
+                                class="w-full h-48 object-cover opacity-60" />
                             <!-- Play Button Overlay -->
-                            <div
-                                class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer">
-                                <div class="btn btn-circle btn-lg bg-white/90 hover:bg-white border-0">
-                                    <i class="ri-play-fill text-3xl text-primary"></i>
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/40 cursor-not-allowed">
+                                <div class="btn btn-circle btn-lg bg-white/40 border-0 pointer-events-none">
+                                    <i class="ri-play-fill text-3xl text-white/50"></i>
                                 </div>
                             </div>
                         </figure>
@@ -390,12 +389,11 @@
                                     class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
                             </div>
                             <img src="https://picsum.photos/400/300?random=503" alt="视频缩略图"
-                                class="w-full h-48 object-cover" />
+                                class="w-full h-48 object-cover opacity-60" />
                             <!-- Play Button Overlay -->
-                            <div
-                                class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer">
-                                <div class="btn btn-circle btn-lg bg-white/90 hover:bg-white border-0">
-                                    <i class="ri-play-fill text-3xl text-primary"></i>
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/40 cursor-not-allowed">
+                                <div class="btn btn-circle btn-lg bg-white/40 border-0 pointer-events-none">
+                                    <i class="ri-play-fill text-3xl text-white/50"></i>
                                 </div>
                             </div>
                         </figure>
@@ -461,8 +459,8 @@
                             <img src="https://picsum.photos/400/300?random=504" alt="视频缩略图"
                                 class="w-full h-48 object-cover" />
                             <!-- Play Button Overlay -->
-                            <div
-                                class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer">
+                            <div class="video-play-trigger absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer"
+                                data-video="https://www.w3schools.com/html/movie.mp4" data-title="产品演示视频">
                                 <div class="btn btn-circle btn-lg bg-white/90 hover:bg-white border-0">
                                     <i class="ri-play-fill text-3xl text-primary"></i>
                                 </div>
@@ -527,12 +525,11 @@
                                     class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
                             </div>
                             <img src="https://picsum.photos/400/300?random=505" alt="视频缩略图"
-                                class="w-full h-48 object-cover" />
+                                class="w-full h-48 object-cover opacity-60" />
                             <!-- Play Button Overlay -->
-                            <div
-                                class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer">
-                                <div class="btn btn-circle btn-lg bg-white/90 hover:bg-white border-0">
-                                    <i class="ri-play-fill text-3xl text-primary"></i>
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/40 cursor-not-allowed">
+                                <div class="btn btn-circle btn-lg bg-white/40 border-0 pointer-events-none">
+                                    <i class="ri-play-fill text-3xl text-white/50"></i>
                                 </div>
                             </div>
                         </figure>
@@ -597,12 +594,11 @@
                                     class="checkbox checkbox-primary bg-base-100/80 video-checkbox" />
                             </div>
                             <img src="https://picsum.photos/400/300?random=506" alt="视频缩略图"
-                                class="w-full h-48 object-cover" />
+                                class="w-full h-48 object-cover opacity-60" />
                             <!-- Play Button Overlay -->
-                            <div
-                                class="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors cursor-pointer">
-                                <div class="btn btn-circle btn-lg bg-white/90 hover:bg-white border-0">
-                                    <i class="ri-play-fill text-3xl text-primary"></i>
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/40 cursor-not-allowed">
+                                <div class="btn btn-circle btn-lg bg-white/40 border-0 pointer-events-none">
+                                    <i class="ri-play-fill text-3xl text-white/50"></i>
                                 </div>
                             </div>
                         </figure>
@@ -723,6 +719,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Video Preview Modal -->
+    <dialog id="video_preview_modal" class="modal">
+        <div class="modal-box max-w-3xl p-0 overflow-hidden bg-black">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10 text-white hover:bg-white/20">✕</button>
+            </form>
+            <div class="px-4 pt-4 pb-2">
+                <h3 class="font-bold text-base text-white" id="video_preview_title"></h3>
+            </div>
+            <video id="video_preview_player" class="w-full max-h-[70vh]" controls></video>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
 
     <!-- Add Video Modal -->
     <dialog id="add_video_modal" class="modal">
@@ -2865,6 +2877,24 @@
                 }
                 overlay.classList.add('show');
             }
+        });
+
+        // Video preview
+        const videoPreviewModal = document.getElementById('video_preview_modal');
+        const videoPreviewPlayer = document.getElementById('video_preview_player');
+        const videoPreviewTitle = document.getElementById('video_preview_title');
+
+        document.querySelectorAll('.video-play-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                videoPreviewTitle.textContent = trigger.dataset.title || '';
+                videoPreviewPlayer.src = trigger.dataset.video;
+                videoPreviewModal.showModal();
+            });
+        });
+
+        videoPreviewModal.addEventListener('close', () => {
+            videoPreviewPlayer.pause();
+            videoPreviewPlayer.src = '';
         });
     </script>
 </body>
