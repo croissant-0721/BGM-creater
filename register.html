@@ -249,6 +249,96 @@
 
         .input-group.invalid + .error-text { display: block; }
 
+        /* 账号类型切换 */
+        .account-type-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        .account-type-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 15px;
+            color: #111;
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .account-type-label input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .account-type-label input[type="radio"]:checked {
+            border-color: #111;
+        }
+
+        .account-type-label input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 7px; height: 7px;
+            background: #111;
+            border-radius: 50%;
+        }
+
+        /* 企业 tab 上的 tooltip */
+        .account-type-tip {
+            display: inline-flex;
+            align-items: center;
+            color: #bbb;
+            font-size: 14px;
+            cursor: default;
+            position: relative;
+        }
+
+        .account-type-tip:hover .account-type-tooltip {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .account-type-tooltip {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 8px);
+            transform: translateX(-50%) translateY(4px);
+            background: #222;
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 10;
+        }
+
+        .account-type-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%; left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px 5px 0;
+            border-style: solid;
+            border-color: #222 transparent transparent;
+        }
+
         /* 协议提示 */
         .agree-tip {
             text-align: center;
@@ -426,6 +516,31 @@
         <!-- 注册表单 — 用户名 / 密码 / 邮箱 / 手机号 + 短信验证码 -->
         <div id="register-container" class="fade-in hidden">
             <form action="/register" method="post" id="register-form" autocomplete="off">
+                <!-- 账号类型 -->
+                <div class="form-group account-type-group">
+                    <label class="account-type-label">
+                        <input type="radio" name="account_type" value="personal" checked onchange="selectAccountType('personal')">
+                        个人
+                    </label>
+                    <label class="account-type-label">
+                        <input type="radio" name="account_type" value="enterprise" onchange="selectAccountType('enterprise')">
+                        企业
+                        <span class="account-type-tip">
+                            <i class="ri-information-line"></i>
+                            <span class="account-type-tooltip">将支持企业子账号、积分分配等服务，敬请期待。</span>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- 企业名称（企业类型时显示） -->
+                <div class="form-group" id="company-group" style="display:none;">
+                    <div class="input-group">
+                        <i class="ri-building-line input-icon"></i>
+                        <input type="text" class="form-control" name="company" id="reg-company"
+                               placeholder="请输入企业名称" autocomplete="off">
+                    </div>
+                </div>
+
                 <!-- 用户名 -->
                 <div class="form-group">
                     <div class="input-group" id="username-group">
@@ -454,15 +569,6 @@
                                placeholder="邮箱" required autocomplete="off">
                     </div>
                     <div class="error-text" id="email-error">请输入有效的邮箱地址</div>
-                </div>
-
-                <!-- 公司名称（选填） -->
-                <div class="form-group">
-                    <div class="input-group">
-                        <i class="ri-building-line input-icon"></i>
-                        <input type="text" class="form-control" name="company" id="reg-company"
-                               placeholder="公司名称（选填）" autocomplete="off">
-                    </div>
                 </div>
 
                 <!-- 手机号 -->
@@ -508,6 +614,13 @@
         var WECHAT_APPID = 'YOUR_WECHAT_APPID';
         var WECHAT_REDIRECT_URI = encodeURIComponent('https://panqu.com/wechat/callback');
         var WECHAT_STATE = Math.random().toString(36).slice(2);
+
+        /* ===== 账号类型切换 ===== */
+        function selectAccountType(type) {
+            var isEnterprise = type === 'enterprise';
+            document.getElementById('company-group').style.display = isEnterprise ? '' : 'none';
+            if (!isEnterprise) document.getElementById('reg-company').value = '';
+        }
 
         /* ===== 短信验证码逻辑 ===== */
         var smsCountdownTimer = null;
