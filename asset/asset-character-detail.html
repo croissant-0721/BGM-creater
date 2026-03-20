@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚拟人像详情 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .info-card {
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--fallback-bc, oklch(var(--bc)));
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: var(--fallback-bc, oklch(var(--bc) / 0.7));
+            flex: 1;
+            line-height: 1.6;
+        }
+
+        .image-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .image-item {
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: none; /* 默认隐藏，只保留一个位置 */
+        }
+
+        .image-item.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .image-item:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        /* 图片头部信息栏 */
+        .image-header {
+            padding: 12px 16px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-bottom: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .image-info-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .image-number {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--fallback-bc, oklch(var(--bc)));
+        }
+
+        .image-number::before {
+            content: '#';
+            opacity: 0.6;
+            margin-right: 2px;
+        }
+
+        /* 图片区域标题样式 */
+        .section-header {
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 16px;
+        }
+
+        .section-header h3 {
+            margin: 0;
+        }
+
+        .image-footer {
+            padding: 10px 12px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-top: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .image-info-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .image-time {
+            font-size: 12px;
+            color: var(--fallback-bc, oklch(var(--bc) / 0.5));
+        }
+
+        .image-task-id {
+            font-size: 12px;
+            color: var(--fallback-bc, oklch(var(--bc) / 0.4));
+        }
+
+        .image-task-id::before {
+            content: '•';
+            margin-right: 12px;
+            color: var(--fallback-bc, oklch(var(--bc) / 0.3));
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .image-list {
+            max-width: 600px;
+        }
+
+        @media (max-width: 1024px) {
+            .detail-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .image-list {
+                max-width: 100%;
+            }
+        }
+
+        /* Gallery Grid Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+            padding: 16px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gallery-thumb {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background: var(--fallback-b2, oklch(var(--b2)));
+        }
+
+        .gallery-thumb.active {
+            border-color: #4f46e5;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumb:hover:not(.active) {
+            border-color: var(--fallback-b3, oklch(var(--b3)));
+            transform: translateY(-2px);
+        }
+
+        .gallery-name {
+            font-size: 11px;
+            color: var(--fallback-bc, oklch(var(--bc) / 0.6));
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Gallery Upload Style */
+        .gallery-upload {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border: 2px dashed var(--fallback-b3, oklch(var(--b3)));
+            background: var(--fallback-b2, oklch(var(--b2) / 0.3));
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--fallback-bc, oklch(var(--bc) / 0.4));
+        }
+
+        .gallery-upload:hover {
+            border-color: #4f46e5;
+            background: rgba(79, 70, 229, 0.05);
+            color: #4f46e5;
+        }
+
+        .gallery-upload i {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .gallery-upload span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="../index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="../index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="../Project/Projects.html"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="asset-list.html" class="active"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">资产处理任务 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout: Sidebar + Content -->
+    <div class="flex">
+        <!-- Fixed Left Sidebar -->
+        <aside class="fixed left-0 top-[72px] w-64 bg-base-100 shadow-xl border-r border-base-200 h-[calc(100vh-72px)] overflow-y-auto">
+            <!-- Navigation Menu -->
+            <ul class="menu menu-vertical px-4 py-6 gap-2">
+                <li>
+                    <a href="asset-list.html">
+                        <i class="ri-music-2-line text-lg"></i>
+                        <span>声音复刻</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="asset-character-list.html" class="active">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>虚拟人像</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 ml-64 min-h-screen bg-base-200/50">
+            <!-- Page Content -->
+            <div class="container mx-auto px-6 py-6">
+                <!-- Page Header -->
+                <div class="flex items-center gap-3 mb-6">
+                    <a href="asset-character-list.html" class="btn btn-sm btn-ghost btn-circle">
+                        <i class="ri-arrow-left-line text-xl"></i>
+                    </a>
+                    <h2 class="text-xl font-bold">林晓雪</h2>
+
+                </div>
+
+                <!-- Detail Layout: Left Config + Right Images -->
+                <div class="detail-layout">
+                    <!-- Left: Avatar Info -->
+                    <div>
+                        <div class="info-card">
+                            <h3 class="text-base font-bold mb-3">基础信息</h3>
+                            <div class="divider my-2"></div>
+
+                            <div class="info-row">
+                                <span class="info-label">人像名称:</span>
+                                <span class="info-value">林晓雪</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Group ID:</span>
+                                <span class="info-value">group-20260320150816-rkz8r</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">创建时间:</span>
+                                <span class="info-value">2026-03-20 15:08:16</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">描述:</span>
+                                <span class="info-value">火山引擎虚拟人直播/视频生成专用，具有自然的肢体动作。</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Gallery Grid (Multi-column Demo) -->
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <div class="gallery-thumb active" onclick="scrollToImage(0, this)">
+                                    <img src="https://picsum.photos/600/800?random=101" alt="Thumbnail 1">
+                                </div>
+                                <span class="gallery-name" title="人像正视图.jpg">人像正视图.jpg</span>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-thumb" onclick="scrollToImage(1, this)">
+                                    <img src="https://picsum.photos/600/800?random=102" alt="Thumbnail 2">
+                                </div>
+                                <span class="gallery-name" title="人像侧视图.jpg">人像侧视图.jpg</span>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-thumb" onclick="scrollToImage(2, this)">
+                                    <img src="https://picsum.photos/600/800?random=103" alt="Thumbnail 3">
+                                </div>
+                                <span class="gallery-name" title="人像后视图.jpg">人像后视图.jpg</span>
+                            </div>
+                            <!-- More columns demo -->
+                            <div class="gallery-item">
+                                <div class="gallery-thumb" onclick="scrollToImage(0, this)">
+                                    <img src="https://picsum.photos/600/800?random=104" alt="Thumbnail 4">
+                                </div>
+                                <span class="gallery-name" title="局部细节-1.jpg">局部细节-1.jpg</span>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-thumb" onclick="scrollToImage(0, this)">
+                                    <img src="https://picsum.photos/600/800?random=105" alt="Thumbnail 5">
+                                </div>
+                                <span class="gallery-name" title="局部细节-2.jpg">局部细节-2.jpg</span>
+                            </div>
+
+                            <!-- Upload Item -->
+                            <div class="gallery-item">
+                                <div class="gallery-upload" id="gallery-drop-area">
+                                    <i class="ri-add-line"></i>
+                                    <span>新增图片</span>
+                                </div>
+                                <input type="file" id="gallery-file-input" class="hidden" multiple accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Images List -->
+                    <div>
+                        <!-- <div class="section-header">
+                            <h3 class="text-base font-bold">参考图片列表</h3>
+                        </div> -->
+                        <div class="image-list">
+                            <!-- Image 1 -->
+                            <div class="image-item active">
+                                <div class="image-header">
+                                    <div class="image-info-left">
+                                        <span class="image-number">1</span>
+                                        <span class="badge badge-primary badge-sm">正视图</span>
+                                    </div>
+                                    <div class="badge badge-success badge-sm gap-1">
+                                        <i class="ri-check-circle-fill"></i>
+                                        已校验
+                                    </div>
+                                </div>
+                                <a href="https://picsum.photos/600/800?random=101" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://picsum.photos/600/800?random=101" alt="人像正视图" class="cursor-pointer">
+                                </a>
+                                <div class="image-footer">
+                                    <div class="image-info-wrapper">
+                                        <span class="image-time">上传时间: 2026-03-20 15:08:21</span>
+                                        <span class="image-task-id">asset-20260320150816-jbctp</span>
+                                    </div>
+                                    <div class="image-actions">
+                                        <button class="btn btn-square btn-ghost btn-sm" onclick="downloadImage(this)" title="下载图片">
+                                            <i class="ri-download-line text-base"></i>
+                                        </button>
+                                        <button class="btn btn-square btn-ghost btn-sm" onclick="copyImageLink(this)" title="复制链接">
+                                            <i class="ri-link text-base"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Image 2 -->
+                            <div class="image-item">
+                                <div class="image-header">
+                                    <div class="image-info-left">
+                                        <span class="image-number">2</span>
+                                        <span class="badge badge-ghost badge-sm">侧视图</span>
+                                    </div>
+                                    <div class="badge badge-success badge-sm gap-1">
+                                        <i class="ri-check-circle-fill"></i>
+                                        已校验
+                                    </div>
+                                </div>
+                                <a href="https://picsum.photos/600/800?random=102" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://picsum.photos/600/800?random=102" alt="人像侧视图" class="cursor-pointer">
+                                </a>
+                                <div class="image-footer">
+                                    <div class="image-info-wrapper">
+                                        <span class="image-time">上传时间: 2026-03-20 15:08:22</span>
+                                        <span class="image-task-id">asset-20260320150816-jbctp</span>
+                                    </div>
+                                    <div class="image-actions">
+                                        <button class="btn btn-square btn-ghost btn-sm" onclick="downloadImage(this)" title="下载图片">
+                                            <i class="ri-download-line text-base"></i>
+                                        </button>
+                                        <button class="btn btn-square btn-ghost btn-sm" onclick="copyImageLink(this)" title="复制链接">
+                                            <i class="ri-link text-base"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Image 3 -->
+                            <div class="image-item">
+                                <div class="image-header">
+                                    <div class="image-info-left">
+                                        <span class="image-number">3</span>
+                                        <span class="badge badge-ghost badge-sm">后视图</span>
+                                    </div>
+                                    <div class="badge badge-success badge-sm gap-1">
+                                        <i class="ri-check-circle-fill"></i>
+                                        已校验
+                                    </div>
+                                </div>
+                                <a href="https://picsum.photos/600/800?random=103" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://picsum.photos/600/800?random=103" alt="人像后视图" class="cursor-pointer">
+                                </a>
+                                <div class="image-footer">
+                                    <div class="image-info-wrapper">
+                                        <span class="image-time">上传时间: 2026-03-20 15:08:23</span>
+                                        <span class="image-task-id">asset-20260320150816-jbctp</span>
+                                    </div>
+                                    <div class="image-actions">
+                                        <button class="btn btn-square btn-ghost btn-sm" onclick="downloadImage(this)" title="下载图片">
+                                            <i class="ri-download-line text-base"></i>
+                                        </button>
+                                        <button class="btn btn-square btn-ghost btn-sm" onclick="copyImageLink(this)" title="复制链接">
+                                            <i class="ri-link text-base"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        if (themeToggle) {
+            themeToggle.checked = savedTheme === 'dark';
+        }
+
+        // Toggle theme
+        if (themeToggle) {
+            themeToggle.addEventListener('change', function () {
+                const newTheme = this.checked ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+
+        /**
+         * 快速切换预览图片
+         */
+        function scrollToImage(index, thumb) {
+            // 更新缩略图激活状态
+            document.querySelectorAll('.gallery-thumb').forEach(el => el.classList.remove('active'));
+            thumb.classList.add('active');
+
+            // 切换右侧显示的图片项
+            const imageItems = document.querySelectorAll('.image-item');
+            imageItems.forEach(item => item.classList.remove('active'));
+            
+            // 循环使用已有的三张预览图作为演示
+            const previewIndex = index % imageItems.length;
+            if (imageItems[previewIndex]) {
+                imageItems[previewIndex].classList.add('active');
+            }
+        }
+
+        // 处理新增图片上传
+        const galleryDropArea = document.getElementById('gallery-drop-area');
+        const galleryFileInput = document.getElementById('gallery-file-input');
+
+        if (galleryDropArea && galleryFileInput) {
+            galleryDropArea.addEventListener('click', () => galleryFileInput.click());
+
+            galleryFileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    showToast(`准备上传 ${this.files.length} 张图片`);
+                }
+            });
+
+            // 拖拽支持
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                galleryDropArea.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+
+            galleryDropArea.addEventListener('dragenter', () => {
+                galleryDropArea.classList.add('border-primary', 'bg-primary/5');
+            });
+
+            galleryDropArea.addEventListener('dragleave', () => {
+                galleryDropArea.classList.remove('border-primary', 'bg-primary/5');
+            });
+
+            galleryDropArea.addEventListener('drop', (e) => {
+                galleryDropArea.classList.remove('border-primary', 'bg-primary/5');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    showToast(`拖入上传 ${files.length} 张图片`);
+                }
+            });
+        }
+
+        /**
+         * 下载图片
+         */
+        function downloadImage(button) {
+            const imageItem = button.closest('.image-item');
+            const img = imageItem.querySelector('img');
+            const imgSrc = img.src;
+
+            if (!imgSrc) return;
+
+            const link = document.createElement('a');
+            link.href = imgSrc;
+            link.download = 'character-image-' + Date.now() + '.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast('图片下载中...');
+        }
+
+        /**
+         * 复制图片链接
+         */
+        function copyImageLink(button) {
+            const imageItem = button.closest('.image-item');
+            const img = imageItem.querySelector('img');
+            const imgSrc = img.src;
+
+            if (!imgSrc) return;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(imgSrc).then(() => {
+                    showToast('图片链接已复制到剪贴板');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    fallbackCopy(imgSrc);
+                });
+            } else {
+                fallbackCopy(imgSrc);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                document.execCommand('copy');
+                showToast('图片链接已复制到剪贴板');
+            } catch (err) {
+                console.error('复制失败:', err);
+                showToast('复制失败，请手动复制');
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-bottom toast-center z-[100]';
+            toast.innerHTML = `
+                <div class="alert alert-success shadow-lg">
+                    <i class="ri-checkbox-circle-line text-lg"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+    </script>
+</body>
+
+</html>

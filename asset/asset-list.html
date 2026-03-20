@@ -117,271 +117,276 @@
         <!-- Fixed Left Sidebar -->
         <aside class="fixed left-0 top-[72px] w-64 bg-base-100 shadow-xl border-r border-base-200 h-[calc(100vh-72px)] overflow-y-auto">
             <!-- Navigation Menu -->
-            <ul class="menu menu-vertical px-4 py-6 gap-2">
+            <ul class="menu menu-vertical px-4 py-6 gap-2" id="assetSidebarMenu">
                 <li>
                     <a href="asset-list.html" class="active">
                         <i class="ri-music-2-line text-lg"></i>
                         <span>声音复刻</span>
                     </a>
                 </li>
+                <li>
+                    <a href="asset-character-list.html">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>虚拟人像</span>
+                    </a>
+                </li>
             </ul>
         </aside>
 
         <!-- Main Content Area -->
-        <div class="flex-1 ml-64">
-            <!-- Page Content -->
+        <main class="flex-1 ml-64 min-h-screen bg-base-200/50">
             <div class="container mx-auto px-6 py-8">
-            <!-- Page Header -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <div>
-                    <h2 class="text-3xl font-bold mb-2">声音复刻管理</h2>                </div>
-                <div class="flex gap-2">
-                    <a href="voice-clone-create.html" class="btn btn-primary gap-2">
-                        <i class="ri-add-line"></i>
-                        新增复刻
-                    </a>
+                <div id="voice-clone-content">
+                <!-- Page Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">声音复刻管理</h2>                </div>
+                    <div class="flex gap-2">
+                        <a href="voice-clone-create.html" class="btn btn-primary gap-2">
+                            <i class="ri-add-line"></i>
+                            新增复刻
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Filter Tabs -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                <div class="tabs tabs-boxed">
-                    <a class="tab tab-active">全部</a>
-                </div>
-                <div class="join">
-                    <input type="search" id="assetSearch" placeholder="搜索资产..."
-                        class="input input-bordered join-item w-full md:w-auto" />
-                    <button class="btn btn-primary join-item">
-                        <i class="ri-search-line"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Assets Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="assetsGrid">
-                <!-- Asset Card 1 -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                    <figure class="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative">
-                        <div class="text-center">
-                            <i class="ri-mic-fill text-6xl text-primary mb-2"></i>
-                            <div class="text-sm font-medium text-base-content/70">女声 - 温柔</div>
-                        </div>
-                        <!-- Play Button -->
-                        <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-primary hover:bg-primary/90 border-0 text-white">
-                            <i class="ri-play-fill text-lg"></i>
+                <!-- Filter Tabs -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <div class="tabs tabs-boxed">
+                        <a class="tab tab-active">全部</a>
+                    </div>
+                    <div class="join">
+                        <input type="search" id="assetSearch" placeholder="搜索资产..."
+                            class="input input-bordered join-item w-full md:w-auto" />
+                        <button class="btn btn-primary join-item">
+                            <i class="ri-search-line"></i>
                         </button>
-                    </figure>
-                    <div class="card-body p-4">
-                        <h3 class="card-title text-base mb-2">温柔女声-晓雪</h3>
-                        <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-primary badge-sm">Azure TTS</span>
-                            <span class="badge badge-secondary badge-sm">中文女声</span>
-                        </div>
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-2">
-                                <div class="avatar">
-                                    <div class="w-6 rounded-full">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck" alt="用户头像" />
+                    </div>
+                </div>
+
+                <!-- Assets Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="assetsGrid">
+                    <!-- Asset Card 1 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure class="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-primary mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">女声 - 温柔</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-primary hover:bg-primary/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">温柔女声-晓雪</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">Azure TTS</span>
+                                <span class="badge badge-secondary badge-sm">中文女声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck" alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">王大卫</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>2小时前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-success badge-sm gap-1">
+                                    <i class="ri-check-circle-fill"></i>
+                                    已完成
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error" onclick="showDeleteConfirm('温柔女声-晓雪')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="text-xs font-medium">王大伟</div>
-                            </div>
-                            <div class="text-xs text-base-content/60">
-                                <i class="ri-time-line"></i>2小时前
                             </div>
                         </div>
-                        <div class="card-actions justify-between items-center mt-2">
-                            <div class="badge badge-success badge-sm gap-1">
-                                <i class="ri-check-circle-fill"></i>
-                                已完成
+                    </div>
+
+                    <!-- Asset Card 2 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure class="h-48 bg-gradient-to-br from-accent/20 to-info/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-accent mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">男声 - 磁性</div>
                             </div>
-                            <div class="flex gap-1">
-                                <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-more-2-fill text-lg"></i>
+                            <!-- Play Button -->
+                            <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-accent hover:bg-accent/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">磁性男声-浩然</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">ElevenLabs</span>
+                                <span class="badge badge-secondary badge-sm">中文男声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="用户头像" />
+                                        </div>
                                     </div>
-                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
-                                        <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
-                                        <li><a class="text-error" onclick="showDeleteConfirm('温柔女声-晓雪')"><i class="ri-delete-bin-line"></i>删除</a></li>
-                                    </ul>
+                                    <div class="text-xs font-medium">李晓明</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>5小时前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-success badge-sm gap-1">
+                                    <i class="ri-check-circle-fill"></i>
+                                    已完成
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error" onclick="showDeleteConfirm('磁性男声-浩然')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Asset Card 3 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure class="h-48 bg-gradient-to-br from-success/20 to-warning/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-success mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">童声 - 活泼</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-success hover:bg-success/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">活泼童声-小萌</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">Azure TTS</span>
+                                <span class="badge badge-secondary badge-sm">童声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">张晓华</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>1天前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-success badge-sm gap-1">
+                                    <i class="ri-check-circle-fill"></i>
+                                    已完成
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error" onclick="showDeleteConfirm('活泼童声-小萌')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Asset Card 4 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure class="h-48 bg-gradient-to-br from-error/20 to-warning/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-error mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">男声 - 沉稳</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-error hover:bg-error/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">沉稳男声-子墨</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">讯飞TTS</span>
+                                <span class="badge badge-secondary badge-sm">中文男声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carol" alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">刘建国</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>2天前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-success badge-sm gap-1">
+                                    <i class="ri-check-circle-fill"></i>
+                                    已完成
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error" onclick="showDeleteConfirm('沉稳男声-子墨')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Asset Card 2 -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                    <figure class="h-48 bg-gradient-to-br from-accent/20 to-info/20 flex items-center justify-center relative">
-                        <div class="text-center">
-                            <i class="ri-mic-fill text-6xl text-accent mb-2"></i>
-                            <div class="text-sm font-medium text-base-content/70">男声 - 磁性</div>
-                        </div>
-                        <!-- Play Button -->
-                        <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-accent hover:bg-accent/90 border-0 text-white">
-                            <i class="ri-play-fill text-lg"></i>
+                <!-- Pagination -->
+                <div class="flex justify-center mt-8">
+                    <div class="join">
+                        <button class="join-item btn btn-sm" disabled>
+                            <i class="ri-arrow-left-s-line"></i>
                         </button>
-                    </figure>
-                    <div class="card-body p-4">
-                        <h3 class="card-title text-base mb-2">磁性男声-浩然</h3>
-                        <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-primary badge-sm">ElevenLabs</span>
-                            <span class="badge badge-secondary badge-sm">中文男声</span>
-                        </div>
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-2">
-                                <div class="avatar">
-                                    <div class="w-6 rounded-full">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="用户头像" />
-                                    </div>
-                                </div>
-                                <div class="text-xs font-medium">李晓明</div>
-                            </div>
-                            <div class="text-xs text-base-content/60">
-                                <i class="ri-time-line"></i>5小时前
-                            </div>
-                        </div>
-                        <div class="card-actions justify-between items-center mt-2">
-                            <div class="badge badge-success badge-sm gap-1">
-                                <i class="ri-check-circle-fill"></i>
-                                已完成
-                            </div>
-                            <div class="flex gap-1">
-                                <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-more-2-fill text-lg"></i>
-                                    </div>
-                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
-                                        <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
-                                        <li><a class="text-error" onclick="showDeleteConfirm('磁性男声-浩然')"><i class="ri-delete-bin-line"></i>删除</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <button class="join-item btn btn-sm btn-active">1</button>
+                        <button class="join-item btn btn-sm">2</button>
+                        <button class="join-item btn btn-sm">3</button>
+                        <button class="join-item btn btn-sm">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
                     </div>
                 </div>
-
-                <!-- Asset Card 3 -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                    <figure class="h-48 bg-gradient-to-br from-success/20 to-warning/20 flex items-center justify-center relative">
-                        <div class="text-center">
-                            <i class="ri-mic-fill text-6xl text-success mb-2"></i>
-                            <div class="text-sm font-medium text-base-content/70">童声 - 活泼</div>
-                        </div>
-                        <!-- Play Button -->
-                        <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-success hover:bg-success/90 border-0 text-white">
-                            <i class="ri-play-fill text-lg"></i>
-                        </button>
-                    </figure>
-                    <div class="card-body p-4">
-                        <h3 class="card-title text-base mb-2">活泼童声-小萌</h3>
-                        <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-primary badge-sm">Azure TTS</span>
-                            <span class="badge badge-secondary badge-sm">童声</span>
-                        </div>
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-2">
-                                <div class="avatar">
-                                    <div class="w-6 rounded-full">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="用户头像" />
-                                    </div>
-                                </div>
-                                <div class="text-xs font-medium">张晓华</div>
-                            </div>
-                            <div class="text-xs text-base-content/60">
-                                <i class="ri-time-line"></i>1天前
-                            </div>
-                        </div>
-                        <div class="card-actions justify-between items-center mt-2">
-                            <div class="badge badge-success badge-sm gap-1">
-                                <i class="ri-check-circle-fill"></i>
-                                已完成
-                            </div>
-                            <div class="flex gap-1">
-                                <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-more-2-fill text-lg"></i>
-                                    </div>
-                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
-                                        <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
-                                        <li><a class="text-error" onclick="showDeleteConfirm('活泼童声-小萌')"><i class="ri-delete-bin-line"></i>删除</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Asset Card 4 -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
-                    <figure class="h-48 bg-gradient-to-br from-error/20 to-warning/20 flex items-center justify-center relative">
-                        <div class="text-center">
-                            <i class="ri-mic-fill text-6xl text-error mb-2"></i>
-                            <div class="text-sm font-medium text-base-content/70">男声 - 沉稳</div>
-                        </div>
-                        <!-- Play Button -->
-                        <button class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-error hover:bg-error/90 border-0 text-white">
-                            <i class="ri-play-fill text-lg"></i>
-                        </button>
-                    </figure>
-                    <div class="card-body p-4">
-                        <h3 class="card-title text-base mb-2">沉稳男声-子墨</h3>
-                        <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-primary badge-sm">讯飞TTS</span>
-                            <span class="badge badge-secondary badge-sm">中文男声</span>
-                        </div>
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center gap-2">
-                                <div class="avatar">
-                                    <div class="w-6 rounded-full">
-                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carol" alt="用户头像" />
-                                    </div>
-                                </div>
-                                <div class="text-xs font-medium">刘建国</div>
-                            </div>
-                            <div class="text-xs text-base-content/60">
-                                <i class="ri-time-line"></i>2天前
-                            </div>
-                        </div>
-                        <div class="card-actions justify-between items-center mt-2">
-                            <div class="badge badge-success badge-sm gap-1">
-                                <i class="ri-check-circle-fill"></i>
-                                已完成
-                            </div>
-                            <div class="flex gap-1">
-                                <div class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
-                                        <i class="ri-more-2-fill text-lg"></i>
-                                    </div>
-                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
-                                        <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
-                                        <li><a class="text-error" onclick="showDeleteConfirm('沉稳男声-子墨')"><i class="ri-delete-bin-line"></i>删除</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-
-            <!-- Pagination -->
-            <div class="flex justify-center mt-8">
-                <div class="join">
-                    <button class="join-item btn btn-sm" disabled>
-                        <i class="ri-arrow-left-s-line"></i>
-                    </button>
-                    <button class="join-item btn btn-sm btn-active">1</button>
-                    <button class="join-item btn btn-sm">2</button>
-                    <button class="join-item btn btn-sm">3</button>
-                    <button class="join-item btn btn-sm">
-                        <i class="ri-arrow-right-s-line"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- End Page Content -->
-        </div>
-        <!-- End Main Content Area -->
+        </main>
     </div>
     <!-- End Main Layout -->
 
@@ -412,6 +417,9 @@
         </form>
     </dialog>
 
+    </div>
+    <!-- End Main Layout -->
+
     <!-- Page-specific JavaScript -->
     <script>
         // ========================================
@@ -437,16 +445,14 @@
             });
         }
 
-        // ========================================
-        // Asset Management Functionality
-        // ========================================
-
         // Search functionality
         const searchInput = document.getElementById('assetSearch');
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            console.log('Searching for:', searchTerm);
-        });
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                console.log('Searching for:', searchTerm);
+            });
+        }
 
         // Delete confirmation functionality
         let assetToDelete = null;
@@ -498,7 +504,7 @@
 
             document.body.appendChild(toast);
 
-            if (duration > 0) {
+        if (duration > 0) {
                 setTimeout(() => toast.remove(), duration);
             }
         }

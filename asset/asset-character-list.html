@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚拟人像资产 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+            <div class="navbar-start">
+                <div class="flex items-center gap-8">
+                    <a href="../index.html" class="navbar-brand">
+                        <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                        <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                    </a>
+                    <ul class="menu menu-horizontal px-1 gap-2">
+                        <li><a href="../index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                        <li><a href="../Project/Projects.html"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                        <li><a href="asset-list.html" class="active"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                        <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                        <li><a href="settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-end gap-2">
+                <!-- Credits Balance -->
+                <div class="flex items-center gap-2 px-2">
+                    <i class="ri-coin-fill text-warning text-xl"></i>
+                    <span class="text-base font-semibold">8,888</span>
+                </div>
+
+                <!-- Theme Toggle -->
+                <label class="swap swap-rotate btn btn-ghost btn-circle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                    <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+                </label>
+
+                <!-- Notification Bell -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span class="badge badge-sm badge-error indicator-item">3</span>
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                        <li class="menu-title">
+                            <span class="font-semibold">任务消息通知</span>
+                            <a class="text-xs text-primary">全部已读</a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                        <i class="ri-check-line text-sm"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">任务完成</div>
+                                    <div class="text-xs text-base-content/60">资产处理任务 • 5分钟前</div>
+                                </div>
+                                <span class="badge badge-xs badge-success"></span>
+                            </a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Dropdown -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="avatar placeholder">
+                            <div class="bg-primary text-primary-content rounded-full w-10">
+                                <span class="text-sm font-bold">C</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                        <li class="menu-title text-base-content/70">王大卫</li>
+                        <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                        <li><a>使用统计</a></li>
+                        <div class="divider my-0"></div>
+                        <li><a class="text-error">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <!-- Main Layout: Sidebar + Content -->
+    <div class="flex">
+        <!-- Fixed Left Sidebar -->
+        <aside class="fixed left-0 top-[72px] w-64 bg-base-100 shadow-xl border-r border-base-200 h-[calc(100vh-72px)] overflow-y-auto">
+            <!-- Navigation Menu -->
+            <ul class="menu menu-vertical px-4 py-6 gap-2" id="assetSidebarMenu">
+                <li>
+                    <a href="asset-list.html">
+                        <i class="ri-music-2-line text-lg"></i>
+                        <span>声音复刻</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="asset-character-list.html" class="active">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>虚拟人像</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 ml-64 min-h-screen bg-base-200/50">
+            <div class="container mx-auto px-6 py-8">
+                <!-- Character Asset Content -->
+                <div id="character-asset-content">
+                    <!-- Page Header -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                        <div>
+                            <h2 class="text-3xl font-bold mb-2">虚拟人像</h2>
+                            <p class="text-base-content/60">上传和管理火山虚拟人像库</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="btn btn-primary gap-2" onclick="add_character_modal.showModal()">
+                                <i class="ri-add-line"></i>
+                                添加虚拟人像
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filter and Search -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                        <div class="tabs tabs-boxed bg-base-100">
+                            <a class="tab">全部</a>
+                            <a class="tab tab-active">已完成</a>
+                            <a class="tab">生成中</a>
+                            <a class="tab">失败</a>
+                            <a class="tab">已取消</a>
+                        </div>
+                        <div class="join">
+                            <input type="search" placeholder="搜索项目..."
+                                class="input input-bordered input-sm join-item w-full md:w-auto" />
+                            <button class="btn btn-primary btn-sm join-item">
+                                <i class="ri-search-line"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Character Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                            <a href="asset-character-detail.html">
+                                <figure class="rounded-t-box overflow-hidden"><img src="https://picsum.photos/400/300?random=101" alt="角色缩略图"
+                                        class="w-full h-48 object-cover" /></figure>
+                            </a>
+                            <div class="card-body p-4">
+                                <h3 class="card-title text-base mb-2">女主角 - 林晓雪</h3>
+                                <div class="mb-2 flex gap-1 flex-wrap">
+
+                                    <span class="badge badge-outline badge-sm">group-20260320150816-rkz8r</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="avatar">
+                                            <div class="w-6 rounded-full">
+                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck"
+                                                    alt="用户头像" />
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-medium">王大卫</div>
+                                    </div>
+                                    <div class="text-xs text-base-content/60">
+                                        <i class="ri-time-line"></i>2小时前
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-between items-center mt-2">
+                                    <div class="badge badge-success badge-sm gap-1">
+                                        <i class="ri-check-circle-fill"></i>
+                                        已完成
+                                    </div>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                            <li><a class="text-error" onclick="showDeleteConfirm('女主角 - 林晓雪')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Character Card 2 -->
+                        <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                            <a href="asset-character-detail.html">
+                                <figure class="relative rounded-t-box overflow-hidden">
+                                    <img src="https://panqu.com/assets/img/project.webp" alt="生成中" class="w-full h-48 object-cover" />
+                                </figure>
+                            </a>
+                            <div class="card-body p-4">
+                                <h3 class="card-title text-base mb-2">男主角 - 陈浩然</h3>
+                                <div class="mb-2 flex gap-1 flex-wrap">
+                                    <span class="badge badge-outline badge-sm">group-20260320150816-rkz8r</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="avatar">
+                                            <div class="w-6 rounded-full">
+                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
+                                                    alt="用户头像" />
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-medium">李晓明</div>
+                                    </div>
+                                    <div class="text-xs text-base-content/60">
+                                        <i class="ri-time-line"></i>5小时前
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-between items-center mt-2">
+                                    <div class="badge badge-warning badge-sm gap-1">
+                                        <span class="loading loading-spinner loading-xs"></span>
+                                        审核中
+                                    </div>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                            <li><a class="text-error" onclick="showDeleteConfirm('男主角 - 陈浩然')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Character Card 3 -->
+                        <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                            <a href="asset-character-detail.html">
+                                <figure class="rounded-t-box overflow-hidden"><img src="https://picsum.photos/400/300?random=103" alt="角色缩略图"
+                                        class="w-full h-48 object-cover" /></figure>
+                            </a>
+                            <div class="card-body p-4">
+                                <h3 class="card-title text-base mb-2">配角 - 张经理</h3>
+                                <div class="mb-2 flex gap-1 flex-wrap">
+                                  
+                                    <span class="badge badge-outline badge-sm">group-20260320150816-rkz8r
+</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="avatar">
+                                            <div class="w-6 rounded-full">
+                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="用户头像" />
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-medium">张晓华</div>
+                                    </div>
+                                    <div class="text-xs text-base-content/60">
+                                        <i class="ri-time-line"></i>1天前
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-between items-center mt-2">
+                                    <div class="tooltip tooltip-error tooltip-top" data-tip="提示词不符合规范">
+                                        <div class="badge badge-error badge-sm gap-1">
+                                            <i class="ri-error-warning-fill"></i>
+                                            审核不通过
+                                        </div>
+                                    </div>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                            <li><a class="text-error" onclick="showDeleteConfirm('配角 - 张经理')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Character Card 4 -->
+                        <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                            <a href="asset-character-detail.html">
+                                <figure class="rounded-t-box overflow-hidden"><img src="https://picsum.photos/400/300?random=104" alt="角色缩略图"
+                                        class="w-full h-48 object-cover" /></figure>
+                            </a>
+                            <div class="card-body p-4">
+                                <h3 class="card-title text-base mb-2">反派 - 李总</h3>
+                                <div class="mb-2 flex gap-1 flex-wrap">
+                                 
+                                    <span class="badge badge-outline badge-sm">group-20260320150816-rkz8r</span>
+                                </div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="avatar">
+                                            <div class="w-6 rounded-full">
+                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carol"
+                                                    alt="用户头像" />
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-medium">刘建国</div>
+                                    </div>
+                                    <div class="text-xs text-base-content/60">
+                                        <i class="ri-time-line"></i>2天前
+                                    </div>
+                                </div>
+                                <div class="card-actions justify-between items-center mt-2">
+                                    <div class="badge badge-success badge-sm gap-1">
+                                        <i class="ri-check-circle-fill"></i>
+                                        已完成
+                                    </div>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                            <li><a class="text-error" onclick="showDeleteConfirm('反派 - 李总')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12 mb-8">
+                        <div class="join">
+                            <button class="join-item btn btn-sm font-bold">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </button>
+                            <button class="join-item btn btn-sm btn-active">1</button>
+                            <button class="join-item btn btn-sm">2</button>
+                            <button class="join-item btn btn-sm">3</button>
+                            <button class="join-item btn btn-sm">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- End Main Layout -->
+
+    <!-- Delete Confirmation Modal -->
+    <dialog id="delete_confirm_modal" class="modal">
+        <div class="modal-box max-w-2xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg">确认删除资产</h3>
+            <p class="py-4" id="deleteAssetName">资产名称</p>
+            <p class="text-sm text-base-content/60 mb-4">
+                <i class="ri-error-warning-line text-error mr-1"></i>
+                此操作不可撤销,删除后资产将无法恢复。
+            </p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-outline">取消</button>
+                </form>
+                <button class="btn btn-error" onclick="confirmDelete()">
+                    <i class="ri-delete-bin-line mr-1"></i>
+                    确认删除
+                </button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Add Character Modal -->
+    <dialog id="add_character_modal" class="modal">
+        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh] overflow-hidden">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto flex-1 no-scrollbar"
+                style="-ms-overflow-style: none; scrollbar-width: none;">
+                <style>
+                    .no-scrollbar::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* Points Tooltip */
+                    .points-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 10px);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #ff9900;
+                        color: white;
+                        padding: 2px 10px;
+                        border-radius: 20px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+                        animation: bounceIn 0.3s ease-out;
+                        z-index: 50;
+                    }
+
+                    .points-tooltip::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -4px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 5px solid #ff9900;
+                    }
+
+                    @keyframes bounceIn {
+                        0% {
+                            transform: translateY(5px) scale(0.9);
+                            opacity: 0;
+                        }
+
+                        50% {
+                            transform: translateY(-3px) scale(1.05);
+                            opacity: 1;
+                        }
+
+                        100% {
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+                </style>
+                <h3 class="font-bold text-lg mb-4">添加虚拟人像</h3>
+
+                <!-- Character Upload Sections -->
+                <div class="mb-6">
+                    <!-- 1. Character Front View -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">角色正视图（1张）</span>
+                            <span class="label-text-alt text-base-content/60 flex items-center gap-2">
+                                <span class="bg-primary/10 text-primary px-1 rounded">素材名&&标题&&描述</span>
+                                (描述可选)
+                            </span>
+                        </label>
+                        <div class="bg-base-200/50 rounded-lg p-4 border border-base-300">
+                            <input type="file" id="character_front_view_file" class="hidden" accept="image/jpeg,image/png" />
+                            <div id="character_front_view_drop_area"
+                                class="border-2 border-dashed border-base-300 rounded-lg py-10 text-center hover:border-primary transition-colors cursor-pointer bg-base-100">
+                                <i class="ri-user-smile-line text-4xl text-base-content/40 mb-2"></i>
+                                <p class="text-sm font-medium">点击或拖拽角色正视图</p>
+                                <p class="text-xs text-base-content/40 mt-1">支持 JPEG, PNG | 单张图片｜小于 30MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Other Images -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">角色相关图片（多张）</span>
+                            <!-- <span class="label-text-alt text-base-content/60">支持 jpg / 单次上传不超过 500 个图片</span> -->
+                        </label>
+                        <div class="bg-base-200/50 rounded-lg p-4 border border-base-300">
+                            <input type="file" id="character_others_file" class="hidden" accept="image/jpeg" multiple />
+                            <div id="character_others_drop_area"
+                                class="border-2 border-dashed border-base-300 rounded-lg py-10 text-center hover:border-primary transition-colors cursor-pointer bg-base-100">
+                                <i class="ri-folders-line text-4xl text-base-content/40 mb-2"></i>
+                                <p class="text-sm font-medium">点击或拖拽批量角色照片</p>
+                                <p class="text-xs text-base-content/40 mt-1">支持 JPG | 最多 500 张</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fixed Footer Actions -->
+            <div class="p-4 px-6 border-t border-base-200 bg-base-100 rounded-b-box">
+                <form method="dialog" class="flex justify-end gap-2">
+                    <button class="btn btn-ghost">取消</button>
+                    <div class="relative">
+                        <!-- Points Bubble -->
+                        <!-- <div id="character_points_tooltip" class="points-tooltip">
+                            <i class="ri-coin-fill text-[10px]"></i>
+                            50 积分
+                        </div> -->
+                        <button class="btn btn-primary gap-2">
+                            <i class="ri-magic-line text-lg"></i>
+                            提交
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Page-specific JavaScript -->
+    <script>
+        // ========================================
+        // Theme Toggle Functionality
+        // ========================================
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        if (themeToggle) {
+            themeToggle.checked = savedTheme === 'dark';
+        }
+
+        // Toggle theme
+        if (themeToggle) {
+            themeToggle.addEventListener('change', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+
+        // ========================================
+        // Asset Management Functionality
+        // ========================================
+
+        // Delete confirmation functionality
+        let assetToDelete = null;
+
+        function showDeleteConfirm(assetName) {
+            assetToDelete = assetName;
+            document.getElementById('deleteAssetName').textContent = assetName;
+            document.getElementById('delete_confirm_modal').showModal();
+        }
+
+        function confirmDelete() {
+            if (assetToDelete) {
+                console.log('Deleting asset:', assetToDelete);
+                document.getElementById('delete_confirm_modal').close();
+
+                // Show toast notification
+                showToast('资产已删除', 'success');
+                assetToDelete = null;
+            }
+        }
+
+        // Toast notification helper
+        function showToast(message, type = 'info', duration = 3000) {
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-top toast-center z-[100]';
+
+            let alertClass = 'alert-info';
+            let icon = 'ri-information-line';
+
+            if (type === 'success') {
+                alertClass = 'alert-success';
+                icon = 'ri-check-circle-line';
+            } else if (type === 'error') {
+                alertClass = 'alert-error';
+                icon = 'ri-error-warning-line';
+            } else if (type === 'warning') {
+                alertClass = 'alert-warning';
+                icon = 'ri-alert-line';
+            }
+
+            const loadingSpinner = type === 'info' && duration === 0 ? '<span class="loading loading-spinner loading-sm"></span>' : '';
+
+            toast.innerHTML = `
+                <div class="alert ${alertClass} shadow-lg">
+                    ${loadingSpinner || `<i class="${icon} text-lg"></i>`}
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+
+            if (duration > 0) {
+                setTimeout(() => toast.remove(), duration);
+            }
+        }
+
+        // ========================================
+        // Character Modal Functionality (from project-character.html)
+        // ========================================
+        // ========================================
+        // Character Modal Functionality (Simplified)
+        // ========================================
+        const characterFrontViewFile = document.getElementById('character_front_view_file');
+        const characterOthersFile = document.getElementById('character_others_file');
+        const characterFrontViewDropArea = document.getElementById('character_front_view_drop_area');
+        const characterOthersDropArea = document.getElementById('character_others_drop_area');
+
+        function setupDragAndDrop(dropArea, fileInput) {
+            if (!dropArea || !fileInput) return;
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.add('border-primary', 'bg-primary/5');
+                }, false);
+            });
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => {
+                    dropArea.classList.remove('border-primary', 'bg-primary/5');
+                }, false);
+            });
+            dropArea.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    console.log(`Uploaded ${files.length} files to ${fileInput.id}`);
+                }
+            }, false);
+            dropArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // Handle file selection via input
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    console.log(`Selected ${fileInput.files.length} files for ${fileInput.id}`);
+                }
+            });
+        }
+
+        setupDragAndDrop(characterFrontViewDropArea, characterFrontViewFile);
+        setupDragAndDrop(characterOthersDropArea, characterOthersFile);
+
+        const characterPointsTooltip = document.getElementById('character_points_tooltip');
+        if (characterPointsTooltip) {
+            characterPointsTooltip.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
