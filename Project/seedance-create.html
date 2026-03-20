@@ -199,7 +199,7 @@
             position: relative;
             background: var(--fallback-b1, oklch(var(--b1)));
             overflow: visible;
-            height: 100px;
+            height: 120px;
         }
 
         .image-upload-item:hover {
@@ -212,13 +212,13 @@
             flex-direction: row;
             justify-content: flex-start;
             padding: 12px;
-            height: 100px;
+            height: 120px;
             min-height: unset;
         }
 
         .image-upload-item .image-preview {
             width: 76px;
-            height: 76px;
+            height: 96px;
             border-radius: 6px;
             overflow: hidden;
             flex-shrink: 0;
@@ -339,7 +339,7 @@
             position: relative;
             background: var(--fallback-b1, oklch(var(--b1)));
             overflow: visible;
-            height: 100px;
+            height: 120px;
         }
 
         .video-upload-item:hover {
@@ -352,13 +352,13 @@
             flex-direction: row;
             justify-content: flex-start;
             padding: 12px;
-            height: 100px;
+            height: 120px;
             min-height: unset;
         }
 
         .video-upload-item .video-preview {
             width: 76px;
-            height: 76px;
+            height: 96px;
             border-radius: 6px;
             overflow: hidden;
             flex-shrink: 0;
@@ -468,7 +468,7 @@
             position: relative;
             background: var(--fallback-b1, oklch(var(--b1)));
             overflow: visible;
-            height: 100px;
+            height: 120px;
         }
 
         .audio-upload-item:hover {
@@ -481,13 +481,13 @@
             flex-direction: row;
             justify-content: flex-start;
             padding: 12px;
-            height: 100px;
+            height: 120px;
             min-height: unset;
         }
 
         .audio-upload-item .audio-preview {
             width: 76px;
-            height: 76px;
+            height: 96px;
             border-radius: 6px;
             overflow: hidden;
             flex-shrink: 0;
@@ -1198,21 +1198,40 @@
             </form>
             <h3 class="font-bold text-lg mb-4">从项目中选择图片</h3>
 
-            <!-- Tabs for different sources -->
-            <div role="tablist" class="tabs tabs-boxed mb-4">
-                <a role="tab" class="tab tab-active" data-source="recent">最近上传</a>
-                <a role="tab" class="tab" data-source="character">角色</a>
-                <a role="tab" class="tab" data-source="scene">场景</a>
-                <a role="tab" class="tab" data-source="goods">物品</a>
-                <a role="tab" class="tab" data-source="fusion">融合生图</a>
+            <!-- Fixed Height Header Area to prevent modal height changes -->
+            <div class="relative h-10 mb-4">
+                <!-- Tabs for different sources -->
+                <div id="project_modal_tabs_container" class="absolute inset-0 flex items-center overflow-hidden">
+                    <div role="tablist" class="tabs tabs-boxed w-full">
+                        <a role="tab" class="tab tab-active" data-source="recent">最近上传</a>
+                        <a role="tab" class="tab" data-source="character">角色</a>
+                        <a role="tab" class="tab" data-source="scene">场景</a>
+                        <a role="tab" class="tab" data-source="goods">物品</a>
+                        <a role="tab" class="tab" data-source="fusion">融合生图</a>
+                        <a role="tab" class="tab" data-source="avatar_library">虚拟人像</a>
+                    </div>
+                </div>
+
+                <!-- Avatar Library Breadcrumb/Navigation -->
+                <div id="avatar_detail_header" class="absolute inset-0 flex items-center gap-2 bg-base-100" style="display: none;">
+                    <button type="button" class="btn btn-sm btn-ghost btn-circle hover:bg-base-200" onclick="exitAvatarDetail()">
+                        <i class="ri-arrow-left-line text-xl"></i>
+                    </button>
+                    <div class="breadcrumbs text-sm p-0">
+                        <ul>
+                            <li><a class="opacity-60 hover:opacity-100 hover:no-underline" onclick="exitAvatarDetail()">虚拟人像库</a></li>
+                            <li class="font-bold" id="avatar_detail_title">虚拟人像名称</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Image Grid -->
-            <div class="grid grid-cols-4 gap-4 max-h-96 overflow-y-auto p-2" id="project_image_grid">
+            <div class="grid grid-cols-4 gap-4 h-[440px] overflow-y-auto p-2" id="project_image_grid">
                 <!-- Character Images -->
                 <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=101" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=101" alt="角色图片" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1223,7 +1242,7 @@
                 </div>
                 <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="2" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=111" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=111" alt="角色图片" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1234,7 +1253,7 @@
                 </div>
                 <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-02" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=102" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=102" alt="角色图片" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1247,7 +1266,7 @@
                 <!-- Scene Images -->
                 <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-01" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=201" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=201" alt="场景图片" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1258,7 +1277,7 @@
                 </div>
                 <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-02" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=202" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=202" alt="场景图片" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1271,7 +1290,7 @@
                 <!-- Goods Images -->
                 <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-01" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=301" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=301" alt="物品图片" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1282,7 +1301,7 @@
                 </div>
                 <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-02" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=302" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=302" alt="物品图片" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1295,7 +1314,7 @@
                 <!-- Fusion Images -->
                 <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=401" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=401" alt="融合生图" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1306,7 +1325,7 @@
                 </div>
                 <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-02" data-version="1" style="display: none;">
                     <div class="relative group">
-                        <img src="https://picsum.photos/200/200?random=402" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <img src="https://picsum.photos/200/200?random=402" alt="融合生图" class="w-full h-48 object-cover rounded-lg">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1314,6 +1333,105 @@
                     </div>
                     <p class="text-xs text-center mt-1 truncate font-medium">融合图02</p>
                     <p class="text-xs text-center text-base-content/60">2024-02-15 09:18</p>
+                </div>
+
+                <!-- Avatar Library Level 1 (Folders) -->
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-item-id="avatar-104" data-is-folder="true" data-name="虚拟人像104-苏珊" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/300?random=104" alt="虚拟人像104-苏珊" class="w-full h-48 object-cover rounded-lg">
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像104-苏珊</p>
+                    <p class="text-xs text-center text-base-content/60">group-20260320065221-5vx62</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-item-id="avatar-103" data-is-folder="true" data-name="虚拟人像103-亲戚2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/300?random=103" alt="虚拟人像103-亲戚2" class="w-full h-48 object-cover rounded-lg">
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像103-亲戚2</p>
+                    <p class="text-xs text-center text-base-content/60">group-20260320065221-5vx63</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-item-id="avatar-100" data-is-folder="true" data-name="虚拟人像100-女佣3" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/300?random=100" alt="虚拟人像100-女佣3" class="w-full h-48 object-cover rounded-lg">
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像100-女佣3</p>
+                    <p class="text-xs text-center text-base-content/60">group-20260320065221-5vx64</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-item-id="avatar-101" data-is-folder="true" data-name="虚拟人像101-女佣4" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/300?random=101" alt="虚拟人像101-女佣4" class="w-full h-48 object-cover rounded-lg">
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像101-女佣4</p>
+                    <p class="text-xs text-center text-base-content/60">group-20260320065221-5vx65</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-item-id="avatar-102" data-is-folder="true" data-name="虚拟人像102-亲戚1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/300?random=102" alt="虚拟人像102-亲戚1" class="w-full h-48 object-cover rounded-lg">
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像102-亲戚1</p>
+                    <p class="text-xs text-center text-base-content/60">group-20260320065221-5vx66</p>
+                </div>
+
+                <!-- Avatar Library Level 2 (for avatar-100) -->
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-parent-id="avatar-100" data-item-id="asset-女佣3-01" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/400?random=2001" alt="女佣3-1" class="w-full h-64 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像100-女佣3</p>
+                    <p class="text-xs text-center text-base-content/60">asset-20260320065232-9hfq1</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-parent-id="avatar-100" data-item-id="asset-女佣3-02" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/400?random=2002" alt="女佣3-2" class="w-full h-64 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像100-女佣3</p>
+                    <p class="text-xs text-center text-base-content/60">asset-20260320065232-9hfq2</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-parent-id="avatar-100" data-item-id="asset-女佣3-03" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/400?random=2003" alt="女佣3-3" class="w-full h-64 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像100-女佣3</p>
+                    <p class="text-xs text-center text-base-content/60">asset-20260320065232-9hfq3</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-parent-id="avatar-100" data-item-id="asset-女佣3-04" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/400?random=2004" alt="女佣3-4" class="w-full h-64 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像100-女佣3</p>
+                    <p class="text-xs text-center text-base-content/60">asset-20260320065232-9hfq4</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-parent-id="avatar-100" data-item-id="asset-女佣3-05" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/400?random=2005" alt="女佣3-5" class="w-full h-64 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像100-女佣3</p>
+                    <p class="text-xs text-center text-base-content/60">asset-20260320065232-9hfq5</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="avatar_library" data-parent-id="avatar-100" data-item-id="asset-女佣3-06" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/400?random=2006" alt="女佣3-6" class="w-full h-64 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">虚拟人像100-女佣3</p>
+                    <p class="text-xs text-center text-base-content/60">asset-20260320065232-9hfq6</p>
                 </div>
 
                 <!-- Recent Uploads (dynamically rendered) -->
@@ -1343,11 +1461,11 @@
             <h3 class="font-bold text-lg mb-4">从现有视频中选择</h3>
 
             <!-- Video Grid -->
-            <div class="grid grid-cols-3 gap-4 max-h-96 overflow-y-auto p-2" id="project_video_grid">
+            <div class="grid grid-cols-3 gap-4 h-[440px] overflow-y-auto p-2" id="project_video_grid">
                 <!-- Sample Video Items -->
                 <div class="project-video-item cursor-pointer" data-item-id="video-01">
                     <div class="relative group">
-                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" class="w-full h-32 object-cover rounded-lg"></video>
+                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" class="w-full h-48 object-cover rounded-lg"></video>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1358,7 +1476,7 @@
                 </div>
                 <div class="project-video-item cursor-pointer" data-item-id="video-02">
                     <div class="relative group">
-                        <video src="https://www.w3schools.com/html/movie.mp4" class="w-full h-32 object-cover rounded-lg"></video>
+                        <video src="https://www.w3schools.com/html/movie.mp4" class="w-full h-48 object-cover rounded-lg"></video>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1369,7 +1487,7 @@
                 </div>
                 <div class="project-video-item cursor-pointer" data-item-id="video-03">
                     <div class="relative group">
-                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" class="w-full h-32 object-cover rounded-lg"></video>
+                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" class="w-full h-48 object-cover rounded-lg"></video>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                             <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                         </div>
@@ -1398,11 +1516,11 @@
             <h3 class="font-bold text-lg mb-4">从已有语音中选择</h3>
 
             <!-- Audio Grid -->
-            <div class="grid grid-cols-3 gap-4 max-h-96 overflow-y-auto p-2" id="project_audio_grid">
+            <div class="grid grid-cols-3 gap-4 h-[440px] overflow-y-auto p-2" id="project_audio_grid">
                 <!-- Sample Audio Items -->
                 <div class="project-audio-item cursor-pointer" data-item-id="audio-01">
                     <div class="relative group">
-                        <div class="w-full h-32 bg-base-200 rounded-lg flex items-center justify-center">
+                        <div class="w-full h-48 bg-base-200 rounded-lg flex items-center justify-center">
                             <i class="ri-music-2-line text-5xl text-accent"></i>
                         </div>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -1415,7 +1533,7 @@
                 </div>
                 <div class="project-audio-item cursor-pointer" data-item-id="audio-02">
                     <div class="relative group">
-                        <div class="w-full h-32 bg-base-200 rounded-lg flex items-center justify-center">
+                        <div class="w-full h-48 bg-base-200 rounded-lg flex items-center justify-center">
                             <i class="ri-music-2-line text-5xl text-accent"></i>
                         </div>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -1428,7 +1546,7 @@
                 </div>
                 <div class="project-audio-item cursor-pointer" data-item-id="audio-03">
                     <div class="relative group">
-                        <div class="w-full h-32 bg-base-200 rounded-lg flex items-center justify-center">
+                        <div class="w-full h-48 bg-base-200 rounded-lg flex items-center justify-center">
                             <i class="ri-music-2-line text-5xl text-accent"></i>
                         </div>
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -1673,7 +1791,9 @@
         const selectProjectImageModal = document.getElementById('select_project_image_modal');
         const projectImageGrid = document.getElementById('project_image_grid');
         const confirmSelectBtn = document.getElementById('confirm_select_btn');
-        const modalTabs = document.querySelectorAll('.tabs .tab');
+        const modalTabs = selectProjectImageModal.querySelectorAll('.tab');
+        const projectTabsContainer = document.getElementById('project_modal_tabs_container');
+        const avatarDetailHeader = document.getElementById('avatar_detail_header');
         let selectedProjectImages = [];
 
         const videoList = document.getElementById('video_list');
@@ -1693,6 +1813,10 @@
         const projectAudioGrid = document.getElementById('project_audio_grid');
         const confirmSelectAudioBtn = document.getElementById('confirm_select_audio_btn');
         let selectedProjectAudios = [];
+
+        // Avatar Library state
+        let isAvatarDetailView = false;
+        let currentAvatarId = null;
 
         // Initialize image list
         function initImageList() {
@@ -1846,6 +1970,7 @@
         // Project image selection modal
         selectFromProjectBtn.onclick = () => {
             selectProjectImageModal.showModal();
+            exitAvatarDetail(); // Reset to list view
             // Reset to "最近上传" tab each time modal opens
             modalTabs.forEach(t => t.classList.remove('tab-active'));
             const recentTab = [...modalTabs].find(t => t.dataset.source === 'recent');
@@ -1859,15 +1984,41 @@
                 modalTabs.forEach(t => t.classList.remove('tab-active'));
                 tab.classList.add('tab-active');
                 const source = tab.dataset.source;
+                
+                if (source !== 'avatar_library') {
+                    exitAvatarDetail();
+                } else {
+                    isAvatarDetailView = false; // Reset level when clicking tab
+                    if (avatarDetailHeader) avatarDetailHeader.style.display = 'none';
+                    if (projectTabsContainer) projectTabsContainer.style.display = 'flex';
+                }
+                
                 filterProjectImages(source);
             };
         });
 
         function filterProjectImages(source) {
             const items = projectImageGrid.querySelectorAll('.project-image-item');
-            items.forEach(item => {
-                item.style.display = item.dataset.source === source ? 'block' : 'none';
-            });
+            
+            if (source === 'avatar_library') {
+                items.forEach(item => {
+                    if (item.dataset.source === 'avatar_library') {
+                        if (isAvatarDetailView) {
+                            // Show images belonging to current avatar
+                            item.style.display = (item.dataset.parentId === currentAvatarId) ? 'block' : 'none';
+                        } else {
+                            // Show only folders
+                            item.style.display = (item.dataset.isFolder === 'true') ? 'block' : 'none';
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            } else {
+                items.forEach(item => {
+                    item.style.display = item.dataset.source === source ? 'block' : 'none';
+                });
+            }
 
             const recentContainer = document.getElementById('recent_uploads_container');
             const recentEmpty = document.getElementById('recent_uploads_empty');
@@ -1897,7 +2048,7 @@
                         el.dataset.recentIndex = realIndex;
                         el.innerHTML = `
                             <div class="relative group">
-                                <img src="${src}" alt="${name}" class="w-full h-32 object-cover rounded-lg">
+                                <img src="${src}" alt="${name}" class="w-full h-48 object-cover rounded-lg">
                                 <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                                     <i class="ri-checkbox-circle-line text-white text-3xl"></i>
                                 </div>
@@ -1920,6 +2071,12 @@
         projectImageGrid.onclick = (e) => {
             const item = e.target.closest('.project-image-item');
             if (item) {
+                // Special handling for Avatar Library folders
+                if (item.dataset.source === 'avatar_library' && item.dataset.isFolder === 'true') {
+                    enterAvatarDetail(item.dataset.itemId, item.dataset.name);
+                    return;
+                }
+
                 const img = item.querySelector('img');
                 const imgSrc = img.src;
                 const itemId = item.dataset.itemId;
@@ -1976,6 +2133,36 @@
                 updateSelectionCount();
             }
         };
+
+        function enterAvatarDetail(id, name) {
+            isAvatarDetailView = true;
+            currentAvatarId = id;
+            
+            // UI transitions
+            if (projectTabsContainer) projectTabsContainer.style.display = 'none';
+            if (avatarDetailHeader) {
+                avatarDetailHeader.style.display = 'flex';
+                const titleEl = avatarDetailHeader.querySelector('#avatar_detail_title');
+                if (titleEl) titleEl.textContent = name;
+            }
+            
+            filterProjectImages('avatar_library');
+        }
+
+        function exitAvatarDetail() {
+            isAvatarDetailView = false;
+            currentAvatarId = null;
+            
+            // UI transitions
+            if (projectTabsContainer) projectTabsContainer.style.display = 'flex';
+            if (avatarDetailHeader) avatarDetailHeader.style.display = 'none';
+            
+            // Find active tab and re-filter
+            const activeTab = selectProjectImageModal.querySelector('.tab.tab-active');
+            if (activeTab) {
+                filterProjectImages(activeTab.dataset.source);
+            }
+        }
 
         function updateSelectionCount() {
             const count = selectedProjectImages.length;
