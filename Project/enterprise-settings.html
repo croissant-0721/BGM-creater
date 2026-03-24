@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业设置 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .settings-card {
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--fallback-b3, oklch(var(--b3)));
+        }
+
+        .settings-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            letter-spacing: -0.025em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .table-container {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--fallback-b2, oklch(var(--b2)));
+        }
+
+        .stat-card {
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 1.25rem;
+            padding: 2rem;
+            border: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, var(--fallback-b1, oklch(var(--b1))) 0%, var(--fallback-b2, oklch(var(--b2))) 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-base-200 min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow-sm h-16 border-b border-base-200">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="index.html"><i class="ri-dashboard-line text-lg"></i><span>总览</span></a></li>
+                    <li><a href="Projects.html"><i class="ri-folder-3-line text-lg"></i><span>项目</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line text-lg"></i><span>账单</span></a></li>
+                    <li><a href="enterprise-settings.html" class="active"><i class="ri-building-line text-lg text-primary"></i><span>企业</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-3">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-warning/10 rounded-full border border-warning/20">
+                <i class="ri-coin-fill text-warning text-lg"></i>
+                <span class="text-sm font-bold text-warning-content">8,888 积分</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-9 ring ring-primary ring-offset-base-100 ring-offset-1">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-xl bg-base-100 rounded-2xl w-60 border border-base-200">
+                    <li class="menu-title flex flex-col items-start gap-1 pb-3 border-b border-base-100 mb-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base-content font-bold text-base">王大卫</span>
+                            <div class="flex gap-1">
+                                <span class="badge badge-primary badge-xs py-2 px-1.5 h-auto text-[10px]">企业版</span>
+                                <span class="badge badge-outline badge-xs py-2 px-1.5 h-auto text-[10px] font-medium">主账号</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-base-content/50 font-medium flex items-center gap-1">
+                            <i class="ri-building-line text-xs"></i>
+                            杭州盼趣网络科技有限公司
+                        </span>
+                    </li>
+                    <li><a href="settings.html"><i class="ri-user-settings-line"></i>个人设置</a></li>
+                    <li><a href="enterprise-settings.html" class="active"><i class="ri-building-line"></i>企业</a></li>
+                    <li><a><i class="ri-pie-chart-line"></i>使用统计</a></li>
+                    <div class="divider my-0 opacity-50"></div>
+                    <li><a class="text-error"><i class="ri-logout-box-r-line"></i>退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-10 max-w-6xl">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-8">
+            <div>
+                <h1 class="text-4xl font-extrabold mb-3 tracking-tight">企业设置</h1>
+                <p class="text-base-content/60 text-lg">管理子账号成员及其积分资源分配</p>
+            </div>
+            <div class="flex items-center gap-8 bg-base-100 p-4 rounded-2xl shadow-sm border border-base-200">
+                <div class="flex flex-col gap-0.5">
+                    <span class="text-[10px] text-base-content/40 font-black uppercase tracking-widest">企业可分配余额</span>
+                    <div class="flex items-center gap-2">
+                        <i class="ri-coin-fill text-warning text-2xl"></i>
+                        <span class="text-3xl font-black tracking-tight text-warning">385,400</span>
+                        <span class="text-xs font-bold text-base-content/30 ml-0.5">积分</span>
+                    </div>
+                </div>
+                <div class="w-px h-10 bg-base-200"></div>
+                <button class="btn btn-primary btn-lg rounded-xl shadow-lg shadow-primary/20 gap-2 h-14 px-8" onclick="add_sub_account_modal.showModal()">
+                    <i class="ri-user-add-line text-lg"></i>
+                    新增子账号
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-10">
+            <!-- Content Area -->
+            <div class="lg:col-span-12">
+
+
+                <!-- Sub-accounts Section -->
+                <div class="settings-card">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                        <h2 class="settings-title mb-0"><i class="ri-group-line text-primary"></i>子账号管理</h2>
+                        <div class="join join-horizontal">
+                            <input class="input input-bordered input-sm join-item focus:outline-none" placeholder="搜索成员..." />
+                            <button class="btn btn-sm btn-primary join-item"><i class="ri-search-line"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table w-full">
+                            <thead>
+                                <tr class="bg-base-200/50">
+                                    <th class="font-bold">成员</th>
+                                    <th class="font-bold">账号</th>
+                                    <th class="font-bold text-center">当前积分额度</th>
+                                    <th class="font-bold text-center">状态</th>
+                                    <th class="font-bold text-right">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-base-200/30 transition-colors">
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div class="avatar">
+                                                <div class="mask mask-squircle w-10 h-10">
+                                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="font-bold">李雨轩</div>
+                                                <div class="text-xs opacity-50">138 1234 5678</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="font-mono text-sm">li.yuxuan</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="font-mono font-bold">5,000</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="badge badge-success badge-sm h-7 font-bold gap-1.5 px-3 border-none bg-success/10 text-success">
+                                            <div class="w-1.5 h-1.5 rounded-full bg-success"></div>活跃
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="join">
+                                            <button class="btn btn-ghost btn-sm text-warning hover:bg-warning/10 gap-1.5" onclick="allocate_points_modal.showModal()">
+                                                <i class="ri-coin-line text-lg"></i>
+                                                <span class="font-bold">分配积分</span>
+                                            </button>
+                                            <div class="dropdown dropdown-end">
+                                                <label tabindex="0" class="btn btn-ghost btn-sm"><i class="ri-more-2-fill"></i></label>
+                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-32 border border-base-200">
+                                                    <li><a class="text-warning" onclick="reset_password_modal.showModal()">重置密码</a></li>
+                                                    <li><a class="text-error" onclick="freeze_account_modal.showModal()">冻结账号</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-base-200/30 transition-colors">
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div class="avatar">
+                                                <div class="mask mask-squircle w-10 h-10">
+                                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Avatar" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="font-bold">张晓萌</div>
+                                                <div class="text-xs opacity-50">139 5678 1234</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="font-mono text-sm">zhang.xm</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="font-mono font-bold">2,400</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="badge badge-success badge-sm h-7 font-bold gap-1.5 px-3 border-none bg-success/10 text-success">
+                                            <div class="w-1.5 h-1.5 rounded-full bg-success"></div>活跃
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="join">
+                                            <button class="btn btn-ghost btn-sm text-warning hover:bg-warning/10 gap-1.5" onclick="allocate_points_modal.showModal()">
+                                                <i class="ri-coin-line text-lg"></i>
+                                                <span class="font-bold">分配积分</span>
+                                            </button>
+                                            <div class="dropdown dropdown-end">
+                                                <label tabindex="0" class="btn btn-ghost btn-sm"><i class="ri-more-2-fill"></i></label>
+                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-32 border border-base-200">
+                                                    <li><a class="text-warning" onclick="reset_password_modal.showModal()">重置密码</a></li>
+                                                    <li><a class="text-error" onclick="freeze_account_modal.showModal()">冻结账号</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-base-200/30 transition-colors">
+                                    <td>
+                                        <div class="flex items-center gap-3">
+                                            <div class="avatar">
+                                                <div class="mask mask-squircle w-10 h-10">
+                                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mike" alt="Avatar" />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="font-bold">周子豪</div>
+                                                <div class="text-xs opacity-50">136 0000 8888</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="font-mono text-sm">zhou.zh</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="font-mono font-bold">8,000</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="badge badge-error badge-sm h-7 font-bold gap-1.5 px-3 border-none bg-error/10 text-error">
+                                            <div class="w-1.5 h-1.5 rounded-full bg-error"></div>冻结
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="join">
+                                            <button class="btn btn-ghost btn-sm text-warning hover:bg-warning/10 gap-1.5" onclick="allocate_points_modal.showModal()">
+                                                <i class="ri-coin-line text-lg"></i>
+                                                <span class="font-bold">分配积分</span>
+                                            </button>
+                                            <div class="dropdown dropdown-end">
+                                                <label tabindex="0" class="btn btn-ghost btn-sm"><i class="ri-more-2-fill"></i></label>
+                                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-32 border border-base-200">
+                                                    <li><a class="text-warning" onclick="reset_password_modal.showModal()">重置密码</a></li>
+                                                    <li><a class="text-error" onclick="freeze_account_modal.showModal()">冻结账号</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
+                        <div class="text-xs font-bold text-base-content/40 uppercase tracking-widest">
+                            显示 1 - 3 / 共 126 个成员
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="join shadow-sm border border-base-200 overflow-hidden">
+                                <button class="btn btn-sm btn-ghost join-item px-2"><i class="ri-arrow-left-s-line"></i></button>
+                                <button class="btn btn-sm btn-ghost join-item px-3 bg-primary text-primary-content border-primary hover:bg-primary/90">1</button>
+                                <button class="btn btn-sm btn-ghost join-item px-3">2</button>
+                                <button class="btn btn-sm btn-ghost join-item px-3">3</button>
+                                <button class="btn btn-sm btn-ghost join-item px-3 cursor-default opacity-50 no-animation">...</button>
+                                <button class="btn btn-sm btn-ghost join-item px-3">12</button>
+                                <button class="btn btn-sm btn-ghost join-item px-2"><i class="ri-arrow-right-s-line"></i></button>
+                            </div>
+                            <div class="flex items-center gap-2 ml-4">
+                                <span class="text-[10px] text-base-content/40 font-black uppercase tracking-widest">跳转至</span>
+                                <input type="number" value="1" class="input input-bordered input-sm w-16 text-center focus:outline-none focus:border-primary font-bold" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Sub-Account Modal -->
+    <dialog id="add_sub_account_modal" class="modal">
+        <div class="modal-box max-w-md rounded-2xl p-8">
+            <h3 class="font-black text-2xl mb-6">新增子账号</h3>
+            <form method="dialog" class="space-y-4">
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-bold">手机号</span></label>
+                    <input type="tel" placeholder="输入手机号" class="input input-bordered w-full" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-bold">账号</span></label>
+                    <input type="text" placeholder="输入子账号" class="input input-bordered w-full" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-bold">密码</span></label>
+                    <input type="password" placeholder="设置登录密码" class="input input-bordered w-full" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-bold">姓名</span></label>
+                    <input type="text" placeholder="输入成员姓名" class="input input-bordered w-full" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-bold">积分</span></label>
+                    <div class="join w-full">
+                        <input type="number" placeholder="输入初始分配积分" class="input input-bordered w-full join-item" />
+                        <span class="btn join-item no-animation">积分</span>
+                    </div>
+                </div>
+                <div class="modal-action mt-8">
+                    <button type="button" class="btn btn-ghost rounded-xl" onclick="add_sub_account_modal.close()">取消</button>
+                    <button type="submit" class="btn btn-primary rounded-xl px-8 shadow-lg shadow-primary/30">立即创建</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Allocate Points Modal -->
+    <dialog id="allocate_points_modal" class="modal">
+        <div class="modal-box max-w-md rounded-2xl p-8">
+            <h3 class="font-black text-2xl mb-2">积分分配</h3>
+            <p class="text-base-content/60 mb-8 border-b border-base-200 pb-4">为 <span class="text-base-content font-bold">李雨轩</span> 调整可用积分额度</p>
+            
+            <div class="flex items-center justify-between mb-8 p-4 bg-base-200/50 rounded-xl">
+                <div class="text-sm font-medium">企业总余额</div>
+                <div class="flex items-center gap-2">
+                    <i class="ri-coin-fill text-warning"></i>
+                    <span class="font-black text-xl">8,888</span>
+                </div>
+            </div>
+
+            <form method="dialog" class="space-y-6">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold">操作类型</span>
+                    </label>
+                    <div class="flex gap-4">
+                        <label class="label cursor-pointer justify-start gap-3 flex-1 px-4 border border-base-300 rounded-xl py-3 has-[:checked]:bg-primary/5 has-[:checked]:border-primary transition-all">
+                            <input type="radio" name="op-type" class="radio radio-primary radio-sm" checked />
+                            <span class="label-text font-bold text-sm">增加积分</span>
+                        </label>
+                        <label class="label cursor-pointer justify-start gap-3 flex-1 px-4 border border-base-300 rounded-xl py-3 has-[:checked]:bg-primary/5 has-[:checked]:border-primary transition-all">
+                            <input type="radio" name="op-type" class="radio radio-primary radio-sm" />
+                            <span class="label-text font-bold text-sm">减少积分</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <label class="label text-sm font-bold">
+                        <span class="label-text font-bold">积分数量</span>
+                    </label>
+                    <input type="number" placeholder="输入积分数量" class="input input-bordered input-lg w-full text-center font-black" />
+                    <label class="label">
+                        <span class="label-text-alt text-base-content/50">分配后分账户余额将自动更新</span>
+                    </label>
+                </div>
+                <div class="modal-action mt-8">
+                    <button class="btn btn-ghost rounded-xl">取消</button>
+                    <button class="btn btn-primary rounded-xl px-8 shadow-lg shadow-primary/30">确认修改</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    <!-- Reset Password Modal -->
+    <dialog id="reset_password_modal" class="modal">
+        <div class="modal-box max-w-md rounded-2xl p-8">
+            <h3 class="font-black text-2xl mb-2">重置密码</h3>
+            <p class="text-base-content/60 mb-8 border-b border-base-200 pb-4">为 <span class="text-base-content font-bold">子账号用户</span> 设置新密码</p>
+            
+            <form method="dialog" class="space-y-6">
+                <div class="form-control">
+                    <label class="label font-bold">新密码</label>
+                    <input type="password" placeholder="输入新密码" class="input input-bordered w-full" />
+                </div>
+                <div class="form-control">
+                    <label class="label font-bold">确认新密码</label>
+                    <input type="password" placeholder="再次输入新密码" class="input input-bordered w-full" />
+                </div>
+                <div class="modal-action mt-8">
+                    <button class="btn btn-ghost rounded-xl">取消</button>
+                    <button class="btn btn-warning rounded-xl px-8 shadow-lg shadow-warning/30">确认重置</button>
+                </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Freeze Account Modal -->
+    <dialog id="freeze_account_modal" class="modal">
+        <div class="modal-box max-w-sm rounded-2xl p-8 text-center">
+            <div class="w-20 h-20 bg-error/10 text-error rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="ri-error-warning-line text-4xl"></i>
+            </div>
+            <h3 class="font-black text-2xl mb-2">账号冻结</h3>
+            <p class="text-base-content/60 mb-8">账号冻结后，该用户将无法进行任何操作，是否确认冻结该账号？</p>
+            
+            <div class="flex gap-4">
+                <button class="btn btn-ghost flex-1 rounded-xl" onclick="freeze_account_modal.close()">返回</button>
+                <button class="btn btn-error flex-1 rounded-xl shadow-lg shadow-error/30" onclick="freeze_account_modal.close()">确 认 冻 结</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <script>
+        // Theme toggle logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Initial state
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        themeToggle.checked = currentTheme === 'dark';
+
+        themeToggle.addEventListener('change', () => {
+            const theme = themeToggle.checked ? 'dark' : 'light';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
+
+</html>

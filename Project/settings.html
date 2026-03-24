@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>系统管理 | 盼趣AI</title>
+    <title>个人设置 | 盼趣AI</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@
                     <li><a href="Projects.html"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
                     <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a>
                     </li>
-                    <li><a href="settings.html" class="active"><i class="ri-settings-3-line"></i><span>系统管理</span></a>
+                    <li><a href="enterprise-settings.html"><i class="ri-building-line"></i><span>企业设置</span></a>
                     </li>
                 </ul>
             </div>
@@ -121,8 +121,21 @@
                 </div>
                 <ul tabindex="0"
                     class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
-                    <li class="menu-title text-base-content/70">王大卫</li>
-                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li class="menu-title flex flex-col items-start gap-1.5 pb-2 border-b border-base-200 mb-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base-content/90 font-bold">王大卫</span>
+                            <div class="flex gap-1">
+                                <span class="badge badge-primary badge-xs py-2">企业版</span>
+                                <span class="badge badge-outline badge-xs py-2 font-normal opacity-70">主账号</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-base-content/50 font-normal flex items-center gap-1">
+                            <i class="ri-building-line text-xs font-normal"></i>
+                            杭州盼趣网络科技有限公司
+                        </span>
+                    </li>
+                        <li><a href="settings.html" class="active">个人设置</a></li>
+                        <li><a href="enterprise-settings.html">企业设置</a></li>
                     <li><a>使用统计</a></li>
                     <div class="divider my-0"></div>
                     <li><a class="text-error">退出登录</a></li>
@@ -134,8 +147,8 @@
     <!-- Main Content -->
     <div class="container mx-auto px-6 py-8 max-w-5xl">
         <div class="mb-8">
-            <h1 class="text-3xl font-bold mb-2">系统管理</h1>
-            <p class="text-base-content/60">管理您的账户偏好和全局系统配置</p>
+            <h1 class="text-3xl font-bold mb-2">个人设置</h1>
+            <p class="text-base-content/60">管理您的账户偏好和个人信息</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
