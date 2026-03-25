@@ -1,0 +1,98 @@
+/* ============================================ */
+/* 渐变效果                                     */
+/* ============================================ */
+
+.gradient-text {
+    background: linear-gradient(135deg, #002FA7 0%, #2560FF 50%, #4D7CFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, #0a0a0a 0%, #001447 50%, #0a0a0a 100%);
+}
+
+/* ============================================ */
+/* 动画效果                                     */
+/* ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* ============================================ */
+/* 卡片悬停增强                                 */
+/* ============================================ */
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 47, 167, 0.25);
+}
+
+/* ============================================ */
+/* 主题切换 Swap 图标居中                       */
+/* ============================================ */
+
+.swap i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================ */
+/* 暗色模式文字自动适配                         */
+/* ============================================ */
+
+[data-theme="dark"] .text-auto-dark {
+    color: white;
+}
+
+[data-theme="dark"] .text-auto-dark\/80 {
+    color: rgb(255 255 255 / 0.8);
+}
+
+[data-theme="dark"] .text-auto-dark\/70 {
+    color: rgb(255 255 255 / 0.7);
+}
+
+[data-theme="dark"] .text-auto-dark\/60 {
+    color: rgb(255 255 255 / 0.6);
+}
+
+[data-theme="light"] .text-auto-dark {
+    color: inherit;
+}
+
+/* ============================================ */
+/* 无滚动条水平容器                             */
+/* ============================================ */
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.snap-x {
+    scroll-snap-type: x mandatory;
+}
+
+.snap-center {
+    scroll-snap-align: center;
+}

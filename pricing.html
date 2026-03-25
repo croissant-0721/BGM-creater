@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定价计划 | 盼趣AI - 让想象成为可能</title>
+    <meta name="description" content="选择适合您的计划，开启AI短剧创作之旅。提供从免费版到企业级的多样化选择。">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        kline: {
+                            DEFAULT: '#002FA7',
+                            50: '#E8EEFF',
+                            100: '#C4D4FF',
+                            200: '#9DB6FF',
+                            300: '#7599FF',
+                            400: '#4D7CFF',
+                            500: '#2560FF',
+                            600: '#002FA7',
+                            700: '#002687',
+                            800: '#001D67',
+                            900: '#001447',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/shared/styles.css">
+    <style>
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-base-100">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+        <div class="navbar-start">
+            <a href="index.html" class="btn btn-ghost text-xl">
+                <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                <span class="gradient-text font-bold">盼趣AI</span>
+            </a>
+        </div>
+
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 gap-2">
+                <li><a href="index.html" class="hover:text-kline transition-colors font-medium">首页</a></li>
+                <li><a href="index.html#features" class="hover:text-kline transition-colors font-medium">功能</a></li>
+                <li><a href="index.html#showcase" class="hover:text-kline transition-colors font-medium">作品展示</a></li>
+                <li><a href="pricing.html" class="text-kline font-bold">定价</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-end gap-3">
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-6 h-6 text-orange-500"></i>
+                <i class="ri-moon-line swap-off fill-current w-6 h-6 text-kline"></i>
+            </label>
+
+            <a href="#"
+                class="btn btn-outline btn-sm hover:scale-105 transition-transform border-kline hover:bg-kline hover:text-white hover:border-kline">登录</a>
+            <a href="#" class="btn btn-sm hover:scale-105 transition-transform shadow-lg text-white border-0"
+                style="background-color: #002FA7;">注册</a>
+        </div>
+    </div>
+
+    <!-- Pricing Hero -->
+    <section class="py-20 bg-base-200">
+        <div class="container mx-auto px-4 max-w-7xl text-center">
+            <h1 class="text-4xl md:text-6xl font-black mb-6">
+                简单直观的<span class="gradient-text">定价策略</span>
+            </h1>
+            <p class="text-xl text-base-content/70 max-w-2xl mx-auto mb-10">
+                不论您是个人创作者还是规模化工作室，都能找到适合您的成长计划。
+            </p>
+
+            <!-- Billing Toggle -->
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <span class="font-medium">按月计费</span>
+                <input type="checkbox" class="toggle toggle-primary toggle-lg" id="billing-toggle" />
+                <div class="flex items-center gap-2">
+                    <span class="font-medium">按年计费</span>
+                    <span class="badge badge-success badge-outline font-bold">省 20%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="py-20 -mt-20">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Monthly version (default) -->
+                <!-- Basic Plan -->
+                <div class="card bg-base-100 shadow-xl pricing-card transition-all duration-300 border border-base-200">
+                    <div class="card-body p-10">
+                        <div class="mb-4">
+                            <h3 class="text-2xl font-bold mb-2">免费版</h3>
+                            <p class="text-base-content/60 text-sm">适合初学者体验AI创作的魅力。</p>
+                        </div>
+                        <div class="flex items-baseline mb-8">
+                            <span class="text-5xl font-black">¥0</span>
+                            <span class="text-base-content/50 ml-2">/月</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-1 text-sm md:text-base">
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>每月 50 创作积分</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>基础模型使用权限</span>
+                            </li>
+                            <li class="flex items-center gap-3 font-medium opacity-40">
+                                <i class="ri-close-circle-fill text-base-content/20 text-xl"></i>
+                                <span class="line-through">无水印导出</span>
+                            </li>
+                            <li class="flex items-center gap-3 font-medium opacity-40">
+                                <i class="ri-close-circle-fill text-base-content/20 text-xl"></i>
+                                <span class="line-through">极速渲染通道</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-outline btn-block border-2 hover:bg-neutral">立即开始</button>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div
+                    class="card bg-base-100 shadow-2xl pricing-card transition-all duration-300 border-2 border-kline relative scale-105 z-10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                        <span class="badge badge-primary font-bold px-6 py-4 shadow-lg">最受欢迎</span>
+                    </div>
+                    <div class="card-body p-10">
+                        <div class="mb-4">
+                            <h3 class="text-2xl font-bold mb-2">专业版</h3>
+                            <p class="text-base-content/60 text-sm">强力支持高产量的专业剧创人员。</p>
+                        </div>
+                        <div class="flex items-baseline mb-8">
+                            <span class="text-5xl font-black text-kline" id="pro-price">¥99</span>
+                            <span class="text-base-content/50 ml-2">/月</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-1 text-sm md:text-base">
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span class="font-bold">每月 500 创作积分</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>全量高级模型使用权限</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>支持无水印高清导出</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>享有极速渲染队列</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary btn-block shadow-lg text-white border-0"
+                            style="background-color: #002FA7;">立即订阅</button>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div
+                    class="card bg-base-100 shadow-xl pricing-card transition-all duration-300 border border-base-200 text-sm md:text-base">
+                    <div class="card-body p-10">
+                        <div class="mb-4">
+                            <h3 class="text-2xl font-bold mb-2">企业版</h3>
+                            <p class="text-base-content/60 text-sm">为团队与工作室打造的定制化方案。</p>
+                        </div>
+                        <div class="flex items-baseline mb-8">
+                            <span class="text-5xl font-black" id="enterprise-price">¥299</span>
+                            <span class="text-base-content/50 ml-2">/月</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 flex-1">
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span class="font-bold">每月 2000 创作积分</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>专有定制模型训练服务</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>多人团队协作管理后台</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="ri-checkbox-circle-fill text-kline text-xl"></i>
+                                <span>专属客户成功经理响应</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-outline btn-block border-2 hover:bg-neutral">联系销售</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Comparison Table -->
+    <section class="py-20 bg-base-100">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">全面功能对比</h2>
+                <div class="w-16 h-1 bg-kline mx-auto"></div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="table w-full">
+                    <thead>
+                        <tr>
+                            <th class="bg-base-200">核心功能</th>
+                            <th class="bg-base-200 text-center">免费版</th>
+                            <th class="bg-base-200 text-center">专业版</th>
+                            <th class="bg-base-200 text-center">企业版</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">每月积分</td>
+                            <td class="text-center">50</td>
+                            <td class="text-center font-bold text-kline">500</td>
+                            <td class="text-center">2000</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">并发生成任务数</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">10+</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">AI剧本Agent</td>
+                            <td class="text-center"><i class="ri-check-line text-success"></i></td>
+                            <td class="text-center"><i class="ri-check-line text-success"></i></td>
+                            <td class="text-center"><i class="ri-check-line text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">角色库统一化</td>
+                            <td class="text-center"><i class="ri-subtract-line text-base-content/30"></i></td>
+                            <td class="text-center"><i class="ri-check-line text-success"></i></td>
+                            <td class="text-center"><i class="ri-check-line text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">视频导出时长</td>
+                            <td class="text-center">5s</td>
+                            <td class="text-center">15s</td>
+                            <td class="text-center">30s+</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">视频水印</td>
+                            <td class="text-center">包含</td>
+                            <td class="text-center text-success font-bold">无水印</td>
+                            <td class="text-center text-success font-bold">无水印</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">团队权限管理</td>
+                            <td class="text-center"><i class="ri-subtract-line text-base-content/30"></i></td>
+                            <td class="text-center"><i class="ri-subtract-line text-base-content/30"></i></td>
+                            <td class="text-center"><i class="ri-check-line text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">渲染优先级</td>
+                            <td class="text-center">标准</td>
+                            <td class="text-center">高</td>
+                            <td class="text-center font-bold text-kline">最高(物理独占)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-base-200">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">常见问题解答</h2>
+                <p class="text-base-content/60">如果您有其他疑问，欢迎随时联系我们的客服团队。</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="collapse collapse-plus bg-base-100 shadow-sm border border-base-200">
+                    <input type="radio" name="my-accordion-3" checked="checked" />
+                    <div class="collapse-title text-xl font-medium">
+                        积分是什么，如何计算扣费？
+                    </div>
+                    <div class="collapse-content text-base-content/70">
+                        <p>积分是盼趣AI内的通用消耗货币。生成一张融合生图消耗1积分，生成一段5秒视频消耗10积分。积分每月自动重置，不可累积至下月。</p>
+                    </div>
+                </div>
+                <div class="collapse collapse-plus bg-base-100 shadow-sm border border-base-200">
+                    <input type="radio" name="my-accordion-3" />
+                    <div class="collapse-title text-xl font-medium">
+                        我可以中途更改计划或取消订阅吗？
+                    </div>
+                    <div class="collapse-content text-base-content/70">
+                        <p>当然可以！您可以随时在个人中心升级或降级计费计划。取消订阅后，您可以继续使用当前计费周期内的所有权益直至周期结束。</p>
+                    </div>
+                </div>
+                <div class="collapse collapse-plus bg-base-100 shadow-sm border border-base-200">
+                    <input type="radio" name="my-accordion-3" />
+                    <div class="collapse-title text-xl font-medium">
+                        年费方案比月费方案划算在哪里？
+                    </div>
+                    <div class="collapse-content text-base-content/70">
+                        <p>年费方案相当于在月费的基础上打了8折优惠。例如专业版按月支付需要¥99/月，按年一次性支付则仅需约¥79/月（总计¥948/年）。</p>
+                    </div>
+                </div>
+                <div class="collapse collapse-plus bg-base-100 shadow-sm border border-base-200">
+                    <input type="radio" name="my-accordion-3" />
+                    <div class="collapse-title text-xl font-medium">
+                        企业版可以提供私有部署吗？
+                    </div>
+                    <div class="collapse-content text-base-content/70">
+                        <p>支持。对于有极高合规要求的超大型工作室或媒体机构，我们可以提供本地化API私有部署或私有算力池隔离方案。请点击“联系销售”获取更多技术细节。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20" style="background: linear-gradient(135deg, #002FA7 0%, #2560FF 100%);">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">准备好开启您的创作蓝图了吗？</h2>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="btn btn-lg bg-white text-kline hover:bg-gray-100 border-0 shadow-xl px-12">免费试用</button>
+                <button
+                    class="btn btn-lg btn-outline text-white border-white border-2 hover:bg-white/10 px-12">查看文档</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 w-full max-w-7xl">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="text-2xl font-bold gradient-text">盼趣®AI</span>
+                </div>
+                <p class="text-base-content/70">让想象成为可能 | Making imagination possible</p>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4">产品</h4>
+                <ul class="space-y-2">
+                    <li><a href="index.html#features" class="link link-hover">功能</a></li>
+                    <li><a href="pricing.html" class="link link-hover">定价</a></li>
+                    <li><a href="index.html#showcase" class="link link-hover">案例</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4">资源</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="link link-hover">文档</a></li>
+                    <li><a href="blog/list.html" class="link link-hover">博客</a></li>
+                    <li><a href="#" class="link link-hover">帮助中心</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4">公司</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="link link-hover">关于我们</a></li>
+                    <li><a href="#" class="link link-hover">法律</a></li>
+                    <li><a href="#" class="link link-hover">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider opacity-10"></div>
+
+        <div class="text-center pb-8">
+            <p class="text-base-content/60">&copy; 2025 Panqu AI. All rights reserved. 浙ICP备2025218418号</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Initial setup from local storage if needed, here we just toggle
+        themeToggle.addEventListener('change', () => {
+            html.setAttribute('data-theme', themeToggle.checked ? 'light' : 'dark');
+        });
+
+        // Billing Toggle Logic
+        const billingToggle = document.getElementById('billing-toggle');
+        const proPrice = document.getElementById('pro-price');
+        const enterprisePrice = document.getElementById('enterprise-price');
+
+        billingToggle.addEventListener('change', () => {
+            if (billingToggle.checked) {
+                // Yearly
+                proPrice.innerText = '¥79';
+                enterprisePrice.innerText = '¥239';
+                // Add "billed yearly" note or similar logic if needed
+            } else {
+                // Monthly
+                proPrice.innerText = '¥99';
+                enterprisePrice.innerText = '¥299';
+            }
+        });
+    </script>
+</body>
+
+</html>

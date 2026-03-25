@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)",
+      "Bash(git remote add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push https://mi@pandatrips.com:d1ddbe654a21a57c3f90f12a5cdf52d0@gitee.com/chucktalk/panqu-demo.git master)",
+      "Bash(git push:*)",
+      "Bash(git mv:*)",
+      "Bash(git add:*)",
+      "WebFetch(domain:www.volcengine.com)",
+      "Bash(git checkout:*)",
+      "Bash(open -a \"Google Chrome\" Project/project-episode-create.html)",
+      "Bash(open:*)",
+      "Bash(git config --list)",
+      "Bash(git config user.name \"chuck\")",
+      "Bash(git config user.email \"3916232@gmail.com\")"
+    ],
+    "additionalDirectories": [
+      "/Users/chuckmi/Documents/code/panqu-web/assets/css"
+    ]
+  }
+}

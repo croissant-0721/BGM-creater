@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人设置 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .settings-card {
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .settings-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-base-200 min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Projects.html"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a>
+                    </li>
+                    <li><a href="enterprise-settings.html"><i class="ri-building-line"></i><span>企业设置</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title flex flex-col items-start gap-1.5 pb-2 border-b border-base-200 mb-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base-content/90 font-bold">王大卫</span>
+                            <div class="flex gap-1">
+                                <span class="badge badge-primary badge-xs py-2">企业版</span>
+                                <span class="badge badge-outline badge-xs py-2 font-normal opacity-70">主账号</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-base-content/50 font-normal flex items-center gap-1">
+                            <i class="ri-building-line text-xs font-normal"></i>
+                            杭州盼趣网络科技有限公司
+                        </span>
+                    </li>
+                        <li><a href="settings.html" class="active">个人设置</a></li>
+                        <li><a href="enterprise-settings.html">企业设置</a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8 max-w-5xl">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold mb-2">个人设置</h1>
+            <p class="text-base-content/60">管理您的账户偏好和个人信息</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="md:col-span-1">
+                <ul class="menu bg-base-100 rounded-box p-2 shadow">
+                    <li><a class="active"><i class="ri-user-settings-line"></i> 个人资料</a></li>
+                    <li><a><i class="ri-shield-keyhole-line"></i> 安全设置</a></li>
+                    <li><a><i class="ri-notification-badge-line"></i> 通知管理</a></li>
+                    <li><a><i class="ri-layout-grid-line"></i> 界面偏好</a></li>
+                    <li><a><i class="ri-key-2-line"></i> API密钥</a></li>
+                </ul>
+            </div>
+
+            <!-- Content Area -->
+            <div class="md:col-span-3">
+                <!-- Profile Section -->
+                <div class="settings-card">
+                    <h2 class="settings-title"><i class="ri-user-line text-primary"></i>个人资料</h2>
+                    <div class="flex flex-col gap-6">
+                        <div class="flex items-center gap-6">
+                            <div class="avatar">
+                                <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck" />
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline btn-sm">更换头像</button>
+                                <p class="text-xs text-base-content/50 mt-2">支持 JPG, PNG. 最大 512KB</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text">用户名</span></label>
+                                <input type="text" value="王大卫" class="input input-bordered w-full" />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text">邮箱地址</span></label>
+                                <input type="email" value="david.wang@example.com"
+                                    class="input input-bordered w-full" />
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label class="label"><span class="label-text">个人简介</span></label>
+                            <textarea class="textarea textarea-bordered h-24" placeholder="向大家介绍一下你自己..."></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button class="btn btn-primary">保存修改</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Keys Section -->
+                <div class="settings-card">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="settings-title mb-0"><i class="ri-key-2-line text-primary"></i>API 密钥</h2>
+                        <button class="btn btn-primary btn-sm">创建新密钥</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="table w-full">
+                            <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th>密钥</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>开发环境</td>
+                                    <td class="font-mono">pk-********5921</td>
+                                    <td><span class="badge badge-success badge-sm">活跃</span></td>
+                                    <td><button class="btn btn-ghost btn-xs">撤销</button></td>
+                                </tr>
+                                <tr>
+                                    <td>生产环境</td>
+                                    <td class="font-mono">pk-********9901</td>
+                                    <td><span class="badge badge-success badge-sm">活跃</span></td>
+                                    <td><button class="btn btn-ghost btn-xs">撤销</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Preferences Section -->
+                <div class="settings-card">
+                    <h2 class="settings-title"><i class="ri-equalizer-line text-primary"></i>系统偏好</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">自动保存</div>
+                                <div class="text-xs text-base-content/50">在编辑时每 5 分钟自动保存进度</div>
+                            </div>
+                            <input type="checkbox" class="toggle toggle-primary" checked />
+                        </div>
+                        <div class="divider my-0"></div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="font-medium">高优先级处理</div>
+                                <div class="text-xs text-base-content/50">优先分配算力资源进行生成（消耗更多积分）</div>
+                            </div>
+                            <input type="checkbox" class="toggle toggle-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Initial state
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        themeToggle.checked = currentTheme === 'dark';
+
+        themeToggle.addEventListener('change', () => {
+            const theme = themeToggle.checked ? 'dark' : 'light';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
+
+</html>

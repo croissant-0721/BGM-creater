@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音列表 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <!-- Logo and Navigation - Start -->
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <!-- Logo -->
+                <a href="index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+
+                <!-- Navigation Menu -->
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li>
+                        <a href="index.html">
+                            <i class="ri-dashboard-line"></i>
+                            <span>总览</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Projects.html" class="active">
+                            <i class="ri-folder-3-line"></i>
+                            <span>项目</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../billing_demo/billing.html">
+                            <i class="ri-file-list-3-line"></i>
+                            <span>账单</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="ri-settings-3-line"></i>
+                            <span>系统管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right side items - End -->
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">视频生成完成</div>
+                                <div class="text-xs text-base-content/60">营销视频制作项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-warning text-warning-content rounded-full w-8 h-8">
+                                    <i class="ri-loader-4-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务处理中</div>
+                                <div class="text-xs text-base-content/60">虚拟人生成项目 • 10分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-warning"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-error text-error-content rounded-full w-8 h-8">
+                                    <i class="ri-error-warning-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务执行失败</div>
+                                <div class="text-xs text-base-content/60">语音合成测试 • 30分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-error"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">
+                            个人设置
+                            <span class="badge badge-sm badge-primary">New</span>
+                        </a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout: Sidebar + Content -->
+    <div class="flex">
+        <!-- Fixed Left Sidebar -->
+        <aside class="fixed left-0 top-[72px] w-64 bg-base-100 shadow-xl border-r border-base-200 h-[calc(100vh-72px)] overflow-y-auto">
+
+            <!-- Navigation Menu -->
+            <ul class="menu menu-vertical px-4 py-6 gap-2">
+                <li>
+                    <a href="project-episode.html">
+                        <i class="ri-file-text-line text-lg"></i>
+                        <span>剧本</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-character.html">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>角色</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-scene.html">
+                        <i class="ri-landscape-line text-lg"></i>
+                        <span>场景</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-goods.html">
+                        <i class="ri-box-3-line text-lg"></i>
+                        <span>物品</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-fusion.html">
+                        <i class="ri-image-add-line text-lg"></i>
+                        <span>融合生图</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-video.html">
+                        <i class="ri-video-line text-lg"></i>
+                        <span>视频</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-tts.html" class="active">
+                        <i class="ri-mic-line text-lg"></i>
+                        <span>语音</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="project-imageedit.html">
+                        <i class="ri-edit-line text-lg"></i>
+                        <span>图片编辑</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 ml-64">
+            <!-- Page Content -->
+            <div class="container mx-auto px-6 py-8">
+                <!-- Page Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">语音列表</h2>
+                        <p class="text-base-content/60">管理和查看项目的所有语音</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="dropdown dropdown-end">
+                            <button tabindex="0" class="btn btn-primary gap-2">
+                                <i class="ri-add-line"></i>
+                                新建语音
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-300 mt-2">
+                                <li><a onclick="add_voice_modal.showModal()"><i class="ri-mic-line"></i>语音合成</a></li>
+                                <li><a href="voice-clone-create.html" target="_blank"><i class="ri-voice-recognition-line"></i>声音复刻</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter and Search -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                    <div class="tabs tabs-boxed bg-base-100">
+                        <a class="tab">全部</a>
+                        <a class="tab tab-active">已完成</a>
+                        <a class="tab">生成中</a>
+                        <a class="tab">失败</a>
+                        <a class="tab">已取消</a>
+                    </div>
+                    <div class="join">
+                        <input type="search" placeholder="搜索项目..."
+                            class="input input-bordered input-sm join-item w-full md:w-auto" />
+                        <button class="btn btn-primary btn-sm join-item">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Audio Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Audio Card 1 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure
+                            class="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-primary mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">女声 - 温柔</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button
+                                class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-primary hover:bg-primary/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">产品介绍旁白</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">Azure TTS</span>
+                                <span class="badge badge-secondary badge-sm">中文女声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck"
+                                                alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">王大伟</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>2小时前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-success badge-sm gap-1">
+                                    <i class="ri-check-circle-fill"></i>
+                                    已完成
+                                </div>
+                                <div class="flex gap-1">
+                                    <button class="btn btn-square btn-ghost btn-sm">
+                                        <i class="ri-download-line text-lg"></i>
+                                    </button>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Card 2 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure
+                            class="h-48 bg-gradient-to-br from-accent/20 to-info/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-accent mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">男声 - 磁性</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button
+                                class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-accent hover:bg-accent/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">广告配音</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">ElevenLabs</span>
+                                <span class="badge badge-secondary badge-sm">英文男声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
+                                                alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">李晓明</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>5小时前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-warning badge-sm gap-1">
+                                    <span class="loading loading-spinner loading-xs"></span>
+                                    合成中 70%
+                                </div>
+                                <div class="flex gap-1 items-center">
+                                    <button
+                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task px-2 h-6 min-h-6">
+                                        <i class="ri-close-circle-line text-sm"></i>
+                                        <span class="text-xs">取消任务</span>
+                                    </button>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Card 3 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure
+                            class="h-48 bg-gradient-to-br from-success/20 to-warning/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-success mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">童声 - 活泼</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button
+                                class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-success hover:bg-success/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">儿童故事旁白</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">Google TTS</span>
+                                <span class="badge badge-secondary badge-sm">中文童声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">张晓华</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>1天前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="tooltip tooltip-error tooltip-top" data-tip="音色不匹配">
+                                    <div class="badge badge-error badge-sm gap-1">
+                                        <i class="ri-error-warning-fill"></i>
+                                        生成失败
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <button class="btn btn-square btn-ghost btn-sm">
+                                        <i class="ri-download-line text-lg"></i>
+                                    </button>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Card 4 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure
+                            class="h-48 bg-gradient-to-br from-error/20 to-primary/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-error mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">女声 - 专业</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button
+                                class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-error hover:bg-error/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">新闻播报</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">Azure TTS</span>
+                                <span class="badge badge-secondary badge-sm">中文女声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carol"
+                                                alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">刘建国</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>2天前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-success badge-sm gap-1">
+                                    <i class="ri-check-circle-fill"></i>
+                                    已完成
+                                </div>
+                                <div class="flex gap-1">
+                                    <button class="btn btn-square btn-ghost btn-sm">
+                                        <i class="ri-download-line text-lg"></i>
+                                    </button>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Card 5 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure
+                            class="h-48 bg-gradient-to-br from-info/20 to-success/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-info mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">男声 - 沉稳</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button
+                                class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-info hover:bg-info/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">企业宣传片配音</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">ElevenLabs</span>
+                                <span class="badge badge-secondary badge-sm">中文男声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David"
+                                                alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">陈小红</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>3天前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-warning badge-sm gap-1">
+                                    <span class="loading loading-spinner loading-xs"></span>
+                                    合成中 90%
+                                </div>
+                                <div class="flex gap-1 items-center">
+                                    <button
+                                        class="btn btn-ghost btn-xs text-error hover:bg-error/10 gap-1 btn-cancel-task px-2 h-6 min-h-6">
+                                        <i class="ri-close-circle-line text-sm"></i>
+                                        <span class="text-xs">取消任务</span>
+                                    </button>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Card 6 -->
+                    <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                        <figure
+                            class="h-48 bg-gradient-to-br from-warning/20 to-error/20 flex items-center justify-center relative">
+                            <div class="text-center">
+                                <i class="ri-mic-fill text-6xl text-warning mb-2"></i>
+                                <div class="text-sm font-medium text-base-content/70">女声 - 甜美</div>
+                            </div>
+                            <!-- Play Button -->
+                            <button
+                                class="absolute bottom-4 right-4 btn btn-circle btn-sm bg-warning hover:bg-warning/90 border-0 text-white">
+                                <i class="ri-play-fill text-lg"></i>
+                            </button>
+                        </figure>
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-base mb-2">客服语音</h3>
+                            <div class="mb-2 flex gap-1 flex-wrap">
+                                <span class="badge badge-primary badge-sm">Google TTS</span>
+                                <span class="badge badge-secondary badge-sm">中文女声</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <div class="w-6 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emma"
+                                                alt="用户头像" />
+                                        </div>
+                                    </div>
+                                    <div class="text-xs font-medium">赵志强</div>
+                                </div>
+                                <div class="text-xs text-base-content/60">
+                                    <i class="ri-time-line"></i>5天前
+                                </div>
+                            </div>
+                            <div class="card-actions justify-between items-center mt-2">
+                                <div class="badge badge-success badge-sm gap-1">
+                                    <i class="ri-check-circle-fill"></i>
+                                    已完成
+                                </div>
+                                <div class="flex gap-1">
+                                    <button class="btn btn-square btn-ghost btn-sm">
+                                        <i class="ri-download-line text-lg"></i>
+                                    </button>
+                                    <div class="dropdown dropdown-end">
+                                        <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                            <i class="ri-more-2-fill text-lg"></i>
+                                        </div>
+                                        <ul tabindex="0"
+                                            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                            <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                            <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Voice Modal -->
+    <dialog id="add_voice_modal" class="modal">
+        <div class="modal-box max-w-2xl p-0 flex flex-col max-h-[90vh] overflow-hidden">
+            <!-- Close button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 z-20">✕</button>
+            </form>
+
+            <!-- Scrollable Body -->
+            <div class="p-6 overflow-y-auto no-scrollbar" style="-ms-overflow-style: none; scrollbar-width: none;">
+                <style>
+                    .no-scrollbar::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    /* Points Tooltip */
+                    .points-tooltip {
+                        position: absolute;
+                        bottom: calc(100% + 10px);
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #ff9900;
+                        color: white;
+                        padding: 2px 10px;
+                        border-radius: 20px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+                        animation: bounceIn 0.3s ease-out;
+                        z-index: 50;
+                    }
+
+                    .points-tooltip::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -4px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 0;
+                        height: 0;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 5px solid #ff9900;
+                    }
+
+                    @keyframes bounceIn {
+                        0% {
+                            transform: translateY(5px) scale(0.9);
+                            opacity: 0;
+                        }
+
+                        50% {
+                            transform: translateY(-3px) scale(1.05);
+                            opacity: 1;
+                        }
+
+                        100% {
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+
+                    /* Hint Box - Refined for better alignment */
+                    .hint-box {
+                        background: oklch(var(--wa) / 0.1);
+                        border: 1px solid oklch(var(--wa) / 0.15);
+                        padding: 0.6rem 0.75rem;
+                        border-radius: var(--rounded-btn, 0.5rem);
+                        font-size: 0.75rem;
+                        color: var(--fallback-bc, oklch(var(--bc)/.7));
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        margin-top: 0.25rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .hint-box i {
+                        color: oklch(var(--wa));
+                        font-size: 0.9rem;
+                    }
+
+                    /* Better badge integration */
+                    .slider-value-badge {
+                        @apply badge badge-primary badge-sm font-bold;
+                        border: none;
+                    }
+                </style>
+                <h3 class="font-bold text-lg mb-6">新增语音</h3>
+
+                <div class="space-y-6">
+                    <!-- Mission Name -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">任务名称</span>
+                        </label>
+                        <input type="text" placeholder="为语音合成任务起个名称" class="input input-bordered w-full h-11 text-sm" />
+                    </div>
+
+                    <!-- Composite Text -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
+                                符合文本 <span class="text-error text-xs">*</span>
+                            </span>
+                        </label>
+                        <textarea class="textarea textarea-bordered w-full h-32 text-sm"
+                            placeholder="支持中英文混合输入,系统会自动识别语种,建议单次输入文本长度不超过2000字符"></textarea>
+
+                    </div>
+
+                    <!-- Model Version -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">模型</span>
+                        </label>
+                        <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="model_version" class="radio radio-sm radio-primary" value="v2"
+                                    checked />
+                                <span class="label-text">豆包语音合成模型2.0</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Voice Selection -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70 flex items-center gap-1">
+                                选择音色<span class="text-error text-xs">*</span>
+                            </span>
+                        </label>
+                        <select class="select select-bordered w-full h-11 text-sm font-normal">
+                            <option disabled selected>请选择音色</option>
+                            <option>晨曦 - 磁性男声</option>
+                            <option>晓晓 - 活泼女声</option>
+                            <option>老铁 - 幽默北方话</option>
+                            <option>甜甜 - 亲切女声</option>
+                        </select>
+                    </div>
+
+                    <!-- Voice Audition -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <div class="label py-0"></div>
+                        <button
+                            class="btn btn-sm h-11 w-full md:w-fit px-6 rounded-full bg-cyan-500 border-none text-white hover:bg-cyan-600 gap-2 shadow-sm transition-all normal-case font-medium">
+                            <i class="ri-play-circle-line text-lg"></i>
+                            试听音色(比特率:64kbps,采样率:24000HZ)
+                        </button>
+                    </div>
+
+                    <!-- Audio Format -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">音频格式</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="audio_format" class="radio radio-sm radio-primary" value="mp3"
+                                    checked />
+                                <span class="label-text">MP3通用格式</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="audio_format" class="radio radio-sm radio-primary"
+                                    value="wav" />
+                                <span class="label-text">WAV无损格式</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="audio_format" class="radio radio-sm radio-primary"
+                                    value="ogg" />
+                                <span class="label-text">OGG音频格式</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sample Rate -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">采样率</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="16000" />
+                                <span class="label-text">16000Hz 电话音质</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="24000" checked />
+                                <span class="label-text">24000Hz 高标准</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="44100" />
+                                <span class="label-text">44100Hz CD音质</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="sample_rate" class="radio radio-sm radio-primary"
+                                    value="48000" />
+                                <span class="label-text">48000Hz 顶级音质</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Bitrate -->
+                    <div class="form-control grid grid-cols-[80px_1fr] items-center gap-2">
+                        <label class="label py-0">
+                            <span class="label-text font-medium text-base-content/70">比特率</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-y-2 gap-x-4">
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="64" />
+                                <span class="label-text">64kbps 普通</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="96" />
+                                <span class="label-text">96kbps 良好</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="128"
+                                    checked />
+                                <span class="label-text">128kbps 标准</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="160" />
+                                <span class="label-text">160kbps 中等</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="192" />
+                                <span class="label-text">192kbps 良好</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="256" />
+                                <span class="label-text">256kbps 高质量</span>
+                            </label>
+                            <label class="label cursor-pointer gap-2 p-0 justify-start">
+                                <input type="radio" name="bitrate" class="radio radio-sm radio-primary" value="320" />
+                                <span class="label-text">320kbps 极致</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Parameters Settings -->
+                <details class="collapse collapse-arrow border border-base-300 bg-base-200/30 mt-4 rounded-xl">
+                    <summary class="collapse-title text-sm font-bold">
+                        <div class="flex items-center gap-2">
+                            <i class="ri-settings-4-line text-primary"></i>
+                            高级参数设置
+                        </div>
+                    </summary>
+                    <div class="collapse-content space-y-6 pt-2 pb-4">
+                        <!-- Speed -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">语速调节</span>
+                                <span class="slider-value-badge">0</span>
+                            </label>
+                            <input type="range" min="-50" max="100" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：-50 ~ 100，100代表2.0倍速，-50代表0.5倍速，默认为0</span>
+                            </div>
+                        </div>
+
+                        <!-- Volume -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">音量调节</span>
+                                <span class="slider-value-badge">0</span>
+                            </label>
+                            <input type="range" min="-50" max="100" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：-50 ~ 100，100代表2.0倍音量，-50代表0.5倍音量，默认为0</span>
+                            </div>
+                        </div>
+
+                        <!-- Pitch -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">音调调节</span>
+                                <span class="slider-value-badge">0</span>
+                            </label>
+                            <input type="range" min="-12" max="12" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：-12 到 12，正值提高音调，负值降低音调，0为保持原始音调。</span>
+                            </div>
+                        </div>
+
+                        <!-- Emotion Style & Intensity -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">情感风格</span>
+                            </label>
+                            <select class="select select-bordered w-full h-11 text-sm font-normal">
+                                <option selected>默认</option>
+                                <option>开心</option>
+                                <option>悲伤</option>
+                                <option>愤怒</option>
+                            </select>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>当前仅部分音色支持设置情感，且不同音色支持的情感范围不同</span>
+                            </div>
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">情感强度</span>
+                                <span class="slider-value-badge">4</span>
+                            </label>
+                            <div class="flex flex-col gap-2 mt-2">
+                                <input type="range" min="1" max="6" value="4" class="range range-primary range-xs"
+                                    oninput="this.parentElement.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            </div>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>当前仅部分音色支持情感设置。情感强度范围 1~6，默认 4。</span>
+                            </div>
+                        </div>
+
+
+                        <!-- End Silence -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">句尾静音</span>
+                                <span class="slider-value-badge">0ms</span>
+                            </label>
+                            <input type="range" min="0" max="3000" value="0" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value + 'ms'" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>范围：0~3000ms，默认为0ms。在文本最后的结尾处增加静音时长。</span>
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="divider"></div>
+
+                        <!-- Language Settings -->
+                        <div class="form-control">
+                            <label class="label justify-start gap-4 cursor-pointer">
+                                <input type="checkbox" class="toggle toggle-primary toggle-sm" checked />
+                                <span class="label-text font-medium text-base-content/70 text-xs">自动识别语种</span>
+                            </label>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>启用后系统会自动识别文本语种，建议在混合语言文本时开启</span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">明确语种</span>
+                            </label>
+                            <select class="select select-bordered w-full h-11 text-sm font-normal">
+                                <option selected>自动识别 (Auto)</option>
+                                <option>中文 (ZH)</option>
+                                <option>英文 (EN)</option>
+                            </select>
+                            <div class="hint-box -mt-4">
+                                <i class="ri-information-fill"></i>
+                                <span>仅读指定语种的文本</span>
+                            </div>
+                        </div>
+
+                        <!-- Reference Language -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">参考语种</span>
+                            </label>
+                            <select class="select select-bordered w-full h-11 text-sm font-normal">
+                                <option selected>不指定 - 包含主流多国语言</option>
+                                <option>中德西荷特英葡语等</option>
+                            </select>
+                        </div>
+
+                        <!-- Filter Content -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium text-base-content/70 text-xs">过滤标点内容</span>
+                                <span class="slider-value-badge">100</span>
+                            </label>
+                            <input type="range" min="0" max="100" value="100" class="range range-primary range-xs"
+                                oninput="this.parentElement.querySelector('.slider-value-badge').innerText = this.value" />
+                            <div class="hint-box">
+                                <i class="ri-information-fill"></i>
+                                <span>是否过滤标点旁的内容，0为不过滤，100为全过滤</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Fixed Footer Actions -->
+            <div
+                class="p-4 px-6 border-t border-base-200 bg-base-100/90 backdrop-blur rounded-b-box flex justify-end items-center gap-3">
+                <form method="dialog">
+                    <button class="btn btn-ghost px-6 font-medium">重置</button>
+                </form>
+                <div class="relative">
+                    <!-- Points Bubble -->
+                    <div id="voice_points_tooltip" class="points-tooltip">
+                        <i class="ri-coin-fill text-[10px]"></i>
+                        20 积分
+                    </div>
+                    <button type="submit" form="add_voice_form"
+                        class="btn btn-primary px-10 gap-2 shadow-lg shadow-primary/20 font-bold">
+                        <i class="ri-magic-line text-lg"></i>
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'dark';
+
+        // Toggle theme
+        themeToggle.addEventListener('change', function () {
+            const newTheme = this.checked ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Tabs selection
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                const group = this.parentElement;
+                group.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-active'));
+                this.classList.add('tab-active');
+            });
+        });
+
+        // Cancel Task Confirmation with Overlay
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-cancel-task');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = btn.closest('.card');
+
+                // Create overlay if it doesn't exist
+                let overlay = card.querySelector('.cancel-confirm-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'cancel-confirm-overlay';
+                    overlay.innerHTML = `
+                        <div class="bg-error/10 text-error w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                            <i class="ri-close-circle-line text-2xl"></i>
+                        </div>
+                        <p class="text-sm font-bold mb-1 font-sans">确认取消该任务吗？</p>
+                        <p class="text-xs text-base-content/60 mb-4 font-sans">取消后将停止当前生成任务</p>
+                        <div class="flex gap-2 w-full">
+                            <button class="btn btn-error btn-sm flex-1 btn-confirm-cancel">确认取消</button>
+                            <button class="btn btn-ghost btn-sm flex-1 btn-abort-cancel">再想想</button>
+                        </div>
+                    `;
+                    card.appendChild(overlay);
+
+                    // Bind overlay buttons
+                    overlay.querySelector('.btn-confirm-cancel').addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        // Update UI to 'Cancelled'
+                        const badge = card.querySelector('.badge-warning');
+                        if (badge) {
+                            badge.className = 'badge badge-ghost badge-sm gap-1 bg-base-200 text-base-content/50 border-none';
+                            badge.innerHTML = '<i class="ri-close-circle-line"></i>已取消';
+                        }
+                        btn.remove(); // Remove cancel button
+                        overlay.classList.remove('show');
+
+                        // Show success message
+                        const toast = document.createElement('div');
+                        toast.className = 'toast toast-top toast-center z-[100]';
+                        toast.innerHTML = `
+                            <div class="alert alert-success shadow-lg">
+                                <i class="ri-checkbox-circle-line text-lg"></i>
+                                <span>任务已成功取消</span>
+                            </div>
+                        `;
+                        document.body.appendChild(toast);
+                        setTimeout(() => toast.remove(), 2000);
+                    });
+
+                    overlay.querySelector('.btn-abort-cancel').addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        overlay.classList.remove('show');
+                    });
+
+                    overlay.addEventListener('click', e => e.stopPropagation());
+                }
+
+                // Show overlay
+                overlay.classList.add('show');
+            }
+        });
+    </script>
+</body>
+
+</html>

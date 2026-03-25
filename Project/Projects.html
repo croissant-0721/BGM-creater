@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目管理 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+</head>
+
+<body class="bg-base-200">
+    <!-- Main Content -->
+    <div>
+        <!-- Top Navbar -->
+        <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+            <div class="navbar-start">
+                <div class="flex items-center gap-8">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                        <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                    </a>
+                    <ul class="menu menu-horizontal px-1 gap-2">
+                        <li><a href="index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                        <li><a href="Projects.html" class="active"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                        <li><a href="../asset/asset-list.html"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                        <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                        <li><a href="enterprise-settings.html"><i class="ri-building-line"></i><span>企业</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-end gap-2">
+                <!-- Credits Balance -->
+                <!-- Credits Dropdown -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost gap-2">
+                        <i class="ri-coin-fill text-warning text-xl"></i>
+                        <span class="font-semibold">8888</span>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                        <li><a onclick="backToRecharge(); document.getElementById('recharge_modal').showModal()"><i class="ri-add-circle-line"></i>积分充值</a></li>
+                        <li><a href="../billing_demo/recharge_record.html" target="_blank"><i class="ri-file-list-2-line"></i>充值记录</a></li>
+                    </ul>
+                </div>
+
+                <!-- Theme Toggle -->
+                <label class="swap swap-rotate btn btn-ghost btn-circle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                    <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+                </label>
+
+                <!-- Notification Bell -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span class="badge badge-sm badge-error indicator-item">3</span>
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                        <li class="menu-title">
+                            <span class="font-semibold">任务消息通知</span>
+                            <a class="text-xs text-primary">全部已读</a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                        <i class="ri-check-line text-sm"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">任务完成</div>
+                                    <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
+                                </div>
+                                <span class="badge badge-xs badge-success"></span>
+                            </a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Dropdown -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="avatar placeholder">
+                            <div class="bg-primary text-primary-content rounded-full w-10">
+                                <span class="text-sm font-bold">C</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                        <li class="menu-title flex flex-col items-start gap-1.5 pb-2 border-b border-base-200 mb-1">
+                            <div class="flex items-center gap-2">
+                                <span class="text-base-content/90 font-bold">王大卫</span>
+                                <div class="flex gap-1">
+                                    <span class="badge badge-primary badge-xs py-2">企业版</span>
+                                    <span class="badge badge-outline badge-xs py-2 font-normal opacity-70">主账号</span>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-base-content/50 font-normal flex items-center gap-1">
+                                <i class="ri-building-line text-xs font-normal"></i>
+                                杭州盼趣网络科技有限公司
+                            </span>
+                        </li>
+                        <li><a href="settings.html">个人设置<span class="badge badge-sm badge-primary ml-auto">New</span></a></li>
+                        <li><a href="enterprise-settings.html">企业</a></li>
+                        <li><a>使用统计</a></li>
+                        <div class="divider my-0"></div>
+                        <li><a class="text-error">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container mx-auto px-6 py-8">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">项目管理</h2>
+                    <p class="text-base-content/60">管理和查看您的所有AI短剧项目</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="btn btn-primary gap-2" onclick="dashboard.showAddProjectModal()">
+                        <i class="ri-add-line"></i>
+                        添加项目
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <!-- Total Projects -->
+                <div class="stats shadow bg-base-100">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <i class="ri-folder-line text-3xl"></i>
+                        </div>
+                        <div class="stat-title">总项目数</div>
+                        <div class="stat-value text-primary">24</div>
+                    </div>
+                </div>
+
+                <!-- Total Tasks -->
+                <div class="stats shadow bg-base-100">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <i class="ri-task-line text-3xl"></i>
+                        </div>
+                        <div class="stat-title">总任务次数</div>
+                        <div class="stat-value text-primary">12,450</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filter -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <h3 class="text-lg font-bold">所有项目</h3>
+                <div class="join">
+                    <input type="search" id="projectSearch" placeholder="搜索项目..."
+                        class="input input-bordered join-item w-full md:w-auto" />
+                    <button class="btn btn-primary join-item">
+                        <i class="ri-search-line"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="projectsGrid">
+                <!-- Project Card 1 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://panqu.com/assets/img/project.webp" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">营销视频制作</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 视频生成项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">王大伟</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2小时前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('虚拟人生成')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=1" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">虚拟人生成</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 数字人项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">李晓明</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>5小时前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('虚拟人生成')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=2" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">语音合成测试</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 语音合成项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">张晓华</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1天前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('语音合成测试')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=3" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">图像风格迁移</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 图像处理项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carol" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">刘建国</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2天前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('图像风格迁移')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 5 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=4" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">文本生成助手</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 文本生成项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">陈小红</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>3天前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('文本生成助手')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 6 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=5" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">智能客服系统</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 对话系统项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emma" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">赵志强</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>5天前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('智能客服系统')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 7 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=6" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">视频内容审核</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 内容审核项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Frank" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">孙丽娟</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1周前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('视频内容审核')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 8 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=7" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">音乐生成创作</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 音乐生成项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Grace" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">周明</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1周前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('音乐生成创作')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 9 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=8" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">图像识别分析</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 图像识别项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Henry" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">吴小龙</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2周前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('图像识别分析')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 10 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=9" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">自然语言处理</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI NLP项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Iris" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">郑丽华</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2周前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('自然语言处理')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 11 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=10" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">智能推荐系统</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 推荐算法项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jack" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">黄伟</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>3周前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('智能推荐系统')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 12 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=11" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">数据可视化平台</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 数据分析项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kate" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">林婷婷</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>3周前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('数据可视化平台')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 13 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=12" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">情感分析引擎</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 情感分析项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Leo" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">马强</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('情感分析引擎')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 14 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=13" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">OCR文字识别</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 文字识别项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mia" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">徐敏</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('OCR文字识别')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 15 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=14" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">智能翻译系统</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 机器翻译项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Nathan" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">孙浩</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('智能翻译系统')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 16 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=15" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">语音识别系统</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 语音识别项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Olivia" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">朱晓燕</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('语音识别系统')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 17 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=16" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">目标检测系统</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 目标检测项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Peter" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">高建军</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('目标检测系统')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 18 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=17" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">图像分割工具</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 图像分割项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Quinn" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">何静</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('图像分割工具')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 19 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=18" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">知识图谱构建</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 知识图谱项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rachel" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">蔡明</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>3个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('知识图谱构建')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 20 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300">
+                    <figure><img src="https://picsum.photos/400/300?random=19" alt="项目缩略图"
+                            class="w-full h-48 object-cover" /></figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-1">智能问答系统</h3>
+                        <p class="text-xs text-base-content/60 mb-2">AI 问答系统项目</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sam" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">邓小华</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>3个月前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-end mt-2 gap-1">
+                            <button class="btn btn-square btn-ghost btn-sm">
+                                <i class="ri-edit-line text-lg"></i>
+                            </button>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="showDeleteConfirm('智能问答系统')" class="text-error"><i
+                                                class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center mt-8">
+                <div class="join">
+                    <button class="join-item btn btn-sm" disabled>
+                        <i class="ri-arrow-left-s-line"></i>
+                    </button>
+                    <button class="join-item btn btn-sm btn-active">1</button>
+                    <button class="join-item btn btn-sm">2</button>
+                    <button class="join-item btn btn-sm">3</button>
+                    <button class="join-item btn btn-sm">...</button>
+                    <button class="join-item btn btn-sm">10</button>
+                    <button class="join-item btn btn-sm">
+                        <i class="ri-arrow-right-s-line"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Add Project Modal -->
+    <dialog id="add_project_modal" class="modal">
+        <div class="modal-box max-w-2xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-2xl mb-6">添加项目</h3>
+
+            <form id="addProjectForm" class="space-y-4">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">项目名称</span>
+                    </label>
+                    <input type="text" placeholder="输入项目名称" class="input input-bordered w-full" required />
+                </div>
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">项目描述</span>
+                    </label>
+                    <textarea placeholder="输入项目描述" class="textarea textarea-bordered h-24"></textarea>
+                </div>
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-semibold">项目图片</span>
+                    </label>
+
+                    <!-- Drag and Drop Upload Area -->
+                    <div id="uploadArea"
+                        class="relative border-2 border-dashed border-base-300 rounded-lg p-8 text-center transition-all duration-300 hover:border-primary hover:bg-base-200/50 cursor-pointer">
+                        <input type="file" id="bgImageFile" accept="image/*" class="hidden" />
+
+                        <!-- Upload Icon and Text (shown when no image) -->
+                        <div id="uploadPlaceholder" class="space-y-3">
+                            <div class="flex justify-center">
+                                <i class="ri-image-add-line text-5xl text-base-content/40"></i>
+                            </div>
+                            <div>
+                                <p class="text-base font-medium text-base-content/80">拖拽图片到此处或点击上传</p>
+                                <p class="text-sm text-base-content/60 mt-1">支持 JPG, PNG, GIF 格式</p>
+                            </div>
+                        </div>
+
+                        <!-- Image Preview (shown when image is selected) -->
+                        <div id="imagePreview" class="hidden">
+                            <div class="relative inline-block">
+                                <img id="previewImg" src="" alt="预览图片" class="max-h-48 rounded-lg shadow-lg" />
+                                <button type="button" id="removeImage"
+                                    class="absolute -top-2 -right-2 btn btn-circle btn-sm btn-error">
+                                    <i class="ri-close-line text-lg"></i>
+                                </button>
+                            </div>
+                            <p id="fileName" class="text-sm text-base-content/60 mt-3"></p>
+                        </div>
+
+                        <!-- Drag Over Overlay -->
+                        <div id="dragOverlay"
+                            class="hidden absolute inset-0 bg-primary/10 border-2 border-primary rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="ri-upload-cloud-2-line text-6xl text-primary"></i>
+                                <p class="text-lg font-semibold text-primary mt-2">释放以上传图片</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-action">
+                        <button type="submit" class="btn btn-primary w-full">
+                            <i class="ri-add-line mr-2"></i>
+                            提交
+                        </button>
+                    </div>
+            </form>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Delete Confirmation Modal -->
+    <dialog id="delete_confirm_modal" class="modal">
+        <div class="modal-box max-w-2xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg">确认删除项目</h3>
+            <p class="py-4" id="deleteProjectName">项目名称</p>
+            <p class="text-sm text-base-content/60 mb-4">
+                <i class="ri-error-warning-line text-error mr-1"></i>
+                此操作不可撤销,删除后项目将无法恢复。
+            </p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-outline">取消</button>
+                </form>
+                <button class="btn btn-error" onclick="confirmDelete()">
+                    <i class="ri-delete-bin-line mr-1"></i>
+                    确认删除
+                </button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+    </div>
+
+    <!-- Recharge Modal -->
+    <dialog id="recharge_modal" class="modal">
+        <div class="modal-box max-w-2xl p-0 overflow-hidden relative border border-base-content/10 shadow-2xl rounded-3xl backdrop-blur-sm bg-base-100/95">
+
+            <!-- Header Section with Gradient -->
+            <div class="bg-gradient-to-br from-primary/10 via-base-100 to-base-100 px-8 pt-7 pb-5 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-secondary/10 rounded-full blur-3xl"></div>
+
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 hover:rotate-90 transition-transform duration-300">✕</button>
+                </form>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                        <i class="ri-coin-fill text-primary text-2xl animate-pulse"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl tracking-tight">积分充值</h3>
+                        <p class="text-sm text-base-content/60 mt-0.5">即时到账 • 支持所有AI功能 • 安全保障</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body: Two-column layout -->
+            <div class="flex gap-0">
+
+                <!-- LEFT: Amount selection -->
+                <div class="flex-1 min-w-0 px-8 py-6">
+
+                    <!-- Preset Options -->
+                    <div class="mb-5">
+                        <label class="label px-0 pt-0 pb-2">
+                            <span class="label-text font-bold text-xs uppercase tracking-wider text-base-content/40">快速充值</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <!-- Option 100 -->
+                            <div class="recharge-premium-card group relative p-3 rounded-2xl border-2 border-base-200 bg-base-100 cursor-pointer overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
+                                data-amount="100" data-points="1000" onclick="selectPreset(this)">
+                                <div class="text-center">
+                                    <div class="text-2xl font-black text-primary mb-0.5">¥100</div>
+                                    <div class="flex items-center justify-center gap-0.5 text-xs font-medium text-base-content/60">
+                                        <i class="ri-coin-line text-warning text-xs"></i>1,000 积分
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Option 500 (Default) -->
+                            <div class="recharge-premium-card group relative p-3 rounded-2xl border-2 border-primary bg-primary/5 cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
+                                data-amount="500" data-points="5000" onclick="selectPreset(this)" id="default-preset">
+                                <div class="absolute top-0 right-0">
+                                    <!-- <div class="bg-primary text-primary-content text-[9px] font-bold px-1.5 py-0.5 rounded-bl-xl rounded-tr-2xl">推荐</div> -->
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-black text-primary mb-0.5">¥500</div>
+                                    <div class="flex items-center justify-center gap-0.5 text-xs font-medium text-base-content/60">
+                                        <i class="ri-coin-line text-warning text-xs"></i>5,000 积分
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Option 1000 -->
+                            <div class="recharge-premium-card group relative p-3 rounded-2xl border-2 border-base-200 bg-base-100 cursor-pointer overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
+                                data-amount="1000" data-points="10000" onclick="selectPreset(this)">
+                                <div class="text-center">
+                                    <div class="text-2xl font-black text-primary mb-0.5">¥1000</div>
+                                    <div class="flex items-center justify-center gap-0.5 text-xs font-medium text-base-content/60">
+                                        <i class="ri-coin-line text-warning text-xs"></i>10,000 积分
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Amount -->
+                    <div class="form-control mb-5">
+                        <label class="label px-0 pt-0 pb-2">
+                            <span class="label-text font-bold text-xs uppercase tracking-wider text-base-content/40">自定义金额（1元 = 10积分）</span>
+                        </label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-xl font-bold text-base-content/30 group-focus-within:text-primary transition-colors">¥</div>
+                            <input type="number" id="customAmount" min="1" placeholder="输入充值金额"
+                                class="input input-bordered w-full pl-10 bg-base-200/50 border-transparent focus:border-primary focus:bg-base-100 transition-all font-bold text-lg rounded-2xl"
+                                oninput="onCustomInput(this)" />
+                        </div>
+                    </div>
+
+                    <!-- Confirm Button -->
+                    <button class="btn btn-primary btn-lg w-full rounded-2xl font-bold shadow-lg shadow-primary/25 h-14 group overflow-hidden relative" onclick="confirmRecharge()">
+                        <div class="relative z-10 flex items-center gap-2">
+                            <span class="text-base">确认充值金额</span>
+                        </div>
+                        <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </button>
+
+                    <!-- Agreement -->
+                    <p class="text-center text-[11px] text-base-content/40 mt-3">
+                        充值积分即代表您同意
+                        <a href="https://panqu.com/pay-agreement" target="_blank" rel="noopener noreferrer"
+                           class="text-primary/60 underline underline-offset-2 hover:text-primary transition-colors duration-200">盼趣AI付费协议</a>
+                    </p>
+                </div>
+
+                <!-- Vertical Divider -->
+                <div class="w-px bg-base-200 self-stretch my-5"></div>
+
+                <!-- RIGHT: QR Code Area -->
+                <div class="w-64 flex-shrink-0 flex flex-col items-center justify-center px-5 py-6">
+
+                    <!-- Pending state: before clicking confirm -->
+                    <div id="qr-pending" class="w-full flex flex-col items-center cursor-pointer" onclick="confirmRecharge()">
+                        <div class="w-full aspect-square rounded-2xl border-2 border-dashed border-base-300 flex flex-col items-center justify-center gap-3 bg-base-200/40 mb-3"
+                             style="transition: border-color 0.2s, background-color 0.2s;"
+                             onmouseover="this.style.borderColor='rgba(34,197,94,0.4)'; this.style.backgroundColor='rgba(34,197,94,0.05)';"
+                             onmouseout="this.style.borderColor=''; this.style.backgroundColor='';">
+                            <i class="ri-qr-code-line text-5xl" style="color: rgba(0,0,0,0.12);"></i>
+                            <p style="font-size:12px; color: rgba(0,0,0,0.28); text-align:center; line-height:1.6;">
+                                选择金额后<br>点击按钮<br>生成支付二维码
+                            </p>
+                        </div>
+                        <p style="font-size:11px; color: rgba(22,119,255,0.3); display:flex; align-items:center; gap:4px;">
+                            <i class="ri-alipay-fill"></i>支付宝扫码支付
+                        </p>
+                    </div>
+
+                    <!-- Active state: after clicking confirm -->
+                    <div id="qr-active" class="w-full flex flex-col items-center hidden">
+
+                        <!-- Label -->
+                        <p class="text-xs font-semibold text-base-content/50 mb-2 flex items-center gap-1">
+                            <i class="ri-alipay-fill text-[#1677FF]"></i>
+                            支付宝扫码支付
+                        </p>
+
+                        <!-- QR Code (click to simulate payment success in demo) -->
+                        <div class="relative w-full aspect-square rounded-2xl bg-white shadow-xl border border-[#1677FF]/15 p-3 mb-3 overflow-hidden cursor-pointer group/qr"
+                             onclick="showPaymentSuccess()"
+                             title="点击模拟支付成功">
+                            <img id="qr-img" src="" alt="支付宝二维码" class="w-full h-full object-contain block rounded-lg transition-opacity duration-200 group-hover/qr:opacity-60" />
+                            <!-- Alipay center logo -->
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <div class="bg-white p-2 rounded-xl shadow-md border border-base-200/60">
+                                    <i class="ri-alipay-fill text-2xl text-[#1677FF]"></i>
+                                </div>
+                            </div>
+                            <!-- Demo hover hint -->
+                            <div class="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover/qr:opacity-100 transition-opacity duration-200 pointer-events-none">
+                                <span class="bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-full font-medium">点击模拟支付成功</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Success state: after payment confirmed -->
+                    <div id="qr-success" class="w-full flex flex-col items-center hidden">
+
+                        <!-- Success animation area -->
+                        <div class="w-full aspect-square rounded-2xl bg-gradient-to-br from-success/10 to-success/5 border-2 border-success/30 flex flex-col items-center justify-center gap-3 mb-3 relative overflow-hidden">
+                            <!-- Background glow -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-32 h-32 bg-success/10 rounded-full blur-2xl"></div>
+                            </div>
+                            <!-- Check icon -->
+                            <div class="relative z-10 w-16 h-16 rounded-full bg-success flex items-center justify-center shadow-lg shadow-success/40" id="success-check-ring">
+                                <i class="ri-check-line text-white text-3xl font-black"></i>
+                            </div>
+                            <!-- Success text -->
+                            <div class="relative z-10 text-center">
+                                <p class="text-base font-black text-success">支付成功</p>
+                                <p class="text-[11px] text-base-content/50 mt-0.5">积分将很快到账</p>
+                            </div>
+                            <!-- Points badge -->
+                            <div class="relative z-10 inline-flex items-center gap-1.5 bg-warning/15 text-warning text-xs font-bold px-3 py-1.5 rounded-full border border-warning/20">
+                                <i class="ri-coin-fill"></i>
+                                +<span id="successPoints">5,000</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Demo shortcut button: always visible to preview success state -->
+        <button onclick="showPaymentSuccess()"
+            style="position:absolute; bottom:14px; right:16px; font-size:11px; background:rgba(34,197,94,0.15); color:rgba(34,197,94,0.9); border:1px dashed rgba(34,197,94,0.4); border-radius:999px; padding:4px 12px; cursor:pointer; display:flex; align-items:center; gap:5px; z-index:10;"
+            onmouseover="this.style.background='rgba(34,197,94,0.28)';"
+            onmouseout="this.style.background='rgba(34,197,94,0.15)';">
+            <i class="ri-play-circle-line"></i> 预览支付成功效果
+        </button>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Page-specific JavaScript -->
+    <script>
+        // ========================================
+        // Theme Toggle Functionality
+        // ========================================
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        if (themeToggle) {
+            themeToggle.checked = savedTheme === 'dark';
+        }
+
+        // Toggle theme
+        if (themeToggle) {
+            themeToggle.addEventListener('change', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+
+        // ========================================
+        // Dashboard functionality
+        // ========================================
+        const dashboard = {
+            refreshProjects: function () {
+                console.log('Refreshing projects...');
+                // Add refresh logic here
+            },
+            showAddProjectModal: function () {
+                document.getElementById('add_project_modal').showModal();
+            }
+        };
+
+        // Search functionality
+        const searchInput = document.getElementById('projectSearch');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            // Add search logic here
+            console.log('Searching for:', searchTerm);
+        });
+
+        // ========================================
+        // Drag and Drop Image Upload Functionality
+        // ========================================
+        const uploadArea = document.getElementById('uploadArea');
+        const bgImageFile = document.getElementById('bgImageFile');
+        const bgImageUrl = document.getElementById('bgImageUrl');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const fileName = document.getElementById('fileName');
+        const removeImage = document.getElementById('removeImage');
+        const dragOverlay = document.getElementById('dragOverlay');
+
+        // Prevent default drag behaviors on the entire document
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Highlight upload area when dragging over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => {
+                dragOverlay.classList.remove('hidden');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => {
+                dragOverlay.classList.add('hidden');
+            }, false);
+        });
+
+        // Handle dropped files
+        uploadArea.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }, false);
+
+        // Click to select file
+        uploadArea.addEventListener('click', () => {
+            bgImageFile.click();
+        });
+
+        // Handle file selection via input
+        bgImageFile.addEventListener('change', (e) => {
+            const files = e.target.files;
+            handleFiles(files);
+        });
+
+        // Handle files
+        function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('请选择图片文件!');
+                    return;
+                }
+
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('图片大小不能超过 5MB!');
+                    return;
+                }
+
+                // Display preview
+                displayImagePreview(file);
+            }
+        }
+
+        // Display image preview
+        function displayImagePreview(file) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                fileName.textContent = file.name;
+                uploadPlaceholder.classList.add('hidden');
+                imagePreview.classList.remove('hidden');
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        // Remove image
+        removeImage.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering upload area click
+            previewImg.src = '';
+            fileName.textContent = '';
+            bgImageFile.value = '';
+            bgImageUrl.value = '';
+            uploadPlaceholder.classList.remove('hidden');
+            imagePreview.classList.add('hidden');
+        });
+
+        // Handle URL input
+        if (bgImageUrl) {
+        bgImageUrl.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                // Display preview from URL
+                previewImg.src = url;
+                fileName.textContent = '从URL加载的图片';
+                uploadPlaceholder.classList.add('hidden');
+                imagePreview.classList.remove('hidden');
+
+                // Clear file input
+                bgImageFile.value = '';
+            }
+        });
+        }
+
+        // Delete confirmation functionality
+        let projectToDelete = null;
+
+        function showDeleteConfirm(projectName) {
+            projectToDelete = projectName;
+            document.getElementById('deleteProjectName').textContent = projectName;
+            document.getElementById('delete_confirm_modal').showModal();
+        }
+
+        function confirmDelete() {
+            if (projectToDelete) {
+                console.log('Deleting project:', projectToDelete);
+                // Add actual delete logic here
+                // For example: API call to delete the project
+
+                // Close the modal
+                document.getElementById('delete_confirm_modal').close();
+
+                // Show success message (optional)
+                alert(`项目 "${projectToDelete}" 已删除`);
+
+                // Reset the variable
+                projectToDelete = null;
+            }
+        }
+
+        // ========================================
+        // Recharge Modal Functionality
+        // ========================================
+        let rechargeAmount = 500;
+        let rechargePoints = 5000;
+
+        function selectPreset(el) {
+            const amount = parseInt(el.dataset.amount);
+            const customInput = document.getElementById('customAmount');
+            
+            // Populate input field
+            customInput.value = amount;
+            
+            // Trigger calculation logic
+            onCustomInput(customInput);
+            
+            // Update selected style
+            document.querySelectorAll('.recharge-premium-card').forEach(opt => {
+                opt.classList.remove('border-primary', 'bg-primary/5');
+                opt.classList.add('border-base-200', 'bg-base-100');
+            });
+            el.classList.add('border-primary', 'bg-primary/5');
+            el.classList.remove('border-base-200', 'bg-base-100');
+        }
+
+        function onCustomInput(input) {
+            let val = parseFloat(input.value);
+            if (isNaN(val)) val = 0;
+
+            const presetMatched = [...document.querySelectorAll('.recharge-premium-card')].find(p => parseFloat(p.dataset.amount) === val);
+
+            // Update styles for presets
+            document.querySelectorAll('.recharge-premium-card').forEach(opt => {
+                opt.classList.remove('border-primary', 'bg-primary/5');
+                opt.classList.add('border-base-200', 'bg-base-100');
+            });
+            if (presetMatched && val > 0) {
+                presetMatched.classList.add('border-primary', 'bg-primary/5');
+                presetMatched.classList.remove('border-base-200', 'bg-base-100');
+            }
+
+            // Calculate points (1元 = 10积分)
+            rechargeAmount = val;
+            rechargePoints = Math.floor(val * 10);
+
+            updateButtonDisplay();
+        }
+
+        function updateButtonDisplay() {
+            const qrAmt = document.getElementById('qrAmount');
+            const qrPts = document.getElementById('qrPoints');
+
+            const amtStr = rechargeAmount > 0 ? rechargeAmount.toLocaleString() : '0';
+            const ptsStr = rechargePoints > 0 ? rechargePoints.toLocaleString() : '0';
+
+            if(qrAmt) qrAmt.textContent = amtStr;
+            if(qrPts) qrPts.textContent = ptsStr;
+        }
+
+        function confirmRecharge() {
+            if (!rechargeAmount || rechargeAmount <= 0) {
+                alert('请选择或输入有效的充值金额');
+                return;
+            }
+
+            // Update QR code image with a demo placeholder
+            const qrImg = document.getElementById('qr-img');
+            if (qrImg) {
+                // Use a clearly visible demo QR code at larger size
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=https://panqu.com/pay?amount=${rechargeAmount}&points=${rechargePoints}`;
+            }
+
+            // Switch right panel from pending/success to active
+            const pending = document.getElementById('qr-pending');
+            const active = document.getElementById('qr-active');
+            const success = document.getElementById('qr-success');
+            if (pending && active) {
+                pending.classList.add('hidden');
+                if (success) success.classList.add('hidden');
+                active.classList.remove('hidden');
+            }
+        }
+
+        function backToRecharge() {
+            // Switch right panel back to pending state
+            const pending = document.getElementById('qr-pending');
+            const active = document.getElementById('qr-active');
+            const success = document.getElementById('qr-success');
+            if (pending && active) {
+                active.classList.add('hidden');
+                success.classList.add('hidden');
+                pending.classList.remove('hidden');
+            }
+        }
+
+        function showPaymentSuccess() {
+            // Use current values, fall back to defaults for demo
+            const amt = rechargeAmount > 0 ? rechargeAmount : 500;
+            const pts = rechargePoints > 0 ? rechargePoints : 5000;
+
+            // Update success state values
+            const amtEl = document.getElementById('successAmount');
+            const ptsEl = document.getElementById('successPoints');
+            if (amtEl) amtEl.textContent = amt.toLocaleString();
+            if (ptsEl) ptsEl.textContent = pts.toLocaleString();
+
+            // Hide all states, show qr-success
+            document.getElementById('qr-pending').classList.add('hidden');
+            document.getElementById('qr-active').classList.add('hidden');
+            const successEl = document.getElementById('qr-success');
+            successEl.classList.remove('hidden');
+
+            // Animate the check ring with a pop effect
+            const ring = document.getElementById('success-check-ring');
+            if (ring) {
+                ring.style.transform = 'scale(0)';
+                ring.style.transition = 'none';
+                setTimeout(() => {
+                    ring.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    ring.style.transform = 'scale(1)';
+                }, 30);
+            }
+        }
+
+        // Initialize state on load
+        // Script is at end of body so DOM is already ready — call directly
+        (function initRecharge() {
+            const defaultPreset = document.getElementById('default-preset');
+            if (defaultPreset) selectPreset(defaultPreset);
+        })();
+
+    </script>
+</body>
+
+</html>

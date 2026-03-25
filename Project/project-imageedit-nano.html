@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Banana编辑 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .editor-container {
+            height: calc(100vh - 64px);
+            background-color: var(--fallback-b2, oklch(var(--b2)));
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .editor-toolbar {
+            height: 56px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+            border-bottom: 1px solid var(--fallback-b3, oklch(var(--b3)));
+        }
+
+        .editor-main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .editor-canvas-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .canvas-viewport {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            overflow: auto;
+        }
+
+        .editor-sidebar {
+            width: 24vw;
+            min-width: 320px;
+            max-width: 460px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-right: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+            z-index: 5;
+            overflow-y: auto;
+        }
+
+        .editor-right-sidebar {
+            width: 20vw;
+            min-width: 280px;
+            max-width: 340px;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-left: 1px solid var(--fallback-b3, oklch(var(--b3)));
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 16px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.02);
+            z-index: 5;
+            overflow-y: auto;
+        }
+
+        /* 响应式优化 - 笔记本屏幕 */
+        @media (max-width: 1440px) {
+            .editor-sidebar {
+                width: 22vw;
+                min-width: 300px;
+                max-width: 380px;
+            }
+
+            .editor-right-sidebar {
+                width: 18vw;
+                min-width: 260px;
+                max-width: 300px;
+            }
+        }
+
+        /* 响应式优化 - 小屏笔记本 */
+        @media (max-width: 1280px) {
+            .editor-sidebar {
+                width: 20vw;
+                min-width: 280px;
+                max-width: 340px;
+                padding: 16px;
+            }
+
+            .editor-right-sidebar {
+                width: 16vw;
+                min-width: 240px;
+                max-width: 280px;
+                padding: 16px;
+            }
+        }
+
+        .canvas-container {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            max-width: 100%;
+            max-height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .canvas-image {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Upload Placeholder */
+        .upload-placeholder {
+            border: 2px dashed var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 12px;
+            width: 500px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--fallback-b1, oklch(var(--b1)));
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-placeholder:hover,
+        .upload-placeholder.drag-over {
+            border-color: var(--fallback-p, oklch(var(--p)));
+            background: var(--fallback-b2, oklch(var(--b2)));
+            transform: scale(1.02);
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            background: var(--fallback-b2, oklch(var(--b2)));
+            padding: 4px;
+            border-radius: 8px;
+            gap: 2px;
+            border: 1px solid var(--fallback-b3, oklch(var(--b3)));
+        }
+
+        .toolbar-btn {
+            height: 40px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            color: var(--fallback-bc, oklch(var(--bc)));
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--fallback-b3, oklch(var(--b3)));
+            color: var(--fallback-bc, oklch(var(--bc)));
+        }
+
+        .toolbar-btn.active {
+            background: var(--fallback-p, oklch(var(--p)));
+            color: var(--fallback-pc, oklch(var(--pc)));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .divider-v {
+            width: 1px;
+            height: 24px;
+            background: #e5e7eb;
+            margin: 0 8px;
+        }
+
+        .zoom-info {
+            font-size: 13px;
+            color: #6b7280;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Points Tooltip */
+        .points-tooltip {
+            position: absolute;
+            top: -32px;
+            right: 15px;
+            background: #ff9900;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 6px rgba(255, 153, 0, 0.3);
+            animation: bounceIn 0.5s ease-out;
+        }
+
+        .points-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 25px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #ff9900;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: translateY(5px) scale(0.9);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateY(-3px) scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Image Upload List */
+        .image-upload-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .image-upload-item {
+            height: 100px;
+            border: 2px dashed var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            background: var(--fallback-b1, oklch(var(--b1)));
+        }
+
+        .image-upload-item:hover {
+            background: var(--fallback-b2, oklch(var(--b2)));
+        }
+
+        .image-upload-item.has-image {
+            border-style: solid;
+            border-color: var(--fallback-b3, oklch(var(--b3)));
+        }
+
+        .image-upload-item .image-preview {
+            width: 76px;
+            height: 76px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--fallback-b2, oklch(var(--b2)));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-upload-item .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-upload-item .image-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .image-upload-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .image-upload-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        .image-upload-item .tooltip {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+        }
+
+        .image-tag {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .image-tag:hover {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .image-tag:active {
+            transform: scale(0.95);
+        }
+
+        .upload-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .upload-actions button {
+            flex: 1;
+            height: 36px;
+            font-size: 13px;
+        }
+
+        /* Project Image Selection */
+        .project-image-item.selected .group::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 3px solid var(--fallback-p, oklch(var(--p)));
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .project-image-item.selected .ri-checkbox-circle-line {
+            color: var(--fallback-p, oklch(var(--p)));
+        }
+
+        .resolution-option-label {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            border: 2px solid var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .resolution-option-label:hover {
+            border-color: var(--fallback-p, oklch(var(--p)));
+        }
+
+        .resolution-option-label input:checked ~ .resolution-option-content {
+            border-color: var(--fallback-p, oklch(var(--p)));
+        }
+    </style>
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Projects.html" class="active"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-container">
+        <div class="editor-main">
+            <!-- Sidebar -->
+            <div class="editor-sidebar">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="ri-sparkling-line text-lg"></i>
+                    <span>Nano Banana Pro</span>
+                </h3>
+
+                <!-- Image Upload Section -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="label-text font-bold">参考图片 <span class="text-base-content/60 text-xs">(最多10张)</span></span>
+                            <div class="tooltip tooltip-right" data-tip="不选择图片则为文生图模式">
+                                <i class="ri-information-line text-base text-base-content/60 cursor-help"></i>
+                            </div>
+                        </div>
+                        <span class="text-xs text-base-content/60"><span id="imageCount">0</span>/10</span>
+                    </div>
+
+                    <!-- Image Upload List -->
+                    <div class="image-upload-list" id="imageList">
+                        <!-- Image upload items will be generated by JS -->
+                    </div>
+
+                    <!-- Upload Actions -->
+                    <div class="upload-actions mt-3">
+                        <button class="btn btn-sm btn-outline gap-1 w-full" id="selectFromProjectBtn">
+                            <i class="ri-folder-image-line"></i>
+                            从项目选择
+                        </button>
+                    </div>
+
+                    <input type="file" id="imageInput" class="hidden" accept="image/jpeg,image/png" multiple>
+                </div>
+
+                <!-- Prompt Input -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold">提示词</span>
+                    </label>
+                    <textarea class="textarea textarea-bordered h-24"
+                        placeholder="描述你想要生成的图像内容，支持中英文..."></textarea>
+                </div>
+
+                <!-- Resolution Selection -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold">分辨率</span>
+                    </label>
+                    <div class="flex gap-3">
+                        <label class="label cursor-pointer gap-2 flex-1 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="resolution" class="radio radio-sm radio-primary" value="1k" checked />
+                            <span class="label-text font-medium">1K</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 flex-1 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="resolution" class="radio radio-sm radio-primary" value="2k" />
+                            <span class="label-text font-medium">2K</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 flex-1 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="resolution" class="radio radio-sm radio-primary" value="4k" />
+                            <span class="label-text font-medium">4K</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pixel Size Selection -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold">像素尺寸</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- 1:1 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="1:1" checked />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-8 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">1:1</span>
+                            </div>
+                        </label>
+
+                        <!-- 4:3 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="4:3" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">4:3</span>
+                            </div>
+                        </label>
+
+                        <!-- 4:5 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="4:5" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">4:5</span>
+                            </div>
+                        </label>
+
+                        <!-- 5:4 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="5:4" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-8 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">5:4</span>
+                            </div>
+                        </label>
+
+                        <!-- 3:4 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="3:4" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-6 h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">3:4</span>
+                            </div>
+                        </label>
+
+                        <!-- 16:9 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="16:9" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-8 h-[18px] border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">16:9</span>
+                            </div>
+                        </label>
+
+                        <!-- 9:16 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="9:16" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-[18px] h-8 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">9:16</span>
+                            </div>
+                        </label>
+
+                        <!-- 3:2 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="3:2" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-9 h-6 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">3:2</span>
+                            </div>
+                        </label>
+
+                        <!-- 2:3 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="2:3" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-6 h-9 border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">2:3</span>
+                            </div>
+                        </label>
+
+                        <!-- 21:9 -->
+                        <label class="label cursor-pointer gap-2 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="pixel_size" class="radio radio-sm radio-primary" value="21:9" />
+                            <div class="flex items-center gap-2 flex-1">
+                                <div class="w-10 h-[17px] border-2 border-primary rounded-sm bg-primary/10"></div>
+                                <span class="label-text font-medium">21:9</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Route Selection -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text font-bold">线路</span>
+                    </label>
+                    <div class="flex gap-3">
+                        <label class="label cursor-pointer gap-2 flex-1 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="route" class="radio radio-sm radio-primary" value="R" checked />
+                            <span class="label-text font-medium">R线路</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2 flex-1 border-2 border-base-300 rounded-lg p-3 hover:border-primary transition-colors">
+                            <input type="radio" name="route" class="radio radio-sm radio-primary" value="K" />
+                            <span class="label-text font-medium">K线路</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="mt-auto">
+                    <div class="flex gap-3 relative">
+                        <!-- Points Bubble -->
+                        <div class="points-tooltip">
+                            <i class="ri-coin-fill text-[10px]"></i>
+                            30 积分
+                        </div>
+                        <button class="btn btn-ghost flex-1 hover:scale-105 transition-transform">重置</button>
+                        <button class="btn btn-primary flex-1 hover:scale-105 transition-transform shadow-lg">
+                            <i class="ri-magic-line text-lg"></i>
+                            生成
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Area -->
+            <div class="editor-canvas-area" id="canvasArea">
+                <div class="canvas-viewport">
+                    <!-- Initial State: Upload Placeholder -->
+                    <div class="upload-placeholder" id="uploadBox">
+                        <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-4">
+                            <i class="ri-magic-line text-3xl"></i>
+                        </div>
+                        <p class="text-lg font-semibold">AI 生成预览区域</p>
+                        <p class="text-sm text-base-content/60 mt-2">设置参数后点击生成，结果将在此显示</p>
+                    </div>
+
+                    <!-- After Upload: Image Canvas (Hidden by default) -->
+                    <div class="canvas-container hidden" id="canvasContainer">
+                        <img src="" alt="编辑图片" class="canvas-image" id="targetImage">
+                        <div class="absolute inset-0 pointer-events-none border-2 border-primary/20"></div>
+                    </div>
+
+                    <!-- AI Generating State: Loading (Hidden by default) -->
+                    <div class="upload-placeholder hidden" id="aiGeneratingBox">
+                        <div class="w-20 h-20 mb-6 relative">
+                            <div class="absolute inset-0 border-4 border-primary/20 rounded-full"></div>
+                            <div class="absolute inset-0 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="ri-magic-line text-2xl text-primary"></i>
+                            </div>
+                        </div>
+                        <p class="text-lg font-semibold">AI 正在生成中...</p>
+                        <p class="text-sm text-base-content/60 mt-2">请稍候,这可能需要几秒钟</p>
+                    </div>
+
+                    <!-- AI Result State: Generated Image (Hidden by default) -->
+                    <div class="canvas-container hidden flex flex-col" id="aiResultContainer">
+                        <div class="relative">
+                            <img src="" alt="AI生成图片" class="canvas-image" id="aiResultImage">
+                            <div class="absolute inset-0 pointer-events-none border-2 border-success/30"></div>
+                        </div>
+                        
+                        <!-- Action Bar -->
+                        <div class="flex justify-between items-center p-3 border-t border-base-200 bg-base-100">
+                            <span class="text-xs text-base-content/50">1K • 1024x1024</span>
+                            <div class="flex gap-1">
+                                <button class="btn btn-square btn-ghost btn-sm" onclick="downloadAIResult()" title="下载图片">
+                                    <i class="ri-download-line text-lg"></i>
+                                </button>
+                                <button class="btn btn-square btn-ghost btn-sm" onclick="copyAIResultLink()" title="复制链接">
+                                    <i class="ri-link text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Error State: Generation Failed (Hidden by default) -->
+                    <div class="upload-placeholder hidden" id="aiErrorBox">
+                        <div class="w-16 h-16 bg-error/10 text-error rounded-full flex items-center justify-center mb-4">
+                            <i class="ri-close-circle-line text-3xl"></i>
+                        </div>
+                        <p class="text-lg font-semibold text-error">生成失败</p>
+                        <p class="text-sm text-base-content/60 mt-2">网络连接超时，请稍后重试</p>
+                        <div class="mt-6">
+                            <button class="btn btn-sm btn-outline btn-error" onclick="regenerateAI()">
+                                <i class="ri-refresh-line"></i>
+                                重新生成
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Recent Tasks -->
+            <div class="editor-right-sidebar">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-lg">最近任务</span>
+                </div>
+                
+                <!-- Task Card 1 (Completed) -->
+                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="1">
+                    <a href="task-detail.html?id=1" target="_blank" rel="noopener noreferrer">
+                        <figure class="cursor-pointer"><img src="https://picsum.photos/400/300?random=201" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                    </a>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-2">智能背景移除</h3>
+                        <div class="card-actions justify-between items-center mt-1">
+                            <div class="badge badge-success badge-sm gap-1">
+                                <i class="ri-check-circle-fill"></i>
+                                已完成
+                            </div>
+                            <div class="flex gap-1">
+                                <button class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-download-line font-normal"></i>
+                                </button>
+                                <div class="dropdown dropdown-end">
+                                    <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                        <i class="ri-more-2-fill text-lg"></i>
+                                    </div>
+                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                        <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                        <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Card 2 (Processing) -->
+                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="2">
+                    <a href="task-detail.html?id=2" target="_blank" rel="noopener noreferrer">
+                        <figure class="cursor-pointer"><img src="https://picsum.photos/400/300?random=202" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                    </a>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-2">画质增强 (4X)</h3>
+                        <div class="mb-2 flex gap-1 flex-wrap">
+                            <span class="badge badge-primary badge-sm">高清修复</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">李晓明</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>30分钟前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-between items-center mt-1">
+                            <div class="badge badge-warning badge-sm gap-1">
+                                <span class="loading loading-spinner loading-xs"></span>
+                                处理中
+                            </div>
+                            <button class="btn btn-ghost btn-xs text-error gap-1 btn-cancel-task">
+                                <i class="ri-close-circle-line"></i>
+                                取消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Card 3 (Failed) -->
+                <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 w-full" data-task-id="3">
+                    <a href="task-detail.html?id=3" target="_blank" rel="noopener noreferrer">
+                        <figure class="cursor-pointer"><img src="https://picsum.photos/400/300?random=203" alt="编辑预览" class="w-full h-40 object-cover" /></figure>
+                    </a>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-2">智能扩图</h3>
+                        <div class="mb-2 flex gap-1 flex-wrap">
+                            <span class="badge badge-primary badge-sm">生成式扩图</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">张晓华</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1小时前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-between items-center mt-1">
+                            <div class="tooltip tooltip-error tooltip-left" data-tip="图片尺寸过大">
+                                <div class="badge badge-error badge-sm gap-1">
+                                    <i class="ri-error-warning-fill"></i>
+                                    处理失败
+                                </div>
+                            </div>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                                    <li><a><i class="ri-edit-line"></i>重新编辑</a></li>
+                                    <li><a class="text-error"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Select from Project Modal -->
+    <dialog id="selectProjectImageModal" class="modal">
+        <div class="modal-box max-w-4xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg mb-4">从项目中选择图片</h3>
+
+            <!-- Tabs for different sources -->
+            <div role="tablist" class="tabs tabs-boxed mb-4">
+                <a role="tab" class="tab tab-active" data-source="character">角色</a>
+                <a role="tab" class="tab" data-source="scene">场景</a>
+                <a role="tab" class="tab" data-source="goods">物品</a>
+                <a role="tab" class="tab" data-source="fusion">融合生图</a>
+            </div>
+
+            <!-- Image Grid -->
+            <div class="grid grid-cols-4 gap-4 max-h-96 overflow-y-auto p-2" id="projectImageGrid">
+                <!-- Character Images - 角色01 的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="1">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=101" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 14:30</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="2">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=111" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 16:45</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-01" data-version="3">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=112" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-accent">#3</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 09:20</p>
+                </div>
+
+                <!-- 角色02 -->
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-02" data-version="1">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=102" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 10:15</p>
+                </div>
+
+                <!-- 角色03 的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-03" data-version="1">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=103" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-13 15:22</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="character" data-item-id="character-03" data-version="2">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=113" alt="角色图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">角色03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 11:08</p>
+                </div>
+
+                <!-- Scene Images - 城市街道的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-01" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=201" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">城市街道</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-12 13:45</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-01" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=211" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">城市街道</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-13 08:30</p>
+                </div>
+
+                <!-- 室内办公室 -->
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-02" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=202" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">室内办公室</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-11 16:20</p>
+                </div>
+
+                <!-- 自然风景 -->
+                <div class="project-image-item cursor-pointer" data-source="scene" data-item-id="scene-03" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=203" alt="场景图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">自然风景</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-10 14:55</p>
+                </div>
+
+                <!-- Goods Images - 笔记本电脑的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-01" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=301" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">笔记本电脑</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-09 11:30</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-01" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=311" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">笔记本电脑</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-09 15:42</p>
+                </div>
+
+                <!-- 手机 -->
+                <div class="project-image-item cursor-pointer" data-source="goods" data-item-id="goods-02" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=302" alt="物品图片" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">手机</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-08 17:10</p>
+                </div>
+
+                <!-- Fusion Images - 融合图的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=401" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 10:25</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=411" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 11:15</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-01" data-version="3" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=412" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-accent">#3</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图01</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-16 13:40</p>
+                </div>
+
+                <!-- 融合图02 -->
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-02" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=402" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图02</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 09:18</p>
+                </div>
+
+                <!-- 融合图03 的多个版本 -->
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-03" data-version="1" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=403" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-primary">#1</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-14 16:50</p>
+                </div>
+                <div class="project-image-item cursor-pointer" data-source="fusion" data-item-id="fusion-03" data-version="2" style="display: none;">
+                    <div class="relative group">
+                        <img src="https://picsum.photos/200/200?random=413" alt="融合生图" class="w-full h-32 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                            <i class="ri-checkbox-circle-line text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute top-2 left-2 badge badge-sm badge-secondary">#2</div>
+                    </div>
+                    <p class="text-xs text-center mt-1 truncate font-medium">融合图03</p>
+                    <p class="text-xs text-center text-base-content/60">2024-02-15 12:22</p>
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-ghost">取消</button>
+                    <button class="btn btn-primary" id="confirmSelectBtn">确认选择</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <script>
+        // Image Upload Management
+        const MAX_IMAGES = 10;
+        let uploadedImages = [];
+        const imageList = document.getElementById('imageList');
+        const imageInput = document.getElementById('imageInput');
+        const imageCount = document.getElementById('imageCount');
+        const uploadBox = document.getElementById('uploadBox');
+        const canvasContainer = document.getElementById('canvasContainer');
+        const targetImage = document.getElementById('targetImage');
+        const aiGeneratingBox = document.getElementById('aiGeneratingBox');
+        const aiResultContainer = document.getElementById('aiResultContainer');
+        const aiResultImage = document.getElementById('aiResultImage');
+        const aiErrorBox = document.getElementById('aiErrorBox');
+        const selectFromProjectBtn = document.getElementById('selectFromProjectBtn');
+        const selectProjectImageModal = document.getElementById('selectProjectImageModal');
+
+        let aiGenerationTimer = null;
+
+        // Initialize with one empty slot
+        function initImageList() {
+            renderImageList();
+        }
+
+        function renderImageList() {
+            imageList.innerHTML = '';
+
+            // Show uploaded images
+            uploadedImages.forEach((image, index) => {
+                if (image) {
+                    const item = createImageItem(image, index, true);
+                    imageList.appendChild(item);
+                }
+            });
+
+            // Show one empty slot if under max limit
+            if (uploadedImages.length < MAX_IMAGES) {
+                const emptyItem = createImageItem(null, uploadedImages.length, false);
+                imageList.appendChild(emptyItem);
+            }
+
+            updateImageCount();
+        }
+
+        function createImageItem(imageSrc, index, hasImage) {
+            const item = document.createElement('div');
+            item.className = 'image-upload-item' + (hasImage ? ' has-image' : '');
+            item.dataset.index = index;
+
+            if (hasImage) {
+                item.innerHTML = `
+                    <div class="image-preview">
+                        <img src="${imageSrc}" alt="上传的图片">
+                    </div>
+                    <div class="image-info">
+                        <span class="text-sm font-medium">参考图 ${index + 1}</span>
+                        <span class="text-xs text-base-content/60">已上传</span>
+                    </div>
+                    <div class="tooltip tooltip-left" data-tip="点击复制">
+                        <div class="image-tag" onclick="copyImageTag(${index + 1}, event)">
+                            图片${index + 1}
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeImage(${index}, event)">
+                        <i class="ri-close-line"></i>
+                    </button>
+                `;
+            } else {
+                item.innerHTML = `
+                    <div class="image-preview">
+                        <i class="ri-add-line text-3xl text-base-content/30"></i>
+                    </div>
+                    <div class="image-info">
+                        <span class="text-sm font-medium text-base-content/60">添加参考图</span>
+                        <span class="text-xs text-base-content/40">支持JPEG、PNG格式</span>
+                    </div>
+                `;
+                item.onclick = () => {
+                    imageInput.dataset.targetIndex = index;
+                    imageInput.click();
+                };
+            }
+
+            return item;
+        }
+
+        // File input handler
+        imageInput.onchange = (e) => {
+            const files = Array.from(e.target.files);
+            const targetIndex = parseInt(imageInput.dataset.targetIndex || uploadedImages.length);
+
+            files.forEach((file, i) => {
+                if (uploadedImages.length < MAX_IMAGES) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        uploadedImages.push(event.target.result);
+                        renderImageList();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Reset input
+            imageInput.value = '';
+        };
+
+        function removeImage(index, event) {
+            event.stopPropagation();
+            uploadedImages.splice(index, 1);
+            renderImageList();
+        }
+
+        function copyImageTag(imageNumber, event) {
+            event.stopPropagation();
+
+            const textToCopy = `图片${imageNumber}`;
+
+            // 使用现代剪贴板 API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showCopyTooltip(event.currentTarget);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    fallbackCopy(textToCopy, event.currentTarget);
+                });
+            } else {
+                // 降级方案
+                fallbackCopy(textToCopy, event.currentTarget);
+            }
+        }
+
+        function fallbackCopy(text, element) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                document.execCommand('copy');
+                showCopyTooltip(element);
+            } catch (err) {
+                console.error('复制失败:', err);
+            }
+
+            document.body.removeChild(textarea);
+        }
+
+        function showCopyTooltip(element) {
+            // 找到父元素的 tooltip 容器
+            const tooltipContainer = element.parentElement;
+            if (tooltipContainer && tooltipContainer.classList.contains('tooltip')) {
+                // 保存原始提示文字
+                const originalTip = tooltipContainer.getAttribute('data-tip');
+
+                // 显示复制成功提示
+                tooltipContainer.setAttribute('data-tip', '复制成功!');
+
+                // 1.5秒后恢复原始提示
+                setTimeout(() => {
+                    tooltipContainer.setAttribute('data-tip', originalTip);
+                }, 1500);
+            }
+        }
+
+        function updateImageCount() {
+            imageCount.textContent = uploadedImages.length;
+        }
+
+        selectFromProjectBtn.onclick = () => {
+            selectProjectImageModal.showModal();
+        };
+
+        // 监听modal关闭事件,清空选择状态
+        selectProjectImageModal.addEventListener('close', () => {
+            // 清空选择
+            selectedProjectImages = [];
+            projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            // 重置按钮文本
+            updateSelectionCount();
+        });
+
+        // Project image selection modal
+        const projectImageGrid = document.getElementById('projectImageGrid');
+        const confirmSelectBtn = document.getElementById('confirmSelectBtn');
+        const modalTabs = document.querySelectorAll('.tabs .tab');
+        let selectedProjectImages = [];
+
+        // Tab switching
+        modalTabs.forEach(tab => {
+            tab.onclick = () => {
+                modalTabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+                const source = tab.dataset.source;
+                filterProjectImages(source);
+            };
+        });
+
+        function filterProjectImages(source) {
+            const items = projectImageGrid.querySelectorAll('.project-image-item');
+            items.forEach(item => {
+                if (item.dataset.source === source) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Image selection in modal - 支持多版本选择
+        projectImageGrid.onclick = (e) => {
+            const item = e.target.closest('.project-image-item');
+            if (item) {
+                const img = item.querySelector('img');
+                const imgSrc = img.src;
+                const itemId = item.dataset.itemId;
+                const version = item.dataset.version;
+                const source = item.dataset.source;
+
+                // Toggle selection
+                item.classList.toggle('selected');
+
+                if (item.classList.contains('selected')) {
+                    if (uploadedImages.length + selectedProjectImages.length < MAX_IMAGES) {
+                        // 保存完整的图片信息,包括版本号
+                        selectedProjectImages.push({
+                            src: imgSrc,
+                            itemId: itemId,
+                            version: version,
+                            source: source
+                        });
+                    } else {
+                        // 达到最大数量限制,取消选择
+                        item.classList.remove('selected');
+                        alert(`最多只能选择 ${MAX_IMAGES} 张图片`);
+                    }
+                } else {
+                    // 移除选择
+                    const index = selectedProjectImages.findIndex(
+                        img => img.itemId === itemId && img.version === version
+                    );
+                    if (index > -1) {
+                        selectedProjectImages.splice(index, 1);
+                    }
+                }
+
+                // 更新选择计数显示
+                updateSelectionCount();
+            }
+        };
+
+        // 更新选择计数显示
+        function updateSelectionCount() {
+            const count = selectedProjectImages.length;
+            if (count > 0) {
+                confirmSelectBtn.textContent = `确认选择 (${count})`;
+            } else {
+                confirmSelectBtn.textContent = '确认选择';
+            }
+        }
+
+        // Confirm selection
+        confirmSelectBtn.onclick = () => {
+            selectedProjectImages.forEach(imgData => {
+                if (uploadedImages.length < MAX_IMAGES) {
+                    // 将选中的图片添加到上传列表
+                    uploadedImages.push(imgData.src);
+                }
+            });
+
+            renderImageList();
+
+            // Clear selection
+            selectedProjectImages = [];
+            projectImageGrid.querySelectorAll('.project-image-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            // 重置按钮文本
+            updateSelectionCount();
+        };
+
+        // Initialize
+        initImageList();
+        filterProjectImages('character');
+
+        // Drag and Drop support
+        imageList.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        imageList.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const files = Array.from(e.dataTransfer.files);
+            files.forEach((file) => {
+                if (file.type.startsWith('image/') && uploadedImages.length < MAX_IMAGES) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        uploadedImages.push(event.target.result);
+                        renderImageList();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        if (themeToggle) {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-theme', savedTheme);
+            themeToggle.checked = savedTheme === 'dark';
+            themeToggle.addEventListener('change', () => {
+                const theme = themeToggle.checked ? 'dark' : 'light';
+                html.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        }
+
+        // Toolbar zoom controls
+        const toolbarButtons = document.querySelectorAll('.toolbar-btn');
+        toolbarButtons.forEach(btn => {
+            btn.onclick = (e) => {
+                if (btn.tagName === 'A') return;
+                if (btn.parentElement.classList.contains('toolbar-group')) {
+                    const group = btn.parentElement;
+                    group.querySelectorAll('.toolbar-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                }
+            };
+        });
+
+        // ============================================
+        // AI Generation State Management
+        // ============================================
+
+        /**
+         * 显示 AI 生成中状态
+         */
+        function showAIGenerating() {
+            // 隐藏其他所有状态
+            uploadBox.classList.add('hidden');
+            canvasContainer.classList.add('hidden');
+            aiResultContainer.classList.add('hidden');
+            aiErrorBox.classList.add('hidden');
+
+            // 显示 AI 生成中状态
+            aiGeneratingBox.classList.remove('hidden');
+        }
+
+        /**
+         * 显示 AI 生成结果
+         * @param {string} resultImageUrl - 生成的图片 URL
+         */
+        function showAIResult(resultImageUrl) {
+            // 隐藏其他所有状态
+            uploadBox.classList.add('hidden');
+            canvasContainer.classList.add('hidden');
+            aiGeneratingBox.classList.add('hidden');
+            aiErrorBox.classList.add('hidden');
+
+            // 显示 AI 生成结果
+            aiResultImage.src = resultImageUrl;
+            aiResultContainer.classList.remove('hidden');
+
+            // 清除倒计时
+            if (aiGenerationTimer) {
+                clearInterval(aiGenerationTimer);
+                aiGenerationTimer = null;
+            }
+        }
+
+        /**
+         * 返回初始状态或图片预览状态
+         */
+        function resetCanvasState() {
+            // 隐藏 AI 相关状态
+            aiGeneratingBox.classList.add('hidden');
+            aiResultContainer.classList.add('hidden');
+            aiErrorBox.classList.add('hidden');
+
+            // 隐藏图片预览，显示初始占位符
+            canvasContainer.classList.add('hidden');
+            uploadBox.classList.remove('hidden');
+        }
+
+        /**
+         * 显示生成失败状态
+         */
+        function showAIError() {
+             // 隐藏其他所有状态
+             uploadBox.classList.add('hidden');
+             canvasContainer.classList.add('hidden');
+             aiGeneratingBox.classList.add('hidden');
+             aiResultContainer.classList.add('hidden');
+
+             // 显示错误状态
+             aiErrorBox.classList.remove('hidden');
+        }
+
+        /**
+         * 保存 AI 生成的结果
+         */
+        function saveAIResult() {
+            const imgSrc = aiResultImage.src;
+
+            // 添加到已上传图片列表
+            if (uploadedImages.length < MAX_IMAGES) {
+                uploadedImages.push(imgSrc);
+                renderImageList();
+            }
+
+            // 显示成功提示
+            alert('AI 生成图片已保存到参考图片列表');
+
+            // 返回初始占位符状态
+            resetCanvasState();
+        }
+
+        /**
+         * 重新生成 AI 图片
+         */
+        function regenerateAI() {
+            // 重新开始生成流程
+            showAIGenerating();
+
+            // 这里应该调用实际的 AI 生成 API
+            // 示例: 3秒后显示新结果
+            setTimeout(() => {
+                const demoImageUrl = 'https://picsum.photos/800/600?random=' + Date.now();
+                showAIResult(demoImageUrl);
+            }, 3000);
+        }
+
+        /**
+         * 下载 AI 生成的图片
+         */
+        function downloadAIResult() {
+            const imgSrc = aiResultImage.src;
+            if (!imgSrc) return;
+
+            const link = document.createElement('a');
+            link.href = imgSrc;
+            link.download = 'panqu-ai-generated-' + Date.now() + '.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        /**
+         * 复制 AI 图片链接
+         */
+        function copyAIResultLink() {
+            const imgSrc = aiResultImage.src;
+            if (!imgSrc) return;
+
+            // 使用现代剪贴板 API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(imgSrc).then(() => {
+                    showToast('图片链接已复制到剪贴板');
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    fallbackCopy(imgSrc, document.querySelector('button[onclick="copyAIResultLink()"]'));
+                });
+            } else {
+                fallbackCopy(imgSrc, document.querySelector('button[onclick="copyAIResultLink()"]'));
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-bottom toast-center z-[100]';
+            toast.innerHTML = `
+                <div class="alert alert-success shadow-lg">
+                    <i class="ri-checkbox-circle-line text-lg"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        // ============================================
+        // 绑定生成按钮事件 (示例)
+        // ============================================
+
+        // 获取生成按钮 (包含"生成"文字的按钮)
+        const generateBtn = document.querySelector('.btn-primary:has(i.ri-magic-line)');
+        if (generateBtn) {
+            generateBtn.addEventListener('click', () => {
+                // 显示 AI 生成中状态
+                showAIGenerating();
+
+                // 模拟 AI 生成过程 (实际应该调用后端 API)
+                setTimeout(() => {
+                    // 生成完成后显示结果
+                    const demoImageUrl = 'https://picsum.photos/800/600?random=' + Date.now();
+                    showAIResult(demoImageUrl);
+                }, 10000); // 10秒后完成
+            });
+        }
+    </script>
+</body>
+
+</html>

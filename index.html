@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盼趣AI | AI短剧生成,AI动画生成,AI视频生成,AI漫剧生成</title>
+    <meta name="description" content="AI人工智能驱动的视频生成平台,提供AI短剧生成,AI动画生成,AI视频生成,AI漫剧生成等服务">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        kline: {
+                            DEFAULT: '#002FA7',
+                            50: '#E8EEFF',
+                            100: '#C4D4FF',
+                            200: '#9DB6FF',
+                            300: '#7599FF',
+                            400: '#4D7CFF',
+                            500: '#2560FF',
+                            600: '#002FA7',
+                            700: '#002687',
+                            800: '#001D67',
+                            900: '#001447',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/shared/styles.css">
+</head>
+
+<body class="min-h-screen bg-base-100">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="bg-base-100/70 backdrop-blur-xl border-b border-base-content/5 shadow-xl shadow-black/5">
+            <div class="container mx-auto px-4 max-w-7xl">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <a href="#" class="flex items-center gap-3 group">
+                            <div class="relative">
+                                <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-10 w-10 transition-transform duration-300 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-kline/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            </div>
+                            <span class="gradient-text font-bold text-2xl tracking-tight">盼趣AI</span>
+                        </a>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden lg:flex items-center gap-1">
+                        <a href="#" class="nav-link px-4 py-2 text-base font-medium text-base-content/80 hover:text-kline transition-all duration-300 relative group">
+                            首页
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-kline to-kline-400 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                        <a href="#features" class="nav-link px-4 py-2 text-base font-medium text-base-content/80 hover:text-kline transition-all duration-300 relative group">
+                            功能
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-kline to-kline-400 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                        <a href="#showcase" class="nav-link px-4 py-2 text-base font-medium text-base-content/80 hover:text-kline transition-all duration-300 relative group">
+                            作品展示
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-kline to-kline-400 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                        <a href="pricing.html" class="nav-link px-4 py-2 text-base font-medium text-base-content/80 hover:text-kline transition-all duration-300 relative group">
+                            定价
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-kline to-kline-400 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                    </div>
+
+                    <!-- Right Actions -->
+                    <div class="flex items-center gap-3">
+                        <!-- Theme Toggle -->
+                        <label class="swap swap-rotate btn btn-ghost btn-circle hover:bg-base-content/5">
+                            <input type="checkbox" id="theme-toggle" />
+                            <i class="ri-sun-line swap-on text-2xl text-orange-500"></i>
+                            <i class="ri-moon-line swap-off text-2xl text-kline"></i>
+                        </label>
+
+                        <!-- Login Button -->
+                        <a href="register.html" class="hidden sm:inline-flex items-center px-5 py-2.5 text-sm font-medium text-kline border border-kline/30 rounded-full hover:bg-kline/5 hover:border-kline transition-all duration-300 hover:shadow-lg hover:shadow-kline/20">
+                            登录
+                        </a>
+
+                        <!-- Register Button -->
+                        <a href="register.html#register" class="hidden sm:inline-flex items-center px-5 py-2.5 text-sm font-medium text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-kline/30 relative overflow-hidden group" style="background: linear-gradient(135deg, #002FA7 0%, #2560FF 100%);">
+                            <span class="relative z-10">注册</span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-kline-400 to-kline-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+
+                        <!-- Mobile Menu Button -->
+                        <button id="mobile-menu-btn" class="lg:hidden btn btn-ghost btn-circle hover:bg-base-content/5">
+                            <i class="ri-menu-line text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-base-100/95 backdrop-blur-xl border-b border-base-content/5 shadow-2xl">
+            <div class="container mx-auto px-4 py-6 max-w-7xl">
+                <div class="flex flex-col gap-2">
+                    <a href="#" class="px-4 py-3 text-base font-medium text-base-content/80 hover:text-kline hover:bg-kline/5 rounded-lg transition-all duration-300">
+                        首页
+                    </a>
+                    <a href="#features" class="px-4 py-3 text-base font-medium text-base-content/80 hover:text-kline hover:bg-kline/5 rounded-lg transition-all duration-300">
+                        功能
+                    </a>
+                    <a href="#showcase" class="px-4 py-3 text-base font-medium text-base-content/80 hover:text-kline hover:bg-kline/5 rounded-lg transition-all duration-300">
+                        作品展示
+                    </a>
+                    <a href="pricing.html" class="px-4 py-3 text-base font-medium text-base-content/80 hover:text-kline hover:bg-kline/5 rounded-lg transition-all duration-300">
+                        定价
+                    </a>
+                    <div class="h-px bg-base-content/10 my-2"></div>
+                    <a href="register.html" class="px-4 py-3 text-base font-medium text-kline hover:bg-kline/5 rounded-lg transition-all duration-300">
+                        登录
+                    </a>
+                    <a href="register.html#register" class="px-4 py-3 text-base font-medium text-white rounded-lg transition-all duration-300" style="background: linear-gradient(135deg, #002FA7 0%, #2560FF 100%);">
+                        注册
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Spacer for fixed navbar -->
+    <div class="h-20"></div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Video -->
+        <div class="absolute inset-0 z-0">
+            <div class="hero-gradient absolute inset-0"></div>
+            <video id="hero-video" class="absolute inset-0 w-full h-full" autoplay muted loop playsinline
+                style="opacity: 0.3; object-fit: cover; object-position: center;">
+                <source src="assets/videos/hero_bg.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Content -->
+        <div class="container mx-auto px-4 max-w-7xl relative z-10">
+            <div class="flex flex-col items-center justify-center min-h-[80vh] text-center py-16">
+                <div class="badge badge-primary badge-lg mb-6 fade-in">
+                    <i class="ri-sparkling-fill mr-1"></i>
+                    内测中
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white fade-in">
+                    <span class="gradient-text">盼趣AI</span>
+                </h1>
+
+                <h2 class="text-2xl md:text-4xl font-bold text-white/90 mb-6 fade-in">
+                    AI大模型驱动的短剧生成平台
+                </h2>
+
+                <p class="text-xl text-white/70 mb-8 max-w-2xl mx-auto fade-in">
+                    让想象成为可能 | Making imagination possible
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
+                    <a href="#"
+                        class="btn btn-lg gap-2 hover:scale-105 transition-transform shadow-xl text-white border-0"
+                        style="background-color: #002FA7;">
+                        <i class="ri-movie-line text-xl"></i>
+                        立即制作
+                    </a>
+                    <a href="#"
+                        class="btn btn-outline btn-lg gap-2 hover:scale-105 transition-transform text-white border-white hover:bg-white hover:text-kline">
+                        <i class="ri-information-line text-xl"></i>
+                        了解更多
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Video Showcase Grid -->
+    <section id="showcase" class="py-20 bg-base-200">
+        <div class="container mx-auto px-4 py-8 max-w-7xl">
+            <div class="text-center mb-12 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-auto-dark">
+                    核心产品能力
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card bg-base-100 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <figure class="relative">
+                        <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="剧本智能Agent"
+                            class="w-full h-48 object-cover" />
+                        <div
+                            class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                            <button class="btn btn-circle btn-lg text-white border-0"
+                                style="background-color: #002FA7;">
+                                <i class="ri-play-fill text-3xl"></i>
+                            </button>
+                        </div>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title">剧本智能Agent</h3>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <figure class="relative">
+                        <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="AI文生图" class="w-full h-48 object-cover" />
+                        <div
+                            class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                            <button class="btn btn-circle btn-lg text-white border-0"
+                                style="background-color: #002FA7;">
+                                <i class="ri-play-fill text-3xl"></i>
+                            </button>
+                        </div>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title">AI文生图</h3>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <figure class="relative">
+                        <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="AI融合生图" class="w-full h-48 object-cover" />
+                        <div
+                            class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                            <button class="btn btn-circle btn-lg text-white border-0"
+                                style="background-color: #002FA7;">
+                                <i class="ri-play-fill text-3xl"></i>
+                            </button>
+                        </div>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title">AI融合生图</h3>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <figure class="relative">
+                        <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="AI文生视频" class="w-full h-48 object-cover" />
+                        <div
+                            class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                            <button class="btn btn-circle btn-lg text-white border-0"
+                                style="background-color: #002FA7;">
+                                <i class="ri-play-fill text-3xl"></i>
+                            </button>
+                        </div>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title">AI文生视频</h3>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <figure class="relative">
+                        <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="AI图生视频" class="w-full h-48 object-cover" />
+                        <div
+                            class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                            <button class="btn btn-circle btn-lg text-white border-0"
+                                style="background-color: #002FA7;">
+                                <i class="ri-play-fill text-3xl"></i>
+                            </button>
+                        </div>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title">AI图生视频</h3>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <figure class="relative">
+                        <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="AI智能配音" class="w-full h-48 object-cover" />
+                        <div
+                            class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer">
+                            <button class="btn btn-circle btn-lg text-white border-0"
+                                style="background-color: #002FA7;">
+                                <i class="ri-play-fill text-3xl"></i>
+                            </button>
+                        </div>
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title">AI智能配音</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Sound Beta Section -->
+    <section class="py-20 bg-base-100">
+        <div class="container mx-auto px-4 py-8 max-w-7xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="badge badge-secondary badge-lg mb-4">
+                        <i class="ri-sparkling-fill mr-1"></i>
+                        AI驱动
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-auto-dark">
+                        高效的AI短剧工作流
+                    </h2>
+                    <p class="text-lg mb-6 text-auto-dark/70">
+                        集成最新大模型应用，是短剧制作的不二利器。
+                    </p>
+                    <div class="flex gap-3">
+                        <button class="btn gap-2 hover:scale-105 transition-transform text-white border-0"
+                            style="background-color: #002FA7;">
+                            <!-- <i class="ri-volume-up-line"></i> -->
+                            了解详情
+                        </button>
+                        <!-- <button class="btn btn-outline gap-2 hover:scale-105 transition-transform hover:bg-white hover:text-kline">
+                            <i class="ri-information-line"></i>
+                            了解详情
+                        </button> -->
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <div class="card bg-base-200 shadow-2xl">
+                        <figure class="px-6 pt-6">
+                            <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="Sound Beta Demo"
+                                class="w-full rounded-xl" />
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artistic Expression Section -->
+    <section id="features" class="py-20 bg-base-200 overflow-hidden">
+        <div class="container mx-auto px-4 py-8 max-w-7xl">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 fade-in">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-auto-dark">
+                        短剧类型
+                    </h2>
+                    <h3 class="text-2xl text-auto-dark/80">为每一个创意提供强劲支撑</h3>
+                </div>
+                <!-- Navigation Buttons -->
+                <div class="flex gap-4">
+                    <button id="features-prev"
+                        class="btn btn-circle btn-outline border-kline text-kline hover:bg-kline hover:text-white transition-all shadow-lg bg-base-100">
+                        <i class="ri-arrow-left-s-line text-2xl"></i>
+                    </button>
+                    <button id="features-next"
+                        class="btn btn-circle btn-outline border-kline text-kline hover:bg-kline hover:text-white transition-all shadow-lg bg-base-100">
+                        <i class="ri-arrow-right-s-line text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Horizontal Scroll Container -->
+            <div id="features-scroll"
+                class="flex gap-8 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-12 transition-all duration-500 ease-in-out">
+                <!-- Card 1 -->
+                <div class="snap-center shrink-0 w-[300px] md:w-[400px]">
+                    <div
+                        class="card bg-base-100 shadow-xl card-hover transition-all duration-300 group/card rounded-3xl overflow-hidden">
+                        <figure class="px-6 pt-6 relative">
+                            <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="真人剧"
+                                class="w-full h-56 object-cover rounded-2xl group-hover/card:scale-105 transition-transform duration-500" />
+                        </figure>
+                        <div class="card-body">
+                            <h4 class="card-title text-2xl text-auto-dark mb-2">真人剧</h4>
+                            <p class="text-auto-dark/70">
+                                极致写实的AI渲染技术,呈现电影级的光影质感与情感张力,适用于各类都市、情感及职场短剧。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="snap-center shrink-0 w-[300px] md:w-[400px]">
+                    <div
+                        class="card bg-base-100 shadow-xl card-hover transition-all duration-300 group/card rounded-3xl overflow-hidden">
+                        <figure class="px-6 pt-6 relative">
+                            <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="漫剧"
+                                class="w-full h-56 object-cover rounded-2xl group-hover/card:scale-105 transition-transform duration-500" />
+                        </figure>
+                        <div class="card-body">
+                            <h4 class="card-title text-2xl text-auto-dark mb-2">漫剧</h4>
+                            <p class="text-auto-dark/70">
+                                梦幻浪漫或热血二次元风格,多样化的艺术表达形式,让您的想象力在二次元世界自由驰骋。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="snap-center shrink-0 w-[300px] md:w-[400px]">
+                    <div
+                        class="card bg-base-100 shadow-xl card-hover transition-all duration-300 group/card rounded-3xl overflow-hidden">
+                        <figure class="px-6 pt-6 relative">
+                            <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="推文剧"
+                                class="w-full h-56 object-cover rounded-2xl group-hover/card:scale-105 transition-transform duration-500" />
+                        </figure>
+                        <div class="card-body">
+                            <h4 class="card-title text-2xl text-auto-dark mb-2">推文剧</h4>
+                            <p class="text-auto-dark/70">
+                                极具沉浸感的画面配合富有叙事感的视觉组合,为文学作品注入鲜活的生命力。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 (Added for better scroll demo) -->
+                <div class="snap-center shrink-0 w-[300px] md:w-[400px]">
+                    <div
+                        class="card bg-base-100 shadow-xl card-hover transition-all duration-300 group/card rounded-3xl overflow-hidden">
+                        <figure class="px-6 pt-6 relative">
+                            <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="古风剧"
+                                class="w-full h-56 object-cover rounded-2xl group-hover/card:scale-105 transition-transform duration-500" />
+                        </figure>
+                        <div class="card-body">
+                            <h4 class="card-title text-2xl text-auto-dark mb-2">古风剧</h4>
+                            <p class="text-auto-dark/70">
+                                恢弘的古代场景与精致的汉服设计,尽显东方传统美学之韵味。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anime Studio Section -->
+    <!-- <section class="py-20 bg-base-100">
+        <div class="container mx-auto px-4 max-w-7xl"> -->
+    <!-- <div class="text-center mb-12 fade-in">
+                 <p class="text-lg max-w-3xl mx-auto mb-8 text-auto-dark/60">
+                    Step out of concept and into creation. Anime Studio is where thoughts take shape
+                    and stories take motion.
+                </p>
+
+               <h2 class="text-4xl md:text-5xl font-bold mb-8 text-auto-dark">
+                    THE TOOL
+                </h2>
+                <a href="#" class="btn btn-lg gap-2 hover:scale-105 transition-transform shadow-xl text-white border-0" style="background-color: #002FA7;">
+                    <i class="ri-rocket-line"></i>
+                    Enter Anime Studio
+                </a>
+            </div> -->
+
+    <!-- <div class="text-center mb-12 fade-in">
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-lg text-auto-dark/70">
+                        Explore, experiment, and create freely with the Boba Anime 1.3 model.
+                        An open space for your ideas to run wild.
+                    </p>
+                </div>
+            </div> -->
+
+    <!-- Tool Preview -->
+    <!-- <div class="mb-16 fade-in">
+                <div class="max-w-5xl mx-auto">
+                    <div class="card bg-base-200 shadow-2xl">
+                        <figure class="px-6 pt-6">
+                            <img src="https://example.com/assets/landing/toolbox-t2v.png"
+                                 alt="Anime Studio Interface"
+                                 class="w-full rounded-xl"
+                                 onerror="this.src='https://b-cdn.boba.video/og/og-2.jpg'">
+                        </figure>
+                    </div>
+                </div>
+            </div> -->
+
+    <!-- <div class="text-center mb-12 fade-in">
+                <h3 class="text-3xl font-bold text-auto-dark">There's more to Anime Studio</h3>
+            </div> -->
+
+    <!-- Features Grid -->
+    <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card bg-base-200 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <div class="card-body items-center text-center">
+                        <div class="text-5xl text-kline mb-4">
+                            <i class="ri-compass-line"></i>
+                        </div>
+                        <h4 class="card-title text-xl text-auto-dark">Explore</h4>
+                        <p class="text-sm text-auto-dark/70">
+                            Browse stunning creations from the community and discover what's possible with Boba Anime 1.3
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card bg-base-200 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <div class="card-body items-center text-center">
+                        <div class="text-5xl text-kline mb-4">
+                            <i class="ri-time-line"></i>
+                        </div>
+                        <h4 class="card-title text-xl text-auto-dark">Duration</h4>
+                        <p class="text-sm text-auto-dark/70">
+                            Choose between 5 or 8 second clips. Expressive bursts of motion that bring your scenes to life.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card bg-base-200 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <div class="card-body items-center text-center">
+                        <div class="text-5xl text-kline mb-4">
+                            <i class="ri-hd-line"></i>
+                        </div>
+                        <h4 class="card-title text-xl text-auto-dark">Resolution</h4>
+                        <p class="text-sm text-auto-dark/70">
+                            Render in crisp 720p with automatic motion smoothing. 1080p support is almost here.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card bg-base-200 shadow-xl card-hover transition-all duration-300 fade-in">
+                    <div class="card-body items-center text-center">
+                        <div class="text-5xl text-kline mb-4">
+                            <i class="ri-stack-line"></i>
+                        </div>
+                        <h4 class="card-title text-xl text-auto-dark">Concurrency</h4>
+                        <p class="text-sm text-auto-dark/70">
+                            Run up to 2 generations at once and explore variations in parallel. Perfect for rapid iteration.
+                        </p>
+                    </div>
+                </div>
+            </div> -->
+    <!-- </div>
+    </section> -->
+
+
+    <!-- CTA Section -->
+    <section class="py-20" style="background: linear-gradient(135deg, #002FA7 0%, #2560FF 100%);">
+        <div class="container mx-auto px-4 py-8 max-w-7xl">
+            <div class="text-center fade-in">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">
+                        您的创意,无限可能!
+                    </h2>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#"
+                            class="btn btn-lg gap-2 bg-white text-kline hover:bg-gray-100 border-0 hover:scale-105 transition-transform shadow-xl">
+                            <i class="ri-magic-line text-xl"></i>
+                            开始创作
+                        </a>
+                        <a href="#"
+                            class="btn btn-lg gap-2 btn-outline text-white border-white hover:bg-white hover:text-kline hover:scale-105 transition-transform">
+                            <i class="ri-gallery-line text-xl"></i>
+                            查看案例
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 w-full max-w-7xl">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="text-2xl font-bold gradient-text">盼趣AI</span>
+                </div>
+                <p class="text-base-content/70 mb-4">
+                    让想象成为可能
+                </p>
+                <p class="text-base-content/70 mb-4">
+                    Making imagination possible
+                </p>
+                <!-- <div class="flex gap-4 justify-center md:justify-start">
+                    <a href="#" class="btn btn-circle btn-ghost hover:bg-kline hover:text-white transition-colors">
+                        <i class="ri-twitter-x-line text-xl"></i>
+                    </a>
+                    <a href="#" class="btn btn-circle btn-ghost hover:bg-kline hover:text-white transition-colors">
+                        <i class="ri-discord-line text-xl"></i>
+                    </a>
+                    <a href="#" class="btn btn-circle btn-ghost hover:bg-kline hover:text-white transition-colors">
+                        <i class="ri-github-line text-xl"></i>
+                    </a>
+                </div> -->
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4">产品</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="link link-hover hover:text-kline">功能</a></li>
+                    <!-- <li><a href="pricing.html" class="link link-hover hover:text-kline">定价</a></li> -->
+                    <li><a href="#" class="link link-hover hover:text-kline">案例</a></li>
+                    <!-- <li><a href="#" class="link link-hover hover:text-kline">API</a></li> -->
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4">资源</h4>
+                <ul class="space-y-2">
+                    <!-- <li><a href="#" class="link link-hover hover:text-kline">文档</a></li> -->
+                    <li><a href="blog/list.html" class="link link-hover hover:text-kline">博客</a></li>
+                    <!-- <li><a href="#" class="link link-hover hover:text-kline">社区</a></li> -->
+                    <li><a href="#" class="link link-hover hover:text-kline">新闻</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4">公司</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="link link-hover hover:text-kline">关于我们</a></li>
+                    <!-- <li><a href="#" class="link link-hover hover:text-kline">诚聘英才</a></li> -->
+                    <!-- <li><a href="#" class="link link-hover hover:text-kline">法律</a></li> -->
+                    <li><a href="#" class="link link-hover hover:text-kline">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="text-center">
+            <p class="text-base-content/60">&copy; 2025 盼趣® Panqu® AI. All Rights Reserved.
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-kline transition-colors">
+                    浙ICP备2025218418号
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                html.setAttribute('data-theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('ri-close-line');
+                    icon.classList.add('ri-menu-line');
+                } else {
+                    icon.classList.remove('ri-menu-line');
+                    icon.classList.add('ri-close-line');
+                }
+            });
+
+            // Close mobile menu when clicking on a link
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('ri-close-line');
+                    icon.classList.add('ri-menu-line');
+                });
+            });
+        }
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        const navbar = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll <= 0) {
+                navbar.classList.remove('shadow-2xl');
+            } else {
+                navbar.classList.add('shadow-2xl');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Features Scroll Logic
+        const featuresScroll = document.getElementById('features-scroll');
+        const featuresPrev = document.getElementById('features-prev');
+        const featuresNext = document.getElementById('features-next');
+
+        if (featuresScroll && featuresPrev && featuresNext) {
+            const cardWidth = 430; // Card width + gap
+
+            featuresNext.addEventListener('click', () => {
+                featuresScroll.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            });
+
+            featuresPrev.addEventListener('click', () => {
+                featuresScroll.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            });
+
+            const updateFeaturesButtons = () => {
+                const { scrollLeft, scrollWidth, clientWidth } = featuresScroll;
+                featuresPrev.disabled = scrollLeft <= 0;
+                featuresNext.disabled = scrollLeft + clientWidth >= scrollWidth - 10;
+
+                featuresPrev.style.opacity = featuresPrev.disabled ? '0.5' : '1';
+                featuresNext.style.opacity = featuresNext.disabled ? '0.5' : '1';
+            };
+
+            featuresScroll.addEventListener('scroll', updateFeaturesButtons);
+            window.addEventListener('resize', updateFeaturesButtons);
+            updateFeaturesButtons();
+        }
+
+        // 确保视频播放
+        document.addEventListener('DOMContentLoaded', function () {
+            const video = document.getElementById('hero-video');
+            if (video) {
+                // 尝试播放视频
+                video.play().then(function () {
+                    console.log('视频播放成功');
+                }).catch(function (error) {
+                    console.log('视频自动播放失败:', error);
+                    // 添加点击播放作为后备方案
+                    document.addEventListener('click', function () {
+                        video.play();
+                    }, { once: true });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

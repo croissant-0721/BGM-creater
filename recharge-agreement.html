@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钱包充值服务协议 | 盼趣AI</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        kline: {
+                            DEFAULT: '#002FA7',
+                            50: '#E8EEFF',
+                            100: '#C4D4FF',
+                            200: '#9DB6FF',
+                            300: '#7599FF',
+                            400: '#4D7CFF',
+                            500: '#2560FF',
+                            600: '#002FA7',
+                            700: '#002687',
+                            800: '#001D67',
+                            900: '#001447',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #002FA7 0%, #2560FF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h1, .prose h2, .prose h3 {
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+        .prose p, .prose li {
+            color: #4a4a4a;
+            line-height: 1.8;
+        }
+        [data-theme='dark'] .prose h1, 
+        [data-theme='dark'] .prose h2, 
+        [data-theme='dark'] .prose h3 {
+            color: #f3f4f6;
+        }
+        [data-theme='dark'] .prose p, 
+        [data-theme='dark'] .prose li {
+            color: #d1d5db;
+        }
+    </style>
+</head>
+
+<body class="bg-base-100 min-h-screen">
+    <!-- Simple Header -->
+    <nav class="border-b border-base-200 bg-base-100/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 h-16 flex items-center justify-between max-w-4xl">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                <span class="text-xl font-bold gradient-text">盼趣AI</span>
+            </a>
+            <button id="theme-toggle" class="btn btn-ghost btn-circle">
+                <i class="ri-moon-line text-xl dark:hidden"></i>
+                <i class="ri-sun-line text-xl hidden dark:block"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="container mx-auto px-4 py-12 max-w-4xl">
+        <article class="prose prose-lg max-w-none">
+            <h1 class="text-3xl md:text-4xl mb-8 text-center text-kline">钱包充值服务协议</h1>
+            
+            <div class="bg-base-200/50 p-6 rounded-2xl mb-12 border border-base-300">
+                <p class="font-medium mb-0">
+                    本《钱包充值服务协议》（以下简称 "本协议"）由您与<strong>【盼趣AI】</strong>（以下简称 "我们"）共同订立，旨在明确您使用我们提供的钱包充值服务时双方的权利和义务。请您在使用钱包充值服务前，仔细阅读本协议全部内容。如您对本协议内容有任何疑问，可向我们的客服咨询。当您使用钱包充值服务时，即表示您已充分理解并自愿接受本协议的全部内容。
+                </p>
+            </div>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">一、定义</h2>
+                <div class="space-y-4">
+                    <p>1. <strong>钱包</strong>：指由我们为您提供的，用于存储资金、进行交易支付等操作的电子虚拟账户。</p>
+                    <p>2. <strong>充值</strong>：指您通过我们支持的支付渠道，将资金存入钱包账户的行为。</p>
+                    <p>3. <strong>支付渠道</strong>：包括但不限于第三方支付平台、网上银行、快捷支付等我们与相关合作机构共同提供的支付方式。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">二、服务提供方的权利与义务</h2>
+                <div class="space-y-4">
+                    <p>1. 我们有权根据法律法规、监管要求、业务发展等情况，对钱包充值服务的功能、支付渠道、充值限额等进行调整，并通过官方网站、短信、邮箱等一种或多种方式通知您。如您继续使用充值服务，即视为接受调整后的内容。</p>
+                    <p>2. 我们承诺采取合理的技术和管理措施，保障钱包充值服务的正常运行，保护您的资金安全和个人信息安全。但因不可抗力、通信网络故障、第三方支付渠道问题等非我们原因导致的服务中断、资金损失等情况，我们不承担责任，但会尽力协助您解决问题。</p>
+                    <p>3. 我们有权对您的充值行为进行监测和管理，如发现异常充值行为（包括但不限于涉嫌洗钱、诈骗、套现等违法违规行为），我们有权暂停或终止为您提供充值服务，并有权采取相应的风险控制措施，包括但不限于冻结您的钱包账户资金、限制交易等，并将相关情况报告监管部门。</p>
+                    <p>4. 我们应按照约定及时处理您的充值请求，并在充值成功后，及时更新您钱包账户的余额信息。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">三、用户的权力与义务</h2>
+                <div class="space-y-4">
+                    <p>1. 您有权在遵守本协议及相关法律法规的前提下，使用我们提供的钱包充值服务，并在充值成功后，合法合理地使用钱包账户内的资金。</p>
+                    <p>2. 您应确保提供的注册信息、身份信息等资料真实、准确、完整、有效，并及时更新。如因您提供的信息不真实、不准确、不完整或未及时更新，导致无法使用充值服务或产生其他不利后果，由您自行承担责任。</p>
+                    <p>3. 您应妥善保管自己的钱包账户信息（包括但不限于账户名、密码、验证码等）及支付工具信息（如银行卡号、支付密码等），不得将其泄露给任何第三方。如因您自身原因导致账户信息或支付工具信息泄露，造成资金损失的，由您自行承担责任。</p>
+                    <p>4. 您应按照我们规定的充值流程和要求进行充值操作，并确认充值金额、支付方式等信息无误后提交充值请求。如因您操作失误导致充值错误（如充错账户、重复充值等），我们将根据实际情况协助您处理，但不保证一定能够追回资金或进行退款，相关损失由您自行承担。</p>
+                    <p>5. 您承诺使用充值服务进行的交易活动均符合法律法规、社会公德及本协议的约定，不得利用钱包充值服务从事任何违法违规、损害他人合法权益或违反公序良俗的行为。如您违反上述规定，我们有权采取相应措施追究您的责任，包括但不限于终止服务、要求您承担赔偿责任等，并将相关情况报告监管部门。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">四、充值操作与交易规则</h2>
+                <div class="space-y-4">
+                    <p>1. <strong>充值方式</strong>：您可通过我们支持的支付渠道进行充值，不同支付渠道可能有不同的到账时间，具体以充值页面展示的信息为准。</p>
+                    <p>2. <strong>充值限额</strong>：为保障您的资金安全和防范风险，我们对单笔充值金额、单日充值金额、单月充值金额等设置了限额。如您需要调整充值限额，可按照我们规定的流程申请，但我们有权根据您的账户情况、风险评估结果等决定是否同意您的申请。</p>
+                    <p>3. <strong>到账时间</strong>：充值资金一般会在您提交充值请求并支付成功后的一定时间内到账，具体到账时间以各支付渠道的实际处理时间为准。如遇网络繁忙、系统维护、支付渠道故障等特殊情况，到账时间可能会延迟。如您的充值资金长时间未到账，请及时联系我们的客服人员进行查询和处理。</p>
+                    <p>4. <strong>交易凭证</strong>：您的充值记录将作为交易凭证，您可以在订单明细中查询充值历史记录。如对充值交易有疑问，您应在充值交易发生后的7个工作日内我们提出异议，并提供相关证明材料。我们将在收到您的异议后进行核实，并在规定时间内将处理结果告知您。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">五、资金管理与安全</h2>
+                <div class="space-y-4">
+                    <p>1. 您钱包账户内的资金属于您所有，我们不会将您的资金用于除本协议约定用途之外的其他任何目的。</p>
+                    <p>2. 我们我们将采取多种安全技术和措施保障您钱包账户资金的安全，包括但不限于数据加密、身份认证、风险监控等。但由于互联网存在诸多不确定性，如您发现钱包账户存在异常交易或资金被盗用等情况，请立即联系我们的客服人员，并配合我们进行调查和处理。我们将在核实情况后，根据实际情况采取相应措施保障您的资金安全，如冻结账户、协助追回资金等。但如因您自身原因导致资金损失（如未妥善保管账户信息等），我们不承担赔偿责任。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">六、协议的变更与终止</h2>
+                <div class="space-y-4">
+                    <p>1. 我们有权根据法律法规变化、业务调整等情况对本协议内容进行变更。变更后的协议将通过官方网站、短信、邮件等一种或多种方式通知您。如您在变更后的协议生效后继续使用钱包充值服务，即视为您已充分阅读、理解并接受变更后的协议内容；如您不同意变更后的协议内容，您应立即停止使用钱包充值服务。</p>
+                    <p>2. 在以下情况下，我们有权单方面终止本协议，并停止为您提供钱包充值服务：
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>您违反本协议约定，从事违法违规、损害他人合法权益或违反公序良俗的行为；</li>
+                            <li>您的账户存在异常交易行为或涉嫌洗钱、诈骗、套现等违法违规风险，经我们调查核实后情况属实；</li>
+                            <li>因不可抗力、法律法规变化、监管要求等原因，导致我们无法继续提供钱包充值服务。</li>
+                        </ul>
+                    </p>
+                    <p>3. 本协议终止后，我们将停止为您提供充值服务，并根据法律法规规定和本协议约定处理您钱包账户内的剩余资金。如您的账户不存在未处理的交易纠纷、违法违规行为等情况，我们将按照您指定的方式退还您账户内的剩余资金；如您的账户存在未处理的交易纠纷、违法违规行为等情况，我们将在纠纷解决或违规行为处理完毕后，再按照上述方式处理剩余资金。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">七、争议解决</h2>
+                <div class="space-y-4">
+                    <p>如您与我们在本协议履行过程中发生争议，应首先通过友好协商解决；协商不成的，任何一方均有权向<strong>杭州市下城区人民法院</strong>提起诉讼。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">八、其他条款</h2>
+                <div class="space-y-4">
+                    <p>1. 本协议自您使用钱包充值服务之日起生效，对您和我们均具有法律约束力。</p>
+                    <p>2. 本协议的任何条款被认定为无效或不可执行，不影响其他条款的效力和执行。</p>
+                    <p>3. 我们未行使或延迟行使本协议项下的任何权利，不构成对该权利的放弃；我们对您的任何违约行为给予任何宽限或延缓，均不影响我们对您后续违约行为追究责任的权利。</p>
+                </div>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-xl border-l-4 border-kline pl-4 mb-6">九、如何联系我们</h2>
+                <div class="space-y-4">
+                    <p>1. 本协议版权为我们所有，在法律允许的范围内，我们拥有解释和修改的权利。</p>
+                    <p>2. 如您在使用我们的产品与/或服务时对协议有任何问题、举报或投诉，可通过我们的客服及相关负责人邮箱 <a href="mailto:support@panqu.com" class="text-kline hover:underline">support@panqu.com</a> 联系我们。</p>
+                </div>
+            </section>
+
+            <div class="mt-16 pt-8 border-t border-base-200 text-center text-sm text-base-content/50">
+                <p>© 2025 盼趣AI. All Rights Reserved.</p>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check system preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            html.setAttribute('data-theme', 'dark');
+            html.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            html.classList.toggle('dark');
+        });
+    </script>
+</body>
+
+</html>

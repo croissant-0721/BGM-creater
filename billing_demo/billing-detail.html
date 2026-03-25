@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xxxxx - 项目账单 | Panqu AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <!-- Common Styles -->
+    <link rel="stylesheet" href="../assets/css/common/billing-common.css">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script src="../assets/js/common/tailwind-config.js"></script>
+</head>
+
+<body class="bg-base-200">
+    <!-- Main Content -->
+    <div>
+        <!-- Navbar -->
+        <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow">
+            <!-- Logo and Navigation - Start -->
+            <div class="navbar-start">
+                <div class="flex items-center gap-8">
+                    <!-- Logo -->
+                    <a href="../Project/index.html" class="flex items-center gap-3">
+                        <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                        <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                    </a>
+
+                    <!-- Navigation Menu -->
+                    <ul class="menu menu-horizontal px-1 gap-2">
+                        <li>
+                            <a href="../Project/index.html">
+                                <i class="ri-dashboard-line"></i>
+                                <span>总览</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../Project/Projects.html">
+                                <i class="ri-folder-3-line"></i>
+                                <span>项目</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="billing.html" class="active">
+                                <i class="ri-file-list-3-line"></i>
+                                <span>账单</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../Project/settings.html">
+                                <i class="ri-settings-3-line"></i>
+                                <span>系统管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right side items - End -->
+            <div class="navbar-end gap-2">
+                <!-- Theme Toggle -->
+                <label class="swap swap-rotate btn btn-ghost btn-circle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                    <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+                </label>
+
+                <!-- Notification Bell -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                            <i class="ri-notification-3-line text-xl"></i>
+                            <span class="badge badge-sm badge-error indicator-item">3</span>
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                        <li class="menu-title">
+                            <span class="font-semibold">任务消息通知</span>
+                            <a class="text-xs text-primary">全部已读</a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                        <i class="ri-check-line text-sm"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">视频生成完成</div>
+                                    <div class="text-xs text-base-content/60">营销视频制作项目 • 5分钟前</div>
+                                </div>
+                                <span class="badge badge-xs badge-success"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-warning text-warning-content rounded-full w-8 h-8">
+                                        <i class="ri-loader-4-line text-sm"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">任务处理中</div>
+                                    <div class="text-xs text-base-content/60">虚拟人生成项目 • 10分钟前</div>
+                                </div>
+                                <span class="badge badge-xs badge-warning"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-error text-error-content rounded-full w-8 h-8">
+                                        <i class="ri-error-warning-line text-sm"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-medium">任务执行失败</div>
+                                    <div class="text-xs text-base-content/60">语音合成测试 • 30分钟前</div>
+                                </div>
+                                <span class="badge badge-xs badge-error"></span>
+                            </a>
+                        </li>
+                        <div class="divider my-0"></div>
+                        <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Dropdown -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div class="avatar placeholder">
+                            <div class="bg-primary text-primary-content rounded-full w-10">
+                                <span class="text-sm font-bold">C</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                        <li class="menu-title text-base-content/70">王大卫</li>
+                        <li><a class="justify-between">
+                                个人设置
+                                <span class="badge badge-sm badge-primary">New</span>
+                            </a></li>
+                        <li><a>使用统计</a></li>
+                        <li><a>API密钥</a></li>
+                        <div class="divider my-0"></div>
+                        <li><a class="text-error">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="container mx-auto px-6 py-8">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 fade-in">
+                <div>
+                    <h1 class="text-3xl font-bold text-base-content mb-2">营销视频制作</h1>
+                    <p class="text-base-content/60 text-base">项目费用详情与分析</p>
+                </div>
+
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <!-- Total Consumption -->
+                <div class="stats shadow bg-base-100">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <i class="ri-funds-line text-3xl"></i>
+                        </div>
+                        <div class="stat-title">项目总消耗</div>
+                        <div class="stat-value text-primary">85K</div>
+                        <div class="stat-desc">85,000 积分</div>
+                    </div>
+                </div>
+
+                <!-- Total Tasks -->
+                <div class="stats shadow bg-base-100">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <i class="ri-task-line text-3xl"></i>
+                        </div>
+                        <div class="stat-title">任务数</div>
+                        <div class="stat-value text-primary">245</div>
+                    </div>
+                </div>
+
+                <!-- Team Members -->
+                <div class="stats shadow bg-base-100">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <i class="ri-user-line text-3xl"></i>
+                        </div>
+                        <div class="stat-title">参与成员数</div>
+                        <div class="stat-value text-primary">8</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Member Distribution -->
+                <div class="card bg-base-100 shadow-xl fade-in">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex items-center gap-2">
+                                <h3 class="card-title text-lg font-semibold">成员消费分布</h3>
+                            </div>
+                        </div>
+                        <div class="space-y-2" id="memberList">
+                            <!-- Member list will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Distribution -->
+                <div class="card bg-base-100 shadow-xl fade-in">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex items-center gap-2">
+                                <h3 class="card-title text-lg font-semibold">任务类型分布</h3>
+                            </div>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="modelChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                <h3 class="text-xl font-bold text-base-content">详细记录</h3>
+                <div class="flex gap-3 w-full md:w-auto">
+                    <select id="memberFilter"
+                        class="select select-bordered select-sm flex-1 md:flex-none focus:outline-none">
+                        <option value="all">全部成员</option>
+                        <option value="Alice">Alice</option>
+                        <option value="Bob">Bob</option>
+                        <option value="Charlie">Charlie</option>
+                    </select>
+                    <select id="modelFilter"
+                        class="select select-bordered select-sm flex-1 md:flex-none focus:outline-none">
+                        <option value="all">全部模型</option>
+                        <option value="seedream">Seedream</option>
+                        <option value="seedance">Seedance</option>
+                        <option value="doubao">豆包TTS</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Detail Table -->
+            <div class="overflow-x-auto bg-base-100 rounded-xl shadow-xl fade-in">
+                <table class="table table-zebra table-pin-rows">
+                    <thead class="bg-base-200">
+                        <tr>
+                            <th>时间</th>
+                            <th>成员</th>
+                            <th>模型功能</th>
+                            <th>消耗积分</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailTableBody">
+                        <!-- Table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 px-6 py-4 bg-base-200/50">
+                    <div class="text-sm text-base-content/70">
+                        显示第 <span id="paginationStart" class="font-bold text-base-content">1</span>
+                        到 <span id="paginationEnd" class="font-bold text-base-content">10</span>
+                        条，共 <span id="paginationTotal" class="font-bold text-base-content">0</span> 条记录
+                    </div>
+                    <div class="join">
+                        <button id="firstPageBtn" class="join-item btn btn-sm" disabled>
+                            <i class="ri-skip-back-line"></i>
+                        </button>
+                        <button id="prevPageBtn" class="join-item btn btn-sm" disabled>
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button id="page1Btn" class="join-item btn btn-sm btn-active">1</button>
+                        <button id="page2Btn" class="join-item btn btn-sm">2</button>
+                        <button id="page3Btn" class="join-item btn btn-sm">3</button>
+                        <button id="nextPageBtn" class="join-item btn btn-sm">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                        <button id="lastPageBtn" class="join-item btn btn-sm">
+                            <i class="ri-skip-forward-line"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-base-content/70">每页显示</span>
+                        <select id="pageSizeSelect" class="select select-bordered select-sm w-20">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                        <span class="text-sm text-base-content/70">条</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Common JavaScript -->
+    <script src="../assets/js/common/billing-common.js"></script>
+
+    <!-- Page-specific JavaScript -->
+    <script src="billing-detail-v2.js"></script>
+</body>
+
+</html>

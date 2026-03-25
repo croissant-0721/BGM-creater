@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>充值记录 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .badge-alipay { color: #1677ff; border-color: #1677ff; }
+    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config -->
+    <script src="../assets/js/common/tailwind-config.js"></script>
+</head>
+
+<body class="bg-base-200 min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar navbar-with-sidebar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="../Project/index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="../Project/index.html"><i class="ri-dashboard-line" aria-hidden="true"></i><span>总览</span></a></li>
+                    <li><a href="../Project/Projects.html"><i class="ri-folder-3-line" aria-hidden="true"></i><span>项目</span></a></li>
+                    <li><a href="../asset/asset-list.html"><i class="ri-database-2-line" aria-hidden="true"></i><span>资产</span></a></li>
+                    <li><a href="billing.html" class="active" aria-current="page"><i class="ri-file-list-3-line" aria-hidden="true"></i><span>账单</span></a></li>
+                    <li><a href="../Project/settings.html"><i class="ri-settings-3-line" aria-hidden="true"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost gap-2" aria-haspopup="menu" aria-label="积分菜单">
+                    <i class="ri-coin-fill text-warning text-xl" aria-hidden="true"></i>
+                    <span class="font-semibold">8888</span>
+                    <i class="ri-arrow-down-s-line text-sm" aria-hidden="true"></i>
+                </div>
+                <ul tabindex="0" role="menu" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border border-base-300">
+                    <li role="menuitem"><a href="../Project/Projects.html"><i class="ri-add-circle-line" aria-hidden="true"></i>积分充值</a></li>
+                    <li role="menuitem"><a aria-current="page"><i class="ri-file-list-2-line" aria-hidden="true"></i>充值记录</a></li>
+                </ul>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle" aria-haspopup="menu" aria-label="消息通知">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl" aria-hidden="true"></i>
+                        <span class="badge badge-sm badge-error indicator-item" aria-label="3条未读消息">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title text-base-content/70">王大卫</li>
+                    <li><a class="justify-between">个人设置<span class="badge badge-sm badge-primary">New</span></a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="p-6 max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-bold">充值记录</h1>
+                <p class="text-base-content/60 text-sm mt-1">查看所有积分充值历史记录</p>
+            </div>
+            <!-- Filter -->
+            <div class="flex gap-2" role="search" aria-label="充值记录筛选">
+                <select class="select select-bordered select-sm w-36" aria-label="支付状态">
+                    <option value="">全部状态</option>
+                    <option value="success">支付成功</option>
+                    <option value="pending">待支付</option>
+                    <option value="failed">支付失败</option>
+                </select>
+                <input type="date" class="input input-bordered input-sm" aria-label="开始日期">
+                <input type="date" class="input input-bordered input-sm" aria-label="结束日期">
+                <button class="btn btn-primary btn-sm gap-1">
+                    <i class="ri-search-line" aria-hidden="true"></i>
+                    查询
+                </button>
+            </div>
+        </div>
+
+        <!-- Table Card -->
+        <div class="card bg-base-100 shadow">
+            <div class="card-body p-0">
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra w-full" aria-label="充值记录列表">
+                        <thead>
+                            <tr class="bg-base-200">
+                                <th scope="col">订单号</th>
+                                <th scope="col">充值类型</th>
+                                <th scope="col">充值金额</th>
+                                <th scope="col">充值积分</th>
+                                <th scope="col">支付状态</th>
+                                <th scope="col">创建时间</th>
+                                <th scope="col">支付时间</th>
+                            </tr>
+                        </thead>
+                        <tbody id="record-tbody">
+                            <!-- Demo rows -->
+                            <tr>
+                                <td class="font-mono text-sm">PQ20260301001234</td>
+                                <td>
+                                    <span class="badge badge-outline badge-alipay">支付宝</span>
+                                </td>
+                                <td><span class="font-semibold">¥99.00</span></td>
+                                <td><span class="font-semibold text-warning"><i class="ri-coin-fill" aria-hidden="true"></i> 10000</span></td>
+                                <td><span class="badge badge-success badge-sm">支付成功</span></td>
+                                <td class="text-sm text-base-content/70">2026-03-01 10:23:45</td>
+                                <td class="text-sm text-base-content/70">2026-03-01 10:24:02</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono text-sm">PQ20260228005678</td>
+                                <td>
+                                    <span class="badge badge-outline badge-alipay">支付宝</span>
+                                </td>
+                                <td><span class="font-semibold">¥30.00</span></td>
+                                <td><span class="font-semibold text-warning"><i class="ri-coin-fill" aria-hidden="true"></i> 3000</span></td>
+                                <td><span class="badge badge-success badge-sm">支付成功</span></td>
+                                <td class="text-sm text-base-content/70">2026-02-28 15:10:00</td>
+                                <td class="text-sm text-base-content/70">2026-02-28 15:10:18</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono text-sm">PQ20260220009012</td>
+                                <td>
+                                    <span class="badge badge-outline badge-alipay">支付宝</span>
+                                </td>
+                                <td><span class="font-semibold">¥199.00</span></td>
+                                <td><span class="font-semibold text-warning"><i class="ri-coin-fill" aria-hidden="true"></i> 22000</span></td>
+                                <td><span class="badge badge-warning badge-sm">待支付</span></td>
+                                <td class="text-sm text-base-content/70">2026-02-20 09:05:33</td>
+                                <td class="text-sm text-base-content/70">—</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono text-sm">PQ20260215003456</td>
+                                <td>
+                                    <span class="badge badge-outline badge-alipay">支付宝</span>
+                                </td>
+                                <td><span class="font-semibold">¥50.00</span></td>
+                                <td><span class="font-semibold text-warning"><i class="ri-coin-fill" aria-hidden="true"></i> 5500</span></td>
+                                <td><span class="badge badge-error badge-sm">支付失败</span></td>
+                                <td class="text-sm text-base-content/70">2026-02-15 18:44:21</td>
+                                <td class="text-sm text-base-content/70">—</td>
+                            </tr>
+                            <tr>
+                                <td class="font-mono text-sm">PQ20260201007890</td>
+                                <td>
+                                    <span class="badge badge-outline badge-alipay">支付宝</span>
+                                </td>
+                                <td><span class="font-semibold">¥99.00</span></td>
+                                <td><span class="font-semibold text-warning"><i class="ri-coin-fill" aria-hidden="true"></i> 10000</span></td>
+                                <td><span class="badge badge-success badge-sm">支付成功</span></td>
+                                <td class="text-sm text-base-content/70">2026-02-01 08:30:00</td>
+                                <td class="text-sm text-base-content/70">2026-02-01 08:30:27</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex items-center justify-between px-4 py-3 border-t border-base-200">
+                    <span class="text-sm text-base-content/60">共 5 条记录</span>
+                    <div class="join" role="navigation" aria-label="分页">
+                        <button class="join-item btn btn-sm" disabled aria-disabled="true" aria-label="上一页">«</button>
+                        <button class="join-item btn btn-sm btn-active" aria-current="page" aria-label="第1页">1</button>
+                        <button class="join-item btn btn-sm" disabled aria-disabled="true" aria-label="下一页">»</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        const saved = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) {
+            toggle.checked = saved === 'dark';
+            toggle.addEventListener('change', () => {
+                const theme = toggle.checked ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        }
+    </script>
+</body>
+
+</html>

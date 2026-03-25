@@ -1,0 +1,367 @@
+/**
+ * Project Pages Styles
+ * 项目页面专用样式
+ * 用于 Project 目录下的页面
+ * 
+ * ⚠️ 重要: 本文件仅包含 DaisyUI 不支持的自定义样式
+ * 95% 的样式应使用 DaisyUI 标准类 + Tailwind 工具类
+ */
+
+/* ============================================ */
+/* 渐变效果                                     */
+/* ============================================ */
+
+.gradient-text {
+    background: linear-gradient(135deg, #002FA7 0%, #2560FF 50%, #4D7CFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    background: linear-gradient(to right, hsl(var(--bc)), hsl(var(--bc) / 0.7));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: hsl(var(--bc) / 0.5);
+    line-height: 1.6;
+}
+
+/* ============================================ */
+/* 动画效果                                     */
+/* ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Staggered fade-in animation for cards */
+.fade-in:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.fade-in:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.fade-in:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.fade-in:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.fade-in:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.fade-in:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+/* ============================================ */
+/* 项目特定增强 (不覆盖 DaisyUI 核心)          */
+/* ============================================ */
+
+/* 导航栏增强 - 仅添加项目特定样式，不覆盖 DaisyUI 默认 */
+.navbar-with-sidebar {
+    background: hsl(var(--b1) / 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 2px solid hsl(var(--bc) / 0.05);
+    height: 72px; /* 增加高度使布局更从容 */
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .navbar-with-sidebar {
+    background: hsl(var(--b3) / 0.85);
+    border-bottom-color: hsl(var(--bc) / 0.05);
+}
+
+/* 增强导航栏菜单项 */
+.navbar-with-sidebar .menu-horizontal > li > a {
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 0.875rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: hsl(var(--bc) / 0.7);
+}
+
+.navbar-with-sidebar .menu-horizontal > li > a i {
+    font-size: 1.25rem;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navbar-with-sidebar .menu-horizontal > li > a:hover {
+    background-color: hsl(var(--p) / 0.08);
+    color: hsl(var(--p));
+}
+
+.navbar-with-sidebar .menu-horizontal > li > a:hover i {
+    transform: translateY(-2px) scale(1.1);
+    color: hsl(var(--p));
+}
+
+/* 激活状态更加醒目 */
+.navbar-with-sidebar .menu-horizontal > li > a.active {
+    background-color: hsl(var(--p));
+    color: hsl(var(--pc)) !important;
+    box-shadow: 0 8px 20px -6px hsl(var(--p) / 0.5);
+}
+
+.navbar-with-sidebar .menu-horizontal > li > a.active i {
+    color: inherit;
+    transform: scale(1.1);
+}
+
+/* Logo 区域增强 */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+}
+
+.navbar-brand:hover {
+    background-color: hsl(var(--bc) / 0.03);
+    transform: translateX(2px);
+}
+
+/* 下拉菜单增强 */
+.navbar-with-sidebar .dropdown-content {
+    border: 1px solid hsl(var(--bc) / 0.1);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    backdrop-filter: blur(8px);
+    background-color: hsl(var(--b1) / 0.95);
+}
+
+.navbar-with-sidebar .dropdown-content .menu-title {
+    font-weight: 700;
+    color: hsl(var(--bc));
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* 头像增强 */
+.avatar.placeholder .bg-primary {
+    background: linear-gradient(135deg, hsl(var(--p)) 0%, hsl(var(--pf)) 100%);
+    box-shadow: 0 4px 10px hsl(var(--p) / 0.3);
+}
+
+.avatar.placeholder .bg-primary span {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* 消息通知红点优化 */
+.indicator .badge {
+    border: 2px solid hsl(var(--b1));
+    font-weight: 700;
+    transform: translate(25%, -25%);
+}
+
+/* Swap 组件图标居中 (RemixIcon 需要) */
+.navbar-with-sidebar .swap i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 卡片悬停增强 */
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 47, 167, 0.25);
+}
+
+/* 卡片平滑过渡 */
+.card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+/* ============================================ */
+/* 步骤进度条优化                               */
+/* ============================================ */
+
+#main-tabs.tabs-border {
+    border-bottom: none;
+    gap: 1rem;
+    padding: 0.75rem;
+    box-shadow: 0 4px 15px -1px rgb(0 0 0 / 0.05);
+}
+
+#main-tabs .tab {
+    height: 3rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    font-weight: 500;
+    color: hsl(var(--bc) / 0.5);
+    padding: 0 1.5rem;
+}
+
+#main-tabs .tab-active {
+    background-color: hsl(var(--p));
+    color: hsl(var(--pc)) !important;
+    border-color: hsl(var(--p));
+    box-shadow: 0 4px 12px hsl(var(--p) / 0.25);
+}
+
+#main-tabs .tab:hover:not(.tab-active) {
+    background-color: hsl(var(--bc) / 0.05);
+    color: hsl(var(--bc));
+}
+
+#main-tabs .tab i {
+    transition: transform 0.3s ease;
+}
+
+#main-tabs .tab-active i {
+    transform: scale(1.15);
+}
+
+/* ============================================ */
+/* 全局优化                                     */
+/* ============================================ */
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* 暗色模式滚动条 */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* 平滑颜色过渡 */
+* {
+    transition-property: color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* 禁用页面加载时的过渡 */
+.no-transition,
+.no-transition * {
+    transition: none !important;
+}
+
+/* ============================================ */
+/* 响应式优化                                   */
+/* ============================================ */
+
+@media (max-width: 768px) {
+    .mobile-hide {
+        display: none !important;
+    }
+}
+
+@media (max-width: 640px) {
+
+    /* 小屏幕时调整 logo 大小 */
+    .navbar-with-sidebar .gradient-text {
+        font-size: 1rem;
+    }
+
+    .navbar-with-sidebar img.h-8 {
+        height: 1.5rem;
+    }
+}
+
+/* ============================================ */
+/* 取消任务确认浮层                             */
+/* ============================================ */
+
+.cancel-confirm-overlay {
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--b1) / 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: inherit;
+}
+
+.cancel-confirm-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+}
+
+[data-theme="dark"] .cancel-confirm-overlay {
+    background: hsl(var(--b2) / 0.95);
+}
+
+/* ============================================ */
+/* 隐藏 number 输入框的上下调节箭头             */
+/* ============================================ */
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}

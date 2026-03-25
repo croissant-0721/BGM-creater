@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盼趣AI 2.0 正式发布 | 盼趣AI 博客</title>
+    <meta name="description" content="在这个版本中，我们引入了全新的剧本智能 Agent、更高清的文生图模型以及革命性的 AI 融合生图技术。">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Typography Plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        kline: {
+                            DEFAULT: '#002FA7',
+                            50: '#E8EEFF',
+                            100: '#C4D4FF',
+                            200: '#9DB6FF',
+                            300: '#7599FF',
+                            400: '#4D7CFF',
+                            500: '#2560FF',
+                            600: '#002FA7',
+                            700: '#002687',
+                            800: '#001D67',
+                            900: '#001447',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../assets/css/shared/styles.css">
+</head>
+
+<body class="min-h-screen bg-base-100 font-sans">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+        <div class="navbar-start">
+            <a href="../index.html" class="btn btn-ghost text-xl">
+                <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                <span class="gradient-text font-bold">盼趣AI</span>
+            </a>
+        </div>
+
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 gap-2">
+                <li><a href="../index.html" class="hover:text-kline transition-colors font-medium">首页</a></li>
+                <li><a href="../index.html#features" class="hover:text-kline transition-colors font-medium">功能</a></li>
+                <li><a href="../index.html#showcase" class="hover:text-kline transition-colors font-medium">作品展示</a>
+                </li>
+                <li><a href="../pricing.html" class="hover:text-kline transition-colors font-medium">定价</a></li>
+                <li><a href="list.html" class="text-kline font-bold bg-base-200">博客</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-end gap-3">
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-6 h-6 text-orange-500"></i>
+                <i class="ri-moon-line swap-off fill-current w-6 h-6 text-kline"></i>
+            </label>
+
+            <a href="#"
+                class="btn btn-outline btn-sm hover:scale-105 transition-transform border-kline hover:bg-kline hover:text-white hover:border-kline">登录</a>
+            <a href="#" class="btn btn-sm hover:scale-105 transition-transform shadow-lg text-white border-0"
+                style="background-color: #002FA7;">注册</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 lg:py-12 max-w-7xl">
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Sidebar (Same as List Page) -->
+            <aside class="lg:w-1/4 space-y-8 order-2 lg:order-1">
+                <div class="hidden lg:block space-y-4">
+                    <h2 class="text-2xl font-black tracking-tight">盼趣AI 博客</h2>
+                    <p class="text-sm text-base-content/60 leading-relaxed">
+                        探索 AI 创作的无限可能。
+                    </p>
+                </div>
+
+                <!-- Navigation -->
+                <div class="space-y-4">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-base-content/40">分类频道</h2>
+                    <ul class="menu menu-sm p-0 gap-1">
+                        <li><a href="list.html" class="hover:bg-base-200">全部文章</a></li>
+                        <li><a href="#" class="active bg-kline text-white">产品更新</a></li>
+                        <li><a href="#" class="hover:bg-base-200">创作指南</a></li>
+                        <li><a href="#" class="hover:bg-base-200">行业观察</a></li>
+                        <li><a href="#" class="hover:bg-base-200">技术解读</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Blog Detail Content -->
+            <main class="lg:w-3/4 order-1 lg:order-2">
+                <!-- Post Header -->
+                <header class="mb-12 space-y-6">
+                    <div class="flex items-center gap-4">
+                        <a href="list.html"
+                            class="btn btn-ghost btn-sm gap-2 pl-0 hover:bg-transparent hover:text-kline">
+                            <i class="ri-arrow-left-line"></i>
+                            返回列表
+                        </a>
+                        <div class="divider divider-horizontal m-0 h-4"></div>
+                        <span
+                            class="badge badge-primary badge-outline text-xs font-bold uppercase tracking-wider">产品更新</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tighter">
+                        盼趣AI 2.0 正式发布：引领 AI 短剧创作新纪元
+                    </h1>
+
+                    <div class="flex items-center justify-between border-y border-base-200 py-6">
+                        <div class="flex items-center gap-4">
+                            <div class="flex flex-col">
+                                <span class="text-sm text-base-content/50">发布于 2026年1月25日</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </header>
+
+                <!-- Featured Image -->
+                <figure class="mb-12 aspect-[21/9] overflow-hidden rounded-3xl shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200"
+                        alt="Featured Image" class="w-full h-full object-cover" />
+                </figure>
+
+                <!-- Article Body -->
+                <article
+                    class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-black prose-headings:tracking-tighter prose-a:text-kline prose-img:rounded-3xl prose-img:shadow-xl">
+                    <p class="lead text-xl text-base-content/80">
+                        今天，我们迈出了漫长征程中最重要的一步。盼趣AI 2.0 不仅仅是一个版本的迭代，它是我们对“让想象成为可能”这一使命的深度践行。
+                    </p>
+
+                    <p>
+                        在过去的一年里，我们收到了来自全球数万名创作者的反馈。从剧本逻辑的连贯性到画面风格的统一感，再到视频生成的流畅度，每一个细节都是我们努力攻克的方向。盼趣AI 2.0
+                        集合了多项突破性技术，旨在为您提供最专业、最高效的 AI 短剧创作体验。
+                    </p>
+
+                    <h2>1. 剧本智能 Agent：从灵感到大纲的秒级飞跃</h2>
+                    <p>
+                        全新的剧本 Agent 基于最新的 Long-Context 大模型，能够理解复杂的剧情逻辑与人物弧光。您只需输入一个核心创意，Agent
+                        即可自动生成完整的分镜脚本、台词脚本以及人物设定，极大地缩短了前期筹备时间。
+                    </p>
+                    <ul>
+                        <li><strong>多维角色控制：</strong> 确保主角在多集视频中保持面部一致性与性格连贯性。</li>
+                        <li><strong>智能分镜优化：</strong> 自动根据剧本氛围推荐景别（全景、中景、特写）。</li>
+                        <li><strong>多语言适配：</strong> 支持中文、英文、日文等 30+ 语言的专业剧本生成。</li>
+                    </ul>
+
+                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=1000"
+                        alt="Workflow Demo" />
+
+                    <h2>2. AI 融合生图：画质与一致性的完美平衡</h2>
+                    <p>
+                        视频创作中最大的痛点莫过于“画面抖动”与“风格突变”。盼趣AI 2.0 引入了革命性的融合生图技术，能够提取参考图的构图与风格，并完美融入每一帧生成画面中。
+                    </p>
+                    <blockquote>
+                        “这是我用过最能理解导演意图的 AI 工具，它真正做到了‘所想即所得’。” —— 资深短剧导演 李华
+                    </blockquote>
+
+                    <h2>3. 未来计划：打破物理模拟的边界</h2>
+                    <p>
+                        2.0 版本只是开始。在接下来的季度中，我们将继续深耕视频生成的物理模拟一致性，让 AI
+                        生成的火焰、水流、烟雾等细节更加真实自然。同时，我们也计划推出协作模式，让团队创作者能够更方便地在同一个项目中进行资产共享与实时修改。
+                    </p>
+
+                    <p>
+                        欢迎大家立即登录体验，开启您的 AI 创作新篇章。
+                    </p>
+
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content border-t border-base-300">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 w-full max-w-7xl">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8">
+                    <span class="text-2xl font-bold gradient-text">盼趣®AI</span>
+                </div>
+                <p class="text-base-content/70 mb-4">让想象成为可能</p>
+                <p class="text-base-content/70 mb-4">Making imagination possible</p>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4 text-base-content">产品</h4>
+                <ul class="space-y-2">
+                    <li><a href="../index.html#features" class="link link-hover hover:text-kline">功能</a></li>
+                    <li><a href="../pricing.html" class="link link-hover hover:text-kline">定价</a></li>
+                    <li><a href="../index.html#showcase" class="link link-hover hover:text-kline">案例</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4 text-base-content">资源</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="link link-hover hover:text-kline">文档</a></li>
+                    <li><a href="list.html" class="link link-hover text-kline font-bold">博客</a></li>
+                    <li><a href="#" class="link link-hover hover:text-kline">帮助中心</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title font-bold text-lg mb-4 text-base-content">公司</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="link link-hover hover:text-kline">关于我们</a></li>
+                    <li><a href="#" class="link link-hover hover:text-kline">诚聘英才</a></li>
+                    <li><a href="#" class="link link-hover hover:text-kline">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="text-center">
+            <p class="text-base-content/60">&copy; 2025 Panqu AI. All rights reserved.
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-kline transition-colors">
+                    浙ICP备2025218418号
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'light';
+
+        themeToggle.addEventListener('change', () => {
+            const newTheme = themeToggle.checked ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+
+</html>
