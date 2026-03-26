@@ -568,7 +568,7 @@
                             </div>
                             <div class="info-row" style="border-bottom: none;">
                                 <span class="info-label">提示词:</span>
-                                <span class="info-value" id="current-prompt">将角色与场景自然融合，保持人物特征和场景氛围的协调统一，光影合理，构图平衡，写实电影风格</span>
+                                <span class="info-value">将角色与场景自然融合，保持人物特征和场景氛围的协调统一，光影合理，构图平衡，写实电影风格</span>
                             </div>
 
                             <!-- 查看历史按钮 -->
@@ -597,12 +597,6 @@
                                             <p class="text-sm text-base-content/80 mb-3 leading-relaxed card-content line-clamp-1">
                                                 将角色与场景自然融合，保持人物特征和场景氛围的协调统一，光影合理，构图平衡，写实电影风格
                                             </p>
-                                            <div class="card-actions justify-end hidden">
-                                                <button class="btn btn-xs btn-primary gap-1" onclick="usePrompt('将角色与场景自然融合，保持人物特征和场景氛围的协调统一，光影合理，构图平衡，写实电影风格')">
-                                                    <i class="ri-file-copy-line"></i>
-                                                    使用该提示词
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -620,12 +614,6 @@
                                             <p class="text-sm text-base-content/80 mb-3 leading-relaxed card-content line-clamp-1">
                                                 突出人物表情细节，增强情感表达，柔和的光照效果，艺术风格化处理，电影质感
                                             </p>
-                                            <div class="card-actions justify-end hidden">
-                                                <button class="btn btn-xs btn-primary gap-1" onclick="usePrompt('突出人物表情细节，增强情感表达，柔和的光照效果，艺术风格化处理，电影质感')">
-                                                    <i class="ri-file-copy-line"></i>
-                                                    使用该提示词
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -643,12 +631,6 @@
                                             <p class="text-sm text-base-content/80 mb-3 leading-relaxed card-content line-clamp-1">
                                                 高科技未来感，蓝色调滤镜，动态镜头运动，电影级特效合成，赛博朋克风格
                                             </p>
-                                            <div class="card-actions justify-end hidden">
-                                                <button class="btn btn-xs btn-primary gap-1" onclick="usePrompt('高科技未来感，蓝色调滤镜，动态镜头运动，电影级特效合成，赛博朋克风格')">
-                                                    <i class="ri-file-copy-line"></i>
-                                                    使用该提示词
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1032,37 +1014,20 @@
         }
 
         /**
-         * 使用历史提示词
-         */
-        function usePrompt(promptText) {
-            // 替换当前提示词内容
-            const currentPrompt = document.getElementById('current-prompt');
-            if (currentPrompt) {
-                currentPrompt.textContent = promptText;
-                showToast('提示词已替换');
-            } else {
-                showToast('替换失败，请重试');
-            }
-        }
-
-        /**
          * 切换卡片内容展开/折叠
          */
         function toggleCardContent(button) {
             const cardBody = button.closest('.card-body');
             const content = cardBody.querySelector('.card-content');
-            const actions = cardBody.querySelector('.card-actions');
             const icon = button.querySelector('i');
 
             if (content.classList.contains('line-clamp-1')) {
                 // 展开
                 content.classList.remove('line-clamp-1');
-                actions.classList.remove('hidden');
                 icon.style.transform = 'rotate(180deg)';
             } else {
                 // 折叠
                 content.classList.add('line-clamp-1');
-                actions.classList.add('hidden');
                 icon.style.transform = 'rotate(0deg)';
             }
         }
