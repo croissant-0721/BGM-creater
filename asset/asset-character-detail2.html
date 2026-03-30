@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚拟人像资产 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="../assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        /* 图片列表滚动条样式 */
+        .image-list-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .image-list-scroll::-webkit-scrollbar-track {
+            background: var(--fallback-b2, oklch(var(--b2)));
+            border-radius: 3px;
+        }
+        .image-list-scroll::-webkit-scrollbar-thumb {
+            background: var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 3px;
+        }
+        .image-list-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--fallback-b4, oklch(var(--b4)));
+        }
+    </style>
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="../index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="../index.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="../Project/Projects.html"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="asset-list.html" class="active"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                    <li><a href="../billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">资产处理任务 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">账号</span>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="gap-3"><i class="ri-user-line"></i>个人中心</a></li>
+                    <li><a class="gap-3"><i class="ri-settings-3-line"></i>设置</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="gap-3 text-error"><i class="ri-logout-box-r-line"></i>退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        <!-- Character Asset Content -->
+        <div id="character-asset-content">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">虚拟人像</h2>
+                    <p class="text-base-content/60">上传和管理火山虚拟人像库</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="btn btn-primary gap-2" onclick="add_character_modal.showModal()">
+                        <i class="ri-add-line"></i>
+                        添加虚拟人像
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter and Search -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div class="tabs tabs-boxed bg-base-100">
+                    <a class="tab">全部</a>
+                    <a class="tab tab-active">已完成</a>
+                    <a class="tab">生成中</a>
+                    <a class="tab">失败</a>
+                    <a class="tab">已取消</a>
+                </div>
+                <div class="join">
+                    <input type="search" placeholder="搜索项目..."
+                        class="input input-bordered input-sm join-item w-full md:w-auto" />
+                    <button class="btn btn-primary btn-sm join-item">
+                        <i class="ri-search-line"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Character Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Character Card 1 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                     onclick="openCharacterDetail('女主角 - 林晓雪', 'activated')">
+                    <figure class="rounded-t-box overflow-hidden">
+                        <img src="https://picsum.photos/400/300?random=101" alt="角色缩略图"
+                                class="w-full h-48 object-cover" />
+                    </figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-2">女主角 - 林晓雪</h3>
+                        <div class="mb-2 flex gap-1 flex-wrap">
+                            <span class="badge badge-outline badge-sm">group-20260320150816-rkz8r</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chuck"
+                                            alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">王大卫</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>2小时前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-between items-center mt-2">
+                            <div class="badge badge-success badge-sm gap-1">
+                                <i class="ri-check-circle-fill"></i>
+                                已激活
+                            </div>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm" onclick="event.stopPropagation()">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('女主角 - 林晓雪')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Card 2 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                     onclick="openCharacterDetail('男主角 - 陈浩然', 'processing')">
+                    <figure class="relative rounded-t-box overflow-hidden">
+                        <img src="https://panqu.com/assets/img/project.webp" alt="生成中" class="w-full h-48 object-cover" />
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <i class="ri-loader-4-line text-4xl animate-spin"></i>
+                                <p class="text-sm mt-2">处理中...</p>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-2">男主角 - 陈浩然</h3>
+                        <div class="mb-2 flex gap-1 flex-wrap">
+                            <span class="badge badge-outline badge-sm">group-20260320152005-xmn7q</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
+                                            alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">王大卫</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>1小时前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-between items-center mt-2">
+                            <div class="badge badge-warning badge-sm gap-1">
+                                <i class="ri-loader-4-line"></i>
+                                处理中
+                            </div>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm" onclick="event.stopPropagation()">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('男主角 - 陈浩然')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Card 3 - Failed -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                     onclick="openCharacterDetail('配角 - 张经理', 'failed')">
+                    <figure class="rounded-t-box overflow-hidden">
+                        <img src="https://picsum.photos/400/300?random=103" alt="失败" class="w-full h-48 object-cover grayscale" />
+                    </figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-2">配角 - 张经理</h3>
+                        <div class="mb-2 flex gap-1 flex-wrap">
+                            <span class="badge badge-outline badge-sm">group-20260320152510-abc12</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
+                                            alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">王大卫</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>3小时前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-between items-center mt-2">
+                            <div class="badge badge-error badge-sm gap-1">
+                                <i class="ri-close-circle-fill"></i>
+                                失败
+                            </div>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm" onclick="event.stopPropagation()">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('配角 - 张经理')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Card 4 -->
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                     onclick="openCharacterDetail('反派 - 李总', 'activated')">
+                    <figure class="rounded-t-box overflow-hidden">
+                        <img src="https://picsum.photos/400/300?random=104" alt="角色缩略图"
+                                class="w-full h-48 object-cover" />
+                    </figure>
+                    <div class="card-body p-4">
+                        <h3 class="card-title text-base mb-2">反派 - 李总</h3>
+                        <div class="mb-2 flex gap-1 flex-wrap">
+                            <span class="badge badge-outline badge-sm">group-20260320153030-xyz99</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="avatar">
+                                    <div class="w-6 rounded-full">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Charlie"
+                                            alt="用户头像" />
+                                    </div>
+                                </div>
+                                <div class="text-xs font-medium">王大卫</div>
+                            </div>
+                            <div class="text-xs text-base-content/60">
+                                <i class="ri-time-line"></i>5小时前
+                            </div>
+                        </div>
+                        <div class="card-actions justify-between items-center mt-2">
+                            <div class="badge badge-success badge-sm gap-1">
+                                <i class="ri-check-circle-fill"></i>
+                                已激活
+                            </div>
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-square btn-ghost btn-sm" onclick="event.stopPropagation()">
+                                    <i class="ri-more-2-fill text-lg"></i>
+                                </div>
+                                <ul tabindex="0"
+                                    class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('反派 - 李总')"><i class="ri-delete-bin-line"></i>删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Character Detail Modal -->
+    <dialog id="character_detail_modal" class="modal">
+        <div class="modal-box max-w-5xl p-0">
+            <!-- Close Button -->
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10">
+                    <i class="ri-close-line"></i>
+                </button>
+            </form>
+
+            <!-- Modal Content -->
+            <div class="flex h-[600px]">
+                <!-- Left: Image Display -->
+                <div class="w-2/3 bg-base-200 flex items-center justify-center p-6">
+                    <img id="detail_main_image" src="" alt="虚拟人像" class="max-w-full max-h-full object-contain rounded-lg shadow-lg">
+                    <div id="detail_empty_state" class="text-center text-base-content/50 hidden">
+                        <i class="ri-image-add-line text-9xl mb-4"></i>
+                        <p class="text-xl font-medium">暂无图片</p>
+                        <p class="text-sm mt-2">点击下方"添加图片"按钮上传第一张图片</p>
+                    </div>
+                </div>
+
+                <!-- Right: Info Panel -->
+                <div class="w-1/3 flex flex-col bg-base-100 border-l border-base-300">
+                    <!-- Top: Name and Status -->
+                    <div class="p-6 border-b border-base-300">
+                        <h3 id="detail_character_name" class="text-xl font-bold mb-2">虚拟人像名称</h3>
+                        <p id="detail_character_group" class="text-sm text-base-content/60 mb-3">group-20260320150816-rkz8r</p>
+                        <div id="detail_character_status" class="badge badge-success gap-1">
+                            <i class="ri-check-circle-fill"></i>
+                            <span>已激活</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom: Image List -->
+                    <div class="flex-1 flex flex-col p-4">
+                        <!-- Image List -->
+                        <div class="flex-1 overflow-y-auto image-list-scroll mb-4">
+                            <div id="detail_image_list" class="grid grid-cols-3 gap-2">
+                                <!-- Images will be dynamically loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Add Image Button -->
+                        <button class="btn btn-primary btn-sm w-full gap-2" onclick="addImageToCharacter()">
+                            <i class="ri-add-line"></i>
+                            添加图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Add Character Modal (from original page) -->
+    <dialog id="add_character_modal" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    <i class="ri-close-line"></i>
+                </button>
+            </form>
+            <h3 class="font-bold text-lg mb-4">添加虚拟人像</h3>
+            <div class="space-y-4">
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">角色名称</span>
+                    </label>
+                    <input type="text" placeholder="请输入角色名称" class="input input-bordered" />
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">上传人像</span>
+                    </label>
+                    <div class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center">
+                        <i class="ri-upload-cloud-2-line text-4xl text-base-content/50 mb-2"></i>
+                        <p class="text-sm text-base-content/60">点击或拖拽文件到此处上传</p>
+                    </div>
+                </div>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn">取消</button>
+                    </form>
+                    <button class="btn btn-primary">创建</button>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Delete Confirmation Modal -->
+    <dialog id="delete_confirm_modal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg">确认删除</h3>
+            <p class="py-4">确定要删除虚拟人像 "<span id="delete_character_name"></span>" 吗？此操作不可撤销。</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">取消</button>
+                </form>
+                <button class="btn btn-error" onclick="confirmDelete()">删除</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Delete Image Confirmation Modal -->
+    <dialog id="delete_image_confirm_modal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg">确认删除图片</h3>
+            <p class="py-4">确定要删除这张图片吗？此操作不可撤销。</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">取消</button>
+                </form>
+                <button class="btn btn-error" onclick="confirmDeleteImage()">删除</button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- Scripts -->
+    <script src="../assets/js/shared-scripts.js"></script>
+    <script>
+        // Character data
+        const characterData = {
+            '女主角 - 林晓雪': {
+                groupName: 'group-20260320150816-rkz8r',
+                status: 'activated',
+                images: [
+                    'https://picsum.photos/800/600?random=201',
+                    'https://picsum.photos/800/600?random=202',
+                    'https://picsum.photos/800/600?random=203',
+                    'https://picsum.photos/800/600?random=204',
+                    'https://picsum.photos/800/600?random=205',
+                    'https://picsum.photos/800/600?random=206'
+                ]
+            },
+            '男主角 - 陈浩然': {
+                groupName: 'group-20260320152005-xmn7q',
+                status: 'processing',
+                images: [
+                    'https://panqu.com/assets/img/project.webp',
+                    'https://picsum.photos/800/600?random=211',
+                    'https://picsum.photos/800/600?random=212'
+                ]
+            },
+            '配角 - 张经理': {
+                groupName: 'group-20260320152510-abc12',
+                status: 'failed',
+                images: [
+                    'https://picsum.photos/800/600?random=221',
+                    'https://picsum.photos/800/600?random=222'
+                ]
+            },
+            '反派 - 李总': {
+                groupName: 'group-20260320153030-xyz99',
+                status: 'activated',
+                images: [
+                    'https://picsum.photos/800/600?random=231',
+                    'https://picsum.photos/800/600?random=232',
+                    'https://picsum.photos/800/600?random=233',
+                    'https://picsum.photos/800/600?random=234'
+                ]
+            }
+        };
+
+        let currentCharacter = null;
+        let currentImageIndex = 0;
+        let imageToDelete = null;
+
+        // Open character detail modal
+        function openCharacterDetail(characterName, status) {
+            currentCharacter = characterName;
+            const data = characterData[characterName];
+
+            if (!data) return;
+
+            // Update name
+            document.getElementById('detail_character_name').textContent = characterName;
+
+            // Update group name
+            document.getElementById('detail_character_group').textContent = data.groupName;
+
+            // Update status
+            const statusElement = document.getElementById('detail_character_status');
+            statusElement.className = 'badge gap-1';
+            if (data.status === 'activated') {
+                statusElement.classList.add('badge-success');
+                statusElement.innerHTML = '<i class="ri-check-circle-fill"></i><span>已激活</span>';
+            } else if (data.status === 'processing') {
+                statusElement.classList.add('badge-warning');
+                statusElement.innerHTML = '<i class="ri-loader-4-line"></i><span>处理中</span>';
+            } else if (data.status === 'failed') {
+                statusElement.classList.add('badge-error');
+                statusElement.innerHTML = '<i class="ri-close-circle-fill"></i><span>失败</span>';
+            } else if (data.status === 'empty') {
+                statusElement.classList.add('badge-neutral');
+                statusElement.innerHTML = '<i class="ri-image-2-line"></i><span>空状态</span>';
+            }
+
+            // Load first image as main or show empty state
+            const mainImage = document.getElementById('detail_main_image');
+            const emptyState = document.getElementById('detail_empty_state');
+
+            if (data.images.length > 0) {
+                mainImage.src = data.images[0];
+                mainImage.style.display = 'block';
+                emptyState.classList.add('hidden');
+                currentImageIndex = 0;
+            } else {
+                mainImage.style.display = 'none';
+                emptyState.classList.remove('hidden');
+            }
+
+            // Load image list
+            loadImageList(data.images);
+
+            // Show modal
+            document.getElementById('character_detail_modal').showModal();
+        }
+
+        // Load image list
+        function loadImageList(images) {
+            const listContainer = document.getElementById('detail_image_list');
+            listContainer.innerHTML = '';
+
+            if (images.length === 0) {
+                // Show empty state for image list
+                listContainer.innerHTML = `
+                    <div class="col-span-3 text-center py-8 text-base-content/50">
+                        <i class="ri-image-line text-4xl mb-2"></i>
+                        <p class="text-sm">图片列表为空</p>
+                    </div>
+                `;
+                return;
+            }
+
+            images.forEach((imageUrl, index) => {
+                const imageItem = document.createElement('div');
+                imageItem.className = 'relative aspect-square cursor-pointer group rounded-lg overflow-hidden';
+                const imgClass = index === 0
+                    ? 'w-full h-full object-cover ring-4 ring-primary ring-opacity-100'
+                    : 'w-full h-full object-cover';
+
+                // 只有当图片多于1张时才显示删除按钮
+                const deleteButton = images.length > 1 ? `
+                    <button class="absolute top-1 right-1 btn btn-xs btn-circle btn-error opacity-0 group-hover:opacity-100 transition-opacity"
+                            onclick="event.stopPropagation(); showDeleteImageConfirm(${index})">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                ` : '';
+
+                imageItem.innerHTML = `
+                    <img src="${imageUrl}" alt="虚拟人像图片 ${index + 1}"
+                         class="${imgClass}"
+                         onclick="selectImage(${index})" />
+                    ${deleteButton}
+                `;
+                listContainer.appendChild(imageItem);
+            });
+        }
+
+        // Select image from list
+        function selectImage(index) {
+            const data = characterData[currentCharacter];
+            if (!data || !data.images[index]) return;
+
+            currentImageIndex = index;
+            document.getElementById('detail_main_image').src = data.images[index];
+
+            // Update selection style
+            const imageItems = document.querySelectorAll('#detail_image_list img');
+            imageItems.forEach((img, i) => {
+                if (i === index) {
+                    img.className = 'w-full h-full object-cover ring-4 ring-primary ring-opacity-100';
+                } else {
+                    img.className = 'w-full h-full object-cover';
+                }
+            });
+        }
+
+        // Show delete image confirmation
+        function showDeleteImageConfirm(index) {
+            imageToDelete = index;
+            document.getElementById('delete_image_confirm_modal').showModal();
+        }
+
+        // Confirm delete image
+        function confirmDeleteImage() {
+            if (imageToDelete === null || !currentCharacter) return;
+
+            const data = characterData[currentCharacter];
+            if (!data) return;
+
+            // Remove image from array
+            data.images.splice(imageToDelete, 1);
+
+            // If no images left, show empty state
+            if (data.images.length === 0) {
+                document.getElementById('detail_main_image').style.display = 'none';
+                document.getElementById('detail_empty_state').classList.remove('hidden');
+                loadImageList(data.images);
+                // Close delete confirmation modal
+                document.getElementById('delete_image_confirm_modal').close();
+                showToast('已删除最后一张图片');
+                return;
+            }
+
+            // Update main image if deleted current image
+            if (imageToDelete === currentImageIndex) {
+                currentImageIndex = 0;
+                document.getElementById('detail_main_image').src = data.images[0];
+            } else if (imageToDelete < currentImageIndex) {
+                currentImageIndex--;
+            }
+
+            // Reload image list
+            loadImageList(data.images);
+
+            // Close delete confirmation modal
+            document.getElementById('delete_image_confirm_modal').close();
+
+            showToast('图片已删除');
+        }
+
+        // Add image to character
+        function addImageToCharacter() {
+            // TODO: Implement file upload functionality
+            showToast('添加图片功能开发中...');
+        }
+
+        // Show delete confirmation for character
+        function showDeleteConfirm(characterName) {
+            document.getElementById('delete_character_name').textContent = characterName;
+            document.getElementById('delete_confirm_modal').showModal();
+        }
+
+        // Confirm delete character
+        function confirmDelete() {
+            // TODO: Implement delete functionality
+            document.getElementById('delete_confirm_modal').close();
+            showToast('虚拟人像已删除');
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-bottom toast-center z-[100]';
+            toast.innerHTML = `
+                <div class="alert alert-success shadow-lg">
+                    <i class="ri-checkbox-circle-line text-lg"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+    </script>
+</body>
+
+</html>
