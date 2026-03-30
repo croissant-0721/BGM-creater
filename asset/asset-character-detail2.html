@@ -160,19 +160,70 @@
                     <a class="tab">失败</a>
                     <a class="tab">已取消</a>
                 </div>
-                <div class="join">
-                    <input type="search" placeholder="搜索项目..."
-                        class="input input-bordered input-sm join-item w-full md:w-auto" />
-                    <button class="btn btn-primary btn-sm join-item">
-                        <i class="ri-search-line"></i>
-                    </button>
+                <div class="flex gap-2">
+                    <!-- Project Filter Dropdown -->
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-sm btn-outline">
+                            <i class="ri-filter-3-line"></i>
+                            项目筛选
+                            <span class="badge badge-primary badge-xs" id="selected-count">0</span>
+                        </div>
+                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-72 border border-base-300 max-h-96 overflow-y-auto">
+                            <li class="menu-title">
+                                <span class="font-semibold">选择项目</span>
+                                <div class="flex gap-2">
+                                    <a onclick="selectAllProjects()" class="text-xs text-primary cursor-pointer">全选</a>
+                                    <a onclick="clearAllProjects()" class="text-xs text-base-content/60 cursor-pointer">清空</a>
+                                </div>
+                            </li>
+                            <div class="divider my-0"></div>
+                            <li>
+                                <label class="label cursor-pointer gap-3 justify-start p-2 border-none">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-filter" value="project-1" onchange="updateSelectedCount()" />
+                                    <span class="label-text">AI短剧制作项目</span>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="label cursor-pointer gap-3 justify-start p-2 border-none">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-filter" value="project-2" onchange="updateSelectedCount()" />
+                                    <span class="label-text">古装剧项目</span>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="label cursor-pointer gap-3 justify-start p-2 border-none">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-filter" value="project-3" onchange="updateSelectedCount()" />
+                                    <span class="label-text">现代都市剧</span>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="label cursor-pointer gap-3 justify-start p-2 border-none">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-filter" value="project-4" onchange="updateSelectedCount()" />
+                                    <span class="label-text">校园青春剧</span>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="label cursor-pointer gap-3 justify-start p-2 border-none">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-filter" value="project-5" onchange="updateSelectedCount()" />
+                                    <span class="label-text">悬疑推理剧</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="join">
+                        <input type="search" placeholder="搜索虚拟人像..."
+                            class="input input-bordered input-sm join-item w-full md:w-auto" />
+                        <button class="btn btn-primary btn-sm join-item">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- Character Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Character Card 1 -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer character-card"
+                     data-project="project-1"
                      onclick="openCharacterDetail('女主角 - 林晓雪', 'activated')">
                     <figure class="rounded-t-box overflow-hidden">
                         <img src="https://picsum.photos/400/300?random=101" alt="角色缩略图"
@@ -181,7 +232,7 @@
                     <div class="card-body p-4">
                         <h3 class="card-title text-base mb-2">女主角 - 林晓雪</h3>
                         <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-outline badge-sm">group-20260320150816-rkz8r</span>
+                            <span class="badge badge-outline badge-sm">AI短剧制作项目</span>
                         </div>
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-2">
@@ -216,7 +267,8 @@
                 </div>
 
                 <!-- Character Card 2 -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer character-card"
+                     data-project="project-2"
                      onclick="openCharacterDetail('男主角 - 陈浩然', 'processing')">
                     <figure class="relative rounded-t-box overflow-hidden">
                         <img src="https://panqu.com/assets/img/project.webp" alt="生成中" class="w-full h-48 object-cover" />
@@ -230,7 +282,7 @@
                     <div class="card-body p-4">
                         <h3 class="card-title text-base mb-2">男主角 - 陈浩然</h3>
                         <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-outline badge-sm">group-20260320152005-xmn7q</span>
+                            <span class="badge badge-outline badge-sm">古装剧项目</span>
                         </div>
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-2">
@@ -265,7 +317,8 @@
                 </div>
 
                 <!-- Character Card 3 - Failed -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer character-card"
+                     data-project="project-3"
                      onclick="openCharacterDetail('配角 - 张经理', 'failed')">
                     <figure class="rounded-t-box overflow-hidden">
                         <img src="https://picsum.photos/400/300?random=103" alt="失败" class="w-full h-48 object-cover grayscale" />
@@ -273,7 +326,7 @@
                     <div class="card-body p-4">
                         <h3 class="card-title text-base mb-2">配角 - 张经理</h3>
                         <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-outline badge-sm">group-20260320152510-abc12</span>
+                            <span class="badge badge-outline badge-sm">现代都市剧</span>
                         </div>
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-2">
@@ -308,7 +361,8 @@
                 </div>
 
                 <!-- Character Card 4 -->
-                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                <div class="card bg-base-100 shadow hover:shadow-xl transition-shadow duration-300 cursor-pointer character-card"
+                     data-project="project-4"
                      onclick="openCharacterDetail('反派 - 李总', 'activated')">
                     <figure class="rounded-t-box overflow-hidden">
                         <img src="https://picsum.photos/400/300?random=104" alt="角色缩略图"
@@ -317,7 +371,7 @@
                     <div class="card-body p-4">
                         <h3 class="card-title text-base mb-2">反派 - 李总</h3>
                         <div class="mb-2 flex gap-1 flex-wrap">
-                            <span class="badge badge-outline badge-sm">group-20260320153030-xyz99</span>
+                            <span class="badge badge-outline badge-sm">校园青春剧</span>
                         </div>
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-2">
@@ -411,36 +465,102 @@
         </form>
     </dialog>
 
-    <!-- Add Character Modal (from original page) -->
+    <!-- Add Character Modal -->
     <dialog id="add_character_modal" class="modal">
-        <div class="modal-box">
+        <div class="modal-box max-w-2xl">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                     <i class="ri-close-line"></i>
                 </button>
             </form>
-            <h3 class="font-bold text-lg mb-4">添加虚拟人像</h3>
-            <div class="space-y-4">
+            <h3 class="font-bold text-lg mb-6">添加虚拟人像</h3>
+
+            <div class="space-y-5">
+                <!-- 素材名称 -->
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">角色名称</span>
+                        <span class="label-text">素材名称</span>
                     </label>
-                    <input type="text" placeholder="请输入角色名称" class="input input-bordered" />
+                    <input type="text" placeholder="请输入素材名称" class="input input-bordered w-full" />
                 </div>
+
+                <!-- 所属项目 -->
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">上传人像</span>
+                        <span class="label-text">所属项目</span>
                     </label>
-                    <div class="border-2 border-dashed border-base-300 rounded-lg p-8 text-center">
-                        <i class="ri-upload-cloud-2-line text-4xl text-base-content/50 mb-2"></i>
-                        <p class="text-sm text-base-content/60">点击或拖拽文件到此处上传</p>
+                    <div class="dropdown w-full" id="project_dropdown">
+                        <div tabindex="0" role="button" class="btn w-full justify-between bg-base-100 border-base-300" id="project_dropdown_btn"
+                             onfocus="onProjectDropdownFocus()" onblur="onProjectDropdownBlur(event)">
+                            <span class="text-base-content/50 font-normal" id="project_selected_text">请选择所属项目</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </div>
+                        <div tabindex="0" class="dropdown-content z-[1] shadow bg-base-100 rounded-box w-full border border-base-300 p-2">
+                            <div class="max-h-48 overflow-y-auto mb-2">
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     onclick="toggleProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="AI短剧-林晓雪的故事" />
+                                    <span class="text-sm select-none font-normal">AI短剧-林晓雪的故事</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     onclick="toggleProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="商业广告-产品宣传片" />
+                                    <span class="text-sm select-none font-normal">商业广告-产品宣传片</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     onclick="toggleProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="教育视频-在线课程制作" />
+                                    <span class="text-sm select-none font-normal">教育视频-在线课程制作</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     onclick="toggleProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="企业宣传片-公司介绍" />
+                                    <span class="text-sm select-none font-normal">企业宣传片-公司介绍</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-base-300 pt-2">
+                                <button type="button" class="btn btn-primary btn-sm w-full" onclick="event.preventDefault(); event.stopPropagation(); confirmProjectSelection(); closeDropdown();">确定</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-action">
+
+                <!-- 正视图 -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">正视图</span>
+                    </label>
+                    <div class="border-2 border-dashed border-base-300 rounded-lg p-6 text-center hover:border-primary hover:bg-base-200/50 transition-colors cursor-pointer">
+                        <input type="file" class="hidden" accept="image/*" />
+                        <i class="ri-upload-cloud-2-line text-4xl text-base-content/50 mb-2"></i>
+                        <p class="text-sm text-base-content/60">点击或拖拽文件到此处上传</p>
+                        <p class="text-xs text-base-content/40 mt-1">支持 JPG、PNG 格式</p>
+                    </div>
+                </div>
+
+                <!-- 其他视角图 -->
+                <div class="form-control">
+                    <label class="label justify-between">
+                        <span class="label-text">其他视角图</span>
+                        <span class="label-text-alt text-primary text-xs">(最多50张，分辨率≤6000x6000px，尺寸≥300x300px，单张图≤30MB)</span>
+                    </label>
+                    <div class="border-2 border-dashed border-base-300 rounded-lg p-6 text-center hover:border-primary hover:bg-base-200/50 transition-colors cursor-pointer">
+                        <input type="file" multiple class="hidden" accept="image/*" />
+                        <i class="ri-image-add-line text-4xl text-base-content/50 mb-2"></i>
+                        <p class="text-sm text-base-content/60">点击或拖拽多个文件到此处上传</p>
+                        <p class="text-xs text-base-content/40 mt-1">支持 JPG、PNG 格式，可多选</p>
+                    </div>
+                </div>
+
+                <!-- 按钮 -->
+                <div class="modal-action mt-6">
                     <form method="dialog">
                         <button class="btn">取消</button>
                     </form>
-                    <button class="btn btn-primary">创建</button>
+                    <button class="btn btn-primary gap-2">
+                        <i class="ri-magic-line text-lg"></i>
+                        提交
+                    </button>
                 </div>
             </div>
         </div>
@@ -486,6 +606,9 @@
     <!-- Scripts -->
     <script src="../assets/js/shared-scripts.js"></script>
     <script>
+        // 保存已确定选中的项目
+        let confirmedProjects = [];
+
         // Character data
         const characterData = {
             '女主角 - 林晓雪': {
@@ -707,6 +830,104 @@
             showToast('虚拟人像已删除');
         }
 
+        // Toggle project checkbox when clicking the row
+        function toggleProjectOption(divElement) {
+            const checkbox = divElement.querySelector('.project-checkbox');
+            checkbox.checked = !checkbox.checked;
+        }
+
+        // Dropdown 打开时的处理
+        function onProjectDropdownFocus() {
+            // 恢复已确定的项目选中状态
+            const checkboxes = document.querySelectorAll('.project-checkbox');
+            checkboxes.forEach(checkbox => {
+                // 根据已确定的项目列表恢复选中状态
+                checkbox.checked = confirmedProjects.includes(checkbox.value);
+            });
+        }
+
+        // Dropdown 关闭时的处理（未点击确定）
+        function onProjectDropdownBlur(event) {
+            // 如果是通过确定按钮关闭的，不处理
+            const dropdown = document.getElementById('project_dropdown');
+            if (dropdown.dataset.closedByButton === 'true') {
+                return;
+            }
+
+            // 延迟执行，确保确定按钮的点击事件已经处理完毕
+            setTimeout(() => {
+                // 再次检查是否通过确定按钮关闭
+                if (dropdown.dataset.closedByButton === 'true') {
+                    return;
+                }
+
+                // 检查下拉框是否真的关闭了（焦点不在按钮或内容上）
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                const isActive = document.activeElement === dropdown.querySelector('#project_dropdown_btn') ||
+                                (dropdownContent && dropdownContent.contains(document.activeElement));
+
+                if (!isActive) {
+                    // 下拉框已关闭，重置所有复选框到已确定的状态
+                    const checkboxes = document.querySelectorAll('.project-checkbox');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = confirmedProjects.includes(checkbox.value);
+                    });
+                }
+            }, 200); // 延迟200ms，给点击确定按钮留出时间
+        }
+
+        // Close dropdown helper function
+        function closeDropdown() {
+            const dropdownBtn = document.getElementById('project_dropdown_btn');
+
+            // 方法1: 移除焦点
+            dropdownBtn.blur();
+
+            // 方法2: 延迟再次移除（确保生效）
+            setTimeout(() => {
+                dropdownBtn.blur();
+
+                // 强制隐藏下拉内容
+                const dropdown = document.getElementById('project_dropdown');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                if (dropdownContent) {
+                    dropdownContent.style.display = 'none';
+                }
+
+                // 延迟恢复显示属性，让 DaisyUI 重新接管
+                setTimeout(() => {
+                    if (dropdownContent) {
+                        dropdownContent.style.display = '';
+                    }
+                }, 50);
+            }, 10);
+
+            // 设置标记
+            dropdown.dataset.closedByButton = 'true';
+            setTimeout(() => {
+                delete dropdown.dataset.closedByButton;
+            }, 100);
+        }
+
+        // Confirm project selection
+        function confirmProjectSelection() {
+            const checkboxes = document.querySelectorAll('.project-checkbox:checked');
+            const selectedText = document.getElementById('project_selected_text');
+
+            if (checkboxes.length === 0) {
+                // 清空已确定的项目
+                confirmedProjects = [];
+                selectedText.textContent = '请选择所属项目';
+                selectedText.classList.add('text-base-content/50');
+            } else {
+                // 保存选中的项目
+                confirmedProjects = Array.from(checkboxes).map(cb => cb.value);
+                // 将选中的项目名称用分号分隔
+                selectedText.textContent = confirmedProjects.join('；');
+                selectedText.classList.remove('text-base-content/50');
+            }
+        }
+
         // Show toast notification
         function showToast(message) {
             const toast = document.createElement('div');
@@ -719,6 +940,49 @@
             `;
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 2000);
+        }
+
+        // Project Filter Functions
+        function updateSelectedCount() {
+            const checkboxes = document.querySelectorAll('.project-filter:checked');
+            const count = checkboxes.length;
+            document.getElementById('selected-count').textContent = count;
+
+            // Get selected project values
+            const selectedProjects = Array.from(checkboxes).map(cb => cb.value);
+
+            // Filter cards
+            const cards = document.querySelectorAll('.character-card');
+            cards.forEach(card => {
+                const cardProject = card.getAttribute('data-project');
+                if (count === 0 || selectedProjects.includes(cardProject)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Change button style when projects are selected
+            const filterBtn = document.querySelector('.dropdown button');
+            if (count > 0) {
+                filterBtn.classList.add('btn-primary');
+                filterBtn.classList.remove('btn-outline');
+            } else {
+                filterBtn.classList.remove('btn-primary');
+                filterBtn.classList.add('btn-outline');
+            }
+        }
+
+        function selectAllProjects() {
+            const checkboxes = document.querySelectorAll('.project-filter');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateSelectedCount();
+        }
+
+        function clearAllProjects() {
+            const checkboxes = document.querySelectorAll('.project-filter');
+            checkboxes.forEach(cb => cb.checked = false);
+            updateSelectedCount();
         }
     </script>
 </body>
