@@ -255,6 +255,7 @@
                                 </div>
                                 <ul tabindex="0"
                                     class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="event.stopPropagation(); showEditModal('女主角 - 林晓雪', 'AI短剧制作项目')"><i class="ri-edit-line"></i>再次编辑</a></li>
                                     <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('女主角 - 林晓雪')"><i class="ri-delete-bin-line"></i>删除</a></li>
                                 </ul>
                             </div>
@@ -305,6 +306,7 @@
                                 </div>
                                 <ul tabindex="0"
                                     class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="event.stopPropagation(); showEditModal('男主角 - 陈浩然', '古装剧项目')"><i class="ri-edit-line"></i>再次编辑</a></li>
                                     <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('男主角 - 陈浩然')"><i class="ri-delete-bin-line"></i>删除</a></li>
                                 </ul>
                             </div>
@@ -349,6 +351,7 @@
                                 </div>
                                 <ul tabindex="0"
                                     class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="event.stopPropagation(); showEditModal('配角 - 张经理', '现代都市剧')"><i class="ri-edit-line"></i>再次编辑</a></li>
                                     <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('配角 - 张经理')"><i class="ri-delete-bin-line"></i>删除</a></li>
                                 </ul>
                             </div>
@@ -394,6 +397,7 @@
                                 </div>
                                 <ul tabindex="0"
                                     class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-300">
+                                    <li><a onclick="event.stopPropagation(); showEditModal('反派 - 李总', '校园青春剧')"><i class="ri-edit-line"></i>再次编辑</a></li>
                                     <li><a class="text-error" onclick="event.stopPropagation(); showDeleteConfirm('反派 - 李总')"><i class="ri-delete-bin-line"></i>删除</a></li>
                                 </ul>
                             </div>
@@ -492,7 +496,7 @@
                             <i class="ri-arrow-down-s-line"></i>
                         </div>
                         <div tabindex="0" class="dropdown-content z-[1] shadow bg-base-100 rounded-box w-full border border-base-300 p-2">
-                            <div class="max-h-48 overflow-y-auto mb-2">
+                            <div class="max-h-44 overflow-y-auto mb-2">
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
                                      onclick="toggleProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="AI短剧-林晓雪的故事" />
@@ -582,6 +586,103 @@
         </form>
     </dialog>
 
+    <!-- Edit Character Modal -->
+    <dialog id="edit_character_modal" class="modal">
+        <div class="modal-box max-w-2xl max-h-screen overflow-visible">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10">
+                    <i class="ri-close-line"></i>
+                </button>
+            </form>
+            <h3 class="font-bold text-lg mb-6">编辑虚拟人像</h3>
+
+            <div class="space-y-5">
+                <!-- 素材名称 -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">素材名称 <span class="text-error">*</span></span>
+                    </label>
+                    <input type="text" id="edit_material_name" placeholder="请输入素材名称" class="input input-bordered w-full" />
+                </div>
+
+                <!-- 所属项目 -->
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">所属项目 <span class="text-error">*</span></span>
+                    </label>
+                    <div class="dropdown w-full" id="edit_project_dropdown">
+                        <div tabindex="0" role="button" class="btn w-full justify-between bg-base-100 border-base-300" id="edit_project_dropdown_btn"
+                             onfocus="onEditProjectDropdownFocus()" onblur="onEditProjectDropdownBlur(event)">
+                            <span class="text-base-content/50 font-normal" id="edit_project_selected_text">请选择所属项目</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </div>
+                        <div tabindex="0" class="dropdown-content z-[1] shadow bg-base-100 rounded-box w-full border border-base-300 p-2">
+                            <div class="max-h-44 overflow-y-auto mb-2">
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="AI短剧-林晓雪的故事" />
+                                    <span class="text-sm select-none font-normal">AI短剧-林晓雪的故事</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="商业广告-产品宣传片" />
+                                    <span class="text-sm select-none font-normal">商业广告-产品宣传片</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="教育视频-在线课程制作" />
+                                    <span class="text-sm select-none font-normal">教育视频-在线课程制作</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="企业宣传片-公司介绍" />
+                                    <span class="text-sm select-none font-normal">企业宣传片-公司介绍</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="古装剧-宫廷秘史" />
+                                    <span class="text-sm select-none font-normal">古装剧-宫廷秘史</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="现代都市剧-职场风云" />
+                                    <span class="text-sm select-none font-normal">现代都市剧-职场风云</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="校园青春剧-成长日记" />
+                                    <span class="text-sm select-none font-normal">校园青春剧-成长日记</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     onclick="toggleEditProjectOption(this)">
+                                    <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="悬疑推理剧-迷雾追踪" />
+                                    <span class="text-sm select-none font-normal">悬疑推理剧-迷雾追踪</span>
+                                </div>
+                            </div>
+                            <div class="border-t border-base-300 pt-2">
+                                <button type="button" class="btn btn-primary btn-sm w-full" onclick="event.preventDefault(); event.stopPropagation(); confirmEditProjectSelection(); closeEditDropdown();">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 按钮 -->
+                <div class="modal-action mt-6">
+                    <form method="dialog">
+                        <button class="btn">取消</button>
+                    </form>
+                    <button class="btn btn-primary gap-2" onclick="confirmEditCharacter()">
+                        <i class="ri-magic-line text-lg"></i>
+                        提交
+                    </button>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
     <!-- Delete Image Confirmation Modal -->
     <dialog id="delete_image_confirm_modal" class="modal">
         <div class="modal-box">
@@ -604,6 +705,10 @@
     <script>
         // 保存已确定选中的项目
         let confirmedProjects = [];
+
+        // 编辑相关变量
+        let editConfirmedProjects = [];
+        let currentEditCharacter = null;
 
         // Character data
         const characterData = {
@@ -925,12 +1030,16 @@
         }
 
         // Show toast notification
-        function showToast(message) {
+        function showToast(message, type = 'success') {
             const toast = document.createElement('div');
             toast.className = 'toast toast-bottom toast-center z-[100]';
+
+            const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
+            const icon = type === 'error' ? 'ri-error-warning-line' : 'ri-checkbox-circle-line';
+
             toast.innerHTML = `
-                <div class="alert alert-success shadow-lg">
-                    <i class="ri-checkbox-circle-line text-lg"></i>
+                <div class="alert ${alertClass} shadow-lg">
+                    <i class="${icon} text-lg"></i>
                     <span>${message}</span>
                 </div>
             `;
@@ -995,6 +1104,142 @@
                     item.style.display = 'none';
                 }
             });
+        }
+
+        // Edit Character Functions
+        // Show edit modal
+        function showEditModal(characterName, projectName) {
+            currentEditCharacter = characterName;
+
+            // Set material name
+            document.getElementById('edit_material_name').value = characterName;
+
+            // Set project name
+            const selectedText = document.getElementById('edit_project_selected_text');
+            selectedText.textContent = projectName;
+            selectedText.classList.remove('text-base-content/50');
+            editConfirmedProjects = [projectName];
+
+            // Show modal
+            document.getElementById('edit_character_modal').showModal();
+        }
+
+        // Toggle edit project checkbox when clicking the row
+        function toggleEditProjectOption(divElement) {
+            const checkbox = divElement.querySelector('.edit-project-checkbox');
+            checkbox.checked = !checkbox.checked;
+        }
+
+        // Edit dropdown 打开时的处理
+        function onEditProjectDropdownFocus() {
+            // 恢复已确定的项目选中状态
+            const checkboxes = document.querySelectorAll('.edit-project-checkbox');
+            checkboxes.forEach(checkbox => {
+                // 根据已确定的项目列表恢复选中状态
+                checkbox.checked = editConfirmedProjects.includes(checkbox.value);
+            });
+        }
+
+        // Edit dropdown 关闭时的处理（未点击确定）
+        function onEditProjectDropdownBlur(event) {
+            // 如果是通过确定按钮关闭的，不处理
+            const dropdown = document.getElementById('edit_project_dropdown');
+            if (dropdown.dataset.closedByButton === 'true') {
+                return;
+            }
+
+            // 延迟执行，确保确定按钮的点击事件已经处理完毕
+            setTimeout(() => {
+                // 再次检查是否通过确定按钮关闭
+                if (dropdown.dataset.closedByButton === 'true') {
+                    return;
+                }
+
+                // 检查下拉框是否真的关闭了（焦点不在按钮或内容上）
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                const isActive = document.activeElement === dropdown.querySelector('#edit_project_dropdown_btn') ||
+                                (dropdownContent && dropdownContent.contains(document.activeElement));
+
+                if (!isActive) {
+                    // 下拉框已关闭，重置所有复选框到已确定的状态
+                    const checkboxes = document.querySelectorAll('.edit-project-checkbox');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = editConfirmedProjects.includes(checkbox.value);
+                    });
+                }
+            }, 200); // 延迟200ms，给点击确定按钮留出时间
+        }
+
+        // Close edit dropdown helper function
+        function closeEditDropdown() {
+            const dropdownBtn = document.getElementById('edit_project_dropdown_btn');
+
+            // 方法1: 移除焦点
+            dropdownBtn.blur();
+
+            // 方法2: 延迟再次移除（确保生效）
+            setTimeout(() => {
+                dropdownBtn.blur();
+
+                // 强制隐藏下拉内容
+                const dropdown = document.getElementById('edit_project_dropdown');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                if (dropdownContent) {
+                    dropdownContent.style.display = 'none';
+                }
+
+                // 延迟恢复显示属性，让 DaisyUI 重新接管
+                setTimeout(() => {
+                    if (dropdownContent) {
+                        dropdownContent.style.display = '';
+                    }
+                }, 50);
+            }, 10);
+
+            // 设置标记
+            dropdown.dataset.closedByButton = 'true';
+            setTimeout(() => {
+                delete dropdown.dataset.closedByButton;
+            }, 100);
+        }
+
+        // Confirm edit project selection
+        function confirmEditProjectSelection() {
+            const checkboxes = document.querySelectorAll('.edit-project-checkbox:checked');
+            const selectedText = document.getElementById('edit_project_selected_text');
+
+            if (checkboxes.length === 0) {
+                // 清空已确定的项目
+                editConfirmedProjects = [];
+                selectedText.textContent = '请选择所属项目';
+                selectedText.classList.add('text-base-content/50');
+            } else {
+                // 保存选中的项目
+                editConfirmedProjects = Array.from(checkboxes).map(cb => cb.value);
+                // 将选中的项目名称用分号分隔
+                selectedText.textContent = editConfirmedProjects.join('；');
+                selectedText.classList.remove('text-base-content/50');
+            }
+        }
+
+        // Confirm edit character
+        function confirmEditCharacter() {
+            const materialName = document.getElementById('edit_material_name').value.trim();
+
+            // 验证必填字段
+            if (!materialName) {
+                showToast('请输入素材名称', 'error');
+                return;
+            }
+
+            if (editConfirmedProjects.length === 0) {
+                showToast('请选择所属项目', 'error');
+                return;
+            }
+
+            // TODO: Implement save functionality
+            document.getElementById('edit_character_modal').close();
+            showToast('虚拟人像已更新');
         }
     </script>
 </body>
