@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>总览 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="assets/css/project/project-styles.css">
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="overview.html" class="active"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Project/Projects.html"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="asset/asset-list.html"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                    <li><a href="billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="Project/settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-normal">视频生成完成</div>
+                                <div class="text-xs text-base-content/60 font-normal">AI短剧-林晓雪的故事</div>
+                            </div>
+                            <div class="text-xs text-base-content/40 font-normal">2分钟前</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-time-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-normal">人像训练中</div>
+                                <div class="text-xs text-base-content/60 font-normal">女主角 - 林晓雪</div>
+                            </div>
+                            <div class="text-xs text-base-content/40 font-normal">10分钟前</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-magic-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-normal">配音生成完成</div>
+                                <div class="text-xs text-base-content/60 font-normal">古风剧-第一章</div>
+                            </div>
+                            <div class="text-xs text-base-content/40 font-normal">1小时前</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- User Avatar -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar">
+                        <div class="w-10 rounded-full">
+                            <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="用户头像" />
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title"><span class="font-normal text-sm">用户菜单</span></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="gap-2 font-normal"><i class="ri-user-line"></i>个人中心</a></li>
+                    <li><a class="gap-2 font-normal"><i class="ri-settings-4-line"></i>设置</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="gap-2 font-normal text-error"><i class="ri-logout-box-line"></i>退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8 max-w-7xl">
+        <!-- Page Title -->
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold mb-2">总览</h1>
+            <p class="text-base-content/60 font-normal">欢迎使用盼趣AI工作台</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-7 gap-4">
+                <!-- Recent Projects Card (Takes 2 columns) -->
+                <div class="lg:col-span-2 card bg-base-100 shadow-lg h-full">
+                    <div class="card-body p-4">
+                        <div class="flex items-center mb-4">
+                            <h3 class="font-semibold text-sm flex items-center gap-2">
+                                <i class="ri-folder-open-line text-primary"></i>
+                                最近项目
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3">
+                            <!-- Project 1 -->
+                            <a href="Project/project-detail.html" class="block group">
+                                <div class="p-3 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 cursor-pointer border border-transparent hover:border-primary/30">
+                                    <div class="flex items-start gap-3">
+                                        <div class="avatar">
+                                            <div class="w-10 h-10 rounded-lg overflow-hidden">
+                                                <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="w-full h-full object-cover">
+                                            </div>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-medium text-sm truncate">AI短剧制作项目</h4>
+                                            <p class="text-xs text-base-content/60 mt-1">刚刚操作 • 5个任务进行中</p>
+                                        </div>
+                                        <i class="ri-arrow-right-s-line text-base-content/40 group-hover:text-primary transition-colors"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Project 2 -->
+                            <a href="Project/project-detail.html" class="block group">
+                                <div class="p-3 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 cursor-pointer border border-transparent hover:border-primary/30">
+                                    <div class="flex items-start gap-3">
+                                        <div class="avatar">
+                                            <div class="w-10 h-10 rounded-lg overflow-hidden">
+                                                <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="w-full h-full object-cover">
+                                            </div>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-medium text-sm truncate">古装剧项目</h4>
+                                            <p class="text-xs text-base-content/60 mt-1">2小时前 • 角色训练中</p>
+                                        </div>
+                                        <i class="ri-arrow-right-s-line text-base-content/40 group-hover:text-primary transition-colors"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Project 3 -->
+                            <a href="Project/project-detail.html" class="block group">
+                                <div class="p-3 rounded-lg bg-base-200 hover:bg-primary/10 transition-all duration-300 cursor-pointer border border-transparent hover:border-primary/30">
+                                    <div class="flex items-start gap-3">
+                                        <div class="avatar">
+                                            <div class="w-10 h-10 rounded-lg overflow-hidden">
+                                                <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="w-full h-full object-cover">
+                                            </div>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-medium text-sm truncate">现代都市剧</h4>
+                                            <p class="text-xs text-base-content/60 mt-1">昨天 • 场景生成中</p>
+                                        </div>
+                                        <i class="ri-arrow-right-s-line text-base-content/40 group-hover:text-primary transition-colors"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Functions Card (Takes 5 columns) -->
+                <div class="lg:col-span-5 card bg-base-100 shadow-lg">
+                    <div class="card-body p-5">
+                        <div class="flex items-center justify-between mb-5">
+                            <h3 class="font-semibold text-lg">快捷功能</h3>
+                            <div class="flex items-center gap-2">
+                                <button class="btn btn-ghost btn-sm gap-1" onclick="openSortModal()">
+                                    <i class="ri-sort-line"></i>
+                                    <span>排序</span>
+                                </button>
+
+                                <!-- More Functions Dropdown -->
+                                <div class="dropdown dropdown-end">
+                                    <button tabindex="0" class="btn btn-ghost btn-sm gap-1" id="more-toggle-btn">
+                                        <span>更多</span>
+                                        <i class="ri-arrow-down-s-line" id="more-toggle-icon"></i>
+                                    </button>
+                                    <ul tabindex="0"
+                                        id="more-functions-dropdown"
+                                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48 border border-base-300">
+                                        <!-- More functions will be rendered here by JavaScript -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions Grid -->
+                        <div id="quick-actions-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+                            <!-- Quick action items will be rendered here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sort Modal -->
+        <dialog id="sort-modal" class="modal">
+            <div class="modal-box max-w-2xl">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <h3 class="font-bold text-lg mb-4">调整功能排序</h3>
+                <p class="text-sm text-base-content/60 mb-6">拖动功能卡片调整显示顺序</p>
+
+                <div id="sort-functions-list" class="space-y-2 max-h-96 overflow-y-auto pr-2">
+                    <!-- Sortable items will be rendered here by JavaScript -->
+                </div>
+
+                <div class="flex justify-end gap-3 mt-6">
+                    <button class="btn btn-ghost" onclick="closeSortModal()">取消</button>
+                    <button class="btn btn-primary" onclick="saveSortOrder()">确定</button>
+                </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
+
+        <!-- Workspace Dashboard for Sub-account -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Today's Tasks -->
+            <div class="lg:col-span-2 h-full">
+                <div class="card bg-base-100 shadow-lg h-full" style="min-height: 600px;">
+                    <div class="card-body flex flex-col">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h2 class="card-title text-xl mb-1">今日任务</h2>
+                                <p class="text-base-content/60 font-normal text-sm">查看和管理您的今日工作任务</p>
+                            </div>
+                        </div>
+
+                        <!-- Task Tabs -->
+                        <div role="tablist" class="tabs tabs-boxed bg-base-200 mb-6">
+                            <label class="tab gap-2 tab-active cursor-pointer" id="tab-processing">
+                                <input type="radio" name="task_tabs" class="hidden" checked="checked" onchange="filterTasks('processing')" />
+                                处理中
+                                <span class="badge badge-primary/80 badge-sm tab-badge">4</span>
+                            </label>
+                            <label class="tab gap-2 cursor-pointer" id="tab-completed">
+                                <input type="radio" name="task_tabs" class="hidden" onchange="filterTasks('completed')" />
+                                已完成
+                                <span class="badge badge-base-300 badge-sm tab-badge">1</span>
+                            </label>
+                            <label class="tab gap-2 cursor-pointer" id="tab-failed">
+                                <input type="radio" name="task_tabs" class="hidden" onchange="filterTasks('failed')" />
+                                失败
+                                <span class="badge badge-base-300 badge-sm tab-badge">1</span>
+                            </label>
+                        </div>
+
+                        <div class="space-y-3" id="tasks-container">
+                            <!-- Processing Tasks -->
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                                <div class="avatar placeholder">
+                                    <div class="bg-warning text-warning-content rounded-full w-10 h-10">
+                                        <i class="ri-loader-4-line text-lg animate-spin"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-medium text-sm">视频生成中</span>
+                                        <span class="badge badge-warning badge-xs">处理中</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/60">AI短剧制作项目 • 进度 65%</p>
+                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                        <div class="bg-warning h-1.5 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                                <div class="avatar placeholder">
+                                    <div class="bg-warning text-warning-content rounded-full w-10 h-10">
+                                        <i class="ri-loader-4-line text-lg animate-spin"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-medium text-sm">视频生成中</span>
+                                        <span class="badge badge-warning badge-xs">处理中</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/60">古装剧项目 • 进度 40%</p>
+                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                        <div class="bg-warning h-1.5 rounded-full" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                                <div class="avatar placeholder">
+                                    <div class="bg-warning text-warning-content rounded-full w-10 h-10">
+                                        <i class="ri-loader-4-line text-lg animate-spin"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-medium text-sm">角色训练中</span>
+                                        <span class="badge badge-warning badge-xs">处理中</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/60">古装剧项目 • 进度 85%</p>
+                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                        <div class="bg-warning h-1.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                                <div class="avatar placeholder">
+                                    <div class="bg-warning text-warning-content rounded-full w-10 h-10">
+                                        <i class="ri-loader-4-line text-lg animate-spin"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-medium text-sm">场景生成中</span>
+                                        <span class="badge badge-warning badge-xs">处理中</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/60">现代都市剧 • 进度 30%</p>
+                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                        <div class="bg-warning h-1.5 rounded-full" style="width: 30%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Completed Tasks -->
+                            <div class="task-item task-completed flex items-start gap-3 p-3 bg-success/10 rounded-lg border border-success/20" style="display: none;">
+                                <div class="avatar placeholder">
+                                    <div class="bg-success text-success-content rounded-full w-10 h-10">
+                                        <i class="ri-check-line text-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-medium text-sm">生成场景图片</span>
+                                        <span class="badge badge-success badge-xs">已完成</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/60">AI短剧制作项目 • 1小时前</p>
+                                </div>
+                            </div>
+
+                            <!-- Failed Tasks -->
+                            <div class="task-item task-failed flex items-start gap-3 p-3 bg-error/10 rounded-lg border border-error/20" style="display: none;">
+                                <div class="avatar placeholder">
+                                    <div class="bg-error text-error-content rounded-full w-10 h-10">
+                                        <i class="ri-close-circle-line text-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-medium text-sm">场景生成失败</span>
+                                        <span class="badge badge-error badge-xs">失败</span>
+                                    </div>
+                                    <p class="text-xs text-base-content/60">现代都市剧 • 需要重新配置</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="flex justify-center items-center gap-2 mt-6" id="pagination">
+                            <button class="btn btn-sm btn-outline btn-disabled" id="prev-page">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </button>
+                            <div class="join" id="page-numbers">
+                                <button class="join-item btn btn-sm btn-active">1</button>
+                                <button class="join-item btn btn-sm">2</button>
+                                <button class="join-item btn btn-sm">3</button>
+                            </div>
+                            <button class="btn btn-sm btn-outline" id="next-page">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Today's Bill -->
+            <div class="flex flex-col gap-6 h-full">
+                <!-- Today's Bill Card -->
+                <div class="card bg-base-100 shadow-lg flex-1">
+                    <div class="card-body flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h2 class="card-title text-xl mb-1">今日账单</h2>
+                            </div>
+                            <a href="#" class="btn btn-ghost btn-sm gap-1">
+                                <span>更多</span>
+                                <i class="ri-arrow-right-s-line"></i>
+                            </a>
+                        </div>
+
+                        <!-- Total Summary -->
+                        <div class="text-center p-4 bg-base-200 rounded-lg mb-6">
+                            <div class="text-3xl font-bold text-primary">28</div>
+                            <div class="text-sm text-base-content/60">今日消耗积分</div>
+                        </div>
+
+                        <!-- Task Type Breakdown with Pagination -->
+                        <div class="flex-1 flex flex-col">
+                            <div id="bill-items-container" class="flex-1 space-y-3 mb-4">
+                                <!-- Items will be rendered by JavaScript -->
+                            </div>
+
+                            <!-- Pagination Controls -->
+                            <div class="flex items-center justify-between pt-4 border-t border-base-300">
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="prevBillPage()" id="prev-bill-btn">
+                                    <i class="ri-arrow-left-s-line text-lg"></i>
+                                </button>
+                                <div class="flex items-center gap-2">
+                                    <span id="bill-page-indicator" class="text-sm text-base-content/60">1 / 2</span>
+                                </div>
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="nextBillPage()" id="next-bill-btn">
+                                    <i class="ri-arrow-right-s-line text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Statistics -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="card-title text-2xl mb-2">数据统计</h2>
+                    <p class="text-base-content/60 font-normal text-sm">查看您的创作数据和任务统计</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <select class="select select-bordered select-sm">
+                        <option>本月</option>
+                        <option>上月</option>
+                        <option>近3月</option>
+                        <option>全部</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Statistics Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Task Overview -->
+                <div class="card bg-base-100 shadow-lg" style="min-height: 400px;">
+                    <div class="card-body p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg flex items-center gap-2">
+                                <i class="ri-task-line text-primary"></i>
+                                任务总览
+                            </h3>
+                            <span class="badge badge-primary badge-md">本月</span>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4 mb-4">
+                            <div class="text-center p-3 bg-base-200 rounded-lg">
+                                <div class="text-2xl font-bold text-primary">156</div>
+                                <div class="text-xs text-base-content/60">总任务数</div>
+                            </div>
+                        </div>
+
+                        <!-- Task Types with Pagination -->
+                        <div class="flex-1 flex flex-col">
+                            <div id="tasktypes-container" class="flex-1 space-y-2 mb-4">
+                                <!-- Task types will be rendered by JavaScript -->
+                            </div>
+
+                            <!-- Pagination Controls -->
+                            <div class="flex items-center justify-between pt-4 border-t border-base-300">
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="prevTaskTypePage()" id="prev-tasktype-btn">
+                                    <i class="ri-arrow-left-s-line text-lg"></i>
+                                </button>
+                                <div class="flex items-center gap-2">
+                                    <span id="tasktype-page-indicator" class="text-sm text-base-content/60">1 / 2</span>
+                                </div>
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="nextTaskTypePage()" id="next-tasktype-btn">
+                                    <i class="ri-arrow-right-s-line text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Statistics -->
+                <div class="card bg-base-100 shadow-lg" style="min-height: 400px;">
+                    <div class="card-body p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg flex items-center gap-2">
+                                <i class="ri-folder-chart-line text-secondary"></i>
+                                项目统计
+                            </h3>
+                            <span class="badge badge-secondary badge-md">3个项目</span>
+                        </div>
+
+                        <!-- Projects with Pagination -->
+                        <div class="flex-1 flex flex-col">
+                            <div id="projects-container" class="flex-1 space-y-3 mb-4">
+                                <!-- Projects will be rendered by JavaScript -->
+                            </div>
+
+                            <!-- Pagination Controls -->
+                            <div class="flex items-center justify-between pt-4 border-t border-base-300">
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="prevProjectPage()" id="prev-project-btn">
+                                    <i class="ri-arrow-left-s-line text-lg"></i>
+                                </button>
+                                <div class="flex items-center gap-2">
+                                    <span id="project-page-indicator" class="text-sm text-base-content/60">1 / 2</span>
+                                </div>
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="nextProjectPage()" id="next-project-btn">
+                                    <i class="ri-arrow-right-s-line text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Resource Accumulation -->
+                <div class="card bg-base-100 shadow-lg" style="min-height: 400px;">
+                    <div class="card-body p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg flex items-center gap-2">
+                                <i class="ri-stack-line text-accent"></i>
+                                资源积累
+                            </h3>
+                        </div>
+
+                        <!-- Resources with Pagination -->
+                        <div class="flex-1 flex flex-col">
+                            <div id="resources-container" class="flex-1 grid grid-cols-2 gap-3 mb-4">
+                                <!-- Resources will be rendered by JavaScript -->
+                            </div>
+
+                            <!-- Pagination Controls -->
+                            <div class="flex items-center justify-between pt-4 border-t border-base-300">
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="prevResourcePage()" id="prev-resource-btn">
+                                    <i class="ri-arrow-left-s-line text-lg"></i>
+                                </button>
+                                <div class="flex items-center gap-2">
+                                    <span id="resource-page-indicator" class="text-sm text-base-content/60">1 / 2</span>
+                                </div>
+                                <button class="btn btn-ghost btn-sm btn-circle" onclick="nextResourcePage()" id="next-resource-btn">
+                                    <i class="ri-arrow-right-s-line text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- Exclusive Services -->
+        <div class="card bg-base-100 shadow-lg mb-8">
+            <div class="card-body">
+                <div class="mb-6">
+                    <h2 class="card-title text-2xl mb-2">专属服务</h2>
+                    <p class="text-base-content/60 font-normal text-sm">一对一客户服务支持</p>
+                </div>
+
+                <!-- Service Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Help Center -->
+                        <div class="bg-base-200 rounded-lg p-5">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="avatar placeholder mb-3">
+                                    <div class="bg-accent text-accent-content rounded-full w-12 h-12">
+                                        <i class="ri-customer-service-2-line text-xl"></i>
+                                    </div>
+                                </div>
+                                <h3 class="font-semibold text-base mb-2">帮助中心</h3>
+                                <p class="text-xs text-base-content/70 font-normal mb-3">查找常见问题解答、使用指南和故障排除方法。</p>
+                                <a href="#" class="btn btn-outline btn-accent btn-sm w-full gap-1">
+                                    <i class="ri-book-open-line"></i>
+                                    浏览帮助文档
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Channel -->
+                        <div class="bg-base-200 rounded-lg p-5">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="avatar placeholder mb-3">
+                                    <div class="bg-secondary text-secondary-content rounded-full w-12 h-12 flex items-center justify-center">
+                                        <i class="ri-feedback-line text-xl"></i>
+                                    </div>
+                                </div>
+                                <h3 class="font-semibold text-base mb-2">反馈通道</h3>
+                                <p class="text-xs text-base-content/70 font-normal mb-3">欢迎提交产品反馈和功能建议</p>
+                                <a href="https://feishu.cn" target="_blank" class="btn btn-outline btn-primary btn-sm w-full gap-1">
+                                    <i class="ri-file-list-3-line"></i>
+                                    提交反馈文档
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Customer Manager -->
+                        <div class="bg-base-200 rounded-lg p-5">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="avatar placeholder mb-3">
+                                    <div class="bg-info text-info-content rounded-full w-12 h-12 flex items-center justify-center">
+                                        <i class="ri-service-line text-xl"></i>
+                                    </div>
+                                </div>
+                                <h3 class="font-semibold text-base mb-2">客户经理</h3>
+                                <p class="text-xs text-base-content/70 font-normal mb-3">专业客户经理一对一服务，随时解答疑问。</p>
+                                <a href="#" class="btn btn-outline btn-info btn-sm w-full gap-1">
+                                    <i class="ri-phone-line"></i>
+                                    联系商务
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Player Modal -->
+        <dialog id="video_player_modal" class="modal">
+            <div class="modal-box max-w-5xl p-0">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </form>
+                <div class="w-full">
+                    <!-- Video Player -->
+                    <div class="relative w-full aspect-video bg-black flex items-center justify-center">
+                        <video id="tutorial_video" class="w-full h-full" controls poster="">
+                            <source src="" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                    </div>
+                    <!-- Video Info -->
+                    <div class="p-6 bg-base-100">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span id="video_category_badge" class="badge badge-primary badge-md font-normal">核心功能</span>
+                                    <span id="video_duration" class="text-sm text-base-content/60 font-normal">8:45</span>
+                                </div>
+                                <h3 id="video_title" class="text-xl font-bold mb-2">虚拟人像创建与使用指南</h3>
+                                <p id="video_description" class="text-sm text-base-content/60 font-normal">详细讲解如何创建虚拟人像、上传正视图和其他视角图、训练模型以及在项目中使用虚拟角色。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-sm text-base-content/60 font-normal">
+                            <span class="flex items-center gap-1">
+                                <i class="ri-time-line"></i>
+                                最近更新
+                            </span>
+                            <button class="btn btn-ghost btn-sm gap-1">
+                                <i class="ri-share-line"></i>
+                                分享
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
+        </dialog>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                html.setAttribute('data-theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+            }
+        });
+
+        // Set initial theme
+        html.setAttribute('data-theme', 'light');
+        themeToggle.checked = false;
+
+        // Set today's date
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+        const todayDateStr = today.toLocaleDateString('zh-CN', options);
+        const todayDateElement = document.getElementById('today-date');
+        if (todayDateElement) {
+            todayDateElement.textContent = todayDateStr;
+        }
+
+        // Pagination variables
+        let currentPage = 1;
+        const itemsPerPage = 4;
+        let currentStatus = 'processing';
+
+        // Task Filter Function
+        function filterTasks(status, page = 1) {
+            currentStatus = status;
+            currentPage = page;
+
+            // Update tab active states
+            document.querySelectorAll('[role="tablist"] .tab').forEach(tab => {
+                tab.classList.remove('tab-active');
+                const badge = tab.querySelector('.tab-badge');
+                if (badge) {
+                    badge.classList.remove('badge-primary/80', 'badge-secondary/80', 'badge-accent/80', 'badge-base-300');
+                    badge.classList.add('badge-base-300');
+                }
+            });
+
+            const activeTab = document.getElementById(`tab-${status}`);
+            if (activeTab) {
+                activeTab.classList.add('tab-active');
+                const activeBadge = activeTab.querySelector('.tab-badge');
+                if (activeBadge) {
+                    activeBadge.classList.remove('badge-base-300');
+                    activeBadge.classList.add('badge-primary/80');
+                }
+            }
+
+            const taskItems = document.querySelectorAll('.task-item');
+
+            // Hide all tasks first
+            taskItems.forEach(item => {
+                item.style.display = 'none';
+            });
+
+            // Get filtered tasks
+            const filteredTasks = Array.from(taskItems).filter(item => {
+                if (status === 'processing' && item.classList.contains('task-processing')) {
+                    return true;
+                } else if (status === 'completed' && item.classList.contains('task-completed')) {
+                    return true;
+                } else if (status === 'failed' && item.classList.contains('task-failed')) {
+                    return true;
+                }
+                return false;
+            });
+
+            // Calculate pagination
+            const totalPages = Math.ceil(filteredTasks.length / itemsPerPage);
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+
+            // Show tasks for current page
+            filteredTasks.forEach((item, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    item.style.display = 'flex';
+                }
+            });
+
+            // Update pagination UI
+            updatePagination(totalPages, page);
+        }
+
+        // Update Pagination UI
+        function updatePagination(totalPages, currentPage) {
+            const pageNumbers = document.getElementById('page-numbers');
+            const prevButton = document.getElementById('prev-page');
+            const nextButton = document.getElementById('next-page');
+
+            // Clear existing page numbers
+            pageNumbers.innerHTML = '';
+
+            // Generate page number buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.className = `join-item btn btn-sm ${i === currentPage ? 'btn-active' : ''}`;
+                button.textContent = i;
+                button.onclick = () => filterTasks(currentStatus, i);
+                pageNumbers.appendChild(button);
+            }
+
+            // Update prev/next buttons
+            if (currentPage === 1) {
+                prevButton.classList.add('btn-disabled');
+            } else {
+                prevButton.classList.remove('btn-disabled');
+                prevButton.onclick = () => filterTasks(currentStatus, currentPage - 1);
+            }
+
+            if (currentPage === totalPages || totalPages === 0) {
+                nextButton.classList.add('btn-disabled');
+            } else {
+                nextButton.classList.remove('btn-disabled');
+                nextButton.onclick = () => filterTasks(currentStatus, currentPage + 1);
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing...');
+            filterTasks('processing', 1);
+            renderQuickActions();
+            renderMoreFunctions();
+            renderBillItems();
+            renderTaskTypes();
+            renderProjects();
+            renderResources();
+        });
+
+        // Quick Actions Data
+        const quickActionsData = [
+            { id: 1, name: '快速上手指南', desc: '新手入门教程', icon: 'ri-book-read-line', color: 'from-primary/60 to-primary/40', href: '#' },
+            { id: 2, name: '新建剧本', desc: '创建新的剧本内容', icon: 'ri-file-text-line', color: 'from-primary/60 to-primary/40', href: '#' },
+            { id: 3, name: '生成视频', desc: '制作AI短剧视频', icon: 'ri-movie-line', color: 'from-primary/60 to-primary/40', href: 'Project/project-video.html' },
+            { id: 5, name: '上传虚拟人像', desc: '上传人像训练', icon: 'ri-upload-line', color: 'from-primary/60 to-primary/40', href: 'asset/asset-character-create.html' },
+            { id: 4, name: '生成角色', desc: '训练虚拟人像', icon: 'ri-user-add-line', color: 'from-primary/60 to-primary/40', href: 'asset/asset-character-create.html' },
+            { id: 6, name: '充值积分', desc: '购买更多积分', icon: 'ri-coin-line', color: 'from-primary/60 to-primary/40', href: 'billing_demo/billing.html' },
+            { id: 7, name: '新建场景', desc: 'AI生成场景图片', icon: 'ri-image-line', color: 'from-primary/60 to-primary/40', href: 'Project/project-scene.html' },
+            { id: 8, name: '新建物品', desc: '创建物品素材', icon: 'ri-gift-line', color: 'from-primary/60 to-primary/40', href: '#' },
+            { id: 9, name: '融合生图', desc: '多图融合生成', icon: 'ri-blender-line', color: 'from-primary/60 to-primary/40', href: '#' },
+            { id: 10, name: '生成语音', desc: 'AI配音生成', icon: 'ri-mic-line', color: 'from-primary/60 to-primary/40', href: '#' }
+        ];
+
+        let tempSortOrder = null;
+        const defaultVisibleCount = 5;
+
+        // Render Quick Actions
+        function renderQuickActions() {
+            const container = document.getElementById('quick-actions-container');
+            if (!container) return;
+
+            // Always show only 5 cards in the main grid
+            const visibleActions = quickActionsData.slice(0, defaultVisibleCount);
+
+            container.innerHTML = visibleActions.map(action => `
+                <a href="${action.href}" class="group block">
+                    <div class="card bg-base-200 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                        <div class="card-body p-4 items-center text-center">
+                            <div class="avatar placeholder mb-3">
+                                <div class="bg-gradient-to-br ${action.color} text-white rounded-full w-12 h-12 group-hover:scale-110 transition-transform duration-300">
+                                    <i class="${action.icon} text-xl"></i>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-sm mb-1">${action.name}</h3>
+                            <p class="text-xs text-base-content/60">${action.desc}</p>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Render More Functions
+        function renderMoreFunctions() {
+            const container = document.getElementById('more-functions-dropdown');
+            if (!container) return;
+
+            const moreFunctions = quickActionsData.slice(defaultVisibleCount);
+
+            container.innerHTML = moreFunctions.map(action => `
+                <li>
+                    <a href="${action.href}" class="gap-3">
+                        <div class="avatar placeholder">
+                            <div class="bg-gradient-to-br ${action.color} text-white rounded-full w-6 h-6">
+                                <i class="${action.icon} text-xs"></i>
+                            </div>
+                        </div>
+                        <span>${action.name}</span>
+                    </a>
+                </li>
+            `).join('');
+        }
+
+        // Open Sort Modal
+        function openSortModal() {
+            const modal = document.getElementById('sort-modal');
+            const listContainer = document.getElementById('sort-functions-list');
+
+            // Render sortable list
+            listContainer.innerHTML = quickActionsData.map((action, index) => `
+                <div class="flex items-center gap-3 p-3 bg-base-200 rounded-lg cursor-move"
+                     draggable="true"
+                     data-id="${action.id}"
+                     ondragstart="handleSortDragStart(event, ${action.id})"
+                     ondragover="handleSortDragOver(event)"
+                     ondrop="handleSortDrop(event, ${action.id})"
+                     ondragend="handleSortDragEnd(event)">
+                    <i class="ri-grip-vertical-line text-base-content/40"></i>
+                    <div class="avatar placeholder">
+                        <div class="bg-gradient-to-br ${action.color} text-white rounded-full w-8 h-8">
+                            <i class="${action.icon} text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-sm">${action.name}</div>
+                        <div class="text-xs text-base-content/60">${action.desc}</div>
+                    </div>
+                    <i class="ri-drag-move-line text-base-content/40"></i>
+                </div>
+            `).join('');
+
+            modal.showModal();
+        }
+
+        // Close Sort Modal
+        function closeSortModal() {
+            const modal = document.getElementById('sort-modal');
+            modal.close();
+            tempSortOrder = null; // Clear temp order
+        }
+
+        // Save Sort Order
+        function saveSortOrder() {
+            if (tempSortOrder) {
+                quickActionsData = [...tempSortOrder];
+                tempSortOrder = null;
+            }
+
+            // Re-render quick actions (always shows first 5) and more functions dropdown
+            renderQuickActions();
+            renderMoreFunctions();
+
+            // Close modal
+            const modal = document.getElementById('sort-modal');
+            modal.close();
+        }
+
+        // Sort Drag and Drop Functions
+        let sortDraggedItemId = null;
+
+        function handleSortDragStart(event, itemId) {
+            sortDraggedItemId = itemId;
+            event.target.classList.add('opacity-50');
+            event.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleSortDragOver(event) {
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleSortDrop(event, targetItemId) {
+            event.preventDefault();
+            if (sortDraggedItemId === null || sortDraggedItemId === targetItemId) return;
+
+            // Create temp array for sorting
+            if (!tempSortOrder) {
+                tempSortOrder = [...quickActionsData];
+            }
+
+            const draggedIndex = tempSortOrder.findIndex(item => item.id === sortDraggedItemId);
+            const targetIndex = tempSortOrder.findIndex(item => item.id === targetItemId);
+
+            if (draggedIndex !== -1 && targetIndex !== -1) {
+                const [draggedItem] = tempSortOrder.splice(draggedIndex, 1);
+                tempSortOrder.splice(targetIndex, 0, draggedItem);
+
+                // Re-render the list in modal
+                const listContainer = document.getElementById('sort-functions-list');
+                listContainer.innerHTML = tempSortOrder.map((action, index) => `
+                    <div class="flex items-center gap-3 p-3 bg-base-200 rounded-lg cursor-move"
+                         draggable="true"
+                         data-id="${action.id}"
+                         ondragstart="handleSortDragStart(event, ${action.id})"
+                         ondragover="handleSortDragOver(event)"
+                         ondrop="handleSortDrop(event, ${action.id})"
+                         ondragend="handleSortDragEnd(event)">
+                        <i class="ri-grip-vertical-line text-base-content/40"></i>
+                        <div class="avatar placeholder">
+                            <div class="bg-gradient-to-br ${action.color} text-white rounded-full w-8 h-8">
+                                <i class="${action.icon} text-sm"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-sm">${action.name}</div>
+                            <div class="text-xs text-base-content/60">${action.desc}</div>
+                        </div>
+                        <i class="ri-drag-move-line text-base-content/40"></i>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function handleSortDragEnd(event) {
+            event.target.classList.remove('opacity-50');
+            sortDraggedItemId = null;
+        }
+
+        // Task Overview Pagination
+        let taskTypeCurrentPage = 1;
+        const taskTypeItemsPerPage = 5;
+        const taskTypesData = [
+            { id: 1, name: '视频生成', count: 65, percent: 42, color: 'primary' },
+            { id: 2, name: '角色训练', count: 35, percent: 22, color: 'secondary' },
+            { id: 3, name: '场景生成', count: 28, percent: 18, color: 'accent' },
+            { id: 4, name: '剧本创作', count: 16, percent: 10, color: 'info' },
+            { id: 5, name: '音频合成', count: 12, percent: 8, color: 'success' }
+        ];
+
+        function renderTaskTypes() {
+            const container = document.getElementById('tasktypes-container');
+            if (!container) return;
+
+            const startIndex = (taskTypeCurrentPage - 1) * taskTypeItemsPerPage;
+            const endIndex = startIndex + taskTypeItemsPerPage;
+            const pageTaskTypes = taskTypesData.slice(startIndex, endIndex);
+
+            container.innerHTML = pageTaskTypes.map(taskType => `
+                <div class="flex items-center gap-2">
+                    <span class="text-sm w-20">${taskType.name}</span>
+                    <div class="w-60 h-2 bg-base-300 rounded-full overflow-hidden">
+                        <div class="h-full bg-${taskType.color}" style="width: ${taskType.percent}%"></div>
+                    </div>
+                    <span class="text-xs text-base-content/60 whitespace-nowrap">${taskType.count} (${taskType.percent}%)</span>
+                </div>
+            `).join('');
+
+            // Update page indicator
+            const totalPages = Math.ceil(taskTypesData.length / taskTypeItemsPerPage);
+            document.getElementById('tasktype-page-indicator').textContent = `${taskTypeCurrentPage} / ${totalPages}`;
+
+            // Update button states
+            document.getElementById('prev-tasktype-btn').disabled = taskTypeCurrentPage === 1;
+            document.getElementById('next-tasktype-btn').disabled = taskTypeCurrentPage === totalPages;
+        }
+
+        function prevTaskTypePage() {
+            const totalPages = Math.ceil(taskTypesData.length / taskTypeItemsPerPage);
+            if (taskTypeCurrentPage > 1) {
+                taskTypeCurrentPage--;
+                renderTaskTypes();
+            }
+        }
+
+        function nextTaskTypePage() {
+            const totalPages = Math.ceil(taskTypesData.length / taskTypeItemsPerPage);
+            if (taskTypeCurrentPage < totalPages) {
+                taskTypeCurrentPage++;
+                renderTaskTypes();
+            }
+        }
+
+        // Project Statistics Pagination
+        let projectCurrentPage = 1;
+        const projectItemsPerPage = 3;
+        const projectsData = [
+            { id: 1, name: 'AI短剧制作项目', video: 28, character: 15, scene: 22 },
+            { id: 2, name: '古装剧项目', video: 12, character: 8, scene: 18, item: 8 },
+            { id: 3, name: '现代都市剧', video: 6, character: 5, scene: 15 }
+        ];
+
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            if (!container) return;
+
+            const startIndex = (projectCurrentPage - 1) * projectItemsPerPage;
+            const endIndex = startIndex + projectItemsPerPage;
+            const pageProjects = projectsData.slice(startIndex, endIndex);
+
+            container.innerHTML = pageProjects.map(project => `
+                <div class="p-3 bg-base-200 rounded-lg">
+                    <div class="mb-2">
+                        <span class="text-sm font-medium">${project.name}</span>
+                    </div>
+                    <div class="flex gap-2 text-xs">
+                        <span class="badge badge-outline badge-sm">视频: ${project.video}</span>
+                        <span class="badge badge-outline badge-sm">角色: ${project.character}</span>
+                        <span class="badge badge-outline badge-sm">场景: ${project.scene}</span>
+                        ${project.item !== undefined ? `<span class="badge badge-outline badge-sm">物品: ${project.item}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Update page indicator
+            const totalPages = Math.ceil(projectsData.length / projectItemsPerPage);
+            document.getElementById('project-page-indicator').textContent = `${projectCurrentPage} / ${totalPages}`;
+
+            // Update button states
+            document.getElementById('prev-project-btn').disabled = projectCurrentPage === 1;
+            document.getElementById('next-project-btn').disabled = projectCurrentPage === totalPages;
+        }
+
+        function prevProjectPage() {
+            const totalPages = Math.ceil(projectsData.length / projectItemsPerPage);
+            if (projectCurrentPage > 1) {
+                projectCurrentPage--;
+                renderProjects();
+            }
+        }
+
+        function nextProjectPage() {
+            const totalPages = Math.ceil(projectsData.length / projectItemsPerPage);
+            if (projectCurrentPage < totalPages) {
+                projectCurrentPage++;
+                renderProjects();
+            }
+        }
+
+        // Resource Accumulation Pagination
+        let resourceCurrentPage = 1;
+        const resourceItemsPerPage = 4;
+        const resourcesData = [
+            { id: 1, name: '虚拟角色', icon: 'ri-user-smile-line', color: 'accent', count: 28 },
+            { id: 2, name: '场景图片', icon: 'ri-image-line', color: 'success', count: 156 },
+            { id: 3, name: '剧本数量', icon: 'ri-file-text-line', color: 'info', count: 42 },
+            { id: 4, name: '物品素材', icon: 'ri-gift-line', color: 'secondary', count: 89 }
+        ];
+
+        function renderResources() {
+            const container = document.getElementById('resources-container');
+            if (!container) return;
+
+            const startIndex = (resourceCurrentPage - 1) * resourceItemsPerPage;
+            const endIndex = startIndex + resourceItemsPerPage;
+            const pageResources = resourcesData.slice(startIndex, endIndex);
+
+            container.innerHTML = pageResources.map(resource => `
+                <div class="text-center p-3 bg-base-200 rounded-lg">
+                    <i class="${resource.icon} text-2xl text-${resource.color} mb-1"></i>
+                    <div class="text-xl font-bold">${resource.count}</div>
+                    <div class="text-xs text-base-content/60">${resource.name}</div>
+                </div>
+            `).join('');
+
+            // Update page indicator
+            const totalPages = Math.ceil(resourcesData.length / resourceItemsPerPage);
+            document.getElementById('resource-page-indicator').textContent = `${resourceCurrentPage} / ${totalPages}`;
+
+            // Update button states
+            document.getElementById('prev-resource-btn').disabled = resourceCurrentPage === 1;
+            document.getElementById('next-resource-btn').disabled = resourceCurrentPage === totalPages;
+        }
+
+        function prevResourcePage() {
+            const totalPages = Math.ceil(resourcesData.length / resourceItemsPerPage);
+            if (resourceCurrentPage > 1) {
+                resourceCurrentPage--;
+                renderResources();
+            }
+        }
+
+        function nextResourcePage() {
+            const totalPages = Math.ceil(resourcesData.length / resourceItemsPerPage);
+            if (resourceCurrentPage < totalPages) {
+                resourceCurrentPage++;
+                renderResources();
+            }
+        }
+
+        // Today's Bill Pagination
+        let billCurrentPage = 1;
+        const billItemsPerPage = 4;
+        const todayBillData = [
+            { id: 1, name: '视频生成', icon: 'ri-movie-line', color: 'primary', count: 2, points: 16 },
+            { id: 2, name: '场景生成', icon: 'ri-image-line', color: 'secondary', count: 5, points: 5 },
+            { id: 3, name: '角色训练', icon: 'ri-user-smile-line', color: 'accent', count: 1, points: 3 },
+            { id: 4, name: '声音克隆', icon: 'ri-mic-line', color: 'info', count: 1, points: 2 },
+            { id: 5, name: '文生图', icon: 'ri-magic-line', color: 'error', count: 2, points: 2 },
+            { id: 6, name: '剧本创作', icon: 'ri-file-text-line', color: 'success', count: 0, points: 0 }
+        ];
+
+        function renderBillItems() {
+            const container = document.getElementById('bill-items-container');
+            if (!container) return;
+
+            const startIndex = (billCurrentPage - 1) * billItemsPerPage;
+            const endIndex = startIndex + billItemsPerPage;
+            const pageItems = todayBillData.slice(startIndex, endIndex);
+
+            container.innerHTML = pageItems.map(item => `
+                <div class="p-3 bg-base-200 rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <i class="${item.icon} text-${item.color}"></i>
+                            <span class="text-sm font-medium">${item.name}</span>
+                        </div>
+                        <span class="badge badge-${item.color} badge-sm">${item.count > 0 ? item.count + '次' : '无'}</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-base-content/60">消耗积分</span>
+                        <span class="font-semibold text-${item.color}">${item.points} 积分</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update page indicator
+            const totalPages = Math.ceil(todayBillData.length / billItemsPerPage);
+            document.getElementById('bill-page-indicator').textContent = `${billCurrentPage} / ${totalPages}`;
+
+            // Update button states
+            document.getElementById('prev-bill-btn').disabled = billCurrentPage === 1;
+            document.getElementById('next-bill-btn').disabled = billCurrentPage === totalPages;
+        }
+
+        function prevBillPage() {
+            const totalPages = Math.ceil(todayBillData.length / billItemsPerPage);
+            if (billCurrentPage > 1) {
+                billCurrentPage--;
+                renderBillItems();
+            }
+        }
+
+        function nextBillPage() {
+            const totalPages = Math.ceil(todayBillData.length / billItemsPerPage);
+            if (billCurrentPage < totalPages) {
+                billCurrentPage++;
+                renderBillItems();
+            }
+        }
+
+        // Video Player Modal Functions
+        function openVideoModal(title, poster, duration, category) {
+            const modal = document.getElementById('video_player_modal');
+            const videoTitle = document.getElementById('video_title');
+            const videoDuration = document.getElementById('video_duration');
+            const videoCategoryBadge = document.getElementById('video_category_badge');
+            const videoPlayer = document.getElementById('tutorial_video');
+
+            // Update modal content
+            videoTitle.textContent = title;
+            videoDuration.textContent = duration;
+
+            // Update category badge
+            videoCategoryBadge.textContent = category;
+            videoCategoryBadge.className = 'badge badge-sm font-normal';
+            if (category === '新手教程') {
+                videoCategoryBadge.classList.add('badge-error');
+            } else if (category === '核心功能') {
+                videoCategoryBadge.classList.add('badge-primary');
+            } else if (category === '进阶技巧') {
+                videoCategoryBadge.classList.add('badge-secondary');
+            }
+
+            // Set video poster
+            videoPlayer.poster = poster;
+
+            // Show modal
+            modal.showModal();
+        }
+
+        // Close video modal when clicking backdrop
+        const videoModal = document.getElementById('video_player_modal');
+        if (videoModal) {
+            videoModal.addEventListener('click', (e) => {
+                const dialogDimensions = videoModal.getBoundingClientRect();
+                if (
+                    e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom
+                ) {
+                    videoModal.close();
+                    // Pause video when closing modal
+                    const videoPlayer = document.getElementById('tutorial_video');
+                    if (videoPlayer) {
+                        videoPlayer.pause();
+                    }
+                }
+            });
+        }
+
+        // Pause video when modal is closed
+        if (videoModal) {
+            videoModal.addEventListener('close', () => {
+                const videoPlayer = document.getElementById('tutorial_video');
+                if (videoPlayer) {
+                    videoPlayer.pause();
+                }
+            });
+        }
+    </script>
+
+    <!-- Footer Links -->
+    <div class="px-6 pb-4">
+        <footer class="footer footer-center py-2 bg-base-200 text-base-content">
+            <div class="flex items-center gap-6">
+                <a href="#" class="link link-hover flex items-center gap-1">
+                    <i class="ri-file-list-3-line"></i>
+                    <span>产品更新说明</span>
+                </a>
+                <span class="text-base-content/30">|</span>
+                <a href="#" class="link link-hover flex items-center gap-1">
+                    <i class="ri-movie-line"></i>
+                    <span>短剧制作技巧</span>
+                </a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

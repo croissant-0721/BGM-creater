@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频教程 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config for Project Pages -->
+    <script src="assets/js/project/project-config.js"></script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="assets/css/project/project-styles.css">
+</head>
+
+<body class="bg-base-200">
+    <!-- Top Navbar -->
+    <div class="navbar sticky top-0 z-50 px-6 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="overview.html" class="navbar-brand">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-9">
+                    <span class="gradient-text font-bold text-2xl tracking-tight">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="overview.html"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Project/Projects.html"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="asset/asset-list.html"><i class="ri-database-2-line"></i><span>资产</span></a></li>
+                    <li><a href="billing_demo/billing.html"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="Project/settings.html"><i class="ri-settings-3-line"></i><span>系统管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+
+            <!-- Notification Bell -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-normal">视频生成完成</div>
+                                <div class="text-xs text-base-content/60 font-normal">AI短剧-林晓雪的故事</div>
+                            </div>
+                            <div class="text-xs text-base-content/40 font-normal">2分钟前</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-warning text-warning-content rounded-full w-8 h-8">
+                                    <i class="ri-time-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-normal">人像训练中</div>
+                                <div class="text-xs text-base-content/60 font-normal">女主角 - 林晓雪</div>
+                            </div>
+                            <div class="text-xs text-base-content/40 font-normal">10分钟前</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-info text-info-content rounded-full w-8 h-8">
+                                    <i class="ri-magic-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-normal">配音生成完成</div>
+                                <div class="text-xs text-base-content/60 font-normal">古风剧-第一章</div>
+                            </div>
+                            <div class="text-xs text-base-content/40 font-normal">1小时前</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- User Avatar -->
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <div class="avatar">
+                        <div class="w-10 rounded-full">
+                            <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="用户头像" />
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0"
+                    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title"><span class="font-normal text-sm">用户菜单</span></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="gap-2 font-normal"><i class="ri-user-line"></i>个人中心</a></li>
+                    <li><a class="gap-2 font-normal"><i class="ri-settings-4-line"></i>设置</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="gap-2 font-normal text-error"><i class="ri-logout-box-line"></i>退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8 max-w-7xl">
+        <!-- Page Title -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold mb-2">视频教程</h1>
+            <p class="text-base-content/60 font-normal">系统学习盼趣AI的各项功能，提升创作效率</p>
+        </div>
+
+        <!-- Tutorial Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Categories -->
+            <div class="lg:col-span-1">
+                <div class="card bg-base-100 shadow-lg sticky top-24">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-lg mb-4">教程分类</h2>
+                        <ul class="menu gap-2">
+                            <li>
+                                <a class="active gap-3" onclick="filterTutorials('all', this)">
+                                    <i class="ri-apps-line text-lg"></i>
+                                    <div class="flex-1 flex justify-between items-center">
+                                        <span class="font-normal">全部教程</span>
+                                        <span class="badge badge-sm badge-primary">6</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="gap-3" onclick="filterTutorials('beginner', this)">
+                                    <i class="ri-seedling-line text-lg text-success"></i>
+                                    <div class="flex-1 flex justify-between items-center">
+                                        <span class="font-normal">新手教程</span>
+                                        <span class="badge badge-sm">1</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="gap-3" onclick="filterTutorials('core', this)">
+                                    <i class="ri-star-line text-lg text-primary"></i>
+                                    <div class="flex-1 flex justify-between items-center">
+                                        <span class="font-normal">核心功能</span>
+                                        <span class="badge badge-sm">4</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="gap-3" onclick="filterTutorials('advanced', this)">
+                                    <i class="ri-rocket-line text-lg text-secondary"></i>
+                                    <div class="flex-1 flex justify-between items-center">
+                                        <span class="font-normal">进阶技巧</span>
+                                        <span class="badge badge-sm">1</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Content - Video List -->
+            <div class="lg:col-span-3">
+                <!-- Search Bar -->
+                <div class="card bg-base-100 shadow-lg mb-6">
+                    <div class="card-body p-4">
+                        <div class="join w-full">
+                            <div class="join-item flex items-center px-4">
+                                <i class="ri-search-line text-base-content/50"></i>
+                            </div>
+                            <input type="text" placeholder="搜索教程..." class="input input-bordered join-item w-full font-normal" id="searchInput" onkeyup="searchTutorials()" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial List -->
+                <div class="space-y-4" id="tutorialList">
+                    <!-- New User Tutorial -->
+                    <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 tutorial-card" data-category="beginner" data-title="新手">
+                        <div class="card-body p-0">
+                            <div class="flex flex-col md:flex-row gap-4 p-4">
+                                <!-- Thumbnail -->
+                                <div class="relative w-full md:w-72 h-48 flex-shrink-0 cursor-pointer group" onclick="openVideoModal('5分钟快速上手AI短剧生产', 'https://b-cdn.boba.video/og/og-2.jpg', '5:23', '新手教程')">
+                                    <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="5分钟快速上手AI短剧生产" class="w-full h-full object-cover rounded-lg group-hover:opacity-90 transition-opacity" />
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                                        <div class="btn btn-circle btn-lg btn-primary">
+                                            <i class="ri-play-fill text-2xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="badge badge-error badge-sm">新手必看</span>
+                                    </div>
+                                    <div class="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-xs font-normal">
+                                        5:23
+                                    </div>
+                                </div>
+
+                                <!-- Info -->
+                                <div class="flex-1 flex flex-col">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 class="text-lg font-bold mb-1">5分钟快速上手AI短剧生产</h3>
+                                            <p class="text-sm text-base-content/60 font-normal line-clamp-2">从零开始学习如何使用盼趣AI创建第一部AI短剧，涵盖项目创建、角色设置、场景制作等核心流程。</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="badge badge-primary badge-sm font-normal">新手教程</span>
+                                        <span class="badge badge-ghost badge-sm font-normal">入门必看</span>
+                                    </div>
+
+                                    <div class="mt-auto">
+                                        <div class="flex items-center gap-4 text-xs text-base-content/50 font-normal mb-3">
+                                            <span class="flex items-center gap-1">
+                                                <i class="ri-time-line"></i>
+                                                最近更新
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm gap-2" onclick="openVideoModal('5分钟快速上手AI短剧生产', 'https://b-cdn.boba.video/og/og-2.jpg', '5:23', '新手教程')">
+                                            <i class="ri-play-fill"></i>
+                                            立即观看
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Virtual Character Tutorial -->
+                    <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 tutorial-card" data-category="core" data-title="虚拟人像">
+                        <div class="card-body p-0">
+                            <div class="flex flex-col md:flex-row gap-4 p-4">
+                                <div class="relative w-full md:w-72 h-48 flex-shrink-0 cursor-pointer group" onclick="openVideoModal('虚拟人像创建与使用指南', 'https://b-cdn.boba.video/og/og-2.jpg', '8:45', '核心功能')">
+                                    <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="虚拟人像创建与使用指南" class="w-full h-full object-cover rounded-lg group-hover:opacity-90 transition-opacity" />
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                                        <div class="btn btn-circle btn-lg btn-primary">
+                                            <i class="ri-play-fill text-2xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="badge badge-primary badge-sm">核心功能</span>
+                                    </div>
+                                    <div class="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-xs font-normal">
+                                        8:45
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex flex-col">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 class="text-lg font-bold mb-1">虚拟人像创建与使用指南</h3>
+                                            <p class="text-sm text-base-content/60 font-normal line-clamp-2">详细讲解如何创建虚拟人像、上传正视图和其他视角图、训练模型以及在项目中使用虚拟角色。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="badge badge-primary badge-sm font-normal">核心功能</span>
+                                        <span class="badge badge-ghost badge-sm font-normal">角色制作</span>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <div class="flex items-center gap-4 text-xs text-base-content/50 font-normal mb-3">
+                                            <span class="flex items-center gap-1">
+                                                <i class="ri-time-line"></i>
+                                                最近更新
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm gap-2" onclick="openVideoModal('虚拟人像创建与使用指南', 'https://b-cdn.boba.video/og/og-2.jpg', '8:45', '核心功能')">
+                                            <i class="ri-play-fill"></i>
+                                            立即观看
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Voice Clone Tutorial -->
+                    <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 tutorial-card" data-category="core" data-title="声音克隆">
+                        <div class="card-body p-0">
+                            <div class="flex flex-col md:flex-row gap-4 p-4">
+                                <div class="relative w-full md:w-72 h-48 flex-shrink-0 cursor-pointer group" onclick="openVideoModal('声音克隆功能详解', 'https://b-cdn.boba.video/og/og-2.jpg', '6:12', '核心功能')">
+                                    <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="声音克隆功能详解" class="w-full h-full object-cover rounded-lg group-hover:opacity-90 transition-opacity" />
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                                        <div class="btn btn-circle btn-lg btn-primary">
+                                            <i class="ri-play-fill text-2xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="badge badge-primary badge-sm">核心功能</span>
+                                    </div>
+                                    <div class="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-xs font-normal">
+                                        6:12
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex flex-col">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 class="text-lg font-bold mb-1">声音克隆功能详解</h3>
+                                            <p class="text-sm text-base-content/60 font-normal line-clamp-2">学习如何使用声音克隆功能，上传音频样本，训练专属AI配音模型，为角色赋予独特的声音。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="badge badge-primary badge-sm font-normal">核心功能</span>
+                                        <span class="badge badge-ghost badge-sm font-normal">音频处理</span>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <div class="flex items-center gap-4 text-xs text-base-content/50 font-normal mb-3">
+                                            <span class="flex items-center gap-1">
+                                                <i class="ri-time-line"></i>
+                                                最近更新
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm gap-2" onclick="openVideoModal('声音克隆功能详解', 'https://b-cdn.boba.video/og/og-2.jpg', '6:12', '核心功能')">
+                                            <i class="ri-play-fill"></i>
+                                            立即观看
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Image Generation Tutorial -->
+                    <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 tutorial-card" data-category="core" data-title="AI文生图">
+                        <div class="card-body p-0">
+                            <div class="flex flex-col md:flex-row gap-4 p-4">
+                                <div class="relative w-full md:w-72 h-48 flex-shrink-0 cursor-pointer group" onclick="openVideoModal('AI文生图功能教程', 'https://b-cdn.boba.video/og/og-2.jpg', '7:30', '核心功能')">
+                                    <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="AI文生图功能教程" class="w-full h-full object-cover rounded-lg group-hover:opacity-90 transition-opacity" />
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                                        <div class="btn btn-circle btn-lg btn-primary">
+                                            <i class="ri-play-fill text-2xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="badge badge-primary badge-sm">核心功能</span>
+                                    </div>
+                                    <div class="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-xs font-normal">
+                                        7:30
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex flex-col">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 class="text-lg font-bold mb-1">AI文生图功能教程</h3>
+                                            <p class="text-sm text-base-content/60 font-normal line-clamp-2">掌握AI文生图功能，使用文本描述生成高质量场景图片，学习提示词编写技巧和参数调整方法。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="badge badge-primary badge-sm font-normal">核心功能</span>
+                                        <span class="badge badge-ghost badge-sm font-normal">图像生成</span>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <div class="flex items-center gap-4 text-xs text-base-content/50 font-normal mb-3">
+                                            <span class="flex items-center gap-1">
+                                                <i class="ri-time-line"></i>
+                                                最近更新
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm gap-2" onclick="openVideoModal('AI文生图功能教程', 'https://b-cdn.boba.video/og/og-2.jpg', '7:30', '核心功能')">
+                                            <i class="ri-play-fill"></i>
+                                            立即观看
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Generation Tutorial -->
+                    <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 tutorial-card" data-category="core" data-title="AI视频生成">
+                        <div class="card-body p-0">
+                            <div class="flex flex-col md:flex-row gap-4 p-4">
+                                <div class="relative w-full md:w-72 h-48 flex-shrink-0 cursor-pointer group" onclick="openVideoModal('AI视频生成完整流程', 'https://b-cdn.boba.video/og/og-2.jpg', '10:15', '核心功能')">
+                                    <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="AI视频生成完整流程" class="w-full h-full object-cover rounded-lg group-hover:opacity-90 transition-opacity" />
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                                        <div class="btn btn-circle btn-lg btn-primary">
+                                            <i class="ri-play-fill text-2xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="badge badge-primary badge-sm">核心功能</span>
+                                    </div>
+                                    <div class="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-xs font-normal">
+                                        10:15
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex flex-col">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 class="text-lg font-bold mb-1">AI视频生成完整流程</h3>
+                                            <p class="text-sm text-base-content/60 font-normal line-clamp-2">从剧本到成片，完整演示AI视频生成工作流程，包括文生视频、图生视频、视频编辑等高级功能。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="badge badge-primary badge-sm font-normal">核心功能</span>
+                                        <span class="badge badge-ghost badge-sm font-normal">视频制作</span>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <div class="flex items-center gap-4 text-xs text-base-content/50 font-normal mb-3">
+                                            <span class="flex items-center gap-1">
+                                                <i class="ri-time-line"></i>
+                                                最近更新
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm gap-2" onclick="openVideoModal('AI视频生成完整流程', 'https://b-cdn.boba.video/og/og-2.jpg', '10:15', '核心功能')">
+                                            <i class="ri-play-fill"></i>
+                                            立即观看
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Management Tutorial -->
+                    <div class="card bg-base-100 shadow-lg hover:shadow-xl transition-all duration-300 tutorial-card" data-category="advanced" data-title="项目管理">
+                        <div class="card-body p-0">
+                            <div class="flex flex-col md:flex-row gap-4 p-4">
+                                <div class="relative w-full md:w-72 h-48 flex-shrink-0 cursor-pointer group" onclick="openVideoModal('项目管理与协作指南', 'https://b-cdn.boba.video/og/og-2.jpg', '5:48', '进阶技巧')">
+                                    <img src="https://b-cdn.boba.video/og/og-2.jpg" alt="项目管理与协作指南" class="w-full h-full object-cover rounded-lg group-hover:opacity-90 transition-opacity" />
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                                        <div class="btn btn-circle btn-lg btn-primary">
+                                            <i class="ri-play-fill text-2xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-3 left-3">
+                                        <span class="badge badge-secondary badge-sm">进阶技巧</span>
+                                    </div>
+                                    <div class="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-xs font-normal">
+                                        5:48
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex flex-col">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 class="text-lg font-bold mb-1">项目管理与协作指南</h3>
+                                            <p class="text-sm text-base-content/60 font-normal line-clamp-2">学习如何高效管理多个项目，组织剧集结构，使用资产库，以及团队协作的最佳实践。</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span class="badge badge-secondary badge-sm font-normal">进阶技巧</span>
+                                        <span class="badge badge-ghost badge-sm font-normal">团队协作</span>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <div class="flex items-center gap-4 text-xs text-base-content/50 font-normal mb-3">
+                                            <span class="flex items-center gap-1">
+                                                <i class="ri-time-line"></i>
+                                                最近更新
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-primary btn-sm gap-2" onclick="openVideoModal('项目管理与协作指南', 'https://b-cdn.boba.video/og/og-2.jpg', '5:48', '进阶技巧')">
+                                            <i class="ri-play-fill"></i>
+                                            立即观看
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <dialog id="video_player_modal" class="modal">
+        <div class="modal-box max-w-5xl p-0">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10">
+                    <i class="ri-close-line"></i>
+                </button>
+            </form>
+            <div class="w-full">
+                <!-- Video Player -->
+                <div class="relative w-full aspect-video bg-black flex items-center justify-center">
+                    <video id="tutorial_video" class="w-full h-full" controls poster="">
+                        <source src="" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <!-- Video Info -->
+                <div class="p-6 bg-base-100">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span id="video_category_badge" class="badge badge-primary badge-sm font-normal">核心功能</span>
+                                <span id="video_duration" class="text-sm text-base-content/60 font-normal">8:45</span>
+                            </div>
+                            <h3 id="video_title" class="text-xl font-bold mb-2">虚拟人像创建与使用指南</h3>
+                            <p id="video_description" class="text-sm text-base-content/60 font-normal">详细讲解如何创建虚拟人像、上传正视图和其他视角图、训练模型以及在项目中使用虚拟角色。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-sm text-base-content/60 font-normal">
+                        <span class="flex items-center gap-1">
+                            <i class="ri-time-line"></i>
+                            最近更新
+                        </span>
+                        <button class="btn btn-ghost btn-sm gap-1">
+                            <i class="ri-share-line"></i>
+                            分享
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                html.setAttribute('data-theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+            }
+        });
+
+        // Set initial theme
+        html.setAttribute('data-theme', 'light');
+        themeToggle.checked = false;
+
+        // Filter tutorials by category
+        function filterTutorials(category, element) {
+            // Update active state
+            const menuItems = document.querySelectorAll('.menu li a');
+            menuItems.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.tutorial-card');
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (cardCategory === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Search tutorials
+        function searchTutorials() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.tutorial-card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(searchText)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Video Player Modal Functions
+        function openVideoModal(title, poster, duration, category) {
+            const modal = document.getElementById('video_player_modal');
+            const videoTitle = document.getElementById('video_title');
+            const videoDuration = document.getElementById('video_duration');
+            const videoCategoryBadge = document.getElementById('video_category_badge');
+            const videoPlayer = document.getElementById('tutorial_video');
+
+            // Update modal content
+            videoTitle.textContent = title;
+            videoDuration.textContent = duration;
+
+            // Update category badge
+            videoCategoryBadge.textContent = category;
+            videoCategoryBadge.className = 'badge badge-sm font-normal';
+            if (category === '新手教程') {
+                videoCategoryBadge.classList.add('badge-error');
+            } else if (category === '核心功能') {
+                videoCategoryBadge.classList.add('badge-primary');
+            } else if (category === '进阶技巧') {
+                videoCategoryBadge.classList.add('badge-secondary');
+            }
+
+            // Set video poster
+            videoPlayer.poster = poster;
+
+            // Show modal
+            modal.showModal();
+        }
+
+        // Close video modal when clicking backdrop
+        const videoModal = document.getElementById('video_player_modal');
+        if (videoModal) {
+            videoModal.addEventListener('click', (e) => {
+                const dialogDimensions = videoModal.getBoundingClientRect();
+                if (
+                    e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom
+                ) {
+                    videoModal.close();
+                    // Pause video when closing modal
+                    const videoPlayer = document.getElementById('tutorial_video');
+                    if (videoPlayer) {
+                        videoPlayer.pause();
+                    }
+                }
+            });
+        }
+
+        // Pause video when modal is closed
+        if (videoModal) {
+            videoModal.addEventListener('close', () => {
+                const videoPlayer = document.getElementById('tutorial_video');
+                if (videoPlayer) {
+                    videoPlayer.pause();
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
