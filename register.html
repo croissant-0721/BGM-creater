@@ -485,9 +485,12 @@
                         <img src="https://panqu.com/indexin.php?s=/captcha" class="captcha-img" alt="captcha" onclick="this.src=this.src+'&'+Math.random()">
                     </div>
                 </div>
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" id="keeplogin" name="keeplogin" value="1">
-                    <label for="keeplogin">保持会话</label>
+                <div class="checkbox-wrapper" style="justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="keeplogin" name="keeplogin" value="1">
+                        <label for="keeplogin">保持会话</label>
+                    </div>
+                    <span onclick="toggleForm('forgot')" style="cursor: pointer; font-size: 14px; color: #666; font-weight: 500;">找回密码？</span>
                 </div>
                 <button type="submit" class="btn-black">登 录</button>
             </form>
@@ -607,6 +610,63 @@
                 已有账号？<span onclick="toggleForm('login')">登录</span>
             </div>
         </div>
+
+        <!-- 找回密码表单 -->
+        <div id="forgot-password-container" class="fade-in hidden">
+            <div style="margin-bottom: 24px;">
+                <h3 style="font-size: 18px; font-weight: 700; color: #111; margin-bottom: 6px; text-align: center;">找回密码</h3>
+                <p style="font-size: 13px; color: #888; text-align: center;">验证手机号后即可重置您的密码</p>
+            </div>
+            <form action="/reset-password" method="post" id="forgot-password-form" autocomplete="off">
+                <!-- 手机号 -->
+                <div class="form-group">
+                    <div class="input-group" id="forgot-mobile-group">
+                        <i class="ri-phone-line input-icon"></i>
+                        <input type="tel" class="form-control" name="mobile" id="forgot-mobile"
+                               placeholder="请输入绑定的手机号" maxlength="11" required autocomplete="off">
+                    </div>
+                    <div class="error-text" id="forgot-mobile-error">请输入有效的手机号</div>
+                </div>
+
+                <!-- 短信验证码 -->
+                <div class="form-group">
+                    <div class="captcha-group">
+                        <div class="input-group" id="forgot-sms-group" style="flex: 1;">
+                            <i class="ri-message-2-line input-icon"></i>
+                            <input type="text" class="form-control" name="sms_code" id="forgot-sms-code"
+                                   placeholder="短信验证码" maxlength="6" required autocomplete="off">
+                        </div>
+                        <button type="button" class="btn-sms" id="btn-forgot-sms" onclick="sendForgotSms()">获取验证码</button>
+                    </div>
+                    <div class="error-text" id="forgot-sms-error">验证码错误，请重新输入</div>
+                </div>
+
+                <!-- 新密码 -->
+                <div class="form-group">
+                    <div class="input-group" id="forgot-password-group">
+                        <i class="ri-lock-line input-icon"></i>
+                        <input type="password" class="form-control" name="new_password" id="forgot-new-password"
+                               placeholder="新密码（至少6位）" required>
+                    </div>
+                    <div class="error-text" id="forgot-password-error">密码长度不得小于6位</div>
+                </div>
+
+                <!-- 确认新密码 -->
+                <div class="form-group">
+                    <div class="input-group" id="forgot-confirm-password-group">
+                        <i class="ri-lock-check-line input-icon"></i>
+                        <input type="password" class="form-control" name="confirm_password" id="forgot-confirm-password"
+                               placeholder="确认新密码" required>
+                    </div>
+                    <div class="error-text" id="forgot-confirm-password-error">两次输入的密码不一致</div>
+                </div>
+
+                <button type="submit" class="btn-black" id="forgot-submit-btn">重 置 密 码</button>
+            </form>
+            <div class="switch-link">
+                想起来了？<span onclick="toggleForm('login')">返回登录</span>
+            </div>
+        </div>
     </div>
 
     <script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
@@ -672,6 +732,120 @@
                 }
             }, 1000);
         }
+
+        /* ===== 找回密码相关逻辑 ===== */
+        var forgotSmsCountdownTimer = null;
+
+        function sendForgotSms() {
+            var mobile = document.getElementById('forgot-mobile').value.trim();
+            var mobileReg = /^1[3-9]\d{9}$/;
+            var mobileGroup = document.getElementById('forgot-mobile-group');
+            var mobileError = document.getElementById('forgot-mobile-error');
+
+            if (!mobileReg.test(mobile)) {
+                mobileGroup.classList.add('invalid');
+                mobileError.style.display = 'block';
+                return;
+            }
+            mobileGroup.classList.remove('invalid');
+            mobileError.style.display = 'none';
+
+            startForgotSmsCountdown();
+            // TODO: 调用找回密码短信发送接口
+        }
+
+        function startForgotSmsCountdown() {
+            var btn = document.getElementById('btn-forgot-sms');
+            var seconds = 60;
+            btn.disabled = true;
+            btn.classList.add('counting');
+            btn.textContent = seconds + 's 后重发';
+
+            clearInterval(forgotSmsCountdownTimer);
+            forgotSmsCountdownTimer = setInterval(function () {
+                seconds--;
+                if (seconds <= 0) {
+                    clearInterval(forgotSmsCountdownTimer);
+                    btn.disabled = false;
+                    btn.classList.remove('counting');
+                    btn.textContent = '重新发送';
+                } else {
+                    btn.textContent = seconds + 's 后重发';
+                }
+            }, 1000);
+        }
+
+        var forgotForm = document.getElementById('forgot-password-form');
+        forgotForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var mobile = document.getElementById('forgot-mobile').value.trim();
+            var smsCode = document.getElementById('forgot-sms-code').value.trim();
+            var newPassword = document.getElementById('forgot-new-password').value;
+            var confirmPassword = document.getElementById('forgot-confirm-password').value;
+            var valid = true;
+
+            // 手机号校验
+            if (!/^1[3-9]\d{9}$/.test(mobile)) {
+                showFieldError('forgot-mobile-group', 'forgot-mobile-error', '请输入有效的手机号');
+                valid = false;
+            } else {
+                clearFieldError('forgot-mobile-group', 'forgot-mobile-error');
+            }
+
+            // 验证码格式
+            if (!/^\d{4,6}$/.test(smsCode)) {
+                showFieldError('forgot-sms-group', 'forgot-sms-error', '请输入正确的验证码');
+                valid = false;
+            } else {
+                clearFieldError('forgot-sms-group', 'forgot-sms-error');
+            }
+
+            // 密码校验
+            if (newPassword.length < 6) {
+                showFieldError('forgot-password-group', 'forgot-password-error', '密码长度不得小于6位');
+                valid = false;
+            } else {
+                clearFieldError('forgot-password-group', 'forgot-password-error');
+            }
+
+            // 确认密码
+            if (newPassword !== confirmPassword) {
+                showFieldError('forgot-confirm-password-group', 'forgot-confirm-password-error', '两次输入的密码不一致');
+                valid = false;
+            } else {
+                clearFieldError('forgot-confirm-password-group', 'forgot-confirm-password-error');
+            }
+
+            if (!valid) return;
+
+            // TODO: 实际重置密码 API 调用
+            // 模拟验证码 '123456' 视为正确
+            var codeCorrect = (smsCode === '123456');
+            if (!codeCorrect) {
+                showFieldError('forgot-sms-group', 'forgot-sms-error', '验证码错误，请重新输入');
+                return;
+            }
+
+            clearFieldError('forgot-sms-group', 'forgot-sms-error');
+            alert('重置密码成功！请使用新密码登录。');
+            toggleForm('login');
+        });
+
+        // 输入时清除错误
+        var forgotFieldMap = {
+            'forgot-mobile': ['forgot-mobile-group', 'forgot-mobile-error'],
+            'forgot-sms-code': ['forgot-sms-group', 'forgot-sms-error'],
+            'forgot-new-password': ['forgot-password-group', 'forgot-password-error'],
+            'forgot-confirm-password': ['forgot-confirm-password-group', 'forgot-confirm-password-error']
+        };
+        Object.keys(forgotFieldMap).forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', function () {
+                    clearFieldError(forgotFieldMap[id][0], forgotFieldMap[id][1]);
+                });
+            }
+        });
 
         function lockRegistration() {
             isLocked = true;
@@ -826,7 +1000,7 @@
 
         /* ===== 面板切换 ===== */
         function toggleForm(type) {
-            var containers = ['login-container', 'register-container', 'wechat-qr-container'];
+            var containers = ['login-container', 'register-container', 'wechat-qr-container', 'forgot-password-container'];
             containers.forEach(function (id) {
                 var el = document.getElementById(id);
                 if (el) el.classList.add('hidden');
@@ -835,6 +1009,7 @@
             var map = {
                 register: { id: 'register-container', title: '盼趣AI - 注册' },
                 wechat:   { id: 'wechat-qr-container', title: '盼趣AI - 微信登录' },
+                forgot:   { id: 'forgot-password-container', title: '盼趣AI - 找回密码' },
                 login:    { id: 'login-container', title: '盼趣AI - 登录' }
             };
 

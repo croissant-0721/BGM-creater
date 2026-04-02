@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>积分余额不足提醒 - 盼趣AI</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+        }
+        .email-wrapper {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .email-header {
+            background-color: #000000;
+            padding: 30px;
+            text-align: center;
+        }
+        .logo-text {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .email-body {
+            padding: 40px 30px;
+            line-height: 1.6;
+        }
+        .welcome-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 20px;
+        }
+        .verification-code-container {
+            background-color: #f9fafb;
+            border: 1px dashed #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .verification-code {
+            font-size: 36px;
+            font-weight: 800;
+            color: #000;
+            letter-spacing: 8px;
+            margin: 10px 0;
+        }
+        .expire-notice {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .email-footer {
+            padding: 24px 30px;
+            background-color: #f9fafb;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            border-top: 1px solid #eeeeee;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        @media only screen and (max-width: 600px) {
+            .email-wrapper {
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-header">
+            <div class="logo-text">做短剧，用盼趣！</div>
+        </div>
+        <div class="email-body">
+            <h1 class="welcome-title">[用户名]，您好：</h1>
+            <p>感谢您使用 <strong>盼趣AI</strong>。我们注意到您的账户积分余额已低于您设置的提醒值，特此向您发送此提醒邮件：</p>
+            
+            <div class="verification-code-container">
+                <div style="font-size: 14px; color: #666; margin-bottom: 8px;">当前剩余可用积分</div>
+                <div class="verification-code" style="color: #ef4444; letter-spacing: 2px;">120</div>
+                <div class="expire-notice">为保证您的AI创作体验不受影响，请及时充值。</div>
+                <a href="https://panqu.com/?from=email" class="button" target="_blank">立即充值</a>
+            </div>
+        </div>
+        <div class="email-footer">
+            <p>© 2026 盼趣AI. 保留所有权利。</p>
+            <p>这是一封系统自动发送的邮件，请勿直接回复。</p>
+        </div>
+    </div>
+</body>
+</html>
