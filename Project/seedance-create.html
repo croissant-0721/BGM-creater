@@ -964,11 +964,35 @@
 
                         <div class="divider"></div>
 
-                        <!-- Step 4: Text Input -->
+                        <!-- Step 4: Subtitle Setting -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3 flex-wrap">
+                                    <div class="flex items-center gap-2">
+                                        <div class="badge badge-primary badge-lg font-bold">4</div>
+                                        <h4 class="font-bold text-base">生成字幕</h4>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <span class="text-base-content/60">
+                                            <i class="ri-information-line"></i> 关闭后生成的视频中不含字幕
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label class="label cursor-pointer">
+                                        <input type="checkbox" id="subtitle_enabled" class="toggle toggle-primary" checked onchange="toggleSubtitle()" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <!-- Step 5: Text Input -->
                         <div class="space-y-4 mb-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center gap-2">
-                                    <div class="badge badge-primary badge-lg font-bold">4</div>
+                                    <div class="badge badge-primary badge-lg font-bold">5</div>
                                     <h4 class="font-bold text-base">文本输入</h4>
                                 </div>
                                 <span class="text-sm text-base-content/60">
@@ -989,11 +1013,11 @@
 
                         <div class="divider"></div>
 
-                        <!-- Step 5: Duration Setting -->
+                        <!-- Step 6: Duration Setting -->
                         <div class="space-y-4 mb-8">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center gap-2">
-                                    <div class="badge badge-primary badge-lg font-bold">5</div>
+                                    <div class="badge badge-primary badge-lg font-bold">6</div>
                                     <h4 class="font-bold text-base">生成时长</h4>
                                 </div>
                                 <span class="text-sm text-base-content/60 font-medium" id="duration_display">8 秒</span>
@@ -2716,6 +2740,16 @@
         function updateDuration(value) {
             const display = document.getElementById('duration_display');
             display.textContent = `${value} 秒`;
+        }
+
+        // Toggle subtitle
+        function toggleSubtitle() {
+            const subtitleEnabled = document.getElementById('subtitle_enabled');
+            const textInput = document.getElementById('text_input');
+
+            // 字幕开关状态变化时，不做任何UI变化
+            // 仅用于提交时获取开关状态
+            console.log('字幕生成:', subtitleEnabled.checked ? '开启' : '关闭');
         }
 
         // Submit Seedance Task
