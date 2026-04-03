@@ -547,6 +547,28 @@
             z-index: 10;
         }
 
+        /* Toggle Switch Styles - 开启状态添加底色 */
+        .toggle-primary:checked {
+            background-color: oklch(var(--p));
+            border-color: oklch(var(--p));
+        }
+
+        .toggle-primary:checked:not(.toggle-disabled) {
+            background-color: oklch(var(--p));
+            border-color: oklch(var(--p));
+        }
+
+        /* 确保toggle开启时有明显的背景色 */
+        input.toggle:checked {
+            background-color: oklch(var(--p)) !important;
+            border-color: oklch(var(--p)) !important;
+        }
+
+        /* Toggle 开启状态的指示器 */
+        input.toggle:checked::before {
+            background-color: white !important;
+        }
+
         .audio-tag {
             background: rgba(0, 0, 0, 0.85);
             color: white;
