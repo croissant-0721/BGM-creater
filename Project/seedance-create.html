@@ -1244,11 +1244,11 @@
             </form>
             <h3 class="font-bold text-lg mb-4">从项目中选择图片</h3>
 
-            <!-- Fixed Height Header Area to prevent modal height changes -->
-            <div class="relative h-10 mb-4">
+            <!-- Tabs and Search Box -->
+            <div class="flex items-center justify-between gap-4 mb-4">
                 <!-- Tabs for different sources -->
-                <div id="project_modal_tabs_container" class="absolute inset-0 flex items-center overflow-hidden">
-                    <div role="tablist" class="tabs tabs-boxed w-full">
+                <div id="project_modal_tabs_container" class="flex-1">
+                    <div role="tablist" class="tabs tabs-boxed">
                         <a role="tab" class="tab tab-active" data-source="recent">最近上传</a>
                         <a role="tab" class="tab" data-source="character">角色</a>
                         <a role="tab" class="tab" data-source="scene">场景</a>
@@ -1258,17 +1258,28 @@
                     </div>
                 </div>
 
-                <!-- Avatar Library Breadcrumb/Navigation -->
-                <div id="avatar_detail_header" class="absolute inset-0 flex items-center gap-2 bg-base-100" style="display: none;">
-                    <button type="button" class="btn btn-sm btn-ghost btn-circle hover:bg-base-200" onclick="exitAvatarDetail()">
-                        <i class="ri-arrow-left-line text-xl"></i>
-                    </button>
-                    <div class="breadcrumbs text-sm p-0">
-                        <ul>
-                            <li><a class="opacity-60 hover:opacity-100 hover:no-underline" onclick="exitAvatarDetail()">虚拟人像库</a></li>
-                            <li class="font-bold" id="avatar_detail_title">虚拟人像名称</li>
-                        </ul>
+                <!-- Search Box -->
+                <div class="form-control w-40">
+                    <div class="relative">
+                        <input type="text" id="project_search_input" placeholder="搜索..." class="input input-bordered input-xs w-full pl-8 pr-10" />
+                        <i class="ri-search-line absolute left-2.5 top-1/2 -translate-y-1/2 opacity-50 text-base-content pointer-events-none"></i>
+                        <button id="clear_search_btn" class="absolute right-1 top-1/2 -translate-y-1/2 btn btn-ghost btn-xs btn-circle hidden focus:bg-transparent hover:bg-transparent">
+                            <i class="ri-close-line"></i>
+                        </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Avatar Library Breadcrumb/Navigation -->
+            <div id="avatar_detail_header" class="flex items-center gap-2 bg-base-100 mb-4" style="display: none;">
+                <button type="button" class="btn btn-sm btn-ghost btn-circle hover:bg-base-200" onclick="exitAvatarDetail()">
+                    <i class="ri-arrow-left-line text-xl"></i>
+                </button>
+                <div class="breadcrumbs text-sm p-0">
+                    <ul>
+                        <li><a class="opacity-60 hover:opacity-100 hover:no-underline" onclick="exitAvatarDetail()">虚拟人像库</a></li>
+                        <li class="font-bold" id="avatar_detail_title">虚拟人像名称</li>
+                    </ul>
                 </div>
             </div>
 
@@ -2030,7 +2041,7 @@
                 modalTabs.forEach(t => t.classList.remove('tab-active'));
                 tab.classList.add('tab-active');
                 const source = tab.dataset.source;
-                
+
                 if (source !== 'avatar_library') {
                     exitAvatarDetail();
                 } else {
@@ -2038,14 +2049,135 @@
                     if (avatarDetailHeader) avatarDetailHeader.style.display = 'none';
                     if (projectTabsContainer) projectTabsContainer.style.display = 'flex';
                 }
-                
+
                 filterProjectImages(source);
+                // Keep search term when switching tabs and apply to new tab
+                const searchInput = document.getElementById('project_search_input');
+                if (searchInput && searchInput.value.trim()) {
+                    const searchTerm = searchInput.value.toLowerCase().trim();
+                    searchProjectImages(searchTerm, source);
+                }
             };
         });
 
+        // Search functionality for project images
+        const projectSearchInput = document.getElementById('project_search_input');
+        const clearSearchBtn = document.getElementById('clear_search_btn');
+
+        // Toggle clear button visibility
+        function toggleClearButton() {
+            if (clearSearchBtn && projectSearchInput) {
+                if (projectSearchInput.value.trim()) {
+                    clearSearchBtn.classList.remove('hidden');
+                } else {
+                    clearSearchBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        // Clear search functionality
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', function() {
+                if (projectSearchInput) {
+                    projectSearchInput.value = '';
+                    toggleClearButton();
+
+                    // Re-filter with empty search term
+                    const activeTab = document.querySelector('#project_modal_tabs_container .tab.tab-active');
+                    const currentSource = activeTab ? activeTab.dataset.source : 'recent';
+                    searchProjectImages('', currentSource);
+                }
+            });
+        }
+
+        if (projectSearchInput) {
+            projectSearchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const activeTab = document.querySelector('#project_modal_tabs_container .tab.tab-active');
+                const currentSource = activeTab ? activeTab.dataset.source : 'recent';
+
+                searchProjectImages(searchTerm, currentSource);
+                toggleClearButton();
+            });
+
+            // Also toggle on initial page load
+            toggleClearButton();
+        }
+
+        function searchProjectImages(searchTerm, source) {
+            const items = projectImageGrid.querySelectorAll('.project-image-item');
+
+            items.forEach(item => {
+                // Check if item belongs to current tab
+                const itemSource = item.dataset.source;
+
+                if (source === 'avatar_library') {
+                    // Handle avatar library search
+                    if (itemSource === 'avatar_library') {
+                        if (isAvatarDetailView) {
+                            // Search in avatar detail view
+                            const shouldShow = item.dataset.parentId === currentAvatarId;
+                            if (shouldShow && searchTerm) {
+                                const nameElement = item.querySelector('p.font-medium');
+                                const name = nameElement ? nameElement.textContent.toLowerCase() : '';
+                                item.style.display = name.includes(searchTerm) ? 'block' : 'none';
+                            } else if (shouldShow) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        } else {
+                            // Search in avatar list view (folders only)
+                            const isFolder = item.dataset.isFolder === 'true';
+                            if (isFolder) {
+                                if (searchTerm) {
+                                    const name = item.dataset.name || '';
+                                    item.style.display = name.toLowerCase().includes(searchTerm) ? 'block' : 'none';
+                                } else {
+                                    item.style.display = 'block';
+                                }
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                } else if (itemSource === source) {
+                    // Search in other tabs
+                    if (searchTerm) {
+                        const nameElement = item.querySelector('p.font-medium');
+                        const name = nameElement ? nameElement.textContent.toLowerCase() : '';
+                        item.style.display = name.includes(searchTerm) ? 'block' : 'none';
+                    } else {
+                        item.style.display = 'block';
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Handle recent uploads search
+            if (source === 'recent') {
+                const recentContainer = document.getElementById('recent_uploads_container');
+                if (recentContainer) {
+                    const recentItems = recentContainer.querySelectorAll('.image-upload-item');
+                    recentItems.forEach(item => {
+                        if (searchTerm) {
+                            const nameElement = item.querySelector('.file-name');
+                            const name = nameElement ? nameElement.textContent.toLowerCase() : '';
+                            item.style.display = name.includes(searchTerm) ? 'block' : 'none';
+                        } else {
+                            item.style.display = 'block';
+                        }
+                    });
+                }
+            }
+        }
+
         function filterProjectImages(source) {
             const items = projectImageGrid.querySelectorAll('.project-image-item');
-            
+
             if (source === 'avatar_library') {
                 items.forEach(item => {
                     if (item.dataset.source === 'avatar_library') {
@@ -2064,6 +2196,13 @@
                 items.forEach(item => {
                     item.style.display = item.dataset.source === source ? 'block' : 'none';
                 });
+            }
+
+            // Apply current search term if exists
+            const searchInput = document.getElementById('project_search_input');
+            if (searchInput && searchInput.value.trim()) {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                searchProjectImages(searchTerm, source);
             }
 
             const recentContainer = document.getElementById('recent_uploads_container');
