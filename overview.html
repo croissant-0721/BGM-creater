@@ -23,6 +23,23 @@
 
     <!-- Project Styles -->
     <link rel="stylesheet" href="assets/css/project/project-styles.css">
+
+    <style>
+        .scrollbar-thin::-webkit-scrollbar {
+            height: 6px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: var(--fallback-b2, oklch(var(--b2)));
+            border-radius: 3px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 3px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: var(--fallback-b4, oklch(var(--b4)));
+        }
+    </style>
 </head>
 
 <body class="bg-base-200">
@@ -281,7 +298,7 @@
             <!-- Today's Tasks -->
             <div class="lg:col-span-2 h-full">
                 <div class="card bg-base-100 shadow-lg h-full" style="min-height: 600px;">
-                    <div class="card-body flex flex-col">
+                    <div class="card-body flex flex-col" style="height: 600px;">
                         <div class="flex justify-between items-center mb-6">
                             <div>
                                 <h2 class="card-title text-xl mb-1">今日任务</h2>
@@ -308,107 +325,101 @@
                             </label>
                         </div>
 
-                        <div class="space-y-3" id="tasks-container">
+                        <div class="space-y-3 overflow-y-auto pr-2 w-full" id="tasks-container" style="height: 400px;">
                             <!-- Processing Tasks -->
-                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-base-200 rounded-lg border border-base-300 w-full" style="display: none;">
                                 <div class="avatar placeholder">
                                     <div class="bg-warning text-warning-content rounded-full w-10 h-10">
                                         <i class="ri-loader-4-line text-lg animate-spin"></i>
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
+                                    <div class="flex items-center mb-1">
                                         <span class="font-medium text-sm">视频生成中</span>
-                                        <span class="badge badge-warning badge-xs">处理中</span>
                                     </div>
                                     <p class="text-xs text-base-content/60">AI短剧制作项目 • 进度 65%</p>
-                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                    <div class="w-full bg-base-300 rounded-full h-1.5 mt-2">
                                         <div class="bg-warning h-1.5 rounded-full" style="width: 65%"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-base-200 rounded-lg border border-base-300 w-full" style="display: none;">
                                 <div class="avatar placeholder">
                                     <div class="bg-warning text-warning-content rounded-full w-10 h-10">
                                         <i class="ri-loader-4-line text-lg animate-spin"></i>
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
+                                    <div class="flex items-center mb-1">
                                         <span class="font-medium text-sm">视频生成中</span>
-                                        <span class="badge badge-warning badge-xs">处理中</span>
                                     </div>
                                     <p class="text-xs text-base-content/60">古装剧项目 • 进度 40%</p>
-                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                    <div class="w-full bg-base-300 rounded-full h-1.5 mt-2">
                                         <div class="bg-warning h-1.5 rounded-full" style="width: 40%"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-base-200 rounded-lg border border-base-300 w-full" style="display: none;">
                                 <div class="avatar placeholder">
                                     <div class="bg-warning text-warning-content rounded-full w-10 h-10">
                                         <i class="ri-loader-4-line text-lg animate-spin"></i>
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
+                                    <div class="flex items-center mb-1">
                                         <span class="font-medium text-sm">角色训练中</span>
-                                        <span class="badge badge-warning badge-xs">处理中</span>
                                     </div>
                                     <p class="text-xs text-base-content/60">古装剧项目 • 进度 85%</p>
-                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                    <div class="w-full bg-base-300 rounded-full h-1.5 mt-2">
                                         <div class="bg-warning h-1.5 rounded-full" style="width: 85%"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-warning/10 rounded-lg border border-warning/20" style="display: none;">
+                            <div class="task-item task-processing flex items-start gap-3 p-3 bg-base-200 rounded-lg border border-base-300 w-full" style="display: none;">
                                 <div class="avatar placeholder">
                                     <div class="bg-warning text-warning-content rounded-full w-10 h-10">
                                         <i class="ri-loader-4-line text-lg animate-spin"></i>
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
+                                    <div class="flex items-center mb-1">
                                         <span class="font-medium text-sm">场景生成中</span>
-                                        <span class="badge badge-warning badge-xs">处理中</span>
                                     </div>
                                     <p class="text-xs text-base-content/60">现代都市剧 • 进度 30%</p>
-                                    <div class="w-full bg-base-200 rounded-full h-1.5 mt-2">
+                                    <div class="w-full bg-base-300 rounded-full h-1.5 mt-2">
                                         <div class="bg-warning h-1.5 rounded-full" style="width: 30%"></div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Completed Tasks -->
-                            <div class="task-item task-completed flex items-start gap-3 p-3 bg-success/10 rounded-lg border border-success/20" style="display: none;">
+                            <div class="task-item task-completed flex items-start gap-3 p-3 bg-base-200 rounded-lg border border-base-300 w-full" style="display: none;">
                                 <div class="avatar placeholder">
                                     <div class="bg-success text-success-content rounded-full w-10 h-10">
                                         <i class="ri-check-line text-lg"></i>
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
+                                    <div class="flex items-center mb-1">
                                         <span class="font-medium text-sm">生成场景图片</span>
-                                        <span class="badge badge-success badge-xs">已完成</span>
                                     </div>
                                     <p class="text-xs text-base-content/60">AI短剧制作项目 • 1小时前</p>
                                 </div>
                             </div>
 
                             <!-- Failed Tasks -->
-                            <div class="task-item task-failed flex items-start gap-3 p-3 bg-error/10 rounded-lg border border-error/20" style="display: none;">
+                            <div class="task-item task-failed flex items-start gap-3 p-3 bg-base-200 rounded-lg border border-base-300 w-full" style="display: none;">
                                 <div class="avatar placeholder">
                                     <div class="bg-error text-error-content rounded-full w-10 h-10">
                                         <i class="ri-close-circle-line text-lg"></i>
                                     </div>
                                 </div>
                                 <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-1">
+                                    <div class="flex items-center mb-1">
                                         <span class="font-medium text-sm">场景生成失败</span>
-                                        <span class="badge badge-error badge-xs">失败</span>
                                     </div>
                                     <p class="text-xs text-base-content/60">现代都市剧 • 需要重新配置</p>
                                 </div>
@@ -416,7 +427,7 @@
                         </div>
 
                         <!-- Pagination -->
-                        <div class="flex justify-center items-center gap-2 mt-6" id="pagination">
+                        <div class="flex justify-center items-center gap-2 mt-auto pt-4" id="pagination">
                             <button class="btn btn-sm btn-outline btn-disabled" id="prev-page">
                                 <i class="ri-arrow-left-s-line"></i>
                             </button>
@@ -450,13 +461,13 @@
 
                         <!-- Total Summary -->
                         <div class="text-center p-4 bg-base-200 rounded-lg mb-6">
-                            <div class="text-3xl font-bold text-primary">28</div>
+                            <div class="text-3xl font-bold text-primary">33</div>
                             <div class="text-sm text-base-content/60">今日消耗积分</div>
                         </div>
 
                         <!-- Task Type Breakdown with Pagination -->
                         <div class="flex-1 flex flex-col">
-                            <div id="bill-items-container" class="flex-1 space-y-3 mb-4">
+                            <div id="bill-items-container" class="flex-1 space-y-3 overflow-y-auto pr-2 mb-4" style="max-height: 360px;">
                                 <!-- Items will be rendered by JavaScript -->
                             </div>
 
@@ -505,7 +516,7 @@
                                 <i class="ri-task-line text-primary"></i>
                                 任务总览
                             </h3>
-                            <span class="badge badge-primary badge-md">本月</span>
+                            <span class="badge badge-md bg-primary/10 text-primary border-0" style="padding-top: 2px; padding-bottom: 2px; min-height: 27px;">本月</span>
                         </div>
                         <div class="grid grid-cols-1 gap-4 mb-4">
                             <div class="text-center p-3 bg-base-200 rounded-lg">
@@ -516,7 +527,7 @@
 
                         <!-- Task Types with Pagination -->
                         <div class="flex-1 flex flex-col">
-                            <div id="tasktypes-container" class="flex-1 space-y-2 mb-4">
+                            <div id="tasktypes-container" class="flex-1 space-y-2 overflow-y-auto pr-2 mb-4" style="max-height: 360px;">
                                 <!-- Task types will be rendered by JavaScript -->
                             </div>
 
@@ -541,10 +552,10 @@
                     <div class="card-body p-5">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-semibold text-lg flex items-center gap-2">
-                                <i class="ri-folder-chart-line text-secondary"></i>
+                                <i class="ri-folder-chart-line text-indigo-500"></i>
                                 项目统计
                             </h3>
-                            <span class="badge badge-secondary badge-md">3个项目</span>
+                            <span class="badge badge-md bg-indigo-100 text-indigo-700 border-0" style="padding-top: 2px; padding-bottom: 2px; min-height: 27px;">总计3个</span>
                         </div>
 
                         <!-- Projects with Pagination -->
@@ -575,9 +586,10 @@
                     <div class="card-body p-5">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-semibold text-lg flex items-center gap-2">
-                                <i class="ri-stack-line text-accent"></i>
+                                <i class="ri-stack-line text-violet-500"></i>
                                 资源积累
                             </h3>
+                            <span class="badge badge-md bg-violet-100 text-violet-700 border-0" style="padding-top: 2px; padding-bottom: 2px; min-height: 27px;">总计4个</span>
                         </div>
 
                         <!-- Resources with Pagination -->
@@ -619,14 +631,12 @@
                         <!-- Help Center -->
                         <div class="bg-base-200 rounded-lg p-5">
                             <div class="flex flex-col items-center text-center">
-                                <div class="avatar placeholder mb-3">
-                                    <div class="bg-accent text-accent-content rounded-full w-12 h-12">
-                                        <i class="ri-customer-service-2-line text-xl"></i>
-                                    </div>
+                                <div class="bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center mb-3">
+                                    <i class="ri-customer-service-2-line text-xl"></i>
                                 </div>
                                 <h3 class="font-semibold text-base mb-2">帮助中心</h3>
                                 <p class="text-xs text-base-content/70 font-normal mb-3">查找常见问题解答、使用指南和故障排除方法。</p>
-                                <a href="#" class="btn btn-outline btn-accent btn-sm w-full gap-1">
+                                <a href="#" class="btn btn-outline btn-sm w-full gap-1">
                                     <i class="ri-book-open-line"></i>
                                     浏览帮助文档
                                 </a>
@@ -636,14 +646,12 @@
                         <!-- Feedback Channel -->
                         <div class="bg-base-200 rounded-lg p-5">
                             <div class="flex flex-col items-center text-center">
-                                <div class="avatar placeholder mb-3">
-                                    <div class="bg-secondary text-secondary-content rounded-full w-12 h-12 flex items-center justify-center">
-                                        <i class="ri-feedback-line text-xl"></i>
-                                    </div>
+                                <div class="bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center mb-3">
+                                    <i class="ri-feedback-line text-xl"></i>
                                 </div>
                                 <h3 class="font-semibold text-base mb-2">反馈通道</h3>
                                 <p class="text-xs text-base-content/70 font-normal mb-3">欢迎提交产品反馈和功能建议</p>
-                                <a href="https://feishu.cn" target="_blank" class="btn btn-outline btn-primary btn-sm w-full gap-1">
+                                <a href="https://feishu.cn" target="_blank" class="btn btn-outline btn-sm w-full gap-1">
                                     <i class="ri-file-list-3-line"></i>
                                     提交反馈文档
                                 </a>
@@ -653,14 +661,12 @@
                         <!-- Customer Manager -->
                         <div class="bg-base-200 rounded-lg p-5">
                             <div class="flex flex-col items-center text-center">
-                                <div class="avatar placeholder mb-3">
-                                    <div class="bg-info text-info-content rounded-full w-12 h-12 flex items-center justify-center">
-                                        <i class="ri-service-line text-xl"></i>
-                                    </div>
+                                <div class="bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center mb-3">
+                                    <i class="ri-service-line text-xl"></i>
                                 </div>
                                 <h3 class="font-semibold text-base mb-2">客户经理</h3>
                                 <p class="text-xs text-base-content/70 font-normal mb-3">专业客户经理一对一服务，随时解答疑问。</p>
-                                <a href="#" class="btn btn-outline btn-info btn-sm w-full gap-1">
+                                <a href="#" class="btn btn-outline btn-sm w-full gap-1">
                                     <i class="ri-phone-line"></i>
                                     联系商务
                                 </a>
@@ -1055,11 +1061,11 @@
 
             container.innerHTML = pageTaskTypes.map(taskType => `
                 <div class="flex items-center gap-2">
-                    <span class="text-sm w-20">${taskType.name}</span>
+                    <span class="text-sm w-20 text-base-content">${taskType.name}</span>
                     <div class="w-60 h-2 bg-base-300 rounded-full overflow-hidden">
-                        <div class="h-full bg-${taskType.color}" style="width: ${taskType.percent}%"></div>
+                        <div class="h-full bg-primary" style="width: ${taskType.percent}%"></div>
                     </div>
-                    <span class="text-xs text-base-content/60 whitespace-nowrap">${taskType.count} (${taskType.percent}%)</span>
+                    <span class="text-xs text-primary whitespace-nowrap font-medium">${taskType.count} (${taskType.percent}%)</span>
                 </div>
             `).join('');
 
@@ -1092,10 +1098,13 @@
         let projectCurrentPage = 1;
         const projectItemsPerPage = 3;
         const projectsData = [
-            { id: 1, name: 'AI短剧制作项目', video: 28, character: 15, scene: 22 },
+            { id: 1, name: 'AI短剧制作项目', video: 28, character: 15, scene: 22, audio: 10, script: 8 },
             { id: 2, name: '古装剧项目', video: 12, character: 8, scene: 18, item: 8 },
             { id: 3, name: '现代都市剧', video: 6, character: 5, scene: 15 }
         ];
+
+        // Track scroll states for each project
+        const projectScrollStates = {};
 
         function renderProjects() {
             const container = document.getElementById('projects-container');
@@ -1105,19 +1114,36 @@
             const endIndex = startIndex + projectItemsPerPage;
             const pageProjects = projectsData.slice(startIndex, endIndex);
 
-            container.innerHTML = pageProjects.map(project => `
+            container.innerHTML = pageProjects.map(project => {
+                const projectId = `project-tags-${project.id}`;
+                const totalTags = 3 + (project.item !== undefined ? 1 : 0) + (project.audio !== undefined ? 1 : 0) + (project.script !== undefined ? 1 : 0);
+                const needsScroll = totalTags > 4; // More than 4 tags need scroll button
+
+                return `
                 <div class="p-3 bg-base-200 rounded-lg">
                     <div class="mb-2">
                         <span class="text-sm font-medium">${project.name}</span>
                     </div>
-                    <div class="flex gap-2 text-xs">
-                        <span class="badge badge-outline badge-sm">视频: ${project.video}</span>
-                        <span class="badge badge-outline badge-sm">角色: ${project.character}</span>
-                        <span class="badge badge-outline badge-sm">场景: ${project.scene}</span>
-                        ${project.item !== undefined ? `<span class="badge badge-outline badge-sm">物品: ${project.item}</span>` : ''}
+                    <div class="flex items-center gap-2 text-xs">
+                        <button id="${project.id}-left" class="btn btn-ghost btn-xs btn-circle flex-shrink-0" style="display: none;" onclick="scrollProjectTags(${project.id}, 'left', event)">
+                            <i class="ri-arrow-left-s-line text-sm"></i>
+                        </button>
+                        <div class="flex-1 overflow-hidden">
+                            <div id="${projectId}" class="flex gap-2 transition-transform duration-300" style="transform: translateX(0);">
+                                <span class="badge badge-sm bg-indigo-100 text-indigo-700 border-0 flex-shrink-0" style="min-height: 23px;">视频: ${project.video}</span>
+                                <span class="badge badge-sm bg-indigo-100 text-indigo-700 border-0 flex-shrink-0" style="min-height: 23px;">角色: ${project.character}</span>
+                                <span class="badge badge-sm bg-indigo-100 text-indigo-700 border-0 flex-shrink-0" style="min-height: 23px;">场景: ${project.scene}</span>
+                                ${project.item !== undefined ? `<span class="badge badge-sm bg-indigo-100 text-indigo-700 border-0 flex-shrink-0" style="min-height: 23px;">物品: ${project.item}</span>` : ''}
+                                ${project.audio !== undefined ? `<span class="badge badge-sm bg-indigo-100 text-indigo-700 border-0 flex-shrink-0" style="min-height: 23px;">音频: ${project.audio}</span>` : ''}
+                                ${project.script !== undefined ? `<span class="badge badge-sm bg-indigo-100 text-indigo-700 border-0 flex-shrink-0" style="min-height: 23px;">剧本: ${project.script}</span>` : ''}
+                            </div>
+                        </div>
+                        <button id="${project.id}-right" class="btn btn-ghost btn-xs btn-circle flex-shrink-0" style="${needsScroll ? 'display: flex;' : 'display: none;'}" onclick="scrollProjectTags(${project.id}, 'right', event)">
+                            <i class="ri-arrow-right-s-line text-sm"></i>
+                        </button>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
 
             // Update page indicator
             const totalPages = Math.ceil(projectsData.length / projectItemsPerPage);
@@ -1126,6 +1152,66 @@
             // Update button states
             document.getElementById('prev-project-btn').disabled = projectCurrentPage === 1;
             document.getElementById('next-project-btn').disabled = projectCurrentPage === totalPages;
+        }
+
+        function scrollProjectTags(projectId, direction, event) {
+            console.log('Function called with params:', projectId, direction, event);
+            if (event) event.stopPropagation();
+
+            const container = document.getElementById(`project-tags-${projectId}`);
+            const leftBtn = document.getElementById(`${projectId}-left`);
+            const rightBtn = document.getElementById(`${projectId}-right`);
+
+            console.log('Elements found:', { container, leftBtn, rightBtn });
+
+            if (!container) {
+                console.log('Container not found!');
+                return;
+            }
+
+            // Get max scroll amount
+            const containerWidth = container.parentElement.offsetWidth - 40; // Subtract button space
+            const contentWidth = container.scrollWidth;
+            const maxScroll = contentWidth - containerWidth;
+
+            console.log('Dimensions:', { containerWidth, contentWidth, maxScroll });
+
+            if (direction === 'right') {
+                // Scroll to right (show hidden tags)
+                if (maxScroll > 0) {
+                    const scrollAmount = maxScroll + 10;
+                    container.style.transform = `translateX(-${scrollAmount}px)`;
+                    projectScrollStates[projectId] = scrollAmount;
+
+                    console.log('Scrolling right, amount:', scrollAmount);
+
+                    // Hide right button, show left button
+                    if (rightBtn) {
+                        rightBtn.style.display = 'none';
+                        console.log('Right button hidden');
+                    }
+                    if (leftBtn) {
+                        leftBtn.style.display = 'flex';
+                        console.log('Left button shown');
+                    }
+                }
+            } else if (direction === 'left') {
+                // Scroll back to left
+                container.style.transform = 'translateX(0)';
+                projectScrollStates[projectId] = 0;
+
+                console.log('Scrolling left');
+
+                // Hide left button, show right button
+                if (leftBtn) {
+                    leftBtn.style.display = 'none';
+                    console.log('Left button hidden');
+                }
+                if (rightBtn) {
+                    rightBtn.style.display = 'flex';
+                    console.log('Right button shown');
+                }
+            }
         }
 
         function prevProjectPage() {
@@ -1163,9 +1249,9 @@
             const pageResources = resourcesData.slice(startIndex, endIndex);
 
             container.innerHTML = pageResources.map(resource => `
-                <div class="text-center p-3 bg-base-200 rounded-lg">
-                    <i class="${resource.icon} text-2xl text-${resource.color} mb-1"></i>
-                    <div class="text-xl font-bold">${resource.count}</div>
+                <div class="text-center p-3 bg-base-200 rounded-lg flex flex-col items-center justify-center">
+                    <i class="${resource.icon} text-2xl text-violet-500 mb-1"></i>
+                    <div class="text-xl font-bold text-violet-500">${resource.count}</div>
                     <div class="text-xs text-base-content/60">${resource.name}</div>
                 </div>
             `).join('');
@@ -1204,7 +1290,7 @@
             { id: 3, name: '角色训练', icon: 'ri-user-smile-line', color: 'accent', count: 1, points: 3 },
             { id: 4, name: '声音克隆', icon: 'ri-mic-line', color: 'info', count: 1, points: 2 },
             { id: 5, name: '文生图', icon: 'ri-magic-line', color: 'error', count: 2, points: 2 },
-            { id: 6, name: '剧本创作', icon: 'ri-file-text-line', color: 'success', count: 0, points: 0 }
+            { id: 6, name: '剧本创作', icon: 'ri-file-text-line', color: 'success', count: 1, points: 5 }
         ];
 
         function renderBillItems() {
@@ -1219,14 +1305,14 @@
                 <div class="p-3 bg-base-200 rounded-lg">
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-2">
-                            <i class="${item.icon} text-${item.color}"></i>
+                            <i class="${item.icon} text-base-content/60"></i>
                             <span class="text-sm font-medium">${item.name}</span>
                         </div>
-                        <span class="badge badge-${item.color} badge-sm">${item.count > 0 ? item.count + '次' : '无'}</span>
+                        <span class="badge badge-sm bg-base-300 text-base-content" style="padding-top: 2px; padding-bottom: 2px; min-height: 22px;">${item.count > 0 ? item.count + '次' : '无'}</span>
                     </div>
                     <div class="flex items-center justify-between text-sm">
                         <span class="text-base-content/60">消耗积分</span>
-                        <span class="font-semibold text-${item.color}">${item.points} 积分</span>
+                        <span class="font-semibold text-primary">${item.points} 积分</span>
                     </div>
                 </div>
             `).join('');
