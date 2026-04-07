@@ -41,6 +41,22 @@
             background: var(--fallback-b4, oklch(var(--b4)));
         }
 
+        /* 所属项目下拉面板滚动条样式 */
+        .project-dropdown-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .project-dropdown-scroll::-webkit-scrollbar-track {
+            background: var(--fallback-b2, oklch(var(--b2)));
+            border-radius: 3px;
+        }
+        .project-dropdown-scroll::-webkit-scrollbar-thumb {
+            background: var(--fallback-b3, oklch(var(--b3)));
+            border-radius: 3px;
+        }
+        .project-dropdown-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--fallback-b4, oklch(var(--b4)));
+        }
+
         /* 图片文件名显示样式 */
         .image-filename-display {
             background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
@@ -198,10 +214,10 @@
                     <div class="dropdown dropdown-end">
                         <div tabindex="0" role="button" class="btn btn-sm btn-outline">
                             <i class="ri-filter-3-line"></i>
-                            项目筛选
+                            筛选项目
                             <span class="badge badge-neutral badge-sm" id="selected-count">0</span>
                         </div>
-                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-72 border border-base-300 max-h-96 overflow-y-auto">
+                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-72 border border-base-300 max-h-96 overflow-y-auto project-dropdown-scroll">
                             <li class="p-2 sticky top-0 bg-base-100 z-10 border-b border-base-300">
                                 <input type="search" id="project-search-input" placeholder="搜索项目..." oninput="filterProjectList()"
                                     class="input input-bordered input-xs w-full" />
@@ -556,23 +572,31 @@
                             <i class="ri-arrow-down-s-line"></i>
                         </div>
                         <div tabindex="0" class="dropdown-content z-[1] shadow bg-base-100 rounded-box w-full border border-base-300 p-2">
-                            <div class="max-h-44 overflow-y-auto mb-2">
+                            <li class="p-2 sticky top-0 bg-base-100 z-10 border-b border-base-300">
+                                <input type="search" id="add_project_search_input" placeholder="搜索项目..." oninput="filterAddProjectList()"
+                                    class="input input-bordered input-xs w-full" />
+                            </li>
+                            <div class="max-h-44 overflow-y-auto mb-2 mt-2 project-dropdown-scroll">
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     data-project-name="AI短剧-林晓雪的故事"
                                      onclick="toggleProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="AI短剧-林晓雪的故事" />
                                     <span class="text-sm select-none font-normal">AI短剧-林晓雪的故事</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     data-project-name="商业广告-产品宣传片"
                                      onclick="toggleProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="商业广告-产品宣传片" />
                                     <span class="text-sm select-none font-normal">商业广告-产品宣传片</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     data-project-name="教育视频-在线课程制作"
                                      onclick="toggleProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="教育视频-在线课程制作" />
                                     <span class="text-sm select-none font-normal">教育视频-在线课程制作</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer project-option"
+                                     data-project-name="企业宣传片-公司介绍"
                                      onclick="toggleProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary project-checkbox" value="企业宣传片-公司介绍" />
                                     <span class="text-sm select-none font-normal">企业宣传片-公司介绍</span>
@@ -677,43 +701,55 @@
                             <i class="ri-arrow-down-s-line"></i>
                         </div>
                         <div tabindex="0" class="dropdown-content z-[1] shadow bg-base-100 rounded-box w-full border border-base-300 p-2">
-                            <div class="max-h-44 overflow-y-auto mb-2">
+                            <li class="p-2 sticky top-0 bg-base-100 z-10 border-b border-base-300">
+                                <input type="search" id="edit_project_search_input" placeholder="搜索项目..." oninput="filterEditProjectList()"
+                                    class="input input-bordered input-xs w-full" />
+                            </li>
+                            <div class="max-h-44 overflow-y-auto mb-2 mt-2 project-dropdown-scroll">
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="AI短剧-林晓雪的故事"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="AI短剧-林晓雪的故事" />
                                     <span class="text-sm select-none font-normal">AI短剧-林晓雪的故事</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="商业广告-产品宣传片"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="商业广告-产品宣传片" />
                                     <span class="text-sm select-none font-normal">商业广告-产品宣传片</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="教育视频-在线课程制作"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="教育视频-在线课程制作" />
                                     <span class="text-sm select-none font-normal">教育视频-在线课程制作</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="企业宣传片-公司介绍"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="企业宣传片-公司介绍" />
                                     <span class="text-sm select-none font-normal">企业宣传片-公司介绍</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="古装剧-宫廷秘史"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="古装剧-宫廷秘史" />
                                     <span class="text-sm select-none font-normal">古装剧-宫廷秘史</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="现代都市剧-职场风云"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="现代都市剧-职场风云" />
                                     <span class="text-sm select-none font-normal">现代都市剧-职场风云</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="校园青春剧-成长日记"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="校园青春剧-成长日记" />
                                     <span class="text-sm select-none font-normal">校园青春剧-成长日记</span>
                                 </div>
                                 <div class="flex items-center gap-3 px-2 py-2 hover:bg-base-200 rounded-lg cursor-pointer edit-project-option"
+                                     data-project-name="悬疑推理剧-迷雾追踪"
                                      onclick="toggleEditProjectOption(this)">
                                     <input type="checkbox" class="checkbox checkbox-sm checkbox-primary edit-project-checkbox" value="悬疑推理剧-迷雾追踪" />
                                     <span class="text-sm select-none font-normal">悬疑推理剧-迷雾追踪</span>
@@ -1209,6 +1245,38 @@
             const searchInput = document.getElementById('project-search-input');
             const searchTerm = searchInput.value.toLowerCase().trim();
             const projectItems = document.querySelectorAll('.project-item');
+
+            projectItems.forEach(item => {
+                const projectName = item.getAttribute('data-project-name').toLowerCase();
+                if (projectName.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Filter add modal project list based on search input
+        function filterAddProjectList() {
+            const searchInput = document.getElementById('add_project_search_input');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const projectItems = document.querySelectorAll('#project_dropdown .project-option');
+
+            projectItems.forEach(item => {
+                const projectName = item.getAttribute('data-project-name').toLowerCase();
+                if (projectName.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Filter edit modal project list based on search input
+        function filterEditProjectList() {
+            const searchInput = document.getElementById('edit_project_search_input');
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const projectItems = document.querySelectorAll('#edit_project_dropdown .edit-project-option');
 
             projectItems.forEach(item => {
                 const projectName = item.getAttribute('data-project-name').toLowerCase();
