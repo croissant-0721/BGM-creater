@@ -51,6 +51,21 @@
         #file_name_display {
             min-height: 32px;
         }
+
+        /* 文件名显示区域悬停效果 */
+        #file_name_display:hover #edit_file_name_btn {
+            opacity: 1;
+        }
+
+        /* 扩展名显示样式 - 使用DaisyUI标准 */
+        #file_extension_display {
+            text-align: center;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.875rem;
+            font-weight: 500;
+            user-select: none;
+            cursor: default;
+        }
     </style>
 </head>
 
@@ -442,8 +457,36 @@
                         </div>
                     </div>
                     <!-- 文件名显示区域 -->
-                    <div id="file_name_display" class="mt-3 text-center">
-                        <div id="selected_file_name" class="text-base-content/50 text-sm font-medium">请选择图片</div>
+                    <div id="file_name_display" class="mt-3 text-center px-4">
+                        <!-- 显示模式 -->
+                        <div id="file_name_view_mode" class="flex items-center justify-center gap-2 hidden">
+                            <span id="selected_file_name" class="text-base-content/50 text-sm font-medium">请选择图片</span>
+                            <button id="edit_file_name_btn" class="btn btn-ghost btn-xs btn-circle opacity-0 hover:opacity-100 transition-opacity hidden"
+                                    onclick="startEditFileName()" title="修改文件名">
+                                <i class="ri-edit-line"></i>
+                            </button>
+                        </div>
+                        <!-- 编辑模式 -->
+                        <div id="file_name_edit_mode" class="flex items-center justify-center gap-2 hidden">
+                            <div class="join">
+                                <input type="text" id="file_name_input"
+                                       class="input input-bordered input-sm w-64 join-item"
+                                       placeholder="请输入文件名"
+                                       onkeydown="handleFileNameKeyDown(event)" />
+                                <div id="file_extension_display"
+                                     class="input input-bordered input-sm join-item bg-base-200 text-base-content/60 min-w-16 hidden">
+                                    .jpg
+                                </div>
+                            </div>
+                            <div class="join">
+                                <button class="btn btn-primary btn-sm join-item" onclick="saveFileName()">
+                                    <i class="ri-check-line"></i>
+                                </button>
+                                <button class="btn btn-ghost btn-sm join-item" onclick="cancelEditFileName()">
+                                    <i class="ri-close-line"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -808,6 +851,9 @@
             const mainImage = document.getElementById('detail_main_image');
             const emptyState = document.getElementById('detail_empty_state');
             const fileNameDisplay = document.getElementById('selected_file_name');
+            const viewMode = document.getElementById('file_name_view_mode');
+            const editMode = document.getElementById('file_name_edit_mode');
+            const editBtn = document.getElementById('edit_file_name_btn');
 
             if (data.images.length > 0) {
                 mainImage.src = data.images[0].url;
@@ -817,6 +863,10 @@
                 if (fileNameDisplay) {
                     fileNameDisplay.textContent = data.images[0].name;
                     fileNameDisplay.className = 'text-base-content text-sm font-medium';
+                    // 显示查看模式和编辑按钮
+                    viewMode.classList.remove('hidden');
+                    editMode.classList.add('hidden');
+                    editBtn.classList.remove('hidden');
                 }
                 currentImageIndex = 0;
             } else {
@@ -826,6 +876,10 @@
                 if (fileNameDisplay) {
                     fileNameDisplay.textContent = '暂无图片';
                     fileNameDisplay.className = 'text-base-content/50 text-sm font-medium';
+                    // 显示查看模式，但隐藏编辑按钮
+                    viewMode.classList.remove('hidden');
+                    editMode.classList.add('hidden');
+                    editBtn.classList.add('hidden');
                 }
             }
 
@@ -887,9 +941,17 @@
 
             // 更新主图下方的文件名显示
             const fileNameDisplay = document.getElementById('selected_file_name');
+            const viewMode = document.getElementById('file_name_view_mode');
+            const editMode = document.getElementById('file_name_edit_mode');
+            const editBtn = document.getElementById('edit_file_name_btn');
+
             if (fileNameDisplay) {
                 fileNameDisplay.textContent = data.images[index].name;
                 fileNameDisplay.className = 'text-base-content text-sm font-medium';
+                // 确保显示查看模式和编辑按钮，隐藏编辑模式
+                viewMode.classList.remove('hidden');
+                editMode.classList.add('hidden');
+                editBtn.classList.remove('hidden');
             }
 
             // Update selection style
@@ -940,9 +1002,16 @@
                 document.getElementById('detail_main_image').src = data.images[0].url;
                 // 更新文件名显示
                 const fileNameDisplay = document.getElementById('selected_file_name');
+                const viewMode = document.getElementById('file_name_view_mode');
+                const editMode = document.getElementById('file_name_edit_mode');
+                const editBtn = document.getElementById('edit_file_name_btn');
                 if (fileNameDisplay) {
                     fileNameDisplay.textContent = data.images[0].name;
                     fileNameDisplay.className = 'text-base-content text-sm font-medium';
+                    // 确保显示查看模式和编辑按钮
+                    viewMode.classList.remove('hidden');
+                    editMode.classList.add('hidden');
+                    editBtn.classList.remove('hidden');
                 }
             } else if (imageToDelete < currentImageIndex) {
                 currentImageIndex--;
@@ -1285,6 +1354,126 @@
             // TODO: Implement save functionality
             document.getElementById('edit_character_modal').close();
             showToast('虚拟人像已更新');
+        }
+
+        // ==================== 文件名编辑功能 ====================
+
+        // 保存当前编辑的图片扩展名
+        let currentFileExtension = '';
+
+        // 开始编辑文件名
+        function startEditFileName() {
+            const data = characterData[currentCharacter];
+            if (!data || !data.images[currentImageIndex]) return;
+
+            const viewMode = document.getElementById('file_name_view_mode');
+            const editMode = document.getElementById('file_name_edit_mode');
+            const fileNameInput = document.getElementById('file_name_input');
+            const extensionDisplay = document.getElementById('file_extension_display');
+
+            // 分离文件名和扩展名
+            const fullFileName = data.images[currentImageIndex].name;
+            const lastDotIndex = fullFileName.lastIndexOf('.');
+
+            if (lastDotIndex > 0) {
+                // 有扩展名
+                currentFileExtension = fullFileName.substring(lastDotIndex); // 包含点号，如 ".jpg"
+                const nameWithoutExtension = fullFileName.substring(0, lastDotIndex);
+                fileNameInput.value = nameWithoutExtension;
+                // 显示扩展名
+                extensionDisplay.textContent = currentFileExtension;
+                extensionDisplay.classList.remove('hidden');
+            } else {
+                // 没有扩展名
+                currentFileExtension = '';
+                fileNameInput.value = fullFileName;
+                // 隐藏扩展名显示
+                extensionDisplay.classList.add('hidden');
+            }
+
+            // 切换到编辑模式
+            viewMode.classList.add('hidden');
+            editMode.classList.remove('hidden');
+
+            // 使用setTimeout确保DOM更新后再聚焦
+            setTimeout(() => {
+                fileNameInput.focus();
+                fileNameInput.select();
+            }, 10);
+        }
+
+        // 保存文件名
+        function saveFileName() {
+            const data = characterData[currentCharacter];
+            if (!data || !data.images[currentImageIndex]) return;
+
+            const fileNameInput = document.getElementById('file_name_input');
+            const newFileNameWithoutExt = fileNameInput.value.trim();
+
+            // 验证文件名不为空
+            if (!newFileNameWithoutExt) {
+                showToast('文件名不能为空', 'error');
+                fileNameInput.classList.add('input-error');
+                setTimeout(() => fileNameInput.classList.remove('input-error'), 2000);
+                fileNameInput.focus();
+                return;
+            }
+
+            // 重新组合文件名和扩展名
+            const newFileName = newFileNameWithoutExt + currentFileExtension;
+
+            // 更新数据中的文件名
+            const oldFileName = data.images[currentImageIndex].name;
+            data.images[currentImageIndex].name = newFileName;
+
+            // 更新显示的文件名
+            const fileNameDisplay = document.getElementById('selected_file_name');
+            if (fileNameDisplay) {
+                fileNameDisplay.textContent = newFileName;
+            }
+
+            // 切换回查看模式
+            const viewMode = document.getElementById('file_name_view_mode');
+            const editMode = document.getElementById('file_name_edit_mode');
+            viewMode.classList.remove('hidden');
+            editMode.classList.add('hidden');
+
+            // 清空输入框的验证状态
+            fileNameInput.classList.remove('input-error');
+            fileNameInput.value = '';
+
+            // 重新加载图片列表以更新缩略图的提示文本
+            loadImageList(data.images);
+
+            showToast('文件名已更新');
+        }
+
+        // 取消编辑文件名
+        function cancelEditFileName() {
+            const fileNameInput = document.getElementById('file_name_input');
+
+            // 清理输入框状态
+            fileNameInput.classList.remove('input-error');
+            fileNameInput.value = '';
+
+            // 切换回查看模式
+            const viewMode = document.getElementById('file_name_view_mode');
+            const editMode = document.getElementById('file_name_edit_mode');
+            viewMode.classList.remove('hidden');
+            editMode.classList.add('hidden');
+        }
+
+        // 处理文件名输入框的按键事件
+        function handleFileNameKeyDown(event) {
+            if (event.key === 'Enter') {
+                // 回车键：保存
+                event.preventDefault();
+                saveFileName();
+            } else if (event.key === 'Escape') {
+                // ESC键：取消编辑
+                event.preventDefault();
+                cancelEditFileName();
+            }
         }
     </script>
 </body>
