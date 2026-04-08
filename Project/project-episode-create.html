@@ -236,17 +236,21 @@
                             <label class="label py-0">
                                 <span class="label-text font-medium text-base-content/70">选择模型</span>
                             </label>
-                            <div class="flex flex-wrap gap-x-6 gap-y-2">
+                            <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
                                 <label class="label cursor-pointer gap-2 p-0 justify-start">
                                     <input type="radio" name="ai_model" class="radio radio-sm radio-primary"
-                                        value="doubao" checked />
+                                        value="doubao" checked onchange="updateModelRecommendation()" />
                                     <span class="label-text">Doubao-Seed-1.8</span>
                                 </label>
                                 <label class="label cursor-pointer gap-2 p-0 justify-start">
                                     <input type="radio" name="ai_model" class="radio radio-sm radio-primary"
-                                        value="deepseek" />
+                                        value="deepseek" onchange="updateModelRecommendation()" />
                                     <span class="label-text">DeepSeek-V3.2</span>
                                 </label>
+                                <div class="flex items-center gap-1.5 text-sm text-base-content/60 ml-2">
+                                    <i class="ri-information-line text-base"></i>
+                                    <span id="model_recommendation">推荐长剧本使用（一万字以上）</span>
+                                </div>
                             </div>
                         </div>
 
@@ -2671,6 +2675,22 @@
             }
         }
 
+        // Update model recommendation based on selected model
+        function updateModelRecommendation() {
+            const selectedModel = document.querySelector('input[name="ai_model"]:checked');
+            const recommendationSpan = document.getElementById('model_recommendation');
+
+            if (selectedModel && recommendationSpan) {
+                const modelValue = selectedModel.value;
+
+                if (modelValue === 'doubao') {
+                    recommendationSpan.textContent = '推荐长剧本使用（一万字以上）';
+                } else if (modelValue === 'deepseek') {
+                    recommendationSpan.textContent = '推荐短剧本使用（一万字以内）';
+                }
+            }
+        }
+
         setupDragAndDrop(scriptDropArea, scriptFile);
 
         // Switch step/tab
@@ -3045,6 +3065,7 @@
         // Initialize tabs when modal opens
         document.addEventListener('DOMContentLoaded', function() {
             initVoiceUploadDragDrop();
+            updateModelRecommendation();
         });
 
 
