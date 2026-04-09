@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人设置 | 盼趣AI</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kline: {
+                            DEFAULT: '#002FA7',
+                            50: '#E8EEFF',
+                            100: '#C4D4FF',
+                            200: '#9DB6FF',
+                            300: '#7599FF',
+                            400: '#4D7CFF',
+                            500: '#2560FF',
+                            600: '#002FA7',
+                            700: '#002687',
+                            800: '#001D67',
+                            900: '#001447',
+                        }
+                    }
+                }
+            },
+            daisyui: {
+                themes: [
+                    {
+                        light: {
+                            ...require("daisyui/src/theming/themes")["light"],
+                            "primary": "#002FA7",
+                            "primary-focus": "#002687",
+                            "primary-content": "#ffffff",
+                        },
+                    },
+                ],
+            }
+        }
+    </script>
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="../assets/css/project/project-styles.css">
+
+    <style>
+        .settings-card {
+            background: var(--fallback-b1, oklch(var(--b1)));
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .settings-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #002FA7 0%, #4D7CFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-base-200 min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar sticky top-0 z-50 px-4 bg-base-100 shadow h-16">
+        <div class="navbar-start">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://panqu.com/assets/img/logo.webp" alt="盼趣AI" class="h-8" loading="lazy">
+                    <span class="gradient-text font-bold text-xl">盼趣 AI</span>
+                </a>
+                <ul class="menu menu-horizontal px-1 gap-2">
+                    <li><a href="../index.html" id="nav-dashboard"><i class="ri-dashboard-line"></i><span>总览</span></a></li>
+                    <li><a href="Projects.html" id="nav-projects"><i class="ri-folder-3-line"></i><span>项目</span></a></li>
+                    <li><a href="../billing_demo/billing.html" id="nav-billing"><i class="ri-file-list-3-line"></i><span>账单</span></a></li>
+                    <li><a href="enterprise-settings.html" id="nav-enterprise"><i class="ri-building-line"></i><span>企业设置</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-end gap-2">
+            <!-- Credits Balance -->
+            <div class="flex items-center gap-2 px-2">
+                <i class="ri-coin-fill text-warning text-xl"></i>
+                <span class="text-base font-semibold">8,888</span>
+            </div>
+
+            <!-- Theme Toggle -->
+            <label class="swap swap-rotate btn btn-ghost btn-circle">
+                <input type="checkbox" id="theme-toggle" />
+                <i class="ri-sun-line swap-on fill-current w-5 h-5 text-warning"></i>
+                <i class="ri-moon-line swap-off fill-current w-5 h-5"></i>
+            </label>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle" id="btn-notifications">
+                    <div class="indicator">
+                        <i class="ri-notification-3-line text-xl"></i>
+                        <span class="badge badge-sm badge-error indicator-item">3</span>
+                    </div>
+                </div>
+                <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-80 border border-base-300">
+                    <li class="menu-title">
+                        <span class="font-semibold">任务消息通知</span>
+                        <a class="text-xs text-primary">全部已读</a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li>
+                        <a class="gap-3">
+                            <div class="avatar placeholder">
+                                <div class="bg-success text-success-content rounded-full w-8 h-8">
+                                    <i class="ri-check-line text-sm"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="text-sm font-medium">任务完成</div>
+                                <div class="text-xs text-base-content/60">Nano编辑项目 • 5分钟前</div>
+                            </div>
+                            <span class="badge badge-xs badge-success"></span>
+                        </a>
+                    </li>
+                    <div class="divider my-0"></div>
+                    <li><a class="justify-center text-sm text-base-content/70">查看全部通知</a></li>
+                </ul>
+            </div>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle" id="btn-user-menu">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-full w-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                    </div>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-300">
+                    <li class="menu-title flex flex-col items-start gap-1.5 pb-2 border-b border-base-200 mb-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base-content/90 font-bold">王大卫</span>
+                            <div class="flex gap-1">
+                                <span class="badge badge-primary badge-xs py-2">企业版</span>
+                                <span class="badge badge-outline badge-xs py-2 font-normal opacity-70">主账号</span>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-base-content/50 font-normal flex items-center gap-1">
+                            <i class="ri-building-line text-xs font-normal"></i>
+                            杭州盼趣网络科技有限公司
+                        </span>
+                    </li>
+                    <li><a href="settings.html" class="active">个人设置</a></li>
+                    <li><a href="enterprise-settings.html">企业设置</a></li>
+                    <li><a>使用统计</a></li>
+                    <div class="divider my-0"></div>
+                    <li><a class="text-error">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <div class="mb-10 text-center md:text-left">
+            <h1 class="text-3xl font-bold mb-2">个人设置</h1>
+            <p class="text-base-content/60">管理您的账户安全与通知偏好</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <!-- Left Sidebar Navigation -->
+            <div class="md:col-span-3">
+                <ul class="menu bg-base-100 rounded-2xl p-2 shadow-sm border border-base-200 gap-1">
+                    <li>
+                        <a onclick="switchTab('profile')" id="nav-profile" class="active flex items-center gap-3 py-3 font-semibold hover:bg-kline/5 transition-all">
+                            <i class="ri-user-line text-lg"></i>
+                            <span>个人信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="switchTab('password')" id="nav-password" class="flex items-center gap-3 py-3 font-semibold hover:bg-kline/5 transition-all">
+                            <i class="ri-shield-keyhole-line text-lg"></i>
+                            <span>修改密码</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a onclick="switchTab('alert')" id="nav-alert" class="flex items-center gap-3 py-3 font-semibold hover:bg-kline/5 transition-all">
+                            <i class="ri-notification-3-line text-lg"></i>
+                            <span>额度提醒</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right Content Area -->
+            <div class="md:col-span-9">
+                <div class="bg-base-100 rounded-2xl p-8 shadow-sm border border-base-200 min-h-[500px]">
+                    <!-- Tab: Profile Information -->
+                    <div id="tab-profile" class="tab-pane fade-in">
+                        <div class="settings-header mb-10">
+                            <h2 class="text-xl font-bold flex items-center gap-2"><i class="ri-user-line text-kline"></i>个人信息</h2>
+                            <p class="text-sm text-base-content/50 mt-1">您的基础账户信息</p>
+                        </div>
+                        
+                        <div class="space-y-8 max-w-2xl px-2">
+                            <div class="flex flex-col gap-6">
+                                <div class="item-group">
+                                    <label class="text-xs font-semibold text-base-content/40 uppercase tracking-wider mb-2 block">用户名</label>
+                                    <div class="text-lg font-medium text-base-content/90">王大卫</div>
+                                </div>
+                                <div class="divider my-0 opacity-50"></div>
+                                <div class="item-group">
+                                    <label class="text-xs font-semibold text-base-content/40 uppercase tracking-wider mb-2 block">所属公司</label>
+                                    <div class="flex items-center justify-between gap-4">
+                                        <!-- 左侧信息区：公司名称 + 身份标签 + 认证状态 -->
+                                        <div class="text-lg font-medium text-base-content/90 flex items-center gap-2">
+                                            杭州盼趣网络科技有限公司
+                                            <div class="badge badge-kline-50 text-kline border-kline/20 font-normal">企业主账号</div>
+                                            <div class="badge badge-ghost bg-base-200 text-base-content/60 font-normal">未认证</div>
+                                        </div>
+                                        <!-- 右侧操作区：立即认证按钮 -->
+                                        <div class="flex items-center gap-2 flex-shrink-0">
+                                            <a href="project-vedio-verify.html" class="btn btn-sm btn-neutral">
+                                                立即认证
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-base-content/40 mt-3 flex items-center gap-1">
+                                        <i class="ri-information-line"></i>
+                                        如需变更账户关联信息，请联系企业管理员或客服
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Password Settings -->
+                    <div id="tab-password" class="tab-pane hidden fade-in">
+                        <div class="settings-header mb-8">
+                            <h2 class="text-xl font-bold flex items-center gap-2"><i class="ri-shield-keyhole-line text-kline"></i>修改密码</h2>
+                            <p class="text-sm text-base-content/50 mt-1">定期更换密码有助于保护您的账户安全</p>
+                        </div>
+                        
+                        <div class="space-y-4 max-w-xl">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">新密码</span></label>
+                                <input type="password" id="new-password" placeholder="请输入新密码（至少6位）" class="input input-bordered w-full focus:border-kline transition-all" />
+                                <div id="new-password-error" class="text-error text-xs mt-1 hidden">密码长度不得小于6位</div>
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">确认新密码</span></label>
+                                <input type="password" id="confirm-password" placeholder="请再次输入新密码" class="input input-bordered w-full focus:border-kline transition-all" />
+                                <div id="confirm-password-error" class="text-error text-xs mt-1 hidden">两次输入的密码不一致</div>
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">验证码</span></label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="verify-code" placeholder="输入验证码" class="input input-bordered flex-1 focus:border-kline transition-all" maxlength="6" />
+                                    <button type="button" class="btn btn-outline border-kline text-kline hover:bg-kline hover:text-white min-w-[120px]" id="btn-get-code" onclick="startCountdown()">获取验证码</button>
+                                </div>
+                                <label class="label">
+                                    <span class="label-text-alt text-base-content/50 flex items-center gap-1">
+                                        <i class="ri-information-line"></i>
+                                        验证码将发送至您的绑定手机 138****8888
+                                    </span>
+                                </label>
+                                <div id="verify-code-error" class="text-error text-xs mt-1 hidden">验证码错误</div>
+                            </div>
+                            <div class="flex justify-start mt-10">
+                                <button class="btn bg-kline text-white border-kline hover:bg-kline/90 px-10 shadow-lg shadow-kline/20" onclick="updatePassword()">确认修改</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Credit Notifications -->
+                    <div id="tab-alert" class="tab-pane hidden fade-in">
+                        <div class="settings-header mb-8">
+                            <h2 class="text-xl font-bold flex items-center gap-2"><i class="ri-notification-3-line text-kline"></i>额度提醒设置</h2>
+                            <p class="text-sm text-base-content/50 mt-1">当积分余额低于设定数值时，我们将及时通知您</p>
+                        </div>
+
+                        <div class="space-y-5 max-w-lg">
+                            <!-- Threshold Setting (Compact Version) -->
+                            <div class="form-control mb-6 bg-base-50 p-4 rounded-xl border border-dashed border-base-300">
+                                <label class="label pt-0"><span class="label-text font-bold text-sm">预警阈值</span></label>
+                                <div class="flex items-center gap-3">
+                                    <div class="join shadow-sm">
+                                        <input type="number" id="alert-threshold" value="100" class="input input-bordered input-sm join-item w-24 focus:border-kline font-bold text-kline" />
+                                        <button class="btn btn-sm join-item bg-base-200 border-base-300 text-base-content/60 no-animation">积分</button>
+                                    </div>
+                                    <div class="text-[11px] text-base-content/50 leading-tight">
+                                        账户余额低于此数值<br/>即自动触发通知预警
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Alert Items -->
+                            <div class="form-control p-4 rounded-xl border border-base-100 hover:bg-base-50 transition-all shadow-sm">
+                                <label class="label cursor-pointer justify-start gap-4 p-0">
+                                    <input type="checkbox" id="sms-alert" class="checkbox checkbox-sm checkbox-primary [--chkbg:theme(colors.kline.600)] [--chkfg:white]" checked />
+                                    <span class="label-text text-sm font-semibold">启用短信提醒</span>
+                                </label>
+                                <div class="text-[11px] text-base-content/40 ml-9 mt-1">余额低于预警阈值时，自动向绑定手机发送短信</div>
+                            </div>
+
+                            <div class="form-control p-4 rounded-xl border border-base-100 hover:bg-base-50 transition-all shadow-sm">
+                                <label class="label cursor-pointer justify-start gap-4 p-0">
+                                    <input type="checkbox" id="email-alert" class="checkbox checkbox-sm checkbox-primary [--chkbg:theme(colors.kline.600)] [--chkfg:white]" onchange="toggleEmailInput(this)" />
+                                    <span class="label-text text-sm font-semibold">启用邮件提醒</span>
+                                </label>
+                                <div class="text-[11px] text-base-content/40 ml-9 mt-1">余额低于预警阈值时，自动向设定邮箱发送邮件</div>
+                                
+                                <div id="email-input-wrapper" class="hidden ml-9 mt-4 fade-in">
+                                    <div class="form-control w-full">
+                                        <label class="label py-1"><span class="label-text font-medium text-[10px] uppercase text-base-content/50">接收邮箱</span></label>
+                                        <input type="email" id="alert-email" placeholder="example@mail.com" class="input input-bordered input-sm w-full focus:border-kline transition-all" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-start mt-10">
+                                <button class="btn bg-kline text-white border-kline hover:bg-kline/90 px-10 shadow-lg shadow-kline/20" onclick="saveAlertSettings()">保存设置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast toast-bottom toast-center z-[100] mb-10 pointer-events-none">
+        <div id="custom-toast" class="alert shadow-2xl border-0 hidden fade-in py-3 px-6 pointer-events-auto min-w-[300px] justify-center text-sm font-medium">
+            <i id="toast-icon" class="ri-check-line text-lg"></i>
+            <span id="toast-message"></span>
+        </div>
+    </div>
+
+    <script>
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('custom-toast');
+            const msgSpan = document.getElementById('toast-message');
+            const icon = document.getElementById('toast-icon');
+            
+            // Success Style
+            if (type === 'success') {
+                toast.className = 'alert shadow-2xl border-0 fade-in bg-kline text-white py-3 px-6 min-w-[300px] gap-3';
+                icon.className = 'ri-checkbox-circle-line text-xl';
+            } 
+            // Error Style
+            else {
+                toast.className = 'alert shadow-2xl border-0 fade-in alert-error py-3 px-6 min-w-[300px] gap-3';
+                icon.className = 'ri-error-warning-line text-xl';
+            }
+            
+            msgSpan.textContent = message;
+            toast.classList.remove('hidden');
+            
+            // Auto hide after 3.5s
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all panes
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+            // Remove active from all nav
+            document.querySelectorAll('.menu a').forEach(nav => nav.classList.remove('active'));
+            
+            // Show target pane
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            // Add active to nav
+            document.getElementById('nav-' + tabId).classList.add('active');
+        }
+
+        // Verification Code Logic
+        let countdown = 0;
+        let timer = null;
+
+        function startCountdown() {
+            if (countdown > 0) return;
+            countdown = 60;
+            const btn = document.getElementById('btn-get-code');
+            btn.disabled = true;
+            
+            timer = setInterval(() => {
+                countdown--;
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    btn.textContent = '获取验证码';
+                    btn.disabled = false;
+                } else {
+                    btn.textContent = `${countdown}s 后重发`;
+                }
+            }, 1000);
+            
+            showToast('验证码已发送至您的手机');
+        }
+
+        function updatePassword() {
+            const newPwd = document.getElementById('new-password').value;
+            const confirmPwd = document.getElementById('confirm-password').value;
+            const code = document.getElementById('verify-code').value;
+            
+            let hasError = false;
+            
+            // Password length check
+            if (newPwd.length < 6) {
+                document.getElementById('new-password-error').classList.remove('hidden');
+                hasError = true;
+            } else {
+                document.getElementById('new-password-error').classList.add('hidden');
+            }
+            
+            // Match check
+            if (newPwd !== confirmPwd) {
+                document.getElementById('confirm-password-error').classList.remove('hidden');
+                hasError = true;
+            } else {
+                document.getElementById('confirm-password-error').classList.add('hidden');
+            }
+            
+            // Code check (mock)
+            if (code !== '123456') {
+                document.getElementById('verify-code-error').classList.remove('hidden');
+                hasError = true;
+            } else {
+                document.getElementById('verify-code-error').classList.add('hidden');
+            }
+            
+            if (hasError) {
+                showToast('请修正表单中的错误信息', 'error');
+                return;
+            }
+            
+            showToast('密码修改成功！');
+        }
+
+        // Email Alert Logic
+        function toggleEmailInput(checkbox) {
+            const wrapper = document.getElementById('email-input-wrapper');
+            if (checkbox.checked) {
+                wrapper.classList.remove('hidden');
+            } else {
+                wrapper.classList.add('hidden');
+            }
+        }
+
+        function saveAlertSettings() {
+            const smsActive = document.getElementById('sms-alert').checked;
+            const emailActive = document.getElementById('email-alert').checked;
+            const email = document.getElementById('alert-email').value;
+            
+            if (emailActive && !email) {
+                showToast('请填写接收邮箱', 'error');
+                return;
+            }
+            
+            showToast('提醒设置保存成功！');
+        }
+        // Theme toggle logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Initial state
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        themeToggle.checked = currentTheme === 'dark';
+
+        themeToggle.addEventListener('change', () => {
+            const theme = themeToggle.checked ? 'dark' : 'light';
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+    </script>
+</body>
+
+</html>
