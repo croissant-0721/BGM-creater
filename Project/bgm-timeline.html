@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>智能时间线BGM生成器 - GPT-5.4</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        h1 { color: #333; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
+        .section { margin: 25px 0; padding: 25px; border: 2px solid #e0e0e0; border-radius: 8px; background: #fafafa; }
+        .section h3 { margin-bottom: 15px; color: #555; font-size: 18px; }
+        textarea { width: 100%; height: 200px; padding: 15px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit; }
+        input[type="text"] { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 6px; margin: 10px 0; }
+        label { display: block; margin: 12px 0; font-size: 14px; font-weight: 600; color: #444; }
+        button { padding: 14px 28px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: 600; transition: transform 0.2s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .result { margin-top: 15px; padding: 20px; background: #f8f9fa; border-radius: 6px; font-size: 14px; white-space: pre-wrap; max-height: 400px; overflow-y: auto; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .loading { color: #007bff; }
+        .badge { display: inline-block; padding: 6px 12px; background: #6f42c1; color: white; border-radius: 4px; font-size: 12px; font-weight: 600; margin-left: 10px; }
+        #promptDisplay { font-family: 'Consolas', monospace; font-size: 12px; background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 6px; max-height: 400px; overflow-y: auto; }
+
+        /* 时间线样式 */
+        .timeline-container { margin-top: 20px; }
+        .timeline-item { padding: 15px; margin: 10px 0; background: white; border-left: 4px solid #667eea; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .timeline-time { font-weight: 700; color: #667eea; font-size: 14px; }
+        .timeline-tone { display: inline-block; padding: 4px 10px; background: #667eea; color: white; border-radius: 3px; font-size: 11px; font-weight: 600; margin: 5px 0; }
+        .timeline-intensity { margin: 8px 0; }
+        .intensity-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; margin-top: 4px; }
+        .intensity-fill { height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); transition: width 0.3s; }
+        .timeline-desc { color: #666; font-size: 13px; margin-top: 8px; line-height: 1.5; }
+        .emotional-arc { padding: 15px; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); border-radius: 6px; margin: 15px 0; font-weight: 600; color: #2d3436; }
+        .total-duration { font-size: 18px; font-weight: 700; color: #333; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 智能时间线BGM生成器</h1>
+        <p class="subtitle">支持分镜时间解析和情感渐变 - GPT-5.4驱动</p>
+
+        <!-- 步骤1 -->
+        <div class="section">
+            <h3>步骤1: 输入分镜剧本</h3>
+            <textarea id="scriptText" placeholder="粘贴包含时间范围的分镜剧本...">第1场（0-17s）
+场景：地下冷柜区
+过程描写：
+Cade被绑在椅子上，满身是血。Evelyn冷冷地看着他。
+Cade：你以为杀了我就能结束吗？
+
+第2场（17-38s）
+场景：同一空间
+过程描写：
+Evelyn轻笑，屏幕亮起数据曲线。
+Evelyn: "Investors fund it. Politicians legalize it."
+Cade盯着那些名单，眼神变冷。
+
+第3场（38-59s）
+场景：冷柜区前
+过程描写：
+Cade: "Then I don't just get out. I drag all of you into daylight."
+安保微抬枪口。
+
+第4场（59-80s）
+场景：押返通道
+过程描写：
+Evelyn: "Keep him for the end."
+Cade被扭身押回，眼神已经不是单纯活命。</textarea>
+            <input type="text" id="scriptTitle" placeholder="剧本标题" value="episode_1_scene_1">
+            <label>
+                <input type="checkbox" id="useGPT" checked>
+                使用GPT-5.4智能时间线分析（推荐 - 自动识别场景时间和情感变化）
+            </label>
+            <button onclick="analyzeScript()">分析剧本时间线</button>
+            <div id="analyzeResult" class="result"></div>
+        </div>
+
+        <!-- 步骤2 -->
+        <div class="section">
+            <h3>步骤2: 查看时间线和情感曲线</h3>
+            <div id="timelineDisplay" class="timeline-container"></div>
+            <div id="emotionalArcDisplay"></div>
+            <div id="promptDisplay" class="result">等待分析...</div>
+        </div>
+
+        <!-- 步骤3 -->
+        <div class="section">
+            <h3>步骤3: 生成BGM</h3>
+            <button id="generateBtn" onclick="generateBGM()" disabled>生成时间线BGM（1-2分钟）</button>
+            <div id="generateResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        let promptData = null;
+
+        function log(msg) {
+            console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
+        }
+
+        async function analyzeScript() {
+            const scriptText = document.getElementById('scriptText').value;
+            const scriptTitle = document.getElementById('scriptTitle').value || 'test';
+            const useGPT = document.getElementById('useGPT').checked;
+
+            if (!scriptText || scriptText.length < 10) {
+                alert('请输入至少10字的剧本内容');
+                return;
+            }
+
+            const resultDiv = document.getElementById('analyzeResult');
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = useGPT
+                ? '🤖 GPT-5.4分析中...\n\n正在识别场景时间范围和情感变化\n（需要30-50秒）'
+                : '关键词分析中...';
+
+            try {
+                const response = await fetch('http://localhost:5002/api/script-to-prompt', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        script_text: scriptText,
+                        script_title: scriptTitle,
+                        use_gpt_analysis: useGPT
+                    })
+                });
+
+                const data = await response.json();
+                log('Analysis response received');
+                log('Data keys:', Object.keys(data));
+
+                if (data.success) {
+                    const method = data.analysis.used_gpt_analysis ? 'GPT-5.4' : '关键词';
+                    resultDiv.className = 'result success';
+
+                    // 显示基本信息
+                    let resultHTML = `✅ 分析成功！<span class="badge">${method}</span>\n`;
+                    resultHTML += `主基调: ${data.script_info.primary_tone}\n`;
+                    resultHTML += `置信度: ${(data.script_info.confidence * 100).toFixed(0)}%\n`;
+
+                    if (data.script_info.total_duration) {
+                        resultHTML += `总时长: ${data.script_info.total_duration}秒\n`;
+                    }
+
+                    resultDiv.innerHTML = resultHTML;
+
+                    // 显示提示词
+                    document.getElementById('promptDisplay').textContent = JSON.stringify(data.bgm_prompt, null, 2);
+
+                    // 显示时间线（如果有）
+                    const timelineDiv = document.getElementById('timelineDisplay');
+                    const arcDiv = document.getElementById('emotionalArcDisplay');
+
+                    if (data.analysis.used_gpt_analysis && data.analysis.timeline && data.analysis.timeline.length > 0) {
+                        // 显示情感曲线
+                        if (data.analysis.emotional_arc) {
+                            arcDiv.innerHTML = `<div class="emotional-arc">📊 情感曲线：${data.analysis.emotional_arc}</div>`;
+                        } else {
+                            arcDiv.innerHTML = '';
+                        }
+
+                        // 显示时间线
+                        let timelineHTML = '<div class="total-duration">⏱ 时间线分析：</div>';
+                        data.analysis.timeline.forEach((item, index) => {
+                            const intensityPercent = (item.intensity / 10) * 100;
+
+                            timelineHTML += `
+                                <div class="timeline-item">
+                                    <div class="timeline-time">⏰ ${item.time_range} (${item.duration}秒)</div>
+                                    <span class="timeline-tone">${item.emotional_tone}</span>
+                                    <div class="timeline-intensity">
+                                        强度: ${item.intensity}/10
+                                        <div class="intensity-bar">
+                                            <div class="intensity-fill" style="width: ${intensityPercent}%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-desc">${item.scene_description || ''}</div>
+                                    ${item.music_suggestion ? `<div class="timeline-desc" style="color:#667eea;">🎵 ${item.music_suggestion}</div>` : ''}
+                                </div>
+                            `;
+                        });
+                        timelineDiv.innerHTML = timelineHTML;
+                    } else {
+                        timelineDiv.innerHTML = '<p style="color:#999;">暂无时间线数据（请使用GPT-5.4分析）</p>';
+                        arcDiv.innerHTML = '';
+                    }
+
+                    promptData = data;
+                    document.getElementById('generateBtn').disabled = false;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ 分析失败：${data.error}`;
+                }
+            } catch (error) {
+                log('Error:', error);
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ 请求失败：${error.message}`;
+            }
+        }
+
+        async function generateBGM() {
+            if (!promptData) {
+                alert('请先分析剧本');
+                return;
+            }
+
+            if (!promptData.bgm_prompt) {
+                alert('数据错误，请重新分析剧本');
+                console.error('[ERROR] promptData缺少bgm_prompt字段:', promptData);
+                return;
+            }
+
+            const resultDiv = document.getElementById('generateResult');
+            resultDiv.className = 'result loading';
+            resultDiv.textContent = '🎵 生成时间线BGM中...\n\n⏱ 需要1-2分钟，请耐心等待\n音乐会根据时间线自动变化情感\n不要关闭此页面！';
+
+            try {
+                log('Starting BGM generation...');
+                log('BGM prompt keys:', Object.keys(promptData.bgm_prompt));
+                log('Tags length:', promptData.bgm_prompt.tags?.length || 0);
+
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 180000);
+
+                const response = await fetch('http://localhost:5002/api/generate-direct', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({prompt_data: promptData}),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                const responseText = await response.text();
+                log('Response status:', response.status);
+                log('Response text (first 300 chars):', responseText.substring(0, 300));
+
+                let data;
+                try {
+                    data = responseText ? JSON.parse(responseText) : {};
+                } catch (parseError) {
+                    log('JSON parse error:', parseError);
+                    throw new Error(responseText || `HTTP ${response.status}`);
+                }
+
+                log('Parsed data:', data);
+
+                if (data.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `✅✅✅ BGM生成成功！\n\n基调: ${data.tone}\n音频文件: ${data.audio_file}\n\n<audio controls src="${data.audio_file}" style="width:100%"></audio>`;
+                } else {
+                    resultDiv.className = 'result error';
+                    let errorMsg = `❌ 生成失败\n\n错误: ${data.error}`;
+
+                    if (data.error_type) {
+                        errorMsg += `\n错误类型: ${data.error_type}`;
+                    }
+
+                    if (data.details) {
+                        const details = data.details;
+                        errorMsg += `\n\n详细信息:\n`;
+                        if (details.status_code) {
+                            errorMsg += `  HTTP状态: ${details.status_code}\n`;
+                        }
+                        if (details.response_body) {
+                            try {
+                                const respJson = JSON.parse(details.response_body);
+                                const errorMsgText = JSON.stringify(respJson);
+                                if (errorMsgText.includes('unusual activity')) {
+                                    errorMsg += `  API错误: 检测到异常活动，API密钥可能被限流\n`;
+                                    errorMsg += `  建议：稍后重试或联系API提供商\n`;
+                                } else {
+                                    errorMsg += `  API错误: ${errorMsgText.substring(0, 200)}...\n`;
+                                }
+                            } catch {
+                                errorMsg += `  API响应: ${details.response_body.substring(0, 200)}...\n`;
+                            }
+                        }
+                        if (details.tags_length !== undefined) {
+                            errorMsg += `  Tags长度: ${details.tags_length} chars\n`;
+                        }
+                    }
+
+                    resultDiv.textContent = errorMsg;
+                }
+            } catch (error) {
+                log('Request failed:', error);
+                resultDiv.className = 'result error';
+
+                // 尝试读取响应文本
+                let errorDetails = '';
+                try {
+                    if (error.response) {
+                        error.response.text().then(text => {
+                            resultDiv.textContent = `❌ 请求失败：\n\n${error.message}\n\n服务器响应:\n${text}`;
+                        });
+                    } else {
+                        resultDiv.textContent = `❌ 请求失败：\n\n${error.message}\n\n请检查:\n1. 服务器是否运行（端口5002）\n2. 查看Network标签页查看详细错误`;
+                    }
+                } catch (e) {
+                    resultDiv.textContent = `❌ 请求失败：\n\n${error.message}\n\n请打开F12 → Network标签页，点击generate-direct请求，查看Response内容`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

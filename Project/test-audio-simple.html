@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>音频播放测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: 0 auto; background: #f5f5f5; }
+        h1 { color: #333; }
+        .audio-item { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .audio-item h3 { color: #667eea; margin-top: 0; }
+        audio { width: 100%; margin-top: 10px; }
+        .url { background: #f8f9fa; padding: 8px; border-radius: 4px; font-family: monospace; font-size: 12px; word-break: break-all; }
+        .status { padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 10px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🎵 音频播放测试页面</h1>
+    <p>以下是可以直接播放的音频文件（英文文件名）：</p>
+
+    <div id="audioList"></div>
+
+    <script>
+        const audioFiles = [
+            'action_direct_20260509_174421.mp3',
+            'action_timeline_20260509_174421.mp3',
+            'tense_20260509_174412.mp3',
+            'tense_20260509_174421.mp3',
+            'tension_dark_2.mp3',
+            'tension_fast_1.mp3',
+            'tension_heartbeat_3.mp3'
+        ];
+
+        const serverUrl = 'http://localhost:5002';
+
+        async function testAudio(filename) {
+            const url = `${serverUrl}/api/audio/${filename}`;
+
+            // 测试HEAD请求
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    return `<span class="status success">✓ 文件存在 (${response.status})</span>`;
+                } else {
+                    return `<span class="status error">✗ 文件不存在 (${response.status})</span>`;
+                }
+            } catch (error) {
+                return `<span class="status error">✗ 网络错误: ${error.message}</span>`;
+            }
+        }
+
+        async function loadAudioList() {
+            const listDiv = document.getElementById('audioList');
+            let html = '';
+
+            for (const filename of audioFiles) {
+                const url = `${serverUrl}/api/audio/${filename}`;
+                const status = await testAudio(filename);
+
+                html += `
+                    <div class="audio-item">
+                        <h3>${filename}</h3>
+                        <div class="url">URL: ${url}</div>
+                        ${status}
+                        <audio controls src="${url}">
+                            您的浏览器不支持音频播放。
+                        </audio>
+                    </div>
+                `;
+            }
+
+            listDiv.innerHTML = html;
+        }
+
+        // 页面加载时执行
+        window.onload = function() {
+            loadAudioList();
+            console.log('音频测试页面已加载');
+            console.log('如果音频无法播放，请检查：');
+            console.log('1. 服务器是否运行在端口5002');
+            console.log('2. 浏览器控制台是否有错误');
+            console.log('3. 网络标签页中音频文件的HTTP状态码');
+        };
+    </script>
+</body>
+</html>
