@@ -11,8 +11,11 @@ from pathlib import Path
 from typing import Optional
 
 from .config import Config
-from .tone_params import TONE_PARAMS, render_suno_payload, pick_bpm
+from .tone_params import (
+    TONE_PARAMS, render_suno_payload, render_storyboard_payload, pick_bpm,
+)
 from .gpt_analyzer import analyze_script_structured
+from .storyboard import analyze_storyboard
 from .suno_client import SunoClient
 from .quality import score_candidate
 from .post import fade_and_normalize
@@ -178,6 +181,90 @@ def generate_bgm_v2(
             "fade_out_ms": cfg.fade_out_ms,
             "lufs_normalized": True,
             "target_lufs": cfg.target_lufs,
+        },
+    }
+
+
+# ----------------------------------------------------------------------
+# Storyboard-driven pipeline — shot-aware, no stinger (SFX is the video model's job)
+# ----------------------------------------------------------------------
+
+def generate_bgm_from_storyboard(
+    storyboard_text: str,
+    title: str,
+    out_dir: Path,
+    *,
+    config: Optional[Config] = None,
+    duration_override: Optional[int] = None,
+) -> dict:
+    """Storyboard-aware BGM pipeline.
+
+    Steps:
+      1. GPT parses the storyboard table → shots[] + cues[] + primary_tone.
+      2. render_storyboard_payload builds a Suno prompt whose dynamics arc
+         walks through every cue (so the single track responds to the full
+         emotional curve, not just the dominant tone).
+      3. Suno 2-candidate generation, score on vocal-energy + BPM match.
+      4. Strict-duration trim + 3s fade-out + LUFS normalize to -18.
+      5. No stinger overlay — SFX (thunder, glass, screams) is generated
+         by the video model, not BGM.
+    """
+    cfg = config or Config()
+    cfg.ensure_dirs()
+
+    analysis = analyze_storyboard(storyboard_text, title, cfg)
+    total = duration_override or analysis["total_duration_s"]
+    primary_tone = analysis["primary_tone"]
+    cues = analysis["cues"]
+    target_bpm = pick_bpm(primary_tone, analysis["primary_intensity"])
+
+    payload = render_storyboard_payload(
+        cues=cues,
+        total_duration_s=total,
+        title=title,
+        primary_tone=primary_tone,
+    )
+
+    client = SunoClient(cfg)
+    candidates = client.generate(payload)
+    scored = [score_candidate(p, target_bpm) for p in candidates]
+    scored.sort(key=lambda m: m["score"], reverse=True)
+    best = Path(scored[0]["path"])
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    final = out_dir / f"{primary_tone}_{total}s_sb_{ts}.mp3"
+    fade_and_normalize(
+        best,
+        target_duration_s=total,
+        target_lufs=cfg.target_lufs,
+        fade_out_ms=cfg.fade_out_ms,
+        out_path=final,
+        strict_duration=True,
+    )
+
+    # measure final length so we can prove the duration match
+    try:
+        from pydub import AudioSegment as _AS
+        final_ms = len(_AS.from_mp3(str(final)))
+    except Exception:
+        final_ms = None
+
+    return {
+        "pipeline": "storyboard",
+        "analysis": analysis,
+        "payload": payload,
+        "candidates": scored,
+        "chosen_clip": str(best),
+        "final_audio": str(final),
+        "target_duration_s": total,
+        "final_duration_ms": final_ms,
+        "duration_delta_ms": (final_ms - total * 1000) if final_ms is not None else None,
+        "post_processing": {
+            "fade_out_ms": cfg.fade_out_ms,
+            "lufs_normalized": True,
+            "target_lufs": cfg.target_lufs,
+            "strict_duration": True,
         },
     }
 

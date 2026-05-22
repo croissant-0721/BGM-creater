@@ -16,7 +16,7 @@ class Config:
     gpt_api_base: str = field(default_factory=lambda: os.getenv(
         "BGM_GPT_API_BASE", "https://yunwu.ai/v1"
     ))
-    gpt_model: str = field(default_factory=lambda: os.getenv("BGM_GPT_MODEL", "gpt-5"))
+    gpt_model: str = field(default_factory=lambda: os.getenv("BGM_GPT_MODEL", "gpt-5.4"))
 
     suno_api_key: str = field(default_factory=lambda: os.getenv("BGM_SUNO_API_KEY", ""))
     suno_api_base: str = field(default_factory=lambda: os.getenv(

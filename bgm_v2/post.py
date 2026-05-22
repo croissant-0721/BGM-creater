@@ -11,13 +11,30 @@ def fade_and_normalize(
     target_duration_s: int,
     target_lufs: float = -18.0,
     fade_out_ms: int = 3000,
+    fade_in_ms: int = 0,
     out_path: Optional[Path] = None,
+    strict_duration: bool = False,
 ) -> Path:
-    """Trim, fade out, then loudness-normalize to target_lufs."""
+    """Trim, fade, then loudness-normalize.
+
+    Args:
+        target_duration_s: target length in seconds.
+        strict_duration: when True, pad with silence if the source is shorter
+            than target so the output is exactly target_duration_s long. When
+            False (legacy behavior), shorter sources are returned unpadded.
+    """
     audio = AudioSegment.from_mp3(str(src))
     target_ms = int(target_duration_s * 1000)
+
     if 0 < target_ms < len(audio):
         audio = audio[:target_ms]
+    elif strict_duration and target_ms > len(audio):
+        # pad with silence rather than return a too-short track
+        pad = AudioSegment.silent(duration=target_ms - len(audio), frame_rate=audio.frame_rate)
+        audio = audio + pad
+
+    if fade_in_ms > 0:
+        audio = audio.fade_in(min(fade_in_ms, len(audio)))
     if fade_out_ms > 0:
         audio = audio.fade_out(min(fade_out_ms, len(audio)))
 
