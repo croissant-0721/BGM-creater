@@ -1,21 +1,22 @@
 """Multi-segment BGM generation + auto-stitching.
 
-Each emotional cue gets its own Suno generation, then we stitch them together.
+每个情绪段(cue)都精确对应一段 BGM；同情绪只调一次 Suno，但每个 cue 都按
+自己的时长独立裁剪，保证拼出来的总时长 == 剧本总时长，绝不超、不错位。
 """
 from __future__ import annotations
 import json
 import time
-from datetime import datetime
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Dict
+
+from pydub import AudioSegment
 
 from .config import Config
-from .gpt_analyzer import analyze_script_structured, normalize_tone
-from .storyboard import analyze_storyboard
+from .gpt_analyzer import normalize_tone
 from .suno_client import SunoClient
 from .tone_params import TONE_PARAMS, pick_bpm
 from .quality import score_candidate
-from .post import fade_and_normalize, crossfade_segments
+from .post import _loudness_normalize
 
 
 # 叙事节点关键词列表 - 这些节点必须强制切cue
@@ -23,6 +24,15 @@ NARRATIVE_NODES = [
     "反转", "真相大白", "胜利", "和解", "结婚", "合作",
     "释然", "豁然开朗", "关键动作", "惊喜", "突变",
 ]
+
+# transition 类型 → crossfade 时长(ms)
+TRANSITION_CROSSFADE_MS = {
+    "continue": 800,    # 同情绪：柔和过渡
+    "gradual": 1200,    # 中等变化：稍长过渡
+    "abrupt": 0,        # 剧烈变化：硬切
+    "dramatic": 0,      # 叙事爽点：硬切
+    "cold": 0,          # 第一段：无过渡
+}
 
 
 def _contains_narrative_node(text: str) -> bool:
@@ -32,42 +42,46 @@ def _contains_narrative_node(text: str) -> bool:
     return any(node in text for node in NARRATIVE_NODES)
 
 
-def _compute_transition_type(prev_cue: dict, curr_cue: dict) -> str:
-    """计算两个cue之间的过渡类型。
+def _is_dramatic_change(tone1: str, tone2: str) -> bool:
+    """判断是否是剧烈的情绪变化。"""
+    dramatic_pairs = [
+        ("静默", "动作"), ("静默", "反击"), ("静默", "恐惧"),
+        ("温馨", "恐惧"), ("温馨", "紧张"),
+        ("悲伤", "励志"), ("悲伤", "动作"),
+        ("豪门", "恐惧"), ("豪门", "异常"),
+    ]
+    return (tone1, tone2) in dramatic_pairs or (tone2, tone1) in dramatic_pairs
 
-    Returns:
-        "continue" - 相同tone，强度相似
-        "gradual" - tone变化但相近（如紧张→动作）
-        "abrupt" - 剧烈变化（如静默→爆发）
-        "dramatic" - 叙事节点触发
-    """
+
+def _compute_transition_type(prev_cue: Optional[dict], curr_cue: dict) -> str:
+    """计算两个cue之间的过渡类型。"""
     if not prev_cue:
-        return "cold"  # 第一个cue
+        return "cold"
 
     prev_tone = prev_cue.get("tone", "")
     curr_tone = curr_cue.get("tone", "")
     prev_intensity = prev_cue.get("intensity_peak", 5)
     curr_intensity = curr_cue.get("intensity_peak", 5)
 
-    # 检查是否有叙事节点触发
     if curr_cue.get("has_narrative_node"):
         return "dramatic"
-
-    # 检查是否是剧烈的情绪变化
     if _is_dramatic_change(prev_tone, curr_tone):
         return "abrupt"
-
-    # 检查强度跳变
     if abs(curr_intensity - prev_intensity) >= 4:
         return "abrupt"
-
-    # 相同tone
     if prev_tone == curr_tone:
         return "continue"
-
-    # 默认为渐变
     return "gradual"
 
+
+def _crossfade_for(transition: str) -> int:
+    """根据过渡类型返回 crossfade 时长(ms)。"""
+    return TRANSITION_CROSSFADE_MS.get(transition, 1200)
+
+
+# ----------------------------------------------------------------------------
+# cue 检测
+# ----------------------------------------------------------------------------
 
 def detect_emotional_cues(
     analysis: dict,
@@ -76,153 +90,143 @@ def detect_emotional_cues(
 ) -> List[dict]:
     """从timeline或cues检测情绪分段。
 
-    规则：
-    - tone变化必须切
-    - intensity跳变>=3必须切
-    - 叙事节点（反转/真相/胜利等）必须切
-    - 每段6-30秒
-    - 相邻同tone段落会自动合并
+    无论输入来自 storyboard(cues) 还是 timeline，最终都会：
+    - 平铺成连续、无空隙、无重叠的段
+    - 各段时长之和 == 剧本总时长（保证后续 BGM 不超时、不错位）
+    - 计算每段相对上一段的 transition_from_previous
     """
-    if "cues" in analysis and analysis["cues"]:
-        # 已经有cues（来自storyboard分析）
-        cues = _split_long_cues(analysis["cues"], min_cue_duration, max_cue_duration)
-        # 合并相邻的同情绪段落
-        cues = _merge_same_tone_cues(cues)
-        return cues
+    total = analysis.get("total_duration_s") or analysis.get("total_duration") or 0
 
-    # 从timeline构建cues
-    timeline = analysis.get("timeline", [])
-    if not timeline:
-        return [{
-            "id": 1,
+    if analysis.get("cues"):
+        # 来自 storyboard 的 cue 列表
+        raw = _split_long_cues(_coerce_cues(analysis["cues"]), min_cue_duration, max_cue_duration)
+        raw = _merge_same_tone_cues(raw)
+    elif analysis.get("timeline"):
+        raw = _build_cues_from_timeline(analysis, min_cue_duration, max_cue_duration)
+    else:
+        raw = [{
             "start_s": 0,
-            "end_s": analysis.get("total_duration", 60),
-            "duration_s": analysis.get("total_duration", 60),
-            "tone": analysis.get("primary_tone", "紧张"),
+            "end_s": total or 60,
+            "duration_s": total or 60,
+            "tone": normalize_tone(analysis.get("primary_tone", "紧张")),
             "intensity_peak": analysis.get("primary_intensity", 5),
-            "shot_ids": [],
         }]
 
-    cues = []
-    current_cue = {
+    if not total:
+        total = sum(
+            c.get("duration_s") or (c.get("end_s", 0) - c.get("start_s", 0)) for c in raw
+        ) or 60
+
+    cues = _normalize_cue_timeline(raw, int(total))
+    _assign_transitions(cues)
+    return cues
+
+
+def _coerce_cues(cues: List[dict]) -> List[dict]:
+    """把外部 cue 列表统一成带 start_s/end_s/duration_s/tone/intensity_peak 的形式。"""
+    out = []
+    for c in cues:
+        start = c.get("start_s", 0)
+        end = c.get("end_s", start + c.get("duration_s", 0))
+        nc = dict(c)
+        nc["start_s"] = start
+        nc["end_s"] = end
+        nc["duration_s"] = max(0, end - start)
+        nc["tone"] = normalize_tone(c.get("tone", "紧张"))
+        nc.setdefault("intensity_peak", c.get("intensity", 5))
+        out.append(nc)
+    return out
+
+
+def _build_cues_from_timeline(analysis: dict, min_dur: int, max_dur: int) -> List[dict]:
+    """从带时间戳的 timeline 构建情绪段。"""
+    timeline = analysis["timeline"]
+    first_tone = normalize_tone(timeline[0].get("emotional_tone", "紧张"))
+    current = {
         "start_s": 0,
-        "tone": timeline[0].get("emotional_tone", "紧张"),
+        "tone": first_tone,
         "intensity_peak": timeline[0].get("intensity", 5),
+        "duration_s": 0,
     }
 
+    cues: List[dict] = []
     for seg in timeline:
         duration = seg.get("duration", 0)
         seg_tone = normalize_tone(seg.get("emotional_tone", "紧张"))
         seg_intensity = seg.get("intensity", 5)
+        has_node = _contains_narrative_node(seg.get("scene_description", ""))
 
-        # 检查是否包含叙事节点关键词
-        seg_description = seg.get("scene_description", "")
-        has_narrative_node = _contains_narrative_node(seg_description)
-
-        # 检查是否需要切cue
         should_split = (
-            has_narrative_node or  # 叙事节点强制切
-            seg_tone != current_cue["tone"] or  # tone变化
-            abs(seg_intensity - current_cue["intensity_peak"]) >= 3  # 强度跳变
+            has_node
+            or seg_tone != current["tone"]
+            or abs(seg_intensity - current["intensity_peak"]) >= 3
         )
 
-        if should_split:
-            # 结束当前cue
-            current_cue["end_s"] = current_cue["start_s"] + current_cue.get("duration_s", 0)
-            current_cue["duration_s"] = current_cue["end_s"] - current_cue["start_s"]
-            if current_cue["duration_s"] > 0:
-                cues.append(current_cue)
-
-            # 开始新cue
-            current_cue = {
-                "start_s": current_cue["end_s"],
+        if should_split and current["duration_s"] > 0:
+            current["end_s"] = current["start_s"] + current["duration_s"]
+            cues.append(current)
+            current = {
+                "start_s": current["end_s"],
                 "tone": seg_tone,
                 "intensity_peak": seg_intensity,
                 "duration_s": duration,
             }
         else:
-            # 继续当前cue
-            current_cue["duration_s"] = current_cue.get("duration_s", 0) + duration
-            # 更新强度峰值为最高
-            current_cue["intensity_peak"] = max(current_cue["intensity_peak"], seg_intensity)
+            current["duration_s"] += duration
+            current["intensity_peak"] = max(current["intensity_peak"], seg_intensity)
 
-    # 添加最后一个cue
-    if current_cue.get("duration_s", 0) > 0:
-        current_cue["end_s"] = current_cue["start_s"] + current_cue["duration_s"]
-        cues.append(current_cue)
+    if current["duration_s"] > 0:
+        current["end_s"] = current["start_s"] + current["duration_s"]
+        cues.append(current)
 
-    # 分配ID和shot_ids，并计算transition_from_previous
-    for i, cue in enumerate(cues):
-        cue["id"] = i + 1
-        cue.setdefault("shot_ids", [])
-
-        # 计算与前一个cue的过渡类型
-        if i > 0:
-            prev_cue = cues[i - 1]
-            cue["transition_from_previous"] = _compute_transition_type(prev_cue, cue)
-        else:
-            cue["transition_from_previous"] = "cold"  # 第一个cue
-
-    # 分割过长的cue，合并过短的
-    cues = _split_long_cues(cues, min_cue_duration, max_cue_duration)
-
-    # 确保完整覆盖
-    _ensure_full_coverage(cues, analysis.get("total_duration", 60))
-
-    return cues
+    return _split_long_cues(cues, min_dur, max_dur)
 
 
 def _split_long_cues(cues: List[dict], min_dur: int, max_dur: int) -> List[dict]:
-    """分割过长的cue，合并过短的cue。"""
+    """分割过长的cue，合并过短的相邻同情绪cue。"""
     if not cues:
         return cues
 
-    result = []
-
+    result: List[dict] = []
     for cue in cues:
-        duration = cue["end_s"] - cue["start_s"]
+        start = cue.get("start_s", 0)
+        end = cue.get("end_s", start + cue.get("duration_s", 0))
+        duration = end - start
 
         if duration > max_dur:
-            # 分割
             num_parts = (duration + max_dur - 1) // max_dur
             part_dur = duration // num_parts
-
             for i in range(num_parts):
+                p_start = start + i * part_dur
+                p_end = end if i == num_parts - 1 else start + (i + 1) * part_dur
                 result.append({
-                    "id": len(result) + 1,
-                    "start_s": cue["start_s"] + i * part_dur,
-                    "end_s": cue["start_s"] + (i + 1) * part_dur if i < num_parts - 1 else cue["end_s"],
-                    "duration_s": part_dur if i < num_parts - 1 else cue["end_s"] - (cue["start_s"] + i * part_dur),
+                    "start_s": p_start,
+                    "end_s": p_end,
+                    "duration_s": p_end - p_start,
                     "tone": cue["tone"],
-                    "intensity_peak": cue["intensity_peak"],
-                    "shot_ids": [],
+                    "intensity_peak": cue.get("intensity_peak", 5),
                 })
         else:
-            # 确保原始cue也有duration_s字段
             cue["duration_s"] = duration
             result.append(cue)
 
-    # 合并过短的相邻cue（如果tone相同）
-    merged = []
+    # 合并过短的相邻同情绪cue
+    merged: List[dict] = []
     i = 0
     while i < len(result):
         current = result[i]
-        if current["duration_s"] < min_dur and i + 1 < len(result):
-            next_cue = result[i + 1]
-            if current["tone"] == next_cue["tone"]:
-                # 合并
-                merged.append({
-                    "id": len(merged) + 1,
-                    "start_s": current["start_s"],
-                    "end_s": next_cue["end_s"],
-                    "duration_s": next_cue["end_s"] - current["start_s"],
-                    "tone": current["tone"],
-                    "intensity_peak": max(current["intensity_peak"], next_cue["intensity_peak"]),
-                    "shot_ids": [],
-                })
-                i += 2
-                continue
-
+        if current["duration_s"] < min_dur and i + 1 < len(result) \
+                and current["tone"] == result[i + 1]["tone"]:
+            nxt = result[i + 1]
+            merged.append({
+                "start_s": current["start_s"],
+                "end_s": nxt["end_s"],
+                "duration_s": nxt["end_s"] - current["start_s"],
+                "tone": current["tone"],
+                "intensity_peak": max(current.get("intensity_peak", 5), nxt.get("intensity_peak", 5)),
+            })
+            i += 2
+            continue
         merged.append(current)
         i += 1
 
@@ -234,51 +238,75 @@ def _merge_same_tone_cues(cues: List[dict]) -> List[dict]:
     if not cues:
         return cues
 
-    merged = []
-    current = cues[0].copy()
-    current["id"] = 1
-
-    for next_cue in cues[1:]:
-        # 如果tone相同，合并
-        if current["tone"] == next_cue["tone"]:
-            current["end_s"] = next_cue["end_s"]
-            current["duration_s"] = current["end_s"] - current["start_s"]
-            current["intensity_peak"] = max(current["intensity_peak"], next_cue.get("intensity_peak", 5))
-            current["shot_ids"] = list(set(current.get("shot_ids", []) + next_cue.get("shot_ids", [])))
+    merged = [dict(cues[0])]
+    for nxt in cues[1:]:
+        cur = merged[-1]
+        if cur["tone"] == nxt["tone"]:
+            cur["end_s"] = nxt["end_s"]
+            cur["duration_s"] = cur["end_s"] - cur["start_s"]
+            cur["intensity_peak"] = max(cur.get("intensity_peak", 5), nxt.get("intensity_peak", 5))
         else:
-            # tone不同，保存当前，开始新的
-            merged.append(current)
-            current = next_cue.copy()
-            current["id"] = len(merged) + 1
-
-    merged.append(current)
+            merged.append(dict(nxt))
     return merged
 
 
-def _ensure_full_coverage(cues: List[dict], total_duration: int) -> None:
-    """确保cues完整覆盖整个时长。"""
-    if not cues:
-        cues.append({
-            "id": 1,
-            "start_s": 0,
-            "end_s": total_duration,
-            "duration_s": total_duration,
-            "tone": "紧张",
-            "intensity_peak": 5,
-            "shot_ids": [],
-        })
-        return
+def _normalize_cue_timeline(cues: List[dict], total: int) -> List[dict]:
+    """把cue平铺成连续、无空隙、总和==total的时间线。
 
-    # 确保从0开始
-    if cues[0]["start_s"] != 0:
-        cues[0]["start_s"] = 0
-        cues[0]["duration_s"] = cues[0]["end_s"] - 0
+    - 从 0 开始，逐段首尾相接
+    - 累计超过 total 的段被截断，其后丢弃 → 永不超时
+    - 若总长不足 total，最后一段拉长补齐 → 完整覆盖
+    """
+    if total <= 0:
+        total = sum(c.get("duration_s", 0) for c in cues) or 60
 
-    # 确保到total结束
-    if cues[-1]["end_s"] != total_duration:
-        cues[-1]["end_s"] = total_duration
-        cues[-1]["duration_s"] = total_duration - cues[-1]["start_s"]
+    out: List[dict] = []
+    cursor = 0
+    for c in cues:
+        if cursor >= total:
+            break
+        dur = c.get("duration_s") or (c.get("end_s", 0) - c.get("start_s", 0))
+        if dur <= 0:
+            continue
+        start = cursor
+        end = min(total, cursor + dur)
+        nc = dict(c)
+        nc["start_s"] = start
+        nc["end_s"] = end
+        nc["duration_s"] = end - start
+        out.append(nc)
+        cursor = end
 
+    if not out:
+        out = [{
+            "start_s": 0, "end_s": total, "duration_s": total,
+            "tone": "紧张", "intensity_peak": 5,
+        }]
+
+    # 不足总时长 → 最后一段补齐
+    if out[-1]["end_s"] < total:
+        out[-1]["end_s"] = total
+        out[-1]["duration_s"] = total - out[-1]["start_s"]
+
+    for i, c in enumerate(out):
+        c["id"] = i + 1
+        c["tone"] = normalize_tone(c.get("tone", "紧张"))
+        c.setdefault("intensity_peak", c.get("intensity", 5))
+        c.setdefault("shot_ids", [])
+    return out
+
+
+def _assign_transitions(cues: List[dict]) -> None:
+    """为每个cue计算 transition_from_previous。"""
+    for i, cue in enumerate(cues):
+        cue["transition_from_previous"] = _compute_transition_type(
+            cues[i - 1] if i > 0 else None, cue
+        )
+
+
+# ----------------------------------------------------------------------------
+# prompt + 生成
+# ----------------------------------------------------------------------------
 
 def build_prompt_for_cue(cue: dict, title: str) -> dict:
     """为单个cue构建Suno prompt。"""
@@ -290,7 +318,6 @@ def build_prompt_for_cue(cue: dict, title: str) -> dict:
     bpm = pick_bpm(tone, intensity)
     key = params.key_options[0]
 
-    # 构建prompt
     prompt = (
         f"*** INSTRUMENTAL ONLY - NO VOCALS ***\n"
         f"Create a {duration}s {params.name_en} cinematic background music.\n"
@@ -313,127 +340,41 @@ def build_prompt_for_cue(cue: dict, title: str) -> dict:
     }
 
 
-def generate_segment(
-    cue: dict,
-    title: str,
-    output_dir: Path,
-    cfg: Config,
-) -> dict:
-    """为单个cue生成音频段。"""
+def _generate_raw_for_tone(cue: dict, title: str, cfg: Config) -> Path:
+    """为某种情绪调用一次 Suno，返回打分最高的**原始候选**(未裁剪)。"""
     prompt_data = build_prompt_for_cue(cue, title)
-
     payload = {
         "prompt": prompt_data["prompt"],
         "tags": prompt_data["tags"],
-        "title": f"{title}_cue{cue['id']}",
-        "mv": "chirp-v4",
+        "title": f"{title}_{cue['tone']}",
+        "mv": cfg.suno_model,
         "make_instrumental": True,
     }
 
     client = SunoClient(cfg)
     candidates = client.generate(payload)
 
-    # 选择最佳候选
-    target_bpm = pick_brompt(cue["tone"], cue["intensity_peak"])
+    target_bpm = pick_bpm(cue["tone"], cue["intensity_peak"])
     scored = [score_candidate(p, target_bpm) for p in candidates]
     scored.sort(key=lambda m: m["score"], reverse=True)
-    best = Path(scored[0]["path"])
-
-    # 裁剪到精确时长
-    output_file = output_dir / f"cue_{cue['id']}_{cue['tone']}.mp3"
-    fade_and_normalize(
-        best,
-        target_duration_s=cue["duration_s"],
-        target_lufs=cfg.target_lufs,
-        fade_out_ms=0,  # 不fade，让stitcher处理
-        out_path=output_file,
-    )
-
-    return {
-        "cue_id": cue["id"],
-        "audio": str(output_file),
-        "duration_s": cue["duration_s"],
-        "tone": cue["tone"],
-    }
+    best = scored[0]
+    print(f"[multisegment] {cue['tone']} 选中候选 score={best['score']} "
+          f"vocal={best['vocal_energy_ratio']} bpm={best['bpm_detected']}/{target_bpm}", flush=True)
+    return Path(best["path"])
 
 
-def stitch_segments(
-    segments: List[dict],
-    cues: List[dict],
-    output_path: Path,
-) -> Path:
-    """拼接所有音频段为完整BGM。
-
-    transition策略（基于transition_from_previous字段）：
-    - "continue"（相同情绪）: crossfade 800ms
-    - "gradual"（中等变化）: crossfade 1200ms
-    - "abrupt" / "dramatic"（剧烈变化）: hard cut (0ms)
-    - "cold"（第一个）: 无过渡
-    """
-    if not segments:
-        return output_path
-
-    if len(segments) == 1:
-        # 只有一段，直接返回
-        from pathlib import Path
-        import shutil
-        shutil.copy(segments[0]["audio"], output_path)
-        return output_path
-
-    # 计算transition类型
-    from pydub import AudioSegment
-
-    segment_paths = [s["audio"] for s in segments]
-    crossfade_durations = []
-
-    for i in range(1, len(cues)):  # 从第二个开始（索引1对应segments索引1）
-        transition_type = cues[i].get("transition_from_previous", "gradual")
-
-        # 根据transition类型决定crossfade时长
-        if transition_type == "continue":
-            crossfade_durations.append(800)
-        elif transition_type in ("abrupt", "dramatic", "cold"):
-            crossfade_durations.append(0)  # hard cut
-        else:  # "gradual" 或其他
-            crossfade_durations.append(1200)
-
-    # 依次拼接
-    result = AudioSegment.from_mp3(segment_paths[0])
-
-    for i in range(1, len(segment_paths)):
-        next_seg = AudioSegment.from_mp3(segment_paths[i])
-        cf_duration = crossfade_durations[i - 1]
-
-        if cf_duration > 0:
-            result = result.append(next_seg, crossfade=cf_duration)
-        else:
-            # hard cut
-            result = result + next_seg
-
-    # 整体fade out
-    result = result.fade_out(3000)
-
-    # 导出
-    result.export(str(output_path), format="mp3", bitrate="192k")
-    return output_path
+def _render_cue_clip(raw_path: Path, length_ms: int) -> AudioSegment:
+    """从原始候选裁出精确长度的片段；不足则补静音(strict)。"""
+    audio = AudioSegment.from_mp3(str(raw_path))
+    if len(audio) >= length_ms:
+        return audio[:length_ms]
+    pad = AudioSegment.silent(duration=length_ms - len(audio), frame_rate=audio.frame_rate)
+    return audio + pad
 
 
-def _is_dramatic_change(tone1: str, tone2: str) -> bool:
-    """判断是否是剧烈的情绪变化。"""
-    dramatic_pairs = [
-        ("静默", "动作"),
-        ("静默", "反击"),
-        ("静默", "恐惧"),
-        ("温馨", "恐惧"),
-        ("温馨", "紧张"),
-        ("悲伤", "励志"),
-        ("悲伤", "动作"),
-        ("豪门", "恐惧"),
-        ("豪门", "异常"),
-    ]
-
-    return (tone1, tone2) in dramatic_pairs or (tone2, tone1) in dramatic_pairs
-
+# ----------------------------------------------------------------------------
+# 主流程
+# ----------------------------------------------------------------------------
 
 def generate_bgm_multisegment(
     analysis: dict,
@@ -442,87 +383,124 @@ def generate_bgm_multisegment(
     *,
     config: Optional[Config] = None,
 ) -> dict:
-    """多段生成+拼接的完整pipeline。
+    """多段生成 + 拼接的完整 pipeline。
 
-    优化：相同情绪只生成一段BGM，然后重复使用。
+    - 每种情绪只调一次 Suno（省成本），保存原始候选
+    - 每个 cue 从所属情绪的原始候选按**自己的精确时长**单独裁剪
+    - 拼接时按过渡类型 crossfade，并补偿重叠量，使总长 == 剧本总时长
     """
     cfg = config or Config()
     cfg.ensure_dirs()
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. 检测emotional cues（已合并相邻同情绪）
+    # 1. 检测 cues（已平铺、总和==总时长、带 transition）
     cues = detect_emotional_cues(analysis)
+    total_duration = cues[-1]["end_s"]
 
-    # 2. 按情绪分组，每种情绪只生成一段BGM
+    print(f"[multisegment] 共 {len(cues)} 段, 总时长 {total_duration}s:", flush=True)
+    for c in cues:
+        print(f"  cue{c['id']}: {c['start_s']}-{c['end_s']}s ({c['duration_s']}s) "
+              f"| {c['tone']} | 强度{c['intensity_peak']} | {c['transition_from_previous']}", flush=True)
+
+    # 2. 每种情绪生成一次原始候选
+    raw_by_tone: Dict[str, Path] = {}
+    for cue in cues:
+        tone = cue["tone"]
+        if tone in raw_by_tone:
+            continue
+        if raw_by_tone:  # 非首次生成前等待，避免 Suno 限流
+            print(f"[multisegment] 等待 30s 避免限流...", flush=True)
+            time.sleep(30)
+        print(f"[multisegment] 生成新情绪段: {tone} (由 cue{cue['id']} 触发)", flush=True)
+        try:
+            raw_by_tone[tone] = _generate_raw_for_tone(cue, title, cfg)
+        except Exception as e:
+            print(f"[multisegment] {tone} 生成失败: {e}", flush=True)
+            if raw_by_tone:
+                fallback = next(iter(raw_by_tone))
+                print(f"[multisegment] 回退到已生成的 {fallback} 段", flush=True)
+                raw_by_tone[tone] = raw_by_tone[fallback]
+            else:
+                raise
+
+    # 3. 为每个 cue 渲染精确时长的片段（同情绪也各自独立裁剪）
     segments_dir = out_dir / "segments"
     segments_dir.mkdir(exist_ok=True)
 
-    # 记录已生成的情绪（tone -> segment info）
-    generated_tones = {}
-    segments = []
-
+    clips: List[AudioSegment] = []
+    seg_meta: List[dict] = []
     for cue in cues:
-        tone = cue["tone"]
-        if tone not in generated_tones:
-            # 为这个情绪生成新的BGM段
-            print(f"[multisegment] Generating NEW {tone} segment for cue {cue['id']}: {cue['start_s']}-{cue['end_s']}s", flush=True)
+        cf_in = _crossfade_for(cue["transition_from_previous"]) if cue["id"] > 1 else 0
+        # 多裁 cf_in 的长度，拼接 crossfade 重叠后净长 == cue 时长
+        length_ms = cue["duration_s"] * 1000 + cf_in
+        clip = _render_cue_clip(raw_by_tone[cue["tone"]], length_ms)
+        clips.append(clip)
 
-            # ⚠️ 在生成新段之前等待，避免API速率限制
-            if generated_tones:
-                wait_time = 30  # 第一次之后等待30秒
-                print(f"[multisegment] Waiting {wait_time}s before next generation to avoid rate limit...", flush=True)
-                time.sleep(wait_time)
+        seg_path = segments_dir / f"cue_{cue['id']}_{cue['tone']}.mp3"
+        clip.export(str(seg_path), format="mp3", bitrate="192k")
+        seg_meta.append({
+            "cue_id": cue["id"],
+            "start_s": cue["start_s"],
+            "end_s": cue["end_s"],
+            "duration_s": cue["duration_s"],
+            "tone": cue["tone"],
+            "transition": cue["transition_from_previous"],
+            "audio": str(seg_path),
+        })
 
-            try:
-                segment = generate_segment(cue, title, segments_dir, cfg)
-                generated_tones[tone] = segment
-                print(f"[multisegment] SUCCESS: {tone} segment generated: {segment['audio']}", flush=True)
-            except Exception as e:
-                print(f"[multisegment] FAILED to generate {tone} segment: {e}", flush=True)
-                # 回退策略：使用已生成的最接近的tone
-                if generated_tones:
-                    fallback_tone = list(generated_tones.keys())[0]
-                    print(f"[multisegment] Falling back to {fallback_tone} segment", flush=True)
-                    segment = generated_tones[fallback_tone].copy()
-                else:
-                    raise
-        else:
-            # 复用已生成的同情绪BGM
-            segment = generated_tones[tone].copy()
-            print(f"[multisegment] Reusing {tone} segment for cue {cue['id']}: {cue['start_s']}-{cue['end_s']}s", flush=True)
-
-        segments.append(segment)
-
-    # 3. 拼接所有段
-    print(f"[multisegment] Stitching {len(segments)} segments...", flush=True)
-    print(f"[multisegment] Generated {len(generated_tones)} unique segments: {list(generated_tones.keys())}", flush=True)
-    # 统一输出命名为 episode_final.mp3
+    # 4. 拼接（crossfade 补偿后总长 == 各 cue 时长之和）
     final_path = out_dir / "episode_final.mp3"
-
-    stitch_segments(segments, cues, final_path)
+    _stitch(clips, cues, total_duration, final_path, cfg)
 
     return {
         "pipeline": "multisegment",
-        "total_duration_s": sum(s["duration_s"] for s in segments),
-        "segments": [
-            {
-                "cue_id": s["cue_id"],
-                "start_s": cues[i]["start_s"],
-                "end_s": cues[i]["end_s"],
-                "audio": s["audio"],
-                "tone": cues[i].get("tone", ""),
-            }
-            for i, s in enumerate(segments)
-        ],
+        "total_duration_s": total_duration,
+        "segments": seg_meta,
         "final_audio": str(final_path),
         "cues": cues,
-        "unique_segments": len(generated_tones),
-        "unique_tones": list(generated_tones.keys()),
+        "unique_segments": len(raw_by_tone),
+        "unique_tones": list(raw_by_tone.keys()),
     }
 
 
-# 辅助函数
-def pick_brompt(tone: str, intensity: int) -> int:
-    """别名，避免与pick_bpm冲突。"""
-    return pick_bpm(tone, intensity)
+def _stitch(
+    clips: List[AudioSegment],
+    cues: List[dict],
+    total_duration: int,
+    output_path: Path,
+    cfg: Config,
+) -> Path:
+    """拼接所有片段，硬卡死到总时长，整体淡出，再统一响度归一。
+
+    片段 i (i>=1) 已多裁 cf_in 长度，crossfade 重叠 cf_in 后净增长 == cue 时长，
+    因此拼完总长 == sum(cue.duration_s) == total_duration。
+    """
+    if not clips:
+        return output_path
+
+    result = clips[0]
+    for i in range(1, len(clips)):
+        cf = _crossfade_for(cues[i]["transition_from_previous"])
+        if cf > 0:
+            cf = min(cf, len(result) - 1, len(clips[i]) - 1)
+            result = result.append(clips[i], crossfade=max(0, cf))
+        else:
+            result = result + clips[i]
+
+    # 硬卡死到精确总时长：超出截断、不足补静音
+    target_ms = total_duration * 1000
+    if len(result) > target_ms:
+        result = result[:target_ms]
+    elif len(result) < target_ms:
+        result = result + AudioSegment.silent(
+            duration=target_ms - len(result), frame_rate=result.frame_rate
+        )
+
+    # 整体淡出
+    result = result.fade_out(min(cfg.fade_out_ms, len(result)))
+
+    result.export(str(output_path), format="mp3", bitrate="192k")
+    # 统一响度归一到 -18 LUFS（对整曲做一次，保证段间响度一致）
+    _loudness_normalize(output_path, cfg.target_lufs)
+    return output_path
