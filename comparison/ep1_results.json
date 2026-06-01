@@ -1,0 +1,103 @@
+{
+  "ran_at": "2026-05-22T12:03:46",
+  "script_title": "ep1_wedding_runaway",
+  "analysis": {
+    "primary_tone": "紧张",
+    "primary_intensity": 9,
+    "total_duration": 120,
+    "emotional_arc": "从公开羞辱与背叛的骤然打击，到经济与名誉双重施压，再在陌生援手下转为逃离与自我收拢的逆转",
+    "tone_explanation": "公开撕裂与威胁持续加压形成高张力，走廊处出现援手带来短暂释压与转机。",
+    "timeline": [
+      {
+        "time_range": "0-40s",
+        "duration": 40,
+        "scene_description": "婚礼红毯上Ethan当众取消婚礼，屏幕亮起取消字样，Ava现身示威，Mia震惊失语。",
+        "emotional_tone": "紧张",
+        "intensity": 8,
+        "stinger_at": {
+          "offset_s": 3,
+          "type": "low_brass_hit"
+        }
+      },
+      {
+        "time_range": "40-80s",
+        "duration": 40,
+        "scene_description": "主桌前羞辱升级：香槟泼在婚纱上、律师递上80万违约金，Mia手机显示疗养费支付冻结。",
+        "emotional_tone": "紧张",
+        "intensity": 9,
+        "stinger_at": {
+          "offset_s": 24,
+          "type": "sub_drop"
+        }
+      },
+      {
+        "time_range": "80-120s",
+        "duration": 40,
+        "scene_description": "走廊被围逼之际，司机Noah披外套遮护并推门引路，Mia抓紧外套在雨光中离场。",
+        "emotional_tone": "励志",
+        "intensity": 7,
+        "stinger_at": {
+          "offset_s": 8,
+          "type": "perc_hit"
+        }
+      }
+    ],
+    "title": "ep1_wedding_runaway"
+  },
+  "target_bpm": 137,
+  "result": {
+    "pipeline": "v2",
+    "payload": {
+      "prompt": "[Instrumental, score only]\nA tense cinematic cue at 137bpm in D minor.\nCore instrumentation: ostinato strings, sub bass drone, metallic percussion.\nProduction style: Hans Zimmer / Junkie XL, hybrid orchestral, sparse.\nDynamics arc across ~120s:\n- 0-40s: tense intensity 8/10, emphasis on ostinato strings\n- 40-80s: tense intensity 9/10, emphasis on ostinato strings\n- 80-120s: uplifting intensity 7/10, emphasis on rising strings\nDo not include any vocals, singing, or lyrics — orchestral score only.",
+      "tags": "cinematic orchestral, dark suspense, ostinato strings, sub bass, hybrid percussion, 137bpm, D minor",
+      "title": "ep1_wedding_runaway - tense BGM",
+      "mv": "chirp-v4",
+      "make_instrumental": true
+    },
+    "candidates": [
+      {
+        "path": "comparison/cache/bcc167b815d91024__cand0__32513821-60a9-4767-b860-73af034de38a.mp3",
+        "vocal_energy_ratio": 0.2434,
+        "bpm_detected": 143.6,
+        "bpm_target": 137,
+        "lufs": -11.2,
+        "vocal_score": 1.0,
+        "bpm_score": 0.841,
+        "score": 0.952
+      },
+      {
+        "path": "comparison/cache/bcc167b815d91024__cand1__e5e7a341-37ff-45ed-b09e-58b8291b0efe.mp3",
+        "vocal_energy_ratio": 0.2301,
+        "bpm_detected": 143.6,
+        "bpm_target": 137,
+        "lufs": -11.67,
+        "vocal_score": 1.0,
+        "bpm_score": 0.841,
+        "score": 0.952
+      }
+    ],
+    "chosen_clip": "comparison/cache/bcc167b815d91024__cand0__32513821-60a9-4767-b860-73af034de38a.mp3",
+    "stinger": {
+      "boundary_s": 80,
+      "tone": "励志",
+      "intensity": 8,
+      "stinger_clip": "comparison/cache/3cd419e5fce71e19__cand0__1235771a-410d-4df8-880c-ec0f00072e49.mp3",
+      "output": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_ep1/main_with_stinger_80s.mp3",
+      "intensity_delta": -2
+    },
+    "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_ep1/紧张_120s_v2_20260522_120340.mp3",
+    "post_processing": {
+      "fade_out_ms": 3000,
+      "lufs_normalized": true,
+      "target_lufs": -18.0
+    },
+    "elapsed_s": 178.6,
+    "final_metrics": {
+      "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_ep1/紧张_120s_v2_20260522_120340.mp3",
+      "vocal_energy_ratio": 0.2591,
+      "bpm_detected": 143.6,
+      "bpm_target": 137,
+      "lufs": -18.28
+    }
+  }
+}

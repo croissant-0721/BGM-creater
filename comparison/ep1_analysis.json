@@ -1,0 +1,43 @@
+{
+  "primary_tone": "紧张",
+  "primary_intensity": 9,
+  "total_duration": 120,
+  "emotional_arc": "从公开羞辱与背叛的骤然打击，到经济与名誉双重施压，再在陌生援手下转为逃离与自我收拢的逆转",
+  "tone_explanation": "公开撕裂与威胁持续加压形成高张力，走廊处出现援手带来短暂释压与转机。",
+  "timeline": [
+    {
+      "time_range": "0-40s",
+      "duration": 40,
+      "scene_description": "婚礼红毯上Ethan当众取消婚礼，屏幕亮起取消字样，Ava现身示威，Mia震惊失语。",
+      "emotional_tone": "紧张",
+      "intensity": 8,
+      "stinger_at": {
+        "offset_s": 3,
+        "type": "low_brass_hit"
+      }
+    },
+    {
+      "time_range": "40-80s",
+      "duration": 40,
+      "scene_description": "主桌前羞辱升级：香槟泼在婚纱上、律师递上80万违约金，Mia手机显示疗养费支付冻结。",
+      "emotional_tone": "紧张",
+      "intensity": 9,
+      "stinger_at": {
+        "offset_s": 24,
+        "type": "sub_drop"
+      }
+    },
+    {
+      "time_range": "80-120s",
+      "duration": 40,
+      "scene_description": "走廊被围逼之际，司机Noah披外套遮护并推门引路，Mia抓紧外套在雨光中离场。",
+      "emotional_tone": "励志",
+      "intensity": 7,
+      "stinger_at": {
+        "offset_s": 8,
+        "type": "perc_hit"
+      }
+    }
+  ],
+  "title": "ep1_wedding_runaway"
+}

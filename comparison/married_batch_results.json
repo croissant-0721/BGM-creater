@@ -1,0 +1,1876 @@
+{
+  "ran_at": "2026-05-22T13:34:50",
+  "total_elapsed_s": 776.5,
+  "runs": [
+    {
+      "ep_id": "ep01",
+      "title": "married_ep01_wedding_humiliation",
+      "expected_tone": "羞辱/紧张",
+      "elapsed_s": 214.0,
+      "result": {
+        "pipeline": "storyboard",
+        "analysis": {
+          "title": "married_ep01_wedding_humiliation",
+          "total_duration_s": 64,
+          "primary_tone": "羞辱",
+          "primary_intensity": 10,
+          "shots": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 4,
+              "duration_s": 4,
+              "narrative_func": [
+                "钩子",
+                "冲突",
+                "异常"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持急推",
+              "tone": "异常",
+              "intensity": 9,
+              "dialogue_zh": "这场婚礼结束了。",
+              "summary_zh": "婚礼誓词被当众打断，大屏亮出婚礼取消，危机瞬间降临。"
+            },
+            {
+              "id": 2,
+              "start_s": 4,
+              "end_s": 7,
+              "duration_s": 3,
+              "narrative_func": [
+                "反应"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "静默",
+              "intensity": 6,
+              "dialogue_zh": "",
+              "summary_zh": "Mia 看着取消婚礼的字样，笑容僵住。"
+            },
+            {
+              "id": 3,
+              "start_s": 7,
+              "end_s": 10,
+              "duration_s": 3,
+              "narrative_func": [
+                "关键动作",
+                "冲突"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "横移",
+              "tone": "紧张",
+              "intensity": 6,
+              "dialogue_zh": "",
+              "summary_zh": "Ethan 拿着麦克风走向红毯尽头，刻意回避 Mia。"
+            },
+            {
+              "id": 4,
+              "start_s": 10,
+              "end_s": 14,
+              "duration_s": 4,
+              "narrative_func": [
+                "反应",
+                "紧迫感"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "固定",
+              "tone": "紧张",
+              "intensity": 7,
+              "dialogue_zh": "Ethan……这是什么意思？",
+              "summary_zh": "宾客骚动举手机拍摄，Mia 逼近一步质问 Ethan。"
+            },
+            {
+              "id": 5,
+              "start_s": 14,
+              "end_s": 17,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "冲突",
+                "羞辱"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "羞辱",
+              "intensity": 8,
+              "dialogue_zh": "真相。Mia Carter 想要的只是我的姓和我的钱。",
+              "summary_zh": "Ethan 当众指控 Mia 图名图利，公开羞辱她。"
+            },
+            {
+              "id": 6,
+              "start_s": 17,
+              "end_s": 20,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "反击"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "是你让我走上这条红毯的。",
+              "summary_zh": "Mia 强压泪意，当面反问 Ethan。"
+            },
+            {
+              "id": 7,
+              "start_s": 20,
+              "end_s": 24,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "反转",
+                "羞辱"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "低机位",
+              "tone": "羞辱",
+              "intensity": 8,
+              "dialogue_zh": "他在犯下人生最大错误前，把真相告诉了我。",
+              "summary_zh": "Ava 高调现身挽住 Ethan，三角关系被公开。"
+            },
+            {
+              "id": 8,
+              "start_s": 24,
+              "end_s": 27,
+              "duration_s": 3,
+              "narrative_func": [
+                "关键动作",
+                "羞辱"
+              ],
+              "shot_scale": "动作特写",
+              "shot_movement": "俯拍",
+              "tone": "羞辱",
+              "intensity": 9,
+              "dialogue_zh": "",
+              "summary_zh": "Ava 将香槟直接泼在 Mia 婚纱上。"
+            },
+            {
+              "id": 9,
+              "start_s": 27,
+              "end_s": 30,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "羞辱"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "反打",
+              "tone": "羞辱",
+              "intensity": 9,
+              "dialogue_zh": "被抛弃的新娘，还挺漂亮。",
+              "summary_zh": "Ava 俯视 Mia，继续以轻笑言语羞辱。"
+            },
+            {
+              "id": 10,
+              "start_s": 30,
+              "end_s": 33,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "反击"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "你再碰我一下，Ava。",
+              "summary_zh": "Mia 挡住自己并硬声警告 Ava。"
+            },
+            {
+              "id": 11,
+              "start_s": 33,
+              "end_s": 37,
+              "duration_s": 4,
+              "narrative_func": [
+                "信息",
+                "羞辱"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "固定",
+              "tone": "羞辱",
+              "intensity": 8,
+              "dialogue_zh": "Carter 小姐，婚礼取消违约金是八十万美元。",
+              "summary_zh": "律师当众递上高额违约赔偿文件，进一步施压。"
+            },
+            {
+              "id": 12,
+              "start_s": 37,
+              "end_s": 40,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "特写",
+              "tone": "悬疑",
+              "intensity": 6,
+              "dialogue_zh": "",
+              "summary_zh": "文件标题与签名栏被清晰展示，现实压迫落地。"
+            },
+            {
+              "id": 13,
+              "start_s": 40,
+              "end_s": 43,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "异常"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "特写",
+              "tone": "异常",
+              "intensity": 8,
+              "dialogue_zh": "",
+              "summary_zh": "Mia 手机跳出母亲疗养中心付款冻结通知。"
+            },
+            {
+              "id": 14,
+              "start_s": 43,
+              "end_s": 47,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突",
+                "羞辱",
+                "信息"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "反打",
+              "tone": "羞辱",
+              "intensity": 10,
+              "dialogue_zh": "我家一直付你母亲的账单。现在不会了。",
+              "summary_zh": "Ethan 冷酷切断 Mia 母亲的医疗账单支持，压迫达到顶点。"
+            },
+            {
+              "id": 15,
+              "start_s": 47,
+              "end_s": 51,
+              "duration_s": 4,
+              "narrative_func": [
+                "关键动作",
+                "紧迫感",
+                "决定"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持跟拍",
+              "tone": "动作",
+              "intensity": 8,
+              "dialogue_zh": "",
+              "summary_zh": "Mia 抓起裙摆冲出宴会厅，试图逃离羞辱现场。"
+            },
+            {
+              "id": 16,
+              "start_s": 51,
+              "end_s": 55,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "反击",
+                "决定"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "不。你没资格看我崩溃。",
+              "summary_zh": "Mia 在崩溃边缘停下，回头硬撑着拒绝示弱。"
+            },
+            {
+              "id": 17,
+              "start_s": 55,
+              "end_s": 59,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "关键动作",
+                "铺垫"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "低机位",
+              "tone": "励志",
+              "intensity": 7,
+              "dialogue_zh": "继续走。",
+              "summary_zh": "Noah 初次介入，为 Mia 披上外套并给出冷静支撑。"
+            },
+            {
+              "id": 18,
+              "start_s": 59,
+              "end_s": 64,
+              "duration_s": 5,
+              "narrative_func": [
+                "钩子",
+                "反击",
+                "转折"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "天啊，她找了个司机。总比穿礼服的懦夫强。",
+              "summary_zh": "Mia 跟随 Noah 走向侧门，Noah 当面回击 Ava，留下强钩子。"
+            }
+          ],
+          "cues": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 10,
+              "tone": "异常",
+              "intensity_peak": 9,
+              "shot_ids": [
+                1,
+                2,
+                3
+              ],
+              "narrative_summary": "婚礼被突然叫停，现场从震惊失序滑入冰冷对峙。",
+              "transition_in": "cold",
+              "transition_out": "drop"
+            },
+            {
+              "id": 2,
+              "start_s": 10,
+              "end_s": 20,
+              "tone": "羞辱",
+              "intensity_peak": 8,
+              "shot_ids": [
+                4,
+                5,
+                6
+              ],
+              "narrative_summary": "Mia 质问未果，Ethan 公开指控她，羞辱正式开始。",
+              "transition_in": "swell",
+              "transition_out": "hit"
+            },
+            {
+              "id": 3,
+              "start_s": 20,
+              "end_s": 30,
+              "tone": "羞辱",
+              "intensity_peak": 9,
+              "shot_ids": [
+                7,
+                8,
+                9
+              ],
+              "narrative_summary": "Ava 现身夺位并当众泼酒，羞辱升级为公开处刑。",
+              "transition_in": "hit",
+              "transition_out": "drop"
+            },
+            {
+              "id": 4,
+              "start_s": 30,
+              "end_s": 47,
+              "tone": "羞辱",
+              "intensity_peak": 10,
+              "shot_ids": [
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "narrative_summary": "律师文件与付款冻结接连落下，Mia 被经济与亲情双重逼入绝境。",
+              "transition_in": "swell",
+              "transition_out": "hit"
+            },
+            {
+              "id": 5,
+              "start_s": 47,
+              "end_s": 55,
+              "tone": "反击",
+              "intensity_peak": 8,
+              "shot_ids": [
+                15,
+                16
+              ],
+              "narrative_summary": "Mia 冲出宴会厅后止步回头，选择不在羞辱者面前崩溃。",
+              "transition_in": "hit",
+              "transition_out": "swell"
+            },
+            {
+              "id": 6,
+              "start_s": 55,
+              "end_s": 64,
+              "tone": "励志",
+              "intensity_peak": 8,
+              "shot_ids": [
+                17,
+                18
+              ],
+              "narrative_summary": "Noah 出手护住 Mia，并以冷静反击为后续关系线抛出悬念。",
+              "transition_in": "swell",
+              "transition_out": "hit"
+            }
+          ]
+        },
+        "payload": {
+          "prompt": "[Instrumental, score only]\nA humiliation-anchored cinematic cue at 110bpm in C minor, total length ~64s.\nCore instrumentation: sub bass pulse, muted tight strings, low piano clusters.\nProduction style: K-drama OST antagonist cue, taut and oppressive.\nFollow this dynamics arc, transitioning smoothly between sections:\n- 0-10s: anomalous intensity 9/10, emphasis on reversed strings — 婚礼被突然叫停，现场从震惊失序滑入冰冷对峙。\n- 10-20s: humiliation intensity 8/10, emphasis on sub bass pulse — Mia 质问未果，Ethan 公开指控她，羞辱正式开始。\n- 20-30s: humiliation intensity 9/10, emphasis on sub bass pulse — Ava 现身夺位并当众泼酒，羞辱升级为公开处刑。\n- 30-47s: humiliation intensity 10/10, emphasis on sub bass pulse — 律师文件与付款冻结接连落下，Mia 被经济与亲情双重逼入绝境。\n- 47-55s: comeback intensity 8/10, emphasis on driving strings ostinato — Mia 冲出宴会厅后止步回头，选择不在羞辱者面前崩溃。\n- 55-64s: uplifting intensity 8/10, emphasis on rising strings — Noah 出手护住 Mia，并以冷静反击为后续关系线抛出悬念。\nDo not include any vocals, singing, lyrics, or diegetic sound effects (no thunder, no glass break, no screams, no door slam). Pure orchestral score only.",
+          "tags": "cinematic tense, sub bass pulse, muted strings, low piano, oppressive, 110bpm, C minor",
+          "title": "married_ep01_wedding_humiliation - humiliation BGM",
+          "mv": "chirp-v4",
+          "make_instrumental": true
+        },
+        "candidates": [
+          {
+            "path": "comparison/cache/e80ff5808636e58d__cand0__0c73300f-bdfb-4f6e-ac27-5776da281d91.mp3",
+            "vocal_energy_ratio": 0.1802,
+            "bpm_detected": 112.3,
+            "bpm_target": 110,
+            "lufs": -12.79,
+            "vocal_score": 1.0,
+            "bpm_score": 0.929,
+            "score": 0.979
+          },
+          {
+            "path": "comparison/cache/e80ff5808636e58d__cand1__b925207f-d63f-4245-ab52-4e37d39bf9d3.mp3",
+            "vocal_energy_ratio": 0.2708,
+            "bpm_detected": 107.7,
+            "bpm_target": 110,
+            "lufs": -12.9,
+            "vocal_score": 0.917,
+            "bpm_score": 0.929,
+            "score": 0.921
+          }
+        ],
+        "chosen_clip": "comparison/cache/e80ff5808636e58d__cand0__0c73300f-bdfb-4f6e-ac27-5776da281d91.mp3",
+        "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/羞辱_64s_sb_20260522_132526.mp3",
+        "target_duration_s": 64,
+        "final_duration_ms": 64000,
+        "duration_delta_ms": 0,
+        "post_processing": {
+          "fade_out_ms": 3000,
+          "lufs_normalized": true,
+          "target_lufs": -18.0,
+          "strict_duration": true
+        },
+        "final_metrics": {
+          "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/羞辱_64s_sb_20260522_132526.mp3",
+          "vocal_energy_ratio": 0.2467,
+          "bpm_detected": 112.3,
+          "bpm_target": 110,
+          "lufs": -18.27
+        },
+        "elapsed_s": 214.0,
+        "expected_tone": "羞辱/紧张"
+      }
+    },
+    {
+      "ep_id": "ep12",
+      "title": "married_ep12_cohab_observation",
+      "expected_tone": "静默/悬疑",
+      "elapsed_s": 219.0,
+      "result": {
+        "pipeline": "storyboard",
+        "analysis": {
+          "title": "married_ep12_cohab_observation",
+          "total_duration_s": 71,
+          "primary_tone": "紧张",
+          "primary_intensity": 9,
+          "shots": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 4,
+              "duration_s": 4,
+              "narrative_func": [
+                "信息",
+                "钩子",
+                "紧迫感"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "紧张",
+              "intensity": 7,
+              "dialogue_zh": "十五分钟内不能离开这个房间。",
+              "summary_zh": "观察规则被当场宣读，监视感压住卧室气氛。"
+            },
+            {
+              "id": 2,
+              "start_s": 4,
+              "end_s": 7,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "反打",
+              "tone": "紧张",
+              "intensity": 8,
+              "dialogue_zh": "碰我我就叫。",
+              "summary_zh": "Mia立刻划清身体边界，先发出警告。"
+            },
+            {
+              "id": 3,
+              "start_s": 7,
+              "end_s": 10,
+              "duration_s": 3,
+              "narrative_func": [
+                "结果",
+                "关键动作"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "固定",
+              "tone": "静默",
+              "intensity": 5,
+              "dialogue_zh": "你第一次说我就听懂了。",
+              "summary_zh": "Noah主动铺地睡下，用行动避开越线嫌疑。"
+            },
+            {
+              "id": 4,
+              "start_s": 10,
+              "end_s": 14,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "固定",
+              "tone": "悬疑",
+              "intensity": 7,
+              "dialogue_zh": "夫妻通常会睡同一张床。",
+              "summary_zh": "观察员继续施压，质疑这段婚姻的真实性。"
+            },
+            {
+              "id": 5,
+              "start_s": 14,
+              "end_s": 17,
+              "duration_s": 3,
+              "narrative_func": [
+                "转折",
+                "关键动作"
+              ],
+              "shot_scale": "动作特写",
+              "shot_movement": "俯拍",
+              "tone": "反击",
+              "intensity": 6,
+              "dialogue_zh": "满意了？我们共同抚养一个枕头。",
+              "summary_zh": "Mia扔出枕头，以讥讽方式临场配合演戏。"
+            },
+            {
+              "id": 6,
+              "start_s": 17,
+              "end_s": 21,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "反应"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "温馨",
+              "intensity": 4,
+              "dialogue_zh": "这可能是我们最诚实的誓言。别装迷人。很可疑。",
+              "summary_zh": "两人短暂露出默契与笑意，敌意暂时松动。"
+            },
+            {
+              "id": 7,
+              "start_s": 21,
+              "end_s": 24,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "关键动作"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "手持",
+              "tone": "紧张",
+              "intensity": 7,
+              "dialogue_zh": "那里不安全。你也不安全。",
+              "summary_zh": "Mia急藏账本，同时继续把Noah视作潜在威胁。"
+            },
+            {
+              "id": 8,
+              "start_s": 24,
+              "end_s": 28,
+              "duration_s": 4,
+              "narrative_func": [
+                "信息",
+                "关键动作"
+              ],
+              "shot_scale": "动作特写",
+              "shot_movement": "俯拍",
+              "tone": "悬疑",
+              "intensity": 6,
+              "dialogue_zh": "地板通风口下面。有颗螺丝松了。",
+              "summary_zh": "Noah提供隐蔽藏点，暴露出他对房间结构的熟悉。"
+            },
+            {
+              "id": 9,
+              "start_s": 28,
+              "end_s": 31,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "异常",
+                "关键动作"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "异常",
+              "intensity": 7,
+              "dialogue_zh": "这是什么？",
+              "summary_zh": "Mia从通风口意外摸出旧罚单，发现不寻常线索。"
+            },
+            {
+              "id": 10,
+              "start_s": 31,
+              "end_s": 35,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突",
+                "信息"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "悬疑",
+              "intensity": 8,
+              "dialogue_zh": "Reed 基金会车库？我在那里开过车。",
+              "summary_zh": "罚单线索立刻变成对Noah过往身份的逼问。"
+            },
+            {
+              "id": 11,
+              "start_s": 35,
+              "end_s": 39,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "紧迫感",
+                "关键动作"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持急推",
+              "tone": "紧张",
+              "intensity": 8,
+              "dialogue_zh": "给谁开车？给不喜欢问题的人。",
+              "summary_zh": "Noah给出危险暗示，敲门声逼得Mia迅速藏起证据。"
+            },
+            {
+              "id": 12,
+              "start_s": 39,
+              "end_s": 43,
+              "duration_s": 4,
+              "narrative_func": [
+                "钩子",
+                "信息",
+                "异常"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "异常",
+              "intensity": 9,
+              "dialogue_zh": "你母亲的护理主任先打给了我。他们为什么打给你？",
+              "summary_zh": "护理中心来电直接砸出新威胁，Mia瞬间失控。"
+            },
+            {
+              "id": 13,
+              "start_s": 43,
+              "end_s": 46,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "固定",
+              "tone": "羞辱",
+              "intensity": 7,
+              "dialogue_zh": "因为以前是 Walker 的账户付她账单。",
+              "summary_zh": "Ethan把过去的经济控制包装成施恩与筹码。"
+            },
+            {
+              "id": 14,
+              "start_s": 46,
+              "end_s": 50,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突",
+                "关键动作"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "低机位",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "退后。",
+              "summary_zh": "Noah横身挡在Mia前面，直接打断Ethan的逼近。"
+            },
+            {
+              "id": 15,
+              "start_s": 50,
+              "end_s": 53,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "异常"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "异常",
+              "intensity": 8,
+              "dialogue_zh": "明天签这个，我就解冻护理基金。",
+              "summary_zh": "Ethan亮出股权转让文件，把母亲疗养费变成勒索条件。"
+            },
+            {
+              "id": 16,
+              "start_s": 53,
+              "end_s": 56,
+              "duration_s": 3,
+              "narrative_func": [
+                "转折",
+                "反击"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "你想要我父亲的公司。我要你们家欠下的东西。",
+              "summary_zh": "Mia点破Ethan真正目的，双方正式撕开伪装。"
+            },
+            {
+              "id": 17,
+              "start_s": 56,
+              "end_s": 60,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突",
+                "决定"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "固定",
+              "tone": "反击",
+              "intensity": 9,
+              "dialogue_zh": "她什么都不会签。",
+              "summary_zh": "Noah代替Mia做出强硬拒绝，彻底立场站队。"
+            },
+            {
+              "id": 18,
+              "start_s": 60,
+              "end_s": 63,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "决定"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "悲伤",
+              "intensity": 7,
+              "dialogue_zh": "我不付款，他们会转走她。",
+              "summary_zh": "回到卧室后，欠款数字把Mia逼到必须立刻行动。"
+            },
+            {
+              "id": 19,
+              "start_s": 63,
+              "end_s": 66,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "试探"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "悬疑",
+              "intensity": 7,
+              "dialogue_zh": "我能弄到钱。从你那些秘密车库朋友那里？",
+              "summary_zh": "Noah提出筹钱，Mia立即拿车库秘密试探他的底牌。"
+            },
+            {
+              "id": 20,
+              "start_s": 66,
+              "end_s": 71,
+              "duration_s": 5,
+              "narrative_func": [
+                "决定",
+                "钩子",
+                "关键动作"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持跟拍",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "从任何地方，除了 Ethan。明天我亲自去疗养中心。我开车。",
+              "summary_zh": "两人各自做出越线决定，把悬念收束到明天的疗养中心行动。"
+            }
+          ],
+          "cues": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 14,
+              "tone": "紧张",
+              "intensity_peak": 8,
+              "shot_ids": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "narrative_summary": "观察开始后的卧室充满监视与试探，假夫妻关系被持续审查。",
+              "transition_in": "cold",
+              "transition_out": "drop"
+            },
+            {
+              "id": 2,
+              "start_s": 14,
+              "end_s": 24,
+              "tone": "反击",
+              "intensity_peak": 7,
+              "shot_ids": [
+                5,
+                6,
+                7
+              ],
+              "narrative_summary": "Mia用讥讽和边界感接管局面，短暂同盟刚形成又迅速回到互防。",
+              "transition_in": "drop",
+              "transition_out": "swell"
+            },
+            {
+              "id": 3,
+              "start_s": 24,
+              "end_s": 39,
+              "tone": "悬疑",
+              "intensity_peak": 8,
+              "shot_ids": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "narrative_summary": "藏账本引出通风口旧罚单，Noah的秘密背景被撬开一角并立刻升级成危险警告。",
+              "transition_in": "swell",
+              "transition_out": "hit"
+            },
+            {
+              "id": 4,
+              "start_s": 39,
+              "end_s": 53,
+              "tone": "异常",
+              "intensity_peak": 9,
+              "shot_ids": [
+                12,
+                13,
+                14,
+                15
+              ],
+              "narrative_summary": "护理中心来电和股权文件接连砸下，Ethan把经济控制升级为公开勒索。",
+              "transition_in": "hit",
+              "transition_out": "swell"
+            },
+            {
+              "id": 5,
+              "start_s": 53,
+              "end_s": 71,
+              "tone": "反击",
+              "intensity_peak": 9,
+              "shot_ids": [
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "narrative_summary": "Mia识破Ethan目标后，Noah强硬护住她，两人被债务逼出主动出击的明日计划。",
+              "transition_in": "swell",
+              "transition_out": "hit"
+            }
+          ]
+        },
+        "payload": {
+          "prompt": "[Instrumental, score only]\nA tense-anchored cinematic cue at 137bpm in D minor, total length ~71s.\nCore instrumentation: ostinato strings, sub bass drone, metallic percussion.\nProduction style: Hans Zimmer / Junkie XL, hybrid orchestral, sparse.\nFollow this dynamics arc, transitioning smoothly between sections:\n- 0-14s: tense intensity 8/10, emphasis on ostinato strings — 观察开始后的卧室充满监视与试探，假夫妻关系被持续审查。\n- 14-24s: comeback intensity 7/10, emphasis on driving strings ostinato — Mia用讥讽和边界感接管局面，短暂同盟刚形成又迅速回到互防。\n- 24-39s: mystery intensity 8/10, emphasis on dissonant pad — 藏账本引出通风口旧罚单，Noah的秘密背景被撬开一角并立刻升级成危险警告。\n- 39-53s: anomalous intensity 9/10, emphasis on reversed strings — 护理中心来电和股权文件接连砸下，Ethan把经济控制升级为公开勒索。\n- 53-71s: comeback intensity 9/10, emphasis on driving strings ostinato — Mia识破Ethan目标后，Noah强硬护住她，两人被债务逼出主动出击的明日计划。\nDo not include any vocals, singing, lyrics, or diegetic sound effects (no thunder, no glass break, no screams, no door slam). Pure orchestral score only.",
+          "tags": "cinematic orchestral, dark suspense, ostinato strings, sub bass, hybrid percussion, 137bpm, D minor",
+          "title": "married_ep12_cohab_observation - tense BGM",
+          "mv": "chirp-v4",
+          "make_instrumental": true
+        },
+        "candidates": [
+          {
+            "path": "comparison/cache/e27e090551b542ef__cand0__62707676-5589-47d1-97e7-16ba305bd4d4.mp3",
+            "vocal_energy_ratio": 0.2427,
+            "bpm_detected": 143.6,
+            "bpm_target": 137,
+            "lufs": -10.99,
+            "vocal_score": 1.0,
+            "bpm_score": 0.841,
+            "score": 0.952
+          },
+          {
+            "path": "comparison/cache/e27e090551b542ef__cand1__a6b9bc94-2e32-4824-8ca8-48b6b1c1020b.mp3",
+            "vocal_energy_ratio": 0.2912,
+            "bpm_detected": 152.0,
+            "bpm_target": 137,
+            "lufs": -11.98,
+            "vocal_score": 0.835,
+            "bpm_score": 0.635,
+            "score": 0.775
+          }
+        ],
+        "chosen_clip": "comparison/cache/e27e090551b542ef__cand0__62707676-5589-47d1-97e7-16ba305bd4d4.mp3",
+        "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/紧张_71s_sb_20260522_132907.mp3",
+        "target_duration_s": 71,
+        "final_duration_ms": 71000,
+        "duration_delta_ms": 0,
+        "post_processing": {
+          "fade_out_ms": 3000,
+          "lufs_normalized": true,
+          "target_lufs": -18.0,
+          "strict_duration": true
+        },
+        "final_metrics": {
+          "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/紧张_71s_sb_20260522_132907.mp3",
+          "vocal_energy_ratio": 0.2538,
+          "bpm_detected": 92.3,
+          "bpm_target": 137,
+          "lufs": -18.27
+        },
+        "elapsed_s": 219.0,
+        "expected_tone": "静默/悬疑"
+      }
+    },
+    {
+      "ep_id": "ep13",
+      "title": "married_ep13_mother_transfer",
+      "expected_tone": "悲伤/紧迫",
+      "elapsed_s": 198.2,
+      "result": {
+        "pipeline": "storyboard",
+        "analysis": {
+          "title": "married_ep13_mother_transfer",
+          "total_duration_s": 70,
+          "primary_tone": "紧张",
+          "primary_intensity": 10,
+          "shots": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 4,
+              "duration_s": 4,
+              "narrative_func": [
+                "钩子",
+                "信息",
+                "紧迫感"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "紧张",
+              "intensity": 8,
+              "dialogue_zh": "你母亲下午五点安排转走。",
+              "summary_zh": "红色转移通知被推到Mia面前，母亲即将转院的危机瞬间落下。"
+            },
+            {
+              "id": 2,
+              "start_s": 4,
+              "end_s": 8,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突",
+                "信息",
+                "紧迫感"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "紧张",
+              "intensity": 8,
+              "dialogue_zh": "她经不起转院。Walker 家取消了付款授权。",
+              "summary_zh": "Mia压怒反驳，院方透露Walker家已取消付款授权。"
+            },
+            {
+              "id": 3,
+              "start_s": 8,
+              "end_s": 11,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "冲突"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "横移",
+              "tone": "羞辱",
+              "intensity": 6,
+              "dialogue_zh": "给我们付款入口。将近五万美元？",
+              "summary_zh": "Noah提出付款，却因司机夹克遭到无声的阶层审视。"
+            },
+            {
+              "id": 4,
+              "start_s": 11,
+              "end_s": 15,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "反击",
+                "关键动作"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持急推",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "别评判他的外套。先看你自己的文件。",
+              "summary_zh": "Mia挡到Noah身前，当场回击对方的轻视。"
+            },
+            {
+              "id": 5,
+              "start_s": 15,
+              "end_s": 18,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "异常"
+              ],
+              "shot_scale": "动作特写",
+              "shot_movement": "俯拍",
+              "tone": "异常",
+              "intensity": 7,
+              "dialogue_zh": "账户被法务锁定了。",
+              "summary_zh": "护士转出锁定界面，账户被Walker法务冻结的事实曝光。"
+            },
+            {
+              "id": 6,
+              "start_s": 18,
+              "end_s": 22,
+              "duration_s": 4,
+              "narrative_func": [
+                "结果",
+                "信息"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "固定",
+              "tone": "静默",
+              "intensity": 7,
+              "dialogue_zh": "Ethan 不只是停付。他锁死了账户。",
+              "summary_zh": "Mia冷静确认自己母亲的护理账户被人刻意困死。"
+            },
+            {
+              "id": 7,
+              "start_s": 22,
+              "end_s": 26,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突",
+                "紧迫感"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持跟拍",
+              "tone": "紧张",
+              "intensity": 8,
+              "dialogue_zh": "五点很快就到，Mia。你锁了一个病人的护理账户。",
+              "summary_zh": "Ethan带着时间威胁逼近，正面把转院倒计时当武器。"
+            },
+            {
+              "id": 8,
+              "start_s": 26,
+              "end_s": 29,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "冲突"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "低机位",
+              "tone": "羞辱",
+              "intensity": 8,
+              "dialogue_zh": "我是在保护债权。",
+              "summary_zh": "Ethan把勒索包装成合法债权保护，继续向Mia施压。"
+            },
+            {
+              "id": 9,
+              "start_s": 29,
+              "end_s": 33,
+              "duration_s": 4,
+              "narrative_func": [
+                "冲突",
+                "关键动作",
+                "羞辱"
+              ],
+              "shot_scale": "反应近景",
+              "shot_movement": "快切",
+              "tone": "反击",
+              "intensity": 9,
+              "dialogue_zh": "你在勒索她。那你怎么付？靠小费？",
+              "summary_zh": "Noah拍开签字笔出手阻止，Ethan立刻以阶层羞辱反咬。"
+            },
+            {
+              "id": 10,
+              "start_s": 33,
+              "end_s": 37,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "决定"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "紧张",
+              "intensity": 8,
+              "dialogue_zh": "如果我签，你今天就解锁？就在这里。现在。",
+              "summary_zh": "Mia接手谈判，逼问Ethan是否会立即解除锁定。"
+            },
+            {
+              "id": 11,
+              "start_s": 37,
+              "end_s": 40,
+              "duration_s": 3,
+              "narrative_func": [
+                "结果",
+                "反击",
+                "决定"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "静默",
+              "intensity": 6,
+              "dialogue_zh": "我先要原始护理合同。",
+              "summary_zh": "Mia在压迫中按住节奏，提出先看原始护理合同。"
+            },
+            {
+              "id": 12,
+              "start_s": 40,
+              "end_s": 44,
+              "duration_s": 4,
+              "narrative_func": [
+                "信息",
+                "决定"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "固定",
+              "tone": "紧张",
+              "intensity": 7,
+              "dialogue_zh": "没有律师在场，我不该给你看。我母亲不是筹码。",
+              "summary_zh": "Mia强硬压线拿到原始合同，坚持母亲不能被当成筹码。"
+            },
+            {
+              "id": 13,
+              "start_s": 44,
+              "end_s": 48,
+              "duration_s": 4,
+              "narrative_func": [
+                "信息",
+                "反转",
+                "异常"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "特写",
+              "tone": "异常",
+              "intensity": 8,
+              "dialogue_zh": "R. Holdings? 那个信托去年付过一个季度的紧急费用。",
+              "summary_zh": "付款记录揭出R. Holdings医疗信托，新的隐秘资金来源浮出水面。"
+            },
+            {
+              "id": 14,
+              "start_s": 48,
+              "end_s": 51,
+              "duration_s": 3,
+              "narrative_func": [
+                "反应",
+                "异常",
+                "关键动作"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "手持中近",
+              "tone": "悬疑",
+              "intensity": 8,
+              "dialogue_zh": "给我看看。",
+              "summary_zh": "Noah见到信托名称反应异常，伸手夺看付款记录。"
+            },
+            {
+              "id": 15,
+              "start_s": 51,
+              "end_s": 55,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "冲突",
+                "异常"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "反打",
+              "tone": "悬疑",
+              "intensity": 8,
+              "dialogue_zh": "你认识这个名字。你认识麻烦。",
+              "summary_zh": "Mia敏锐追问Noah与信托的关系，Noah只承认危险不承认答案。"
+            },
+            {
+              "id": 16,
+              "start_s": 55,
+              "end_s": 58,
+              "duration_s": 3,
+              "narrative_func": [
+                "关键动作",
+                "转折",
+                "决定"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持跟拍",
+              "tone": "动作",
+              "intensity": 9,
+              "dialogue_zh": "解除医疗锁定。现在。",
+              "summary_zh": "Noah一边追出停车区一边秘密下令解除医疗锁定。"
+            },
+            {
+              "id": 17,
+              "start_s": 58,
+              "end_s": 62,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "反转",
+                "异常"
+              ],
+              "shot_scale": "动作特写",
+              "shot_movement": "俯拍",
+              "tone": "异常",
+              "intensity": 10,
+              "dialogue_zh": "你在跟谁说话？不是你需要信任的人。是你做的。",
+              "summary_zh": "Mia手机立刻收到账户解锁通知，Noah隐藏的权力当场暴露。"
+            },
+            {
+              "id": 18,
+              "start_s": 62,
+              "end_s": 65,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "转折"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "固定",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "趁 Ethan 还没发现，上车。不。奇迹不能没有收据。",
+              "summary_zh": "Noah催她撤离，Mia却拒绝接受没有代价说明的帮助。"
+            },
+            {
+              "id": 19,
+              "start_s": 65,
+              "end_s": 70,
+              "duration_s": 5,
+              "narrative_func": [
+                "钩子",
+                "反转",
+                "异常"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "悬疑",
+              "intensity": 10,
+              "dialogue_zh": "那就去看你父亲的账本。你知道账本？",
+              "summary_zh": "Noah一句提到账本彻底引爆新秘密，把本集悬念推到顶点。"
+            }
+          ],
+          "cues": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 11,
+              "tone": "紧张",
+              "intensity_peak": 8,
+              "shot_ids": [
+                1,
+                2,
+                3
+              ],
+              "narrative_summary": "前台抛出母亲转院危机，停付真相与阶层压迫快速叠加，建立高压开局。",
+              "transition_in": "cold",
+              "transition_out": "hit"
+            },
+            {
+              "id": 2,
+              "start_s": 11,
+              "end_s": 22,
+              "tone": "反击",
+              "intensity_peak": 8,
+              "shot_ids": [
+                4,
+                5,
+                6
+              ],
+              "narrative_summary": "Mia护住Noah并回击羞辱，随后发现账户被法务锁死，情绪从抗争坠入冰冷确认。",
+              "transition_in": "hit",
+              "transition_out": "drop"
+            },
+            {
+              "id": 3,
+              "start_s": 22,
+              "end_s": 40,
+              "tone": "紧张",
+              "intensity_peak": 9,
+              "shot_ids": [
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "narrative_summary": "Ethan现身以时间和合同双重勒索，Noah正面阻拦后，Mia强行把谈判拖回证据层面。",
+              "transition_in": "swell",
+              "transition_out": "drop"
+            },
+            {
+              "id": 4,
+              "start_s": 40,
+              "end_s": 55,
+              "tone": "悬疑",
+              "intensity_peak": 8,
+              "shot_ids": [
+                12,
+                13,
+                14,
+                15
+              ],
+              "narrative_summary": "原始合同与付款记录揭开R. Holdings信托线索，Noah的异常反应让旧秘密突然有了人证。",
+              "transition_in": "swell",
+              "transition_out": "hit"
+            },
+            {
+              "id": 5,
+              "start_s": 55,
+              "end_s": 70,
+              "tone": "异常",
+              "intensity_peak": 10,
+              "shot_ids": [
+                16,
+                17,
+                18,
+                19
+              ],
+              "narrative_summary": "Noah一通电话瞬间解除锁定，隐藏权力与父亲账本秘密接连曝光，把结尾悬念抬到峰值。",
+              "transition_in": "hit",
+              "transition_out": "hit"
+            }
+          ]
+        },
+        "payload": {
+          "prompt": "[Instrumental, score only]\nA tense-anchored cinematic cue at 140bpm in D minor, total length ~70s.\nCore instrumentation: ostinato strings, sub bass drone, metallic percussion.\nProduction style: Hans Zimmer / Junkie XL, hybrid orchestral, sparse.\nFollow this dynamics arc, transitioning smoothly between sections:\n- 0-11s: tense intensity 8/10, emphasis on ostinato strings — 前台抛出母亲转院危机，停付真相与阶层压迫快速叠加，建立高压开局。\n- 11-22s: comeback intensity 8/10, emphasis on driving strings ostinato — Mia护住Noah并回击羞辱，随后发现账户被法务锁死，情绪从抗争坠入冰冷确认。\n- 22-40s: tense intensity 9/10, emphasis on ostinato strings — Ethan现身以时间和合同双重勒索，Noah正面阻拦后，Mia强行把谈判拖回证据层面。\n- 40-55s: mystery intensity 8/10, emphasis on dissonant pad — 原始合同与付款记录揭开R. Holdings信托线索，Noah的异常反应让旧秘密突然有了人证。\n- 55-70s: anomalous intensity 10/10, emphasis on reversed strings — Noah一通电话瞬间解除锁定，隐藏权力与父亲账本秘密接连曝光，把结尾悬念抬到峰值。\nDo not include any vocals, singing, lyrics, or diegetic sound effects (no thunder, no glass break, no screams, no door slam). Pure orchestral score only.",
+          "tags": "cinematic orchestral, dark suspense, ostinato strings, sub bass, hybrid percussion, 140bpm, D minor",
+          "title": "married_ep13_mother_transfer - tense BGM",
+          "mv": "chirp-v4",
+          "make_instrumental": true
+        },
+        "candidates": [
+          {
+            "path": "comparison/cache/818b9dcfa762d85f__cand0__cdf5013b-3f87-4f21-b2ad-19a46715b931.mp3",
+            "vocal_energy_ratio": 0.2161,
+            "bpm_detected": 143.6,
+            "bpm_target": 140,
+            "lufs": -11.21,
+            "vocal_score": 1.0,
+            "bpm_score": 0.915,
+            "score": 0.975
+          },
+          {
+            "path": "comparison/cache/818b9dcfa762d85f__cand1__876e2e64-6df3-4578-b5c6-0fd9dae3f9b7.mp3",
+            "vocal_energy_ratio": 0.2808,
+            "bpm_detected": 143.6,
+            "bpm_target": 140,
+            "lufs": -10.98,
+            "vocal_score": 0.877,
+            "bpm_score": 0.915,
+            "score": 0.888
+          }
+        ],
+        "chosen_clip": "comparison/cache/818b9dcfa762d85f__cand0__cdf5013b-3f87-4f21-b2ad-19a46715b931.mp3",
+        "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/紧张_70s_sb_20260522_133227.mp3",
+        "target_duration_s": 70,
+        "final_duration_ms": 70000,
+        "duration_delta_ms": 0,
+        "post_processing": {
+          "fade_out_ms": 3000,
+          "lufs_normalized": true,
+          "target_lufs": -18.0,
+          "strict_duration": true
+        },
+        "final_metrics": {
+          "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/紧张_70s_sb_20260522_133227.mp3",
+          "vocal_energy_ratio": 0.2098,
+          "bpm_detected": 143.6,
+          "bpm_target": 140,
+          "lufs": -18.28
+        },
+        "elapsed_s": 198.2,
+        "expected_tone": "悲伤/紧迫"
+      }
+    },
+    {
+      "ep_id": "ep30",
+      "title": "married_ep30_final_vote",
+      "expected_tone": "反击/动作",
+      "elapsed_s": 137.2,
+      "result": {
+        "pipeline": "storyboard",
+        "analysis": {
+          "title": "married_ep30_final_vote",
+          "total_duration_s": 69,
+          "primary_tone": "反击",
+          "primary_intensity": 9,
+          "shots": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 4,
+              "duration_s": 4,
+              "narrative_func": [
+                "钩子",
+                "紧迫感",
+                "决定"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持急推",
+              "tone": "紧张",
+              "intensity": 8,
+              "dialogue_zh": "Reed Board Chair：Reed 先生。赞成还是反对？",
+              "summary_zh": "发布会现场主席逼问，Noah 指尖悬在最终投票按钮上。"
+            },
+            {
+              "id": 2,
+              "start_s": 4,
+              "end_s": 7,
+              "duration_s": 3,
+              "narrative_func": [
+                "转折",
+                "关键动作",
+                "决定"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "反击",
+              "intensity": 9,
+              "dialogue_zh": "Noah Reed：不并购。",
+              "summary_zh": "Noah 按下红色按钮，当众投出反对票。"
+            },
+            {
+              "id": 3,
+              "start_s": 7,
+              "end_s": 10,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "结果"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "特写",
+              "tone": "紧张",
+              "intensity": 7,
+              "dialogue_zh": "Mia Carter：Carter 股份投反对。",
+              "summary_zh": "投票结果弹出，Mia 立刻确认 Carter 股份投反对。"
+            },
+            {
+              "id": 4,
+              "start_s": 10,
+              "end_s": 13,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "结果",
+                "羞辱"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "羞辱",
+              "intensity": 8,
+              "dialogue_zh": "Reed Board Chair：Walker 失去并购资格。Ethan Walker（吼）：你刚刚烧掉了你的继承权。",
+              "summary_zh": "主席宣布 Walker 出局，Ethan 当众怒吼反扑。"
+            },
+            {
+              "id": 5,
+              "start_s": 13,
+              "end_s": 15,
+              "duration_s": 2,
+              "narrative_func": [
+                "结果",
+                "反击"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "固定",
+              "tone": "反击",
+              "intensity": 7,
+              "dialogue_zh": "Noah Reed：很好。它本来就脏。",
+              "summary_zh": "Noah 冷硬回击 Ethan，彻底切断继承权束缚。"
+            },
+            {
+              "id": 6,
+              "start_s": 15,
+              "end_s": 18,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "关键动作",
+                "结果"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "反击",
+              "intensity": 7,
+              "dialogue_zh": "Mia Carter：Carter 股份投反对。",
+              "summary_zh": "Mia 按下确认，系统验证她的股份有效。"
+            },
+            {
+              "id": 7,
+              "start_s": 18,
+              "end_s": 22,
+              "duration_s": 4,
+              "narrative_func": [
+                "结果",
+                "动作",
+                "异常"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持跟拍",
+              "tone": "动作",
+              "intensity": 9,
+              "dialogue_zh": "Federal Agent：你因欺诈和侵占资产被捕。",
+              "summary_zh": "联邦探员当场逮捕 Ethan，Mia 的继妹也被安保带走。"
+            },
+            {
+              "id": 8,
+              "start_s": 22,
+              "end_s": 25,
+              "duration_s": 3,
+              "narrative_func": [
+                "冲突",
+                "反应"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "反打",
+              "tone": "羞辱",
+              "intensity": 7,
+              "dialogue_zh": "Ethan Walker：没有我你什么都不是。",
+              "summary_zh": "Ethan 被带走前仍恶毒贬低 Mia。"
+            },
+            {
+              "id": 9,
+              "start_s": 25,
+              "end_s": 29,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "反击"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "反击",
+              "intensity": 8,
+              "dialogue_zh": "Mia Carter：不。我只是被你压在下面。",
+              "summary_zh": "Mia 正面回击，宣告自己从压迫中翻身。"
+            },
+            {
+              "id": 10,
+              "start_s": 29,
+              "end_s": 32,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "结果"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "固定",
+              "tone": "豪门",
+              "intensity": 4,
+              "dialogue_zh": "Reed Board Chair：你父亲的股份已恢复。",
+              "summary_zh": "两小时后，主席将恢复股份的文件推到 Mia 面前。"
+            },
+            {
+              "id": 11,
+              "start_s": 32,
+              "end_s": 36,
+              "duration_s": 4,
+              "narrative_func": [
+                "信息",
+                "铺垫"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "正反打",
+              "tone": "豪门",
+              "intensity": 4,
+              "dialogue_zh": "Mia Carter：那 Carter 公司呢？Reed Board Chair：最终备案完成前，先归你控制。",
+              "summary_zh": "Mia 追问公司归属，主席确认控制权回到她手中。"
+            },
+            {
+              "id": 12,
+              "start_s": 36,
+              "end_s": 39,
+              "duration_s": 3,
+              "narrative_func": [
+                "结果",
+                "决定"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "固定",
+              "tone": "豪门",
+              "intensity": 5,
+              "dialogue_zh": "Mia Carter：今天解除 Walker 的所有冻结。Reed Board Chair：没问题。",
+              "summary_zh": "Mia 当场下令解除 Walker 相关冻结，主席立即执行。"
+            },
+            {
+              "id": 13,
+              "start_s": 39,
+              "end_s": 43,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "关键动作"
+              ],
+              "shot_scale": "特写",
+              "shot_movement": "推近",
+              "tone": "温馨",
+              "intensity": 6,
+              "dialogue_zh": "Noah Reed：没有合同。没有条款。",
+              "summary_zh": "Noah 拿出戒指盒，放下契约姿态开启感情转向。"
+            },
+            {
+              "id": 14,
+              "start_s": 43,
+              "end_s": 46,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "转折"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "反打",
+              "tone": "静默",
+              "intensity": 4,
+              "dialogue_zh": "Mia Carter：那这是什么？Noah Reed：一个选择。你的选择。",
+              "summary_zh": "Mia 追问戒指盒意义，Noah 把决定权交回给她。"
+            },
+            {
+              "id": 15,
+              "start_s": 46,
+              "end_s": 49,
+              "duration_s": 3,
+              "narrative_func": [
+                "反应"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "固定",
+              "tone": "温馨",
+              "intensity": 5,
+              "dialogue_zh": "Mia Carter：等我不再流血时再问我。Noah Reed：我会等。",
+              "summary_zh": "Mia 暂不答应，Noah 柔和回应愿意等待。"
+            },
+            {
+              "id": 16,
+              "start_s": 49,
+              "end_s": 53,
+              "duration_s": 4,
+              "narrative_func": [
+                "转折",
+                "反应"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "反打",
+              "tone": "温馨",
+              "intensity": 6,
+              "dialogue_zh": "Mia Carter：别等太远。",
+              "summary_zh": "Mia 松口示意，两人关系第一次真正转向并肩。"
+            },
+            {
+              "id": 17,
+              "start_s": 53,
+              "end_s": 56,
+              "duration_s": 3,
+              "narrative_func": [
+                "信息",
+                "反应"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "横移",
+              "tone": "温馨",
+              "intensity": 6,
+              "dialogue_zh": "Noah Reed：还想要那个司机吗？Mia Carter：我最先嫁的就是他。",
+              "summary_zh": "一周后市政厅外，两人轻松打趣，关系明显回暖。"
+            },
+            {
+              "id": 18,
+              "start_s": 56,
+              "end_s": 60,
+              "duration_s": 4,
+              "narrative_func": [
+                "结果",
+                "反转"
+              ],
+              "shot_scale": "中近",
+              "shot_movement": "固定",
+              "tone": "温馨",
+              "intensity": 7,
+              "dialogue_zh": "Noah Reed：这一次，不是冲动。Mia Carter：这一次，没有谎言。",
+              "summary_zh": "两人完成婚姻登记，让关系从契约走向真实。"
+            },
+            {
+              "id": 19,
+              "start_s": 60,
+              "end_s": 64,
+              "duration_s": 4,
+              "narrative_func": [
+                "钩子",
+                "异常",
+                "紧迫感"
+              ],
+              "shot_scale": "近景",
+              "shot_movement": "推近",
+              "tone": "异常",
+              "intensity": 8,
+              "dialogue_zh": "Noah Reed：新婚礼物？Mia Carter：第一场董事战。",
+              "summary_zh": "Mia 收到公司警报，新婚笑意骤停，新的危机闯入。"
+            },
+            {
+              "id": 20,
+              "start_s": 64,
+              "end_s": 69,
+              "duration_s": 5,
+              "narrative_func": [
+                "钩子",
+                "决定",
+                "结果"
+              ],
+              "shot_scale": "中景",
+              "shot_movement": "手持跟拍",
+              "tone": "励志",
+              "intensity": 8,
+              "dialogue_zh": "Noah Reed：Reed 太太？Mia Carter：Mia Carter。你的合伙人。Noah Reed：那我们就把它夺回来。",
+              "summary_zh": "Mia 挽住 Noah 并肩上车，准备联手夺回公司。"
+            }
+          ],
+          "cues": [
+            {
+              "id": 1,
+              "start_s": 0,
+              "end_s": 18,
+              "tone": "反击",
+              "intensity_peak": 9,
+              "shot_ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "narrative_summary": "发布会投票从极限逼问推进到 Noah 与 Mia 联手投反对票，完成首次权力反杀。",
+              "transition_in": "cold",
+              "transition_out": "hit"
+            },
+            {
+              "id": 2,
+              "start_s": 18,
+              "end_s": 29,
+              "tone": "反击",
+              "intensity_peak": 9,
+              "shot_ids": [
+                7,
+                8,
+                9
+              ],
+              "narrative_summary": "Ethan 被当场逮捕后仍试图羞辱 Mia，而 Mia 以正面回击完成情绪清算。",
+              "transition_in": "hit",
+              "transition_out": "drop"
+            },
+            {
+              "id": 3,
+              "start_s": 29,
+              "end_s": 39,
+              "tone": "豪门",
+              "intensity_peak": 5,
+              "shot_ids": [
+                10,
+                11,
+                12
+              ],
+              "narrative_summary": "危机后进入董事会善后阶段，Mia 正式收回父亲股份与公司控制权。",
+              "transition_in": "drop",
+              "transition_out": "swell"
+            },
+            {
+              "id": 4,
+              "start_s": 39,
+              "end_s": 53,
+              "tone": "温馨",
+              "intensity_peak": 6,
+              "shot_ids": [
+                13,
+                14,
+                15,
+                16
+              ],
+              "narrative_summary": "Noah 放下契约式姿态递出戒指盒，两人的关系从试探转向真正的选择与靠近。",
+              "transition_in": "swell",
+              "transition_out": "swell"
+            },
+            {
+              "id": 5,
+              "start_s": 53,
+              "end_s": 60,
+              "tone": "温馨",
+              "intensity_peak": 7,
+              "shot_ids": [
+                17,
+                18
+              ],
+              "narrative_summary": "市政厅外到登记完成，两人用轻松与坦诚把婚姻重新定义为真实承诺。",
+              "transition_in": "swell",
+              "transition_out": "hit"
+            },
+            {
+              "id": 6,
+              "start_s": 60,
+              "end_s": 69,
+              "tone": "励志",
+              "intensity_peak": 8,
+              "shot_ids": [
+                19,
+                20
+              ],
+              "narrative_summary": "新婚立刻遭遇公司警报，但两人迅速从爱人切换为合伙人，带着新战意走向下一战。",
+              "transition_in": "hit",
+              "transition_out": "swell"
+            }
+          ]
+        },
+        "payload": {
+          "prompt": "[Instrumental, score only]\nA comeback-anchored cinematic cue at 127bpm in D minor, total length ~69s.\nCore instrumentation: driving strings ostinato, trap-orchestral hybrid, brass stabs.\nProduction style: trap-orchestral revenge cue, K-drama montage flavor.\nFollow this dynamics arc, transitioning smoothly between sections:\n- 0-18s: comeback intensity 9/10, emphasis on driving strings ostinato — 发布会投票从极限逼问推进到 Noah 与 Mia 联手投反对票，完成首次权力反杀。\n- 18-29s: comeback intensity 9/10, emphasis on driving strings ostinato — Ethan 被当场逮捕后仍试图羞辱 Mia，而 Mia 以正面回击完成情绪清算。\n- 29-39s: elite_pressure intensity 5/10, emphasis on legato strings — 危机后进入董事会善后阶段，Mia 正式收回父亲股份与公司控制权。\n- 39-53s: warm intensity 6/10, emphasis on felt piano — Noah 放下契约式姿态递出戒指盒，两人的关系从试探转向真正的选择与靠近。\n- 53-60s: warm intensity 7/10, emphasis on felt piano — 市政厅外到登记完成，两人用轻松与坦诚把婚姻重新定义为真实承诺。\n- 60-69s: uplifting intensity 8/10, emphasis on rising strings — 新婚立刻遭遇公司警报，但两人迅速从爱人切换为合伙人，带着新战意走向下一战。\nDo not include any vocals, singing, lyrics, or diegetic sound effects (no thunder, no glass break, no screams, no door slam). Pure orchestral score only.",
+          "tags": "trap orchestral, driving strings, brass stab, taiko, satisfying, 127bpm, D minor",
+          "title": "married_ep30_final_vote - comeback BGM",
+          "mv": "chirp-v4",
+          "make_instrumental": true
+        },
+        "candidates": [
+          {
+            "path": "comparison/cache/aa9ca8fc7d5d87cd__cand1__a661b261-d699-4d70-98b4-535349f04724.mp3",
+            "vocal_energy_ratio": 0.3163,
+            "bpm_detected": 123.0,
+            "bpm_target": 127,
+            "lufs": -11.89,
+            "vocal_score": 0.735,
+            "bpm_score": 0.896,
+            "score": 0.783
+          },
+          {
+            "path": "comparison/cache/aa9ca8fc7d5d87cd__cand0__01f87a44-a4c1-413e-a15b-ef3d20e14620.mp3",
+            "vocal_energy_ratio": 0.3343,
+            "bpm_detected": 172.3,
+            "bpm_target": 127,
+            "lufs": -12.1,
+            "vocal_score": 0.663,
+            "bpm_score": 0.0,
+            "score": 0.464
+          }
+        ],
+        "chosen_clip": "comparison/cache/aa9ca8fc7d5d87cd__cand1__a661b261-d699-4d70-98b4-535349f04724.mp3",
+        "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/反击_69s_sb_20260522_133446.mp3",
+        "target_duration_s": 69,
+        "final_duration_ms": 69000,
+        "duration_delta_ms": 0,
+        "post_processing": {
+          "fade_out_ms": 3000,
+          "lufs_normalized": true,
+          "target_lufs": -18.0,
+          "strict_duration": true
+        },
+        "final_metrics": {
+          "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_married/反击_69s_sb_20260522_133446.mp3",
+          "vocal_energy_ratio": 0.3281,
+          "bpm_detected": 123.0,
+          "bpm_target": 127,
+          "lufs": -18.26
+        },
+        "elapsed_s": 137.2,
+        "expected_tone": "反击/动作"
+      }
+    }
+  ]
+}

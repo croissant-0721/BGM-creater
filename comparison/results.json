@@ -1,0 +1,139 @@
+{
+  "ran_at": "2026-05-13T19:55:42",
+  "script_title": "episode_1_scene_1",
+  "analysis": {
+    "primary_tone": "紧张",
+    "primary_intensity": 8,
+    "total_duration": 80,
+    "emotional_arc": "从血腥囚禁的冷静对峙到阴谋曝光压迫升级，继而男主强硬反击与武力威胁加剧，最终在冷酷指令下被押走但意志转为反攻。",
+    "tone_explanation": "囚禁与权力压制贯穿，信息揭露与枪械动作制造持续张力与不确定。",
+    "timeline": [
+      {
+        "time_range": "0-17s",
+        "duration": 17,
+        "scene_description": "地下冷柜区内，Cade被绑流血，Evelyn冷眼相对；Cade挑衅质问。",
+        "emotional_tone": "紧张",
+        "intensity": 7,
+        "stinger_at": null
+      },
+      {
+        "time_range": "17-38s",
+        "duration": 21,
+        "scene_description": "Evelyn轻笑，屏幕骤亮显示名单与曲线，点明资本与政客勾连；Cade目光转冷。",
+        "emotional_tone": "悬疑",
+        "intensity": 8,
+        "stinger_at": {
+          "offset_s": 1,
+          "type": "sub_drop"
+        }
+      },
+      {
+        "time_range": "38-59s",
+        "duration": 21,
+        "scene_description": "Cade誓言曝光众人，安保微抬枪口，气氛剑拔弩张。",
+        "emotional_tone": "紧张",
+        "intensity": 9,
+        "stinger_at": {
+          "offset_s": 18,
+          "type": "perc_hit"
+        }
+      },
+      {
+        "time_range": "59-80s",
+        "duration": 21,
+        "scene_description": "Evelyn下令“留到最后”，Cade被扭押返回，眼神转为反击决心。",
+        "emotional_tone": "悬疑",
+        "intensity": 8,
+        "stinger_at": {
+          "offset_s": 2,
+          "type": "low_brass_hit"
+        }
+      }
+    ],
+    "title": "episode_1_scene_1"
+  },
+  "target_bpm": 135,
+  "old": {
+    "pipeline": "legacy",
+    "payload": {
+      "prompt": "[INSTRUMENTAL ONLY] High-stakes confrontation, life or death situation",
+      "tags": "intense, suspense, dramatic, dark, aggressive, pounding, pressure, no vocals, instrumental only",
+      "title": "episode_1_scene_1 - 紧张 BGM",
+      "mv": "chirp-v4",
+      "make_instrumental": true
+    },
+    "chosen_clip": "comparison/cache/78dd6df6be591558__cand0__56f792c4-8446-48ea-ac6c-fbab338fef94.mp3",
+    "all_candidates": [
+      "comparison/cache/78dd6df6be591558__cand0__56f792c4-8446-48ea-ac6c-fbab338fef94.mp3",
+      "comparison/cache/78dd6df6be591558__cand1__64f8f632-27d1-44d8-95fc-e68a90bfb23f.mp3"
+    ],
+    "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_old/紧张_80s_legacy_20260513_195314.mp3",
+    "post_processing": {
+      "fade_out_ms": 0,
+      "lufs_normalized": false
+    },
+    "elapsed_s": 0.7,
+    "final_metrics": {
+      "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_old/紧张_80s_legacy_20260513_195314.mp3",
+      "vocal_energy_ratio": 0.3778,
+      "bpm_detected": 99.4,
+      "bpm_target": 135,
+      "lufs": -11.92
+    }
+  },
+  "new": {
+    "pipeline": "v2",
+    "payload": {
+      "prompt": "[Instrumental, score only]\nA tense cinematic cue at 135bpm in D minor.\nCore instrumentation: ostinato strings, sub bass drone, metallic percussion.\nProduction style: Hans Zimmer / Junkie XL, hybrid orchestral, sparse.\nDynamics arc across ~80s:\n- 0-17s: tense intensity 7/10, emphasis on ostinato strings\n- 17-38s: mystery intensity 8/10, emphasis on dissonant pad\n- 38-59s: tense intensity 9/10, emphasis on ostinato strings\n- 59-80s: mystery intensity 8/10, emphasis on dissonant pad\nDo not include any vocals, singing, or lyrics — orchestral score only.",
+      "tags": "cinematic orchestral, dark suspense, ostinato strings, sub bass, hybrid percussion, 135bpm, D minor",
+      "title": "episode_1_scene_1 - tense BGM",
+      "mv": "chirp-v4",
+      "make_instrumental": true
+    },
+    "candidates": [
+      {
+        "path": "comparison/cache/4a89dcf47c195e6e__cand0__5351847b-e628-4cc8-961e-b7775b308d9e.mp3",
+        "vocal_energy_ratio": 0.2747,
+        "bpm_detected": 92.3,
+        "bpm_target": 135,
+        "lufs": -11.1,
+        "vocal_score": 0.901,
+        "bpm_score": 0.0,
+        "score": 0.631
+      },
+      {
+        "path": "comparison/cache/4a89dcf47c195e6e__cand1__12b0303a-ed57-44af-b081-d3f9dd9f2ad4.mp3",
+        "vocal_energy_ratio": 0.3892,
+        "bpm_detected": 143.6,
+        "bpm_target": 135,
+        "lufs": -12.37,
+        "vocal_score": 0.443,
+        "bpm_score": 0.789,
+        "score": 0.547
+      }
+    ],
+    "chosen_clip": "comparison/cache/4a89dcf47c195e6e__cand0__5351847b-e628-4cc8-961e-b7775b308d9e.mp3",
+    "stinger": {
+      "boundary_s": 17,
+      "tone": "悬疑",
+      "intensity": 9,
+      "stinger_clip": "comparison/cache/5b16b44784d932ba__cand0__766d3fab-1133-4095-812c-61832981f55d.mp3",
+      "output": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_new/main_with_stinger_17s.mp3",
+      "intensity_delta": 1
+    },
+    "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_new/紧张_80s_v2_20260513_195538.mp3",
+    "post_processing": {
+      "fade_out_ms": 3000,
+      "lufs_normalized": true,
+      "target_lufs": -18.0
+    },
+    "elapsed_s": 140.0,
+    "final_metrics": {
+      "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_new/紧张_80s_v2_20260513_195538.mp3",
+      "vocal_energy_ratio": 0.2858,
+      "bpm_detected": 92.3,
+      "bpm_target": 135,
+      "lufs": -18.28
+    }
+  }
+}
