@@ -8,6 +8,10 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load .env file from project root
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
 
 
 @dataclass
@@ -33,9 +37,9 @@ class Config:
     target_lufs: float = -18.0
     fade_out_ms: int = 3000
 
-    suno_poll_timeout_s: int = 300
-    suno_poll_interval_s: int = 10
-    suno_max_retries: int = 3
+    suno_poll_timeout_s: int = 900  # 15分钟（多段生成需要更长时间）
+    suno_poll_interval_s: int = 15  # 降低轮询频率，减少API压力
+    suno_max_retries: int = 5  # 增加重试次数
 
     def ensure_dirs(self) -> None:
         self.output_dir.mkdir(parents=True, exist_ok=True)

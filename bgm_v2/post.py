@@ -1,9 +1,19 @@
 """Post-processing: trim + fade-out + LUFS normalization + crossfade stitching."""
 from __future__ import annotations
+import os
 from pathlib import Path
 from typing import List, Optional
 
 from pydub import AudioSegment
+
+# Set ffmpeg/ffprobe path for Windows
+FFMPEG_DIR = r"C:\Users\99384\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.1-full_build\bin"
+FFMPEG_PATH = os.path.join(FFMPEG_DIR, "ffmpeg.exe")
+FFPROBE_PATH = os.path.join(FFMPEG_DIR, "ffprobe.exe")
+if os.path.exists(FFMPEG_PATH):
+    AudioSegment.converter = FFMPEG_PATH
+if os.path.exists(FFPROBE_PATH):
+    AudioSegment.ffprobe = FFPROBE_PATH
 
 
 def fade_and_normalize(

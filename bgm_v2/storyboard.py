@@ -51,6 +51,24 @@ from .tone_params import TONE_PARAMS
 
 ALLOWED_TONES = list(TONE_PARAMS.keys())
 
+# 合法的 transition 类型
+VALID_TRANSITIONS = {"cold", "swell", "hit", "drop"}
+
+# SFX 关键词列表 - 需要清理的内容
+SFX_KEYWORDS = [
+    "雷", "雷鸣", "闪电", "暴雨", "雨声",
+    "爆炸", "爆炸声", "轰", "炸弹",
+    "枪", "枪声", "射击", "开枪",
+    "尖", "惨叫", "惨叫", "吼",
+    "金属", "震颤", "电流", "爆闪",
+    "撞击", "碰撞", "碎", "玻璃碎",
+    "门", "关门", "开门", "撞门",
+    "脚步", "脚步声", "鞋跟",
+    "汽车", "刹车", "引擎", "喇叭",
+    "风", "风声", "呼啸",
+    "火", "燃烧", "火焰",
+]
+
 SYSTEM_PROMPT = (
     "你是一位资深短剧 BGM 音乐总监，熟悉抖音/快手/掌阅短剧的节奏与情绪设计。"
     "你会读分镜表，按镜头粒度判断情绪，然后聚合成 3-6 段可演奏的音乐 cue。"
@@ -60,12 +78,15 @@ SYSTEM_PROMPT = (
 
 
 def _build_prompt(storyboard_text: str, title: str) -> str:
+    # 智能截断分镜表，保留关键信息
+    truncated = storyboard_text[:10000] if len(storyboard_text) > 10000 else storyboard_text
+
     return f"""分析以下短剧分镜表，输出 BGM 规划 JSON。
 
 剧本标题: {title}
 
 分镜表：
-{storyboard_text[:8000]}
+{truncated}
 
 【任务一】把每个镜头转成 shots[]，提取这些字段（每镜一条）：
   - id: 镜号（整数）
@@ -91,7 +112,7 @@ def _build_prompt(storyboard_text: str, title: str) -> str:
     - tone: 该 cue 的主基调，从 {ALLOWED_TONES}
     - intensity_peak: 该 cue 的强度峰值（取该段镜头里最大的 intensity）
     - shot_ids: 该 cue 覆盖的镜号列表
-    - narrative_summary: 一句中文，描述这段在剧情上做什么
+    - narrative_summary: 一句中文，描述这段在剧情上做什么（不要包含音效描述）
     - transition_in: 进入方式（cold / swell / hit / drop）
     - transition_out: 退出方式
 
@@ -99,6 +120,27 @@ def _build_prompt(storyboard_text: str, title: str) -> str:
   - total_duration_s: 整片总时长（用 shots 最后一条的 end_s）
   - primary_tone: 全片主基调，取累计时长最大的 cue tone
   - primary_intensity: 全片主强度，取所有 cue 的 intensity_peak 最大值
+
+【情绪识别规则 - 关键！】
+
+**优先使用简化的双情绪系统**：
+- **紧张** (Tense)：冲突、对峙、危机、反击、逮捕等所有负面/紧张场景
+- **温馨** (Warm)：求婚、爱情、和解、结婚等所有浪漫/温暖场景
+
+**紧张** 的典型特征：
+- 冲突、对峙、权力斗争
+- 反击、压制、逮捕
+- 危机、威胁、紧迫感
+- 例：董事会投票、Ethan被捕、Mia反击 → 紧张
+
+**温馨** 的典型特征：
+- 求婚、承诺、爱情对话
+- 婚姻登记、情感交流
+- 例：戒指场景、"我会等你"、结婚登记 → 温馨
+
+**其他情绪都归入这两类**：
+- "反击"、"豪门"、"励志" → 合并为"紧张"
+- "静默"、"异常"、"恐惧" → 合并为"紧张"
 
 【硬性规则】
 - 严禁把 SFX 备注（如金属震颤、电流爆闪、暴雨雷鸣、尖叫）当作要生成的内容。
@@ -130,21 +172,55 @@ def analyze_storyboard(
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": _build_prompt(storyboard_text, title)},
         ],
-        "temperature": 0.4,
+        "temperature": 0.2,  # 降低随机性
         "response_format": {"type": "json_object"},
     }
     headers = {
         "Authorization": f"Bearer {cfg.gpt_api_key}",
         "Content-Type": "application/json",
     }
-    r = SESSION.post(
-        f"{cfg.gpt_api_base}/chat/completions",
-        headers=headers, json=payload, timeout=120,
-    )
-    r.raise_for_status()
-    content = r.json()["choices"][0]["message"]["content"]
-    data = json.loads(content)
-    return _sanitize(data, title, storyboard_text)
+
+    # 第一次尝试
+    try:
+        r = SESSION.post(
+            f"{cfg.gpt_api_base}/chat/completions",
+            headers=headers, json=payload, timeout=120,
+        )
+        r.raise_for_status()
+        content = r.json()["choices"][0]["message"]["content"]
+        data = json.loads(content)
+        return _sanitize(data, title, storyboard_text)
+    except (json.JSONDecodeError, KeyError, ValueError) as e:
+        print(f"[storyboard] First attempt failed: {e}, retrying...")
+
+        # Retry 一次
+        try:
+            r = SESSION.post(
+                f"{cfg.gpt_api_base}/chat/completions",
+                headers=headers, json=payload, timeout=120,
+            )
+            r.raise_for_status()
+            content = r.json()["choices"][0]["message"]["content"]
+            data = json.loads(content)
+            return _sanitize(data, title, storyboard_text)
+        except Exception as e2:
+            print(f"[storyboard] Second attempt failed: {e2}, entering repair mode")
+
+            # Repair mode
+            total = _fallback_duration(storyboard_text)
+            return {
+                "title": title,
+                "total_duration_s": total,
+                "primary_tone": "紧张",
+                "primary_intensity": 5,
+                "shots": [],
+                "cues": [{
+                    "id": 1, "start_s": 0, "end_s": total,
+                    "tone": "紧张", "intensity_peak": 5,
+                    "shot_ids": [], "narrative_summary": "自动生成的BGM",
+                    "transition_in": "cold", "transition_out": "swell",
+                }]
+            }
 
 
 # ---------- post-processing & guard rails ----------
@@ -153,19 +229,24 @@ def _sanitize(data: dict, title: str, storyboard_text: str) -> dict:
     """Coerce GPT output into the strict shape we promise downstream."""
     data["title"] = title
 
+    # 导入统一的 tone normalization 函数
+    from .gpt_analyzer import normalize_tone
+
     shots = data.get("shots") or []
     for s in shots:
         s["id"] = int(s.get("id", 0))
         s["start_s"] = int(s.get("start_s", 0))
         s["end_s"] = int(s.get("end_s", s["start_s"]))
         s["duration_s"] = max(1, s["end_s"] - s["start_s"])
-        s["tone"] = _coerce_tone(s.get("tone"))
+        s["tone"] = normalize_tone(s.get("tone"))
         s["intensity"] = _coerce_intensity(s.get("intensity"))
         s["narrative_func"] = s.get("narrative_func") or []
         s.setdefault("shot_scale", "")
         s.setdefault("shot_movement", "")
-        s.setdefault("dialogue_zh", "")
-        s.setdefault("summary_zh", "")
+
+        # 清理 SFX 污染
+        s["dialogue_zh"] = _sanitize_sfx(s.get("dialogue_zh", ""))
+        s["summary_zh"] = _sanitize_sfx(s.get("summary_zh", ""))
 
     if shots:
         data["total_duration_s"] = int(data.get("total_duration_s") or shots[-1]["end_s"])
@@ -174,32 +255,68 @@ def _sanitize(data: dict, title: str, storyboard_text: str) -> dict:
 
     cues = data.get("cues") or []
     cues = _repair_cue_continuity(cues, data["total_duration_s"])
+    cues = _enforce_cue_duration(cues)  # 强制校验时长
+
     for i, c in enumerate(cues):
         c["id"] = i + 1
-        c["tone"] = _coerce_tone(c.get("tone"))
+        c["tone"] = normalize_tone(c.get("tone"))
         c["intensity_peak"] = _coerce_intensity(c.get("intensity_peak"))
         c.setdefault("shot_ids", [])
-        c.setdefault("narrative_summary", "")
-        c.setdefault("transition_in", "swell")
-        c.setdefault("transition_out", "swell")
+        c["narrative_summary"] = _sanitize_sfx(c.get("narrative_summary", ""))
+
+        # 校验 transition 字段
+        c["transition_in"] = _validate_transition(c.get("transition_in", "swell"))
+        c["transition_out"] = _validate_transition(c.get("transition_out", "swell"))
+
     data["cues"] = cues
 
-    data["primary_tone"] = _coerce_tone(data.get("primary_tone")) if data.get("primary_tone") else _infer_primary_tone(cues)
+    data["primary_tone"] = normalize_tone(data.get("primary_tone")) if data.get("primary_tone") else _infer_primary_tone(cues)
     data["primary_intensity"] = _coerce_intensity(
         data.get("primary_intensity") or max((c["intensity_peak"] for c in cues), default=5)
     )
     return data
 
 
-def _coerce_tone(tone) -> str:
-    if isinstance(tone, str) and tone in ALLOWED_TONES:
-        return tone
-    if isinstance(tone, str):
-        # tolerate "羞辱/对峙" → "羞辱"
-        head = tone.split("/")[0].strip()
-        if head in ALLOWED_TONES:
-            return head
-    return "紧张"
+def _sanitize_sfx(text: str) -> str:
+    """清理文本中的SFX描述，保留剧情相关内容。"""
+    if not text:
+        return ""
+
+    result = text
+    for keyword in SFX_KEYWORDS:
+        # 移除包含SFX关键词的短语
+        result = re.sub(r'[^，。；：！？\w]*' + keyword + r'[^，。；：！？\w]*', '', result)
+
+    # 清理多余的标点
+    result = re.sub(r'[，。；：]+', '，', result)
+    result = re.sub(r'\s+', ' ', result).strip()
+
+    return result
+
+
+def _validate_transition(transition: str) -> str:
+    """校验 transition 字段，只允许合法值。"""
+    if transition in VALID_TRANSITIONS:
+        return transition
+    # 模糊匹配
+    mapping = {
+        "冷": "cold",
+        "突然": "cold",
+        "直接": "cold",
+        "渐": "swell",
+        "渐入": "swell",
+        "渐强": "swell",
+        "上升": "swell",
+        "击": "hit",
+        "冲击": "hit",
+        "重击": "hit",
+        "突": "hit",
+        "下": "drop",
+        "下降": "drop",
+        "渐弱": "drop",
+        "消失": "drop",
+    }
+    return mapping.get(transition, "swell")
 
 
 def _coerce_intensity(v) -> int:
@@ -211,7 +328,12 @@ def _coerce_intensity(v) -> int:
 
 
 def _repair_cue_continuity(cues: list, total: int) -> list:
-    """Make cues a seamless cover of [0, total]. Drops zero-length cues."""
+    """Make cues a seamless cover of [0, total].
+
+    改进：
+    - 如果有gap，创建bridging cue而不是强行覆盖
+    - 保证时间连续且语义合理
+    """
     if not cues:
         return [{
             "id": 1, "start_s": 0, "end_s": total,
@@ -219,33 +341,133 @@ def _repair_cue_continuity(cues: list, total: int) -> list:
             "shot_ids": [], "narrative_summary": "",
             "transition_in": "cold", "transition_out": "swell",
         }]
+
+    # 按 start_s 排序
     cues = sorted(cues, key=lambda c: int(c.get("start_s", 0)))
+
     fixed = []
     cursor = 0
+
     for c in cues:
         s = int(c.get("start_s", cursor))
         e = int(c.get("end_s", s))
+
         if e <= s:
-            continue
+            continue  # 跳过无效cue
+
+        # 如果有gap，创建bridging cue
+        if s > cursor:
+            gap_duration = s - cursor
+            # 从前一个cue推断属性
+            if fixed:
+                bridge_tone = fixed[-1].get("tone", "紧张")
+                bridge_intensity = fixed[-1].get("intensity_peak", 5)
+            else:
+                bridge_tone = "紧张"
+                bridge_intensity = 5
+
+            fixed.append({
+                "id": len(fixed) + 1,
+                "start_s": cursor,
+                "end_s": s,
+                "tone": bridge_tone,
+                "intensity_peak": bridge_intensity,
+                "shot_ids": [],
+                "narrative_summary": "",
+                "transition_in": "swell",
+                "transition_out": "swell",
+            })
+            cursor = s
+
+        # 如果重叠，截断
         if s < cursor:
             s = cursor
-        if s > cursor and fixed:
-            fixed[-1]["end_s"] = s
+
         c2 = dict(c)
         c2["start_s"] = s
         c2["end_s"] = e
         fixed.append(c2)
         cursor = e
+
+    # 确保覆盖到total
     if fixed:
-        fixed[0]["start_s"] = 0
-        fixed[-1]["end_s"] = total
+        if fixed[0]["start_s"] != 0:
+            fixed[0]["start_s"] = 0
+        if fixed[-1]["end_s"] != total:
+            fixed[-1]["end_s"] = total
+
     return fixed
 
 
+def _enforce_cue_duration(cues: list) -> list:
+    """强制校验cue时长：6-30秒。
+
+    - 太短的cue合并到相邻cue
+    - 太长的cue分割成多个
+    """
+    if not cues:
+        return cues
+
+    MIN_DURATION = 6
+    MAX_DURATION = 30
+
+    result = []
+    i = 0
+
+    while i < len(cues):
+        cue = cues[i]
+        duration = cue["end_s"] - cue["start_s"]
+
+        if duration < MIN_DURATION and i + 1 < len(cues):
+            # 合并到下一个cue
+            next_cue = cues[i + 1]
+            merged = {
+                "id": cue["id"],
+                "start_s": cue["start_s"],
+                "end_s": next_cue["end_s"],
+                "tone": next_cue.get("tone", cue.get("tone")),
+                "intensity_peak": max(cue.get("intensity_peak", 5), next_cue.get("intensity_peak", 5)),
+                "shot_ids": cue.get("shot_ids", []) + next_cue.get("shot_ids", []),
+                "narrative_summary": next_cue.get("narrative_summary", ""),
+                "transition_in": cue.get("transition_in", "swell"),
+                "transition_out": next_cue.get("transition_out", "swell"),
+            }
+            result.append(merged)
+            i += 2  # 跳过已合并的下一个
+        elif duration > MAX_DURATION:
+            # 分割成多个cue
+            num_splits = (duration + MAX_DURATION - 1) // MAX_DURATION
+            split_duration = duration // num_splits
+
+            for j in range(num_splits):
+                split_start = cue["start_s"] + j * split_duration
+                split_end = cue["start_s"] + (j + 1) * split_duration if j < num_splits - 1 else cue["end_s"]
+
+                result.append({
+                    "id": cue["id"] + j,
+                    "start_s": split_start,
+                    "end_s": split_end,
+                    "tone": cue.get("tone", "紧张"),
+                    "intensity_peak": cue.get("intensity_peak", 5),
+                    "shot_ids": cue.get("shot_ids", []),
+                    "narrative_summary": cue.get("narrative_summary", ""),
+                    "transition_in": cue.get("transition_in", "swell") if j == 0 else "swell",
+                    "transition_out": cue.get("transition_out", "swell") if j == num_splits - 1 else "swell",
+                })
+            i += 1
+        else:
+            result.append(cue)
+            i += 1
+
+    return result
+
+
 def _infer_primary_tone(cues: list) -> str:
+    from .gpt_analyzer import normalize_tone
+
     tone_dur: dict[str, int] = {}
     for c in cues:
-        t = _coerce_tone(c.get("tone"))
+        t = normalize_tone(c.get("tone"))
         tone_dur[t] = tone_dur.get(t, 0) + max(0, int(c.get("end_s", 0)) - int(c.get("start_s", 0)))
     return max(tone_dur.items(), key=lambda kv: kv[1])[0] if tone_dur else "紧张"
 

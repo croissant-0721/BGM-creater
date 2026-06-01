@@ -204,28 +204,64 @@ def render_suno_payload(
 
     arc_lines = []
     if timeline:
-        for i, seg in enumerate(timeline[:6]):
+        for i, seg in enumerate(timeline[:8]):  # 支持更多段
             t = seg.get("time_range", f"seg{i}")
             tone_seg = seg.get("emotional_tone", tone)
             inten = seg.get("intensity", intensity)
             sub = TONE_PARAMS.get(tone_seg, params)
+
+            # 为每段写完整的乐器和风格描述
+            seg_instr = ", ".join(sub.instrumentation[:3])
+            seg_bpm = pick_bpm(tone_seg, inten)
+            seg_key = sub.key_options[0] if sub.key_options else key
+
             arc_lines.append(
-                f"- {t}: {sub.name_en} intensity {inten}/10, "
-                f"emphasis on {sub.instrumentation[0]}"
+                f"[{t}] {sub.name_en} style (intensity {inten}/10):\n"
+                f"  Instruments: {seg_instr}\n"
+                f"  BPM: {seg_bpm}, Key: {seg_key}\n"
+                f"  Production: {sub.production_style}"
             )
     else:
-        arc_lines.append("- 0:00-0:15 sparse intro")
-        arc_lines.append("- 0:15-0:40 build with layered instruments")
-        arc_lines.append("- 0:40-end climax then resolve")
+        arc_lines.append("- [0-15s] Sparse intro, minimal instruments")
+        arc_lines.append("- [15-40s] Build tension, layer instruments gradually")
+        arc_lines.append("- [40-60s] Climax with full orchestral intensity")
+        arc_lines.append("- [60s-end] Resolve and fade")
 
     arc_block = "\n".join(arc_lines)
+
+    # 超强无人声提示 - 放在开头和结尾
+    no_vocals_header = (
+        "*** INSTRUMENTAL ONLY - NO VOCALS ***\n"
+        "This is PURE BACKGROUND MUSIC with ZERO human voice.\n"
+        "NO singing, NO lyrics, NO vocal samples, NO choir, NO humming.\n"
+    )
+
+    no_vocals_footer = (
+        "\n\n*** CRITICAL: NO VOCALS ***\n"
+        "- NO singing voice\n"
+        "- NO lyrics or words\n"
+        "- NO vocal chops or samples\n"
+        "- NO choir or backing vocals\n"
+        "- NO humming or vocal pads\n"
+        "- NO pitch-shifted vocals\n"
+        "- ONLY orchestral/instrumental sounds\n"
+        "- ALL sounds must be synthesized or acoustic instruments"
+    )
+
+    # 强调单轨连续
+    continuous_block = (
+        f"Create ONE {total_duration_s}-SECOND CONTINUOUS cinematic background score.\n"
+        f"Single uninterrupted track - NO silences between sections.\n"
+        f"Smooth transitions between emotional changes.\n"
+        f"DO NOT generate multiple separate songs."
+    )
+
     prompt = (
-        f"[Instrumental, score only]\n"
-        f"A {params.name_en} cinematic cue at {bpm}bpm in {key}.\n"
-        f"Core instrumentation: {instr_line}.\n"
-        f"Production style: {params.production_style}.\n"
-        f"Dynamics arc across ~{total_duration_s}s:\n{arc_block}\n"
-        f"Do not include any vocals, singing, or lyrics — orchestral score only."
+        f"{no_vocals_header}\n"
+        f"{continuous_block}\n\n"
+        f"Base: {params.name_en} cinematic, {bpm}BPM, {key}\n\n"
+        f"TIMELINE (each section flows into the next):\n{arc_block}"
+        f"{no_vocals_footer}"
     )
 
     return {
@@ -284,23 +320,47 @@ def render_storyboard_payload(
     arc_lines: list[str] = []
     for c in cues:
         sub = TONE_PARAMS.get(c.get("tone", primary_tone), anchor)
+        seg_instr = ", ".join(sub.instrumentation[:3])
+        seg_bpm = pick_bpm(c.get("tone", primary_tone), c.get("intensity_peak", 5))
+        seg_key = sub.key_options[0] if sub.key_options else key
+
         arc_lines.append(
-            f"- {c.get('start_s', 0)}-{c.get('end_s', 0)}s: "
-            f"{sub.name_en} intensity {c.get('intensity_peak', 5)}/10, "
-            f"emphasis on {sub.instrumentation[0]}"
-            + (f" — {c['narrative_summary']}" if c.get("narrative_summary") else "")
+            f"[{c.get('start_s', 0)}-{c.get('end_s', 0)}s] {sub.name_en} style (intensity {c.get('intensity_peak', 5)}/10):\n"
+            f"  Instruments: {seg_instr}\n"
+            f"  BPM: {seg_bpm}, Key: {seg_key}"
         )
 
+    # 超强无人声提示
+    no_vocals_header = (
+        "*** INSTRUMENTAL ONLY - NO VOCALS ***\n"
+        "This is PURE BACKGROUND MUSIC with ZERO human voice.\n"
+        "NO singing, NO lyrics, NO vocal samples, NO choir, NO humming.\n"
+    )
+
+    no_vocals_footer = (
+        "\n\n*** CRITICAL: NO VOCALS ***\n"
+        "- NO singing voice\n"
+        "- NO lyrics or words\n"
+        "- NO vocal chops or samples\n"
+        "- NO choir or backing vocals\n"
+        "- ONLY orchestral/instrumental sounds"
+    )
+
+    # 强调单轨连续
+    continuous_block = (
+        f"Create ONE {total_duration_s}-SECOND CONTINUOUS cinematic background score.\n"
+        f"Single uninterrupted track - NO silences between sections.\n"
+        f"Smooth transitions between emotional changes.\n"
+        f"DO NOT generate multiple separate songs."
+    )
+
     prompt = (
-        f"[Instrumental, score only]\n"
-        f"A {anchor.name_en}-anchored cinematic cue at {bpm}bpm in {key}, "
-        f"total length ~{total_duration_s}s.\n"
-        f"Core instrumentation: {instr_line}.\n"
-        f"Production style: {anchor.production_style}.\n"
-        f"Follow this dynamics arc, transitioning smoothly between sections:\n"
+        f"{no_vocals_header}\n"
+        f"{continuous_block}\n\n"
+        f"Base: {anchor.name_en} cinematic, {bpm}BPM, {key}\n\n"
+        f"TIMELINE (each section flows into the next):\n"
         + "\n".join(arc_lines)
-        + "\nDo not include any vocals, singing, lyrics, or diegetic sound effects "
-          "(no thunder, no glass break, no screams, no door slam). Pure orchestral score only."
+        + no_vocals_footer
     )
 
     return {
