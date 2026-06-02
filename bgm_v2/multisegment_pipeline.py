@@ -17,6 +17,7 @@ from .suno_client import SunoClient
 from .tone_params import TONE_PARAMS, pick_bpm
 from .quality import score_candidate
 from .post import _loudness_normalize
+from .stinger import plan_stingers, apply_stingers
 
 
 # 叙事节点关键词列表 - 这些节点必须强制切cue
@@ -26,12 +27,15 @@ NARRATIVE_NODES = [
 ]
 
 # transition 类型 → crossfade 时长(ms)
+# 注意：除第一段(cold)外一律给真实 crossfade，不再用 0ms 硬切（硬切把两段
+# 调性/速度/配器都不同的音乐直接对接，听感非常生硬）。反差越大 crossfade 越短，
+# 仍保留情绪对比，但不会"啪"地一下。
 TRANSITION_CROSSFADE_MS = {
-    "continue": 800,    # 同情绪：柔和过渡
-    "gradual": 1200,    # 中等变化：稍长过渡
-    "abrupt": 0,        # 剧烈变化：硬切
-    "dramatic": 0,      # 叙事爽点：硬切
-    "cold": 0,          # 第一段：无过渡
+    "continue": 1200,   # 同情绪：最平滑
+    "gradual": 1000,    # 中等变化
+    "abrupt": 800,      # 剧烈变化：短一些但仍交叠
+    "dramatic": 700,    # 叙事爽点：最短，保留冲击感但不突兀
+    "cold": 0,          # 第一段：无前序，无过渡
 }
 
 
@@ -233,15 +237,18 @@ def _split_long_cues(cues: List[dict], min_dur: int, max_dur: int) -> List[dict]
     return merged
 
 
-def _merge_same_tone_cues(cues: List[dict]) -> List[dict]:
-    """合并相邻的同情绪段落，减少不必要的分段。"""
+def _merge_same_tone_cues(cues: List[dict], intensity_tol: int = 3) -> List[dict]:
+    """合并相邻的同情绪段落 —— 但强度跳变 >= intensity_tol 时不合并，
+    保留剧情起伏节拍（否则一段平铺紧张会抹平高潮，导致"卡不上点"）。"""
     if not cues:
         return cues
 
     merged = [dict(cues[0])]
     for nxt in cues[1:]:
         cur = merged[-1]
-        if cur["tone"] == nxt["tone"]:
+        same_tone = cur["tone"] == nxt["tone"]
+        close = abs(cur.get("intensity_peak", 5) - nxt.get("intensity_peak", 5)) < intensity_tol
+        if same_tone and close:
             cur["end_s"] = nxt["end_s"]
             cur["duration_s"] = cur["end_s"] - cur["start_s"]
             cur["intensity_peak"] = max(cur.get("intensity_peak", 5), nxt.get("intensity_peak", 5))
@@ -382,12 +389,18 @@ def generate_bgm_multisegment(
     out_dir: Path,
     *,
     config: Optional[Config] = None,
+    use_stinger: bool = True,
+    parallel: bool = True,
+    submit_stagger_s: float = 3.0,
 ) -> dict:
     """多段生成 + 拼接的完整 pipeline。
 
     - 每种情绪只调一次 Suno（省成本），保存原始候选
     - 每个 cue 从所属情绪的原始候选按**自己的精确时长**单独裁剪
     - 拼接时按过渡类型 crossfade，并补偿重叠量，使总长 == 剧本总时长
+    - use_stinger=True 时在剧情高潮/反转的精确时间点叠加 stinger 重音（卡点）
+    - parallel=True 时并发提交+轮询所有情绪（错开 submit_stagger_s 秒防突发限流），
+      总耗时≈最慢一段而非相加；False 时串行（每段间等 30s）
     """
     cfg = config or Config()
     cfg.ensure_dirs()
@@ -403,26 +416,62 @@ def generate_bgm_multisegment(
         print(f"  cue{c['id']}: {c['start_s']}-{c['end_s']}s ({c['duration_s']}s) "
               f"| {c['tone']} | 强度{c['intensity_peak']} | {c['transition_from_previous']}", flush=True)
 
-    # 2. 每种情绪生成一次原始候选
-    raw_by_tone: Dict[str, Path] = {}
+    # 2. 每种情绪生成一次原始候选（每种情绪取第一个出现的 cue 作 prompt 依据）
+    unique_tones: List[str] = []
+    cue_for_tone: Dict[str, dict] = {}
     for cue in cues:
-        tone = cue["tone"]
-        if tone in raw_by_tone:
-            continue
-        if raw_by_tone:  # 非首次生成前等待，避免 Suno 限流
-            print(f"[multisegment] 等待 30s 避免限流...", flush=True)
-            time.sleep(30)
-        print(f"[multisegment] 生成新情绪段: {tone} (由 cue{cue['id']} 触发)", flush=True)
-        try:
-            raw_by_tone[tone] = _generate_raw_for_tone(cue, title, cfg)
-        except Exception as e:
-            print(f"[multisegment] {tone} 生成失败: {e}", flush=True)
-            if raw_by_tone:
-                fallback = next(iter(raw_by_tone))
-                print(f"[multisegment] 回退到已生成的 {fallback} 段", flush=True)
-                raw_by_tone[tone] = raw_by_tone[fallback]
+        if cue["tone"] not in cue_for_tone:
+            cue_for_tone[cue["tone"]] = cue
+            unique_tones.append(cue["tone"])
+
+    raw_by_tone: Dict[str, Path] = {}
+    if parallel and len(unique_tones) > 1:
+        # 并发：错开提交防突发限流，再并行轮询（各段服务器端同时生成）
+        from concurrent.futures import ThreadPoolExecutor
+
+        def _gen(item):
+            idx, tone = item
+            if idx > 0:
+                time.sleep(idx * submit_stagger_s)  # 错开提交
+            try:
+                return tone, _generate_raw_for_tone(cue_for_tone[tone], title, cfg)
+            except Exception as e:
+                print(f"[multisegment] {tone} 生成失败: {e}", flush=True)
+                return tone, None
+
+        print(f"[multisegment] 并行生成 {len(unique_tones)} 种情绪 {unique_tones} "
+              f"(错开 {submit_stagger_s}s 提交)...", flush=True)
+        results: Dict[str, Optional[Path]] = {}
+        with ThreadPoolExecutor(max_workers=min(len(unique_tones), 6)) as ex:
+            for tone, raw in ex.map(_gen, list(enumerate(unique_tones))):
+                results[tone] = raw
+
+        ok_tones = [t for t in unique_tones if results.get(t)]
+        if not ok_tones:
+            raise RuntimeError("所有情绪段生成均失败")
+        for tone in unique_tones:
+            if results.get(tone):
+                raw_by_tone[tone] = results[tone]
             else:
-                raise
+                print(f"[multisegment] {tone} 回退到 {ok_tones[0]} 段", flush=True)
+                raw_by_tone[tone] = results[ok_tones[0]]
+    else:
+        # 串行：每段之间等 30s 避免限流
+        for i, tone in enumerate(unique_tones):
+            if i > 0:
+                print(f"[multisegment] 等待 30s 避免限流...", flush=True)
+                time.sleep(30)
+            print(f"[multisegment] 生成新情绪段: {tone}", flush=True)
+            try:
+                raw_by_tone[tone] = _generate_raw_for_tone(cue_for_tone[tone], title, cfg)
+            except Exception as e:
+                print(f"[multisegment] {tone} 生成失败: {e}", flush=True)
+                if raw_by_tone:
+                    fallback = next(iter(raw_by_tone))
+                    print(f"[multisegment] 回退到已生成的 {fallback} 段", flush=True)
+                    raw_by_tone[tone] = raw_by_tone[fallback]
+                else:
+                    raise
 
     # 3. 为每个 cue 渲染精确时长的片段（同情绪也各自独立裁剪）
     segments_dir = out_dir / "segments"
@@ -449,9 +498,15 @@ def generate_bgm_multisegment(
             "audio": str(seg_path),
         })
 
-    # 4. 拼接（crossfade 补偿后总长 == 各 cue 时长之和）
+    # 4. 卡点 stinger 规划（从细粒度 analysis 取剧情高潮/反转点）
+    stinger_plan = plan_stingers(analysis, total_duration) if use_stinger else []
+    if stinger_plan:
+        impacts = [p["ts_ms"] // 1000 for p in stinger_plan if p["kind"] == "impact"]
+        print(f"[multisegment] 卡点 stinger {len(impacts)} 处 @ {impacts}s", flush=True)
+
+    # 5. 拼接（crossfade 补偿后总长 == 各 cue 时长之和） + 叠加 stinger
     final_path = out_dir / "episode_final.mp3"
-    _stitch(clips, cues, total_duration, final_path, cfg)
+    _stitch(clips, cues, total_duration, final_path, cfg, stinger_plan=stinger_plan)
 
     return {
         "pipeline": "multisegment",
@@ -461,6 +516,7 @@ def generate_bgm_multisegment(
         "cues": cues,
         "unique_segments": len(raw_by_tone),
         "unique_tones": list(raw_by_tone.keys()),
+        "stingers": stinger_plan,
     }
 
 
@@ -470,8 +526,9 @@ def _stitch(
     total_duration: int,
     output_path: Path,
     cfg: Config,
+    stinger_plan: Optional[List[dict]] = None,
 ) -> Path:
-    """拼接所有片段，硬卡死到总时长，整体淡出，再统一响度归一。
+    """拼接所有片段，硬卡死到总时长，叠加 stinger，整体淡出，再统一响度归一。
 
     片段 i (i>=1) 已多裁 cf_in 长度，crossfade 重叠 cf_in 后净增长 == cue 时长，
     因此拼完总长 == sum(cue.duration_s) == total_duration。
@@ -496,6 +553,10 @@ def _stitch(
         result = result + AudioSegment.silent(
             duration=target_ms - len(result), frame_rate=result.frame_rate
         )
+
+    # 卡点 stinger 叠加（在淡出/归一之前，纳入整体响度控制，避免削顶）
+    if stinger_plan:
+        result = apply_stingers(result, stinger_plan)
 
     # 整体淡出
     result = result.fade_out(min(cfg.fade_out_ms, len(result)))

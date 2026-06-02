@@ -39,3 +39,6 @@ __pycache__/
 comparison/cache/
 comparison/run.log
 comparison/output_new/*.wav
+
+# BGM 测试输出（本地生成物，勿提交）
+output/

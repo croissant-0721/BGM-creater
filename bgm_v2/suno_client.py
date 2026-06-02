@@ -53,71 +53,103 @@ class SunoClient:
     # ---- internals -------------------------------------------------------
 
     def _submit(self, payload: dict) -> List[str]:
-        url = f"{self.cfg.suno_api_base}/generate"
+        """Submit a music task (yunwu / suno-api schema). Returns [taskBatchId].
+
+        我们的 BGM 是描述驱动的纯器乐，用灵感模式(gpt_description_prompt)，不传歌词。
+        """
+        url = f"{self.cfg.suno_api_base}/submit/music"
         headers = {
             "Authorization": f"Bearer {self.cfg.suno_api_key}",
             "Content-Type": "application/json",
         }
-        r = SESSION.post(url, headers=headers, json=payload, timeout=60)
+        desc = payload.get("gpt_description_prompt") or payload.get("prompt") or ""
+        body = {
+            "gpt_description_prompt": desc,
+            "prompt": "",
+            "make_instrumental": bool(payload.get("make_instrumental", True)),
+            "mv": payload.get("mv") or self.cfg.suno_model,
+        }
+        if payload.get("tags"):
+            body["tags"] = payload["tags"]
+        if payload.get("title"):
+            body["title"] = payload["title"]
+
+        r = SESSION.post(url, headers=headers, json=body, timeout=60)
         if r.status_code != 200:
             raise SunoError(f"submit {r.status_code}: {r.text[:300]}")
         data = r.json()
-        clips = data.get("clips") or data.get("data") or []
-        ids = [c["id"] for c in clips if c.get("id")]
-        if not ids:
-            raise SunoError(f"no clip ids in response: {str(data)[:300]}")
-        return ids
+        d = data.get("data")
+        if isinstance(d, str):
+            task_id = d
+        elif isinstance(d, dict):
+            task_id = d.get("taskBatchId") or d.get("task_id")
+        else:
+            task_id = None
+        if not task_id:
+            raise SunoError(f"no task id in response: {str(data)[:300]}")
+        return [str(task_id)]
 
-    def _wait_and_download(self, clip_ids: List[str], cache_key: str) -> List[Path]:
+    def _wait_and_download(self, task_ids: List[str], cache_key: str) -> List[Path]:
+        """Poll the batch task until clips complete, download all candidates."""
+        task_id = task_ids[0]
         deadline = time.time() + self.cfg.suno_poll_timeout_s
-        done: dict[str, str] = {}  # clip_id -> audio_url
-        while time.time() < deadline and len(done) < len(clip_ids):
-            for cid in clip_ids:
-                if cid in done:
-                    continue
-                feed = self._feed(cid)
-                for entry in feed:
-                    if entry.get("id") == cid:
-                        status = entry.get("status")
-                        if status == "complete" and entry.get("audio_url"):
-                            done[cid] = entry["audio_url"]
-                        elif status == "failed":
-                            raise SunoError(f"clip {cid} failed: {entry}")
-                        break
-            if len(done) < len(clip_ids):
-                time.sleep(self.cfg.suno_poll_interval_s)
+        items: list = []
+        while time.time() < deadline:
+            data = self._fetch(task_id)
+            items = data.get("items") or []
+            if any(self._clip_status(it) == 40 for it in items):
+                raise SunoError(f"clip failed: {items}")
+            if items and all(self._clip_status(it) >= 30 and self._clip_url(it) for it in items):
+                break
+            if str(data.get("taskStatus", "")).lower() in ("success", "complete", "completed", "finished"):
+                break
+            time.sleep(self.cfg.suno_poll_interval_s)
 
-        if not done:
-            raise SunoError("timeout waiting for any clip")
+        # 优先取完整(status>=30)的候选，否则退而取任何已有音频地址的
+        ready = [it for it in items if self._clip_status(it) >= 30 and self._clip_url(it)]
+        if not ready:
+            ready = [it for it in items if self._clip_url(it)]
+        if not ready:
+            raise SunoError("no audio produced before timeout")
 
         paths: List[Path] = []
-        for i, cid in enumerate(clip_ids):
-            if cid not in done:
-                continue
-            p = self.cfg.cache_dir / f"{cache_key}__cand{i}__{cid}.mp3"
-            self._download(done[cid], p)
+        for i, it in enumerate(ready):
+            clip_id = it.get("clipId") or it.get("id") or str(i)
+            p = self.cfg.cache_dir / f"{cache_key}__cand{i}__{clip_id}.mp3"
+            self._download(self._clip_url(it), p)
             paths.append(p)
         return paths
 
-    def _feed(self, clip_id: str) -> list:
-        """Poll a single clip. Network errors return [] so the outer poll loop
+    @staticmethod
+    def _clip_url(it: dict) -> str:
+        return it.get("cld2AudioUrl") or it.get("audioUrl") or it.get("audio_url") or ""
+
+    @staticmethod
+    def _clip_status(it: dict) -> int:
+        try:
+            return int(it.get("status") or 0)
+        except (TypeError, ValueError):
+            return 0
+
+    def _fetch(self, task_id: str) -> dict:
+        """Poll a batch task. Network errors return {} so the outer poll loop
         keeps retrying without burning a fresh Suno generation."""
         try:
             r = SESSION.get(
-                f"{self.cfg.suno_api_base}/feed/{clip_id}",
+                f"{self.cfg.suno_api_base}/fetch/{task_id}",
                 headers={"Authorization": f"Bearer {self.cfg.suno_api_key}"},
                 timeout=30,
             )
         except requests.exceptions.RequestException as e:
-            print(f"[suno] feed {clip_id[:8]} network err: {type(e).__name__}; will retry next tick")
-            return []
+            print(f"[suno] fetch {task_id[:8]} network err: {type(e).__name__}; will retry next tick")
+            return {}
         if r.status_code != 200:
-            return []
+            return {}
         try:
             data = r.json()
         except ValueError:
-            return []
-        return data if isinstance(data, list) else data.get("data", [])
+            return {}
+        return data.get("data") or {}
 
     def _download(self, url: str, dest: Path) -> None:
         r = SESSION.get(url, stream=True, timeout=120)
