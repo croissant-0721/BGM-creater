@@ -24,7 +24,7 @@ class Config:
 
     suno_api_key: str = field(default_factory=lambda: os.getenv("BGM_SUNO_API_KEY", ""))
     suno_api_base: str = field(default_factory=lambda: os.getenv(
-        "BGM_SUNO_API_BASE", "https://api.bltcy.ai/suno"
+        "BGM_SUNO_API_BASE", "https://yunwu.ai/suno"
     ))
     suno_model: str = field(default_factory=lambda: os.getenv("BGM_SUNO_MODEL", "chirp-v4"))
 
