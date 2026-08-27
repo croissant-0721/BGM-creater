@@ -1,0 +1,492 @@
+{
+  "ran_at": "2026-05-22T13:11:02",
+  "script_title": "ep2_wedding_showdown_80s",
+  "target_bpm": 140,
+  "result": {
+    "pipeline": "storyboard",
+    "analysis": {
+      "title": "ep2_wedding_showdown_80s",
+      "total_duration_s": 80,
+      "primary_tone": "紧张",
+      "primary_intensity": 10,
+      "shots": [
+        {
+          "id": 1,
+          "start_s": 0,
+          "end_s": 4,
+          "duration_s": 4,
+          "narrative_func": [
+            "钩子",
+            "冲突"
+          ],
+          "shot_scale": "中近景",
+          "shot_movement": "固定",
+          "tone": "紧张",
+          "intensity": 7,
+          "dialogue_zh": "你要选一个服务生，不选我？",
+          "summary_zh": "Victor 逼近质问 Clara 是否要选 Ethan。"
+        },
+        {
+          "id": 2,
+          "start_s": 4,
+          "end_s": 8,
+          "duration_s": 4,
+          "narrative_func": [
+            "反应",
+            "钩子"
+          ],
+          "shot_scale": "近景",
+          "shot_movement": "固定",
+          "tone": "反击",
+          "intensity": 8,
+          "dialogue_zh": "我选不嫁给你。",
+          "summary_zh": "Clara 当众直视 Victor，明确拒婚。"
+        },
+        {
+          "id": 3,
+          "start_s": 8,
+          "end_s": 12,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突",
+            "信息"
+          ],
+          "shot_scale": "中景",
+          "shot_movement": "固定",
+          "tone": "羞辱",
+          "intensity": 8,
+          "dialogue_zh": "Clara，别像寄养家庭出来的垃圾一样丢人！",
+          "summary_zh": "Monica 冲上来用出身羞辱 Clara。"
+        },
+        {
+          "id": 4,
+          "start_s": 12,
+          "end_s": 16,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突"
+          ],
+          "shot_scale": "近景",
+          "shot_movement": "固定",
+          "tone": "恐惧",
+          "intensity": 8,
+          "dialogue_zh": "放开他。现在。",
+          "summary_zh": "Gregory 低声命令 Clara 松开 Ethan。"
+        },
+        {
+          "id": 5,
+          "start_s": 16,
+          "end_s": 20,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突",
+            "信息"
+          ],
+          "shot_scale": "低角度中近景",
+          "shot_movement": "固定",
+          "tone": "羞辱",
+          "intensity": 7,
+          "dialogue_zh": "看看他，他把血都弄到我的地毯上了。",
+          "summary_zh": "Victor 嫌恶指责 Ethan 弄脏婚礼红毯。"
+        },
+        {
+          "id": 6,
+          "start_s": 20,
+          "end_s": 24,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突"
+          ],
+          "shot_scale": "俯拍近景",
+          "shot_movement": "固定",
+          "tone": "羞辱",
+          "intensity": 7,
+          "dialogue_zh": "一个服务生走狗屎运了。",
+          "summary_zh": "伴郎俯视嘲笑 Ethan 的身份与处境。"
+        },
+        {
+          "id": 7,
+          "start_s": 24,
+          "end_s": 28,
+          "duration_s": 4,
+          "narrative_func": [
+            "转折",
+            "反应"
+          ],
+          "shot_scale": "中景",
+          "shot_movement": "推近",
+          "tone": "悬疑",
+          "intensity": 6,
+          "dialogue_zh": "你确定？",
+          "summary_zh": "Ethan 缓缓起身，只看着 Clara 追问她的选择。"
+        },
+        {
+          "id": 8,
+          "start_s": 28,
+          "end_s": 32,
+          "duration_s": 4,
+          "narrative_func": [
+            "信息",
+            "反应"
+          ],
+          "shot_scale": "近景",
+          "shot_movement": "正反打",
+          "tone": "反击",
+          "intensity": 7,
+          "dialogue_zh": "不确定。但我确定不要他。",
+          "summary_zh": "Clara 冷静回应，明确站到 Victor 对立面。"
+        },
+        {
+          "id": 9,
+          "start_s": 32,
+          "end_s": 36,
+          "duration_s": 4,
+          "narrative_func": [
+            "动作",
+            "冲突"
+          ],
+          "shot_scale": "中近景",
+          "shot_movement": "跟拍",
+          "tone": "动作",
+          "intensity": 9,
+          "dialogue_zh": "今晚之后，你就是我的。",
+          "summary_zh": "Victor 粗暴拽住 Clara，试图强行控制她。"
+        },
+        {
+          "id": 10,
+          "start_s": 36,
+          "end_s": 40,
+          "duration_s": 4,
+          "narrative_func": [
+            "反转",
+            "结果"
+          ],
+          "shot_scale": "手部特写拉到双人近景",
+          "shot_movement": "手部特写拉到双人近景",
+          "tone": "反击",
+          "intensity": 10,
+          "dialogue_zh": "她说不。",
+          "summary_zh": "Ethan 强行掰开 Victor 的手，当场护住 Clara。"
+        },
+        {
+          "id": 11,
+          "start_s": 40,
+          "end_s": 43,
+          "duration_s": 3,
+          "narrative_func": [
+            "异常",
+            "反应"
+          ],
+          "shot_scale": "道具特写组接",
+          "shot_movement": "道具特写组接",
+          "tone": "异常",
+          "intensity": 8,
+          "dialogue_zh": "刚才是雷声？",
+          "summary_zh": "宴会厅异样震动，宾客因突发异象而静住。"
+        },
+        {
+          "id": 12,
+          "start_s": 43,
+          "end_s": 47,
+          "duration_s": 4,
+          "narrative_func": [
+            "关键揭示",
+            "反应"
+          ],
+          "shot_scale": "手部特写",
+          "shot_movement": "固定",
+          "tone": "静默",
+          "intensity": 5,
+          "dialogue_zh": "",
+          "summary_zh": "Clara 注视与 Ethan 的交握，压迫感短暂缓下。"
+        },
+        {
+          "id": 13,
+          "start_s": 47,
+          "end_s": 51,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突",
+            "信息"
+          ],
+          "shot_scale": "中近景双人",
+          "shot_movement": "固定",
+          "tone": "反击",
+          "intensity": 7,
+          "dialogue_zh": "他很危险！Victor 也一样。",
+          "summary_zh": "Monica 指控 Ethan 危险，Clara 冷冷反刺 Victor。"
+        },
+        {
+          "id": 14,
+          "start_s": 51,
+          "end_s": 55,
+          "duration_s": 4,
+          "narrative_func": [
+            "紧迫感",
+            "动作"
+          ],
+          "shot_scale": "中景",
+          "shot_movement": "摇镜",
+          "tone": "动作",
+          "intensity": 8,
+          "dialogue_zh": "保安！",
+          "summary_zh": "Victor 暴怒召唤安保，局面迅速升级。"
+        },
+        {
+          "id": 15,
+          "start_s": 55,
+          "end_s": 59,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突"
+          ],
+          "shot_scale": "中景",
+          "shot_movement": "固定",
+          "tone": "紧张",
+          "intensity": 8,
+          "dialogue_zh": "离新娘远点，端盘子的。",
+          "summary_zh": "Caleb 带安保围堵 Ethan，逼他远离 Clara。"
+        },
+        {
+          "id": 16,
+          "start_s": 59,
+          "end_s": 63,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突",
+            "决定"
+          ],
+          "shot_scale": "中近景",
+          "shot_movement": "固定",
+          "tone": "反击",
+          "intensity": 8,
+          "dialogue_zh": "碰他，我就走。",
+          "summary_zh": "Clara 公开站到 Ethan 身前，用离场威胁安保。"
+        },
+        {
+          "id": 17,
+          "start_s": 63,
+          "end_s": 67,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突",
+            "铺垫"
+          ],
+          "shot_scale": "近景",
+          "shot_movement": "固定",
+          "tone": "羞辱",
+          "intensity": 6,
+          "dialogue_zh": "亲爱的，你脚上的鞋都不是你的。",
+          "summary_zh": "Monica 再次借鞋子嘲讽 Clara 的身份处境。"
+        },
+        {
+          "id": 18,
+          "start_s": 67,
+          "end_s": 70,
+          "duration_s": 3,
+          "narrative_func": [
+            "关键动作",
+            "转折"
+          ],
+          "shot_scale": "脚部特写",
+          "shot_movement": "下摇到脚部特写再抬起",
+          "tone": "反击",
+          "intensity": 9,
+          "dialogue_zh": "留给你们。",
+          "summary_zh": "Clara 踢掉婚鞋赤脚站上红毯，以行动宣告切割。"
+        },
+        {
+          "id": 19,
+          "start_s": 70,
+          "end_s": 74,
+          "duration_s": 4,
+          "narrative_func": [
+            "冲突",
+            "异常"
+          ],
+          "shot_scale": "中景",
+          "shot_movement": "跟拍",
+          "tone": "异常",
+          "intensity": 9,
+          "dialogue_zh": "抓住她。",
+          "summary_zh": "Victor 下令抓人，Ethan 护住 Clara，现场异象再起。"
+        },
+        {
+          "id": 20,
+          "start_s": 74,
+          "end_s": 77,
+          "duration_s": 3,
+          "narrative_func": [
+            "结果",
+            "紧迫感"
+          ],
+          "shot_scale": "广角",
+          "shot_movement": "闪电明灭",
+          "tone": "恐惧",
+          "intensity": 10,
+          "dialogue_zh": "Clara!",
+          "summary_zh": "宴会厅骤然停电，Victor 在暴雨雷光中怒吼。"
+        },
+        {
+          "id": 21,
+          "start_s": 77,
+          "end_s": 80,
+          "duration_s": 3,
+          "narrative_func": [
+            "钩子",
+            "动作"
+          ],
+          "shot_scale": "中近景",
+          "shot_movement": "跟拍",
+          "tone": "动作",
+          "intensity": 9,
+          "dialogue_zh": "抓紧。",
+          "summary_zh": "黑暗中 Ethan 抱紧 Clara，带她冲向侧门逃离。"
+        }
+      ],
+      "cues": [
+        {
+          "id": 1,
+          "start_s": 0,
+          "end_s": 12,
+          "tone": "紧张",
+          "intensity_peak": 8,
+          "shot_ids": [
+            1,
+            2,
+            3
+          ],
+          "narrative_summary": "婚礼红毯上矛盾当场爆开，Clara 公开拒婚并遭到羞辱围攻。",
+          "transition_in": "cold",
+          "transition_out": "swell"
+        },
+        {
+          "id": 2,
+          "start_s": 12,
+          "end_s": 24,
+          "tone": "羞辱",
+          "intensity_peak": 8,
+          "shot_ids": [
+            4,
+            5,
+            6
+          ],
+          "narrative_summary": "Gregory、Victor 与伴郎连续施压贬低 Ethan 和 Clara，压迫感持续累积。",
+          "transition_in": "swell",
+          "transition_out": "drop"
+        },
+        {
+          "id": 3,
+          "start_s": 24,
+          "end_s": 36,
+          "tone": "紧张",
+          "intensity_peak": 9,
+          "shot_ids": [
+            7,
+            8,
+            9
+          ],
+          "narrative_summary": "Ethan 试探 Clara 心意，Clara 明确倒向反抗，Victor 随即失控动手。",
+          "transition_in": "drop",
+          "transition_out": "hit"
+        },
+        {
+          "id": 4,
+          "start_s": 36,
+          "end_s": 47,
+          "tone": "异常",
+          "intensity_peak": 10,
+          "shot_ids": [
+            10,
+            11,
+            12
+          ],
+          "narrative_summary": "Ethan 强势护下 Clara 后，现场爆出异常征兆，二人的触碰成为关键转折。",
+          "transition_in": "hit",
+          "transition_out": "drop"
+        },
+        {
+          "id": 5,
+          "start_s": 47,
+          "end_s": 70,
+          "tone": "反击",
+          "intensity_peak": 9,
+          "shot_ids": [
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          "narrative_summary": "Clara 持续公开维护 Ethan，对抗 Victor 与安保，并以踢掉婚鞋完成决裂宣言。",
+          "transition_in": "drop",
+          "transition_out": "hit"
+        },
+        {
+          "id": 6,
+          "start_s": 70,
+          "end_s": 80,
+          "tone": "动作",
+          "intensity_peak": 10,
+          "shot_ids": [
+            19,
+            20,
+            21
+          ],
+          "narrative_summary": "Victor 下令抓人引爆最终混乱，异象与停电中 Ethan 带 Clara 夺路而逃。",
+          "transition_in": "hit",
+          "transition_out": "swell"
+        }
+      ]
+    },
+    "payload": {
+      "prompt": "[Instrumental, score only]\nA tense-anchored cinematic cue at 140bpm in D minor, total length ~80s.\nCore instrumentation: ostinato strings, sub bass drone, metallic percussion.\nProduction style: Hans Zimmer / Junkie XL, hybrid orchestral, sparse.\nFollow this dynamics arc, transitioning smoothly between sections:\n- 0-12s: tense intensity 8/10, emphasis on ostinato strings — 婚礼红毯上矛盾当场爆开，Clara 公开拒婚并遭到羞辱围攻。\n- 12-24s: humiliation intensity 8/10, emphasis on sub bass pulse — Gregory、Victor 与伴郎连续施压贬低 Ethan 和 Clara，压迫感持续累积。\n- 24-36s: tense intensity 9/10, emphasis on ostinato strings — Ethan 试探 Clara 心意，Clara 明确倒向反抗，Victor 随即失控动手。\n- 36-47s: anomalous intensity 10/10, emphasis on reversed strings — Ethan 强势护下 Clara 后，现场爆出异常征兆，二人的触碰成为关键转折。\n- 47-70s: comeback intensity 9/10, emphasis on driving strings ostinato — Clara 持续公开维护 Ethan，对抗 Victor 与安保，并以踢掉婚鞋完成决裂宣言。\n- 70-80s: action intensity 10/10, emphasis on hybrid orchestral — Victor 下令抓人引爆最终混乱，异象与停电中 Ethan 带 Clara 夺路而逃。\nDo not include any vocals, singing, lyrics, or diegetic sound effects (no thunder, no glass break, no screams, no door slam). Pure orchestral score only.",
+      "tags": "cinematic orchestral, dark suspense, ostinato strings, sub bass, hybrid percussion, 140bpm, D minor",
+      "title": "ep2_wedding_showdown_80s - tense BGM",
+      "mv": "chirp-v4",
+      "make_instrumental": true
+    },
+    "candidates": [
+      {
+        "path": "comparison/cache/b9b887704c954ac7__cand1__473c7d04-7203-4cf9-8033-ee9a9b15b810.mp3",
+        "vocal_energy_ratio": 0.3327,
+        "bpm_detected": 143.6,
+        "bpm_target": 140,
+        "lufs": -11.16,
+        "vocal_score": 0.669,
+        "bpm_score": 0.915,
+        "score": 0.743
+      },
+      {
+        "path": "comparison/cache/b9b887704c954ac7__cand0__208ced28-8670-4d66-ac73-ab0b91fc4770.mp3",
+        "vocal_energy_ratio": 0.2729,
+        "bpm_detected": 92.3,
+        "bpm_target": 140,
+        "lufs": -10.57,
+        "vocal_score": 0.908,
+        "bpm_score": 0.0,
+        "score": 0.636
+      }
+    ],
+    "chosen_clip": "comparison/cache/b9b887704c954ac7__cand1__473c7d04-7203-4cf9-8033-ee9a9b15b810.mp3",
+    "final_audio": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_ep2/紧张_80s_sb_20260522_131058.mp3",
+    "target_duration_s": 80,
+    "final_duration_ms": 80000,
+    "duration_delta_ms": 0,
+    "post_processing": {
+      "fade_out_ms": 3000,
+      "lufs_normalized": true,
+      "target_lufs": -18.0,
+      "strict_duration": true
+    },
+    "elapsed_s": 175.6,
+    "final_metrics": {
+      "path": "/Users/chenyinuo/Documents/实习相关/LuckyShort/Code/BGM/BGM-creater/comparison/output_ep2/紧张_80s_sb_20260522_131058.mp3",
+      "vocal_energy_ratio": 0.3328,
+      "bpm_detected": 143.6,
+      "bpm_target": 140,
+      "lufs": -18.29
+    }
+  }
+}

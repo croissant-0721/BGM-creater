@@ -31,3 +31,14 @@ build/
 
 # 本地脚本
 push.sh
+
+# BGM 模块本地产物
+.env
+__pycache__/
+*.pyc
+comparison/cache/
+comparison/run.log
+comparison/output_new/*.wav
+
+# BGM 测试输出（本地生成物，勿提交）
+output/

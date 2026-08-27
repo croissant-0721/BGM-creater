@@ -1,0 +1,51 @@
+{
+  "primary_tone": "紧张",
+  "primary_intensity": 8,
+  "total_duration": 80,
+  "emotional_arc": "从血腥囚禁的冷静对峙到阴谋曝光压迫升级，继而男主强硬反击与武力威胁加剧，最终在冷酷指令下被押走但意志转为反攻。",
+  "tone_explanation": "囚禁与权力压制贯穿，信息揭露与枪械动作制造持续张力与不确定。",
+  "timeline": [
+    {
+      "time_range": "0-17s",
+      "duration": 17,
+      "scene_description": "地下冷柜区内，Cade被绑流血，Evelyn冷眼相对；Cade挑衅质问。",
+      "emotional_tone": "紧张",
+      "intensity": 7,
+      "stinger_at": null
+    },
+    {
+      "time_range": "17-38s",
+      "duration": 21,
+      "scene_description": "Evelyn轻笑，屏幕骤亮显示名单与曲线，点明资本与政客勾连；Cade目光转冷。",
+      "emotional_tone": "悬疑",
+      "intensity": 8,
+      "stinger_at": {
+        "offset_s": 1,
+        "type": "sub_drop"
+      }
+    },
+    {
+      "time_range": "38-59s",
+      "duration": 21,
+      "scene_description": "Cade誓言曝光众人，安保微抬枪口，气氛剑拔弩张。",
+      "emotional_tone": "紧张",
+      "intensity": 9,
+      "stinger_at": {
+        "offset_s": 18,
+        "type": "perc_hit"
+      }
+    },
+    {
+      "time_range": "59-80s",
+      "duration": 21,
+      "scene_description": "Evelyn下令“留到最后”，Cade被扭押返回，眼神转为反击决心。",
+      "emotional_tone": "悬疑",
+      "intensity": 8,
+      "stinger_at": {
+        "offset_s": 2,
+        "type": "low_brass_hit"
+      }
+    }
+  ],
+  "title": "episode_1_scene_1"
+}

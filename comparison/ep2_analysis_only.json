@@ -1,0 +1,424 @@
+{
+  "title": "ep2_wedding_showdown_80s",
+  "total_duration_s": 80,
+  "primary_tone": "紧张",
+  "primary_intensity": 10,
+  "shots": [
+    {
+      "id": 1,
+      "start_s": 0,
+      "end_s": 4,
+      "duration_s": 4,
+      "narrative_func": [
+        "钩子",
+        "冲突"
+      ],
+      "shot_scale": "中近景",
+      "shot_movement": "固定",
+      "tone": "紧张",
+      "intensity": 7,
+      "dialogue_zh": "你要选一个服务生，不选我？",
+      "summary_zh": "Victor逼近质问Clara为何选择受伤的Ethan。"
+    },
+    {
+      "id": 2,
+      "start_s": 4,
+      "end_s": 8,
+      "duration_s": 4,
+      "narrative_func": [
+        "反应",
+        "钩子"
+      ],
+      "shot_scale": "近景",
+      "shot_movement": "固定",
+      "tone": "反击",
+      "intensity": 8,
+      "dialogue_zh": "我选不嫁给你。",
+      "summary_zh": "Clara正面拒婚，态度坚决。"
+    },
+    {
+      "id": 3,
+      "start_s": 8,
+      "end_s": 12,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突",
+        "信息"
+      ],
+      "shot_scale": "中景",
+      "shot_movement": "固定",
+      "tone": "羞辱",
+      "intensity": 8,
+      "dialogue_zh": "Clara，别像寄养家庭出来的垃圾一样丢人！",
+      "summary_zh": "Monica冲上来公开羞辱Clara的出身。"
+    },
+    {
+      "id": 4,
+      "start_s": 12,
+      "end_s": 16,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突"
+      ],
+      "shot_scale": "近景",
+      "shot_movement": "固定",
+      "tone": "紧张",
+      "intensity": 8,
+      "dialogue_zh": "放开他。现在。",
+      "summary_zh": "Gregory低声命令Clara松开Ethan。"
+    },
+    {
+      "id": 5,
+      "start_s": 16,
+      "end_s": 20,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突",
+        "信息"
+      ],
+      "shot_scale": "低角度中近景",
+      "shot_movement": "固定",
+      "tone": "羞辱",
+      "intensity": 7,
+      "dialogue_zh": "看看他，他把血都弄到我的地毯上了。",
+      "summary_zh": "Victor嫌恶指责Ethan弄脏婚礼红毯。"
+    },
+    {
+      "id": 6,
+      "start_s": 20,
+      "end_s": 24,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突"
+      ],
+      "shot_scale": "俯拍近景",
+      "shot_movement": "固定",
+      "tone": "羞辱",
+      "intensity": 7,
+      "dialogue_zh": "一个服务生走狗屎运了。",
+      "summary_zh": "伴郎居高临下嘲笑Ethan的身份。"
+    },
+    {
+      "id": 7,
+      "start_s": 24,
+      "end_s": 28,
+      "duration_s": 4,
+      "narrative_func": [
+        "转折",
+        "反应"
+      ],
+      "shot_scale": "中景",
+      "shot_movement": "推近",
+      "tone": "悬疑",
+      "intensity": 6,
+      "dialogue_zh": "你确定？",
+      "summary_zh": "Ethan缓缓起身，只向Clara确认她的选择。"
+    },
+    {
+      "id": 8,
+      "start_s": 28,
+      "end_s": 32,
+      "duration_s": 4,
+      "narrative_func": [
+        "信息",
+        "反应"
+      ],
+      "shot_scale": "近景",
+      "shot_movement": "正反打",
+      "tone": "反击",
+      "intensity": 7,
+      "dialogue_zh": "不确定。但我确定不要他。",
+      "summary_zh": "Clara冷决表态，明确站到Victor对立面。"
+    },
+    {
+      "id": 9,
+      "start_s": 32,
+      "end_s": 36,
+      "duration_s": 4,
+      "narrative_func": [
+        "动作",
+        "冲突"
+      ],
+      "shot_scale": "中近景",
+      "shot_movement": "跟拍",
+      "tone": "动作",
+      "intensity": 9,
+      "dialogue_zh": "今晚之后，你就是我的。",
+      "summary_zh": "Victor强行拽住Clara手腕，控制欲彻底爆发。"
+    },
+    {
+      "id": 10,
+      "start_s": 36,
+      "end_s": 40,
+      "duration_s": 4,
+      "narrative_func": [
+        "反转",
+        "结果"
+      ],
+      "shot_scale": "手部特写拉到双人近景",
+      "shot_movement": "手部特写拉到双人近景",
+      "tone": "反击",
+      "intensity": 10,
+      "dialogue_zh": "她说不。",
+      "summary_zh": "Ethan掰开Victor的手，当场替Clara出头。"
+    },
+    {
+      "id": 11,
+      "start_s": 40,
+      "end_s": 43,
+      "duration_s": 3,
+      "narrative_func": [
+        "异常",
+        "反应"
+      ],
+      "shot_scale": "道具特写组接",
+      "shot_movement": "道具特写组接",
+      "tone": "异常",
+      "intensity": 8,
+      "dialogue_zh": "刚才是雷声？",
+      "summary_zh": "宴会厅出现异样震动，宾客集体愣住。"
+    },
+    {
+      "id": 12,
+      "start_s": 43,
+      "end_s": 47,
+      "duration_s": 4,
+      "narrative_func": [
+        "关键揭示",
+        "反应"
+      ],
+      "shot_scale": "手部特写",
+      "shot_movement": "固定",
+      "tone": "静默",
+      "intensity": 4,
+      "dialogue_zh": "",
+      "summary_zh": "Clara注视与Ethan交握的手，压迫感短暂减轻。"
+    },
+    {
+      "id": 13,
+      "start_s": 47,
+      "end_s": 51,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突",
+        "信息"
+      ],
+      "shot_scale": "中近景双人",
+      "shot_movement": "固定",
+      "tone": "反击",
+      "intensity": 7,
+      "dialogue_zh": "他很危险！Victor 也一样。",
+      "summary_zh": "Monica指控Ethan危险，Clara冷声反驳并反咬Victor。"
+    },
+    {
+      "id": 14,
+      "start_s": 51,
+      "end_s": 55,
+      "duration_s": 4,
+      "narrative_func": [
+        "紧迫感",
+        "动作"
+      ],
+      "shot_scale": "中景",
+      "shot_movement": "摇镜",
+      "tone": "动作",
+      "intensity": 8,
+      "dialogue_zh": "保安！",
+      "summary_zh": "Victor怒喊保安，局面迅速升级。"
+    },
+    {
+      "id": 15,
+      "start_s": 55,
+      "end_s": 59,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突"
+      ],
+      "shot_scale": "中景",
+      "shot_movement": "固定",
+      "tone": "紧张",
+      "intensity": 8,
+      "dialogue_zh": "离新娘远点，端盘子的。",
+      "summary_zh": "Caleb带安保逼近Ethan，形成围堵。"
+    },
+    {
+      "id": 16,
+      "start_s": 59,
+      "end_s": 63,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突",
+        "决定"
+      ],
+      "shot_scale": "中近景",
+      "shot_movement": "固定",
+      "tone": "反击",
+      "intensity": 8,
+      "dialogue_zh": "碰他，我就走。",
+      "summary_zh": "Clara首次公开挡在Ethan前面，强硬护人。"
+    },
+    {
+      "id": 17,
+      "start_s": 63,
+      "end_s": 67,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突",
+        "铺垫"
+      ],
+      "shot_scale": "近景",
+      "shot_movement": "固定",
+      "tone": "羞辱",
+      "intensity": 6,
+      "dialogue_zh": "亲爱的，你脚上的鞋都不是你的。",
+      "summary_zh": "Monica再次用高跟鞋羞辱Clara，为动作做铺垫。"
+    },
+    {
+      "id": 18,
+      "start_s": 67,
+      "end_s": 70,
+      "duration_s": 3,
+      "narrative_func": [
+        "关键动作",
+        "转折"
+      ],
+      "shot_scale": "脚部特写",
+      "shot_movement": "下摇到脚部特写再抬起",
+      "tone": "反击",
+      "intensity": 9,
+      "dialogue_zh": "留给你们。",
+      "summary_zh": "Clara当众踢掉婚鞋，赤脚站上红毯宣告决裂。"
+    },
+    {
+      "id": 19,
+      "start_s": 70,
+      "end_s": 74,
+      "duration_s": 4,
+      "narrative_func": [
+        "冲突",
+        "异常"
+      ],
+      "shot_scale": "中景",
+      "shot_movement": "跟拍",
+      "tone": "异常",
+      "intensity": 9,
+      "dialogue_zh": "抓住她。",
+      "summary_zh": "Victor下令抓人，Ethan护住Clara，现场异象再起。"
+    },
+    {
+      "id": 20,
+      "start_s": 74,
+      "end_s": 77,
+      "duration_s": 3,
+      "narrative_func": [
+        "结果",
+        "紧迫感"
+      ],
+      "shot_scale": "广角",
+      "shot_movement": "固定",
+      "tone": "恐惧",
+      "intensity": 10,
+      "dialogue_zh": "Clara!",
+      "summary_zh": "宴会厅骤然停电，Victor在暴雨与黑暗中怒吼。"
+    },
+    {
+      "id": 21,
+      "start_s": 77,
+      "end_s": 80,
+      "duration_s": 3,
+      "narrative_func": [
+        "钩子",
+        "动作"
+      ],
+      "shot_scale": "中近景",
+      "shot_movement": "跟拍",
+      "tone": "动作",
+      "intensity": 9,
+      "dialogue_zh": "抓紧。",
+      "summary_zh": "黑暗中Ethan搂紧Clara，带她朝侧门冲出。"
+    }
+  ],
+  "cues": [
+    {
+      "id": 1,
+      "start_s": 0,
+      "end_s": 24,
+      "tone": "紧张",
+      "intensity_peak": 8,
+      "shot_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "narrative_summary": "婚礼红毯上的拒婚与阶级羞辱持续堆压，冲突全面点燃。",
+      "transition_in": "cold",
+      "transition_out": "swell"
+    },
+    {
+      "id": 2,
+      "start_s": 24,
+      "end_s": 36,
+      "tone": "悬疑",
+      "intensity_peak": 9,
+      "shot_ids": [
+        7,
+        8,
+        9
+      ],
+      "narrative_summary": "Ethan确认Clara心意后，Victor失控动手，局势滑向正面爆发。",
+      "transition_in": "swell",
+      "transition_out": "hit"
+    },
+    {
+      "id": 3,
+      "start_s": 36,
+      "end_s": 43,
+      "tone": "反击",
+      "intensity_peak": 10,
+      "shot_ids": [
+        10,
+        11
+      ],
+      "narrative_summary": "Ethan强势出手制止Victor，随即现场出现异样震动，气氛陡变。",
+      "transition_in": "hit",
+      "transition_out": "drop"
+    },
+    {
+      "id": 4,
+      "start_s": 43,
+      "end_s": 67,
+      "tone": "紧张",
+      "intensity_peak": 8,
+      "shot_ids": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "narrative_summary": "短暂的情感确认后，双方再度对峙升级，Clara公开站队Ethan并承受新的羞辱。",
+      "transition_in": "drop",
+      "transition_out": "hit"
+    },
+    {
+      "id": 5,
+      "start_s": 67,
+      "end_s": 80,
+      "tone": "动作",
+      "intensity_peak": 10,
+      "shot_ids": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "narrative_summary": "Clara踢鞋决裂引爆追捕，异象与停电同时降临，二人趁乱逃离。",
+      "transition_in": "hit",
+      "transition_out": "swell"
+    }
+  ]
+}
